@@ -486,7 +486,7 @@ Rispondi in formato JSON:
                 if ($response->successful()) {
                     $data = $response->json();
                     Assert::isArray($data, 'API response must be an array');
-                    
+
                     if (isset($data['choices']) && is_array($data['choices']) && 
                         isset($data['choices'][0]) && is_array($data['choices'][0]) &&
                         isset($data['choices'][0]['message']) && is_array($data['choices'][0]['message']) &&
@@ -495,7 +495,7 @@ Rispondi in formato JSON:
                         Assert::string($content, 'API content must be a string');
                         return $content;
                     }
-                    
+
                     return '';
                 }
 
