@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa guida fornisce le migliori pratiche di sicurezza per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa guida fornisce le migliori pratiche di sicurezza per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Gestione delle Credenziali
 
@@ -566,6 +566,6 @@ protected $middlewareAliases = [
 
 ## Conclusione
 
-Questa guida ha fornito le migliori pratiche di sicurezza per l'utilizzo dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano sicure e conformi alle regole di sviluppo stabilite per i progetti base_predict_fila3_mono.
+Questa guida ha fornito le migliori pratiche di sicurezza per l'utilizzo dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano sicure e conformi alle regole di sviluppo stabilite per i progetti base_predict_fila5_mono.
 
 Per ulteriori informazioni e supporto, consultare la documentazione ufficiale dei server MCP o contattare il team di sviluppo.

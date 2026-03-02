@@ -65,7 +65,7 @@
 
 ## Come Utilizzare Questa Documentazione
 
-Questa documentazione è organizzata in modo da fornire una guida completa all'utilizzo dei server MCP nei progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa documentazione è organizzata in modo da fornire una guida completa all'utilizzo dei server MCP nei progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 Per iniziare, si consiglia di leggere l'[Introduzione](./00_INTRODUZIONE.md) e seguire le istruzioni di [Installazione](./01_INSTALLAZIONE.md) e [Configurazione](./02_CONFIGURAZIONE.md).
 

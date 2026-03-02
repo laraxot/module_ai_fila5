@@ -16,7 +16,7 @@ Per ulteriori dettagli, vedi il file `AVVISO_MIGRAZIONI.mdc` nella root del prog
 
 ## Panoramica
 
-Questa guida fornisce istruzioni dettagliate per l'installazione dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa guida fornisce istruzioni dettagliate per l'installazione dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Prerequisiti
 

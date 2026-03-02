@@ -174,13 +174,13 @@ Per utilizzare il server MCP MySQL con le stesse credenziali del tuo progetto La
      ```bash
      #!/bin/bash
      set -a
-     source /var/www/html/_bases/base_predict_fila3_mono/laravel/.env
+     source /var/www/html/_bases/base_predict_fila5_mono/laravel/.env
      set +a
      npx -y @modelcontextprotocol/server-mysql
      ```
    - Rendi eseguibile lo script:
      ```bash
-     chmod +x /var/www/html/_bases/base_predict_fila3_mono/start-mcp-mysql.sh
+     chmod +x /var/www/html/_bases/base_predict_fila5_mono/start-mcp-mysql.sh
      ```
 
 2. **Configura il server MCP MySQL solo a livello di progetto**
@@ -205,7 +205,7 @@ Per utilizzare il server MCP MySQL con le stesse credenziali del tuo progetto La
 - Solo server MCP ufficiali e realmente utili al workflow.
 - Tutti i server MCP sono avviati tramite `npx` (nessun path locale, nessun host/port, nessun env globale).
 - Il server MySQL è sempre locale al progetto e avviato tramite lo script bash:
-  `/var/www/html/_bases/base_predict_fila3_mono/bashscripts/mcp/mcp-manager-v2.sh`
+  `/var/www/html/_bases/base_predict_fila5_mono/bashscripts/mcp/mcp-manager-v2.sh`
 - Nessuna duplicazione di variabili o configurazioni tra ambienti.
 - Ogni modifica va applicata a tutti i file di configurazione coinvolti (VSCode, Cursor, Windsurf).
 - La documentazione deve sempre riflettere questa filosofia di coerenza e semplicità.
@@ -244,7 +244,7 @@ Esempio da usare in `.vscode/mcp.json`, `.cursor/mcp.json`, `mcp_config.json` di
       "args": ["-y", "@modelcontextprotocol/server-redis"]
     },
     "mysql": {
-      "command": "/var/www/html/_bases/base_predict_fila3_mono/bashscripts/mcp/mcp-manager-v2.sh"
+      "command": "/var/www/html/_bases/base_predict_fila5_mono/bashscripts/mcp/mcp-manager-v2.sh"
     },
     "puppeteer": {
       "command": "npx",

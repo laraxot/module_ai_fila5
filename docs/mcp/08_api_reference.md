@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa documentazione fornisce una reference completa delle API esposte dai server MCP (Model Context Protocol) utilizzati nei progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa documentazione fornisce una reference completa delle API esposte dai server MCP (Model Context Protocol) utilizzati nei progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Server Sequential Thinking
 

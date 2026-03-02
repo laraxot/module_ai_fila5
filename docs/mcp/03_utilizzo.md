@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa guida fornisce istruzioni dettagliate per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa guida fornisce istruzioni dettagliate per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Avvio e Gestione dei Server MCP
 

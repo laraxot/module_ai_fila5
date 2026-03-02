@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa guida fornisce informazioni dettagliate sulle procedure di aggiornamento, changelog e compatibilità con versioni precedenti dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa guida fornisce informazioni dettagliate sulle procedure di aggiornamento, changelog e compatibilità con versioni precedenti dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Procedura di Aggiornamento
 
@@ -34,7 +34,7 @@ Dopo l'aggiornamento dei pacchetti, potrebbe essere necessario aggiornare gli sc
 # Script: update-mcp-scripts.sh
 
 # Percorso del progetto
-PROJECT_DIR="/var/www/html/_bases/base_predict_fila3_mono"
+PROJECT_DIR="/var/www/html/_bases/base_predict_fila5_mono"
 
 # Backup dei file esistenti
 echo "Creazione backup degli script esistenti..."
@@ -52,7 +52,7 @@ cat > "$PROJECT_DIR/bashscripts/mcp/mcp-manager-v2.sh" << 'EOF'
 # Versione: 2.1.0
 
 # Percorso del progetto
-PROJECT_DIR="/var/www/html/_bases/base_predict_fila3_mono"
+PROJECT_DIR="/var/www/html/_bases/base_predict_fila5_mono"
 
 # Percorso dei log
 LOGS_DIR="$PROJECT_DIR/logs/mcp"
