@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa guida fornisce le migliori pratiche per l'ottimizzazione delle performance dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa guida fornisce le migliori pratiche per l'ottimizzazione delle performance dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Caching
 
@@ -768,6 +768,6 @@ class MCPTelemetryController extends Controller
 
 ## Conclusione
 
-Questa guida ha fornito le migliori pratiche per l'ottimizzazione delle performance dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano efficienti e scalabili, conformi alle regole di sviluppo stabilite per i progetti base_predict_fila3_mono.
+Questa guida ha fornito le migliori pratiche per l'ottimizzazione delle performance dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano efficienti e scalabili, conformi alle regole di sviluppo stabilite per i progetti base_predict_fila5_mono.
 
 Per ulteriori informazioni e supporto, consultare la documentazione ufficiale dei server MCP o contattare il team di sviluppo.

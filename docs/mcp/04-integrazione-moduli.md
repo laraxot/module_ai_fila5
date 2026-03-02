@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa guida fornisce istruzioni dettagliate per l'integrazione dei server MCP (Model Context Protocol) con i moduli Laravel nel progetto base_predict_fila3_mono, seguendo le regole di sviluppo e le convenzioni di codice stabilite.
+Questa guida fornisce istruzioni dettagliate per l'integrazione dei server MCP (Model Context Protocol) con i moduli Laravel nel progetto base_predict_fila5_mono, seguendo le regole di sviluppo e le convenzioni di codice stabilite.
 
 ## Principi di Integrazione
 
@@ -16,7 +16,7 @@ L'integrazione dei server MCP con i moduli Laravel segue questi principi fondame
 
 ## Struttura dei Moduli
 
-Prima di procedere con l'integrazione, è importante comprendere la struttura dei moduli nel progetto base_predict_fila3_mono:
+Prima di procedere con l'integrazione, è importante comprendere la struttura dei moduli nel progetto base_predict_fila5_mono:
 
 ```
 /path/to/your/project/laravel/Modules/
@@ -970,7 +970,7 @@ parameters:
 
 ## Conclusione
 
-Hai imparato come integrare i server MCP con i moduli Laravel nel progetto base_predict_fila3_mono. Questa integrazione consente di estendere le capacità dei moduli con funzionalità avanzate come l'analisi del contenuto, la memorizzazione di informazioni e l'interazione con sistemi esterni.
+Hai imparato come integrare i server MCP con i moduli Laravel nel progetto base_predict_fila5_mono. Questa integrazione consente di estendere le capacità dei moduli con funzionalità avanzate come l'analisi del contenuto, la memorizzazione di informazioni e l'interazione con sistemi esterni.
 
 Seguendo le regole di sviluppo e le convenzioni di codice stabilite, è possibile creare integrazioni robuste e tipizzate che migliorano significativamente le funzionalità del sistema.
 

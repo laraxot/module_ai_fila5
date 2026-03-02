@@ -10,7 +10,7 @@ Centralizzare l'installazione dei server MCP in `/var/www/html/_bases/mcp-server
 ```
 /var/www/html/_bases/
     ├── mcp-servers/         # Qui risiedono tutti i server MCP (clonati e gestiti una sola volta)
-    ├── base_predict_fila3_mono/
+    ├── base_predict_fila5_mono/
     ├── altro_progetto/
     └── ...
 ```
@@ -76,8 +76,8 @@ node dist/everything.js
 Se hai già cartelle `mcp-server` o `mcp-servers` in altre posizioni:
 ```bash
 # (da eseguire solo dopo aver verificato che non ci siano file personalizzati da salvare)
-rm -rf /var/www/html/_bases/base_predict_fila3_mono/mcp-server
-rm -rf /var/www/html/_bases/base_predict_fila3_mono/mcp-servers
+rm -rf /var/www/html/_bases/base_predict_fila5_mono/mcp-server
+rm -rf /var/www/html/_bases/base_predict_fila5_mono/mcp-servers
 ```
 
 ---

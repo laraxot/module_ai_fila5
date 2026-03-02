@@ -2,7 +2,7 @@
 
 ## Panoramica
 
-Questa guida fornisce istruzioni dettagliate per la configurazione dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila3_mono.
+Questa guida fornisce istruzioni dettagliate per la configurazione dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
 
 ## Struttura delle Directory
 
@@ -338,9 +338,9 @@ SCRIPTS_DIR="$PROJECT_DIR/bashscripts/mcp"
 LOGS_DIR="$PROJECT_DIR/storage/logs/mcp"
 
 # Aggiorna i percorsi negli script
-sed -i "s|/var/www/html/_bases/base_predict_fila3_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/mcp-manager-v2.sh"
-sed -i "s|/var/www/html/_bases/base_predict_fila3_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/start-mysql-mcp.sh"
-sed -i "s|/var/www/html/_bases/base_predict_fila3_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/mysql-db-connector.js"
+sed -i "s|/var/www/html/_bases/base_predict_fila5_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/mcp-manager-v2.sh"
+sed -i "s|/var/www/html/_bases/base_predict_fila5_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/start-mysql-mcp.sh"
+sed -i "s|/var/www/html/_bases/base_predict_fila5_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/mysql-db-connector.js"
 
 # Crea i file di configurazione
 echo '{

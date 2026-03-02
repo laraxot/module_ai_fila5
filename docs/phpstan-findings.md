@@ -117,3 +117,27 @@ $string = $mixed;
 ---
 
 **Aggiornato**: 2025-10-10T09:39:07+02:00
+
+## Nuove segnalazioni PHPStan 2026-03-02
+
+### 1. `AIService` e uso di `Webmozart\Assert`
+
+- **Errore**: `staticMethod.alreadyNarrowedType` su chiamate a `Assert::string()` quando il tipo è già `string` (es. risultato di `Safe\json_encode`).  
+- **Analisi**:
+  - Le funzioni di `thecodingmachine/safe` (`Safe\json_encode`, `Safe\json_decode`, ecc.) hanno già return type non-null (string/array), quindi l’`Assert::string()` è ridondante e PHPStan lo segnala.
+- **Piano di fix**:
+  - Rimuovere gli `Assert::string()` superflui dove il tipo è garantito dalla funzione `Safe\*`.
+  - Mantenere gli assert solo dove realmente restringono un `mixed` a `string`/`array`.
+  - Aggiornare la documentazione interna del modulo AI per chiarire il pattern: **Safe\*** per garantire il tipo, `Assert` per validare input esterni/business logic.
+
+### 2. Evoluzione architetturale: da `AIService` ad Actions
+
+- **Regola di progetto**: evitare classi `*Service` per la business logic, preferire **Spatie Queueable Actions**.  
+- **Piano di refactor**:
+  - Introdurre Actions dedicate (es. `ClassifyTicketAction`, `SuggestSolutionsAction`, `AnalyzeSentimentAction`, `PredictPriorityAction`, `OptimizeRoutingAction`).
+  - Fare in modo che `AIService` diventi al massimo un **facade thin** o venga gradualmente dismesso in favore delle Actions, mantenendo la stessa API pubblica verso Filament/HTTP.
+  - Documentare in `docs/structure.md` del modulo AI la nuova mappa:
+    - `Actions/` = business logic riusabile e queueable
+    - `Http/Controllers` / Filament pages = solo orchestrazione I/O
+
+Questa sezione va tenuta sincronizzata con i prossimi run di PHPStan, aggiornando lo stato (✅/⏳) delle correzioni pianificate.

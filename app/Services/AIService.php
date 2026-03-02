@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\App\Services;
+namespace Modules\AI\Services;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -125,8 +125,6 @@ class AIService
     {
         $jsonTickets = json_encode($tickets);
         $jsonAgents = json_encode($agents);
-        Assert::string($jsonTickets, 'JSON encoding failed for tickets');
-        Assert::string($jsonAgents, 'JSON encoding failed for agents');
         $cacheKey = 'ai:routing:' . md5($jsonTickets . $jsonAgents);
         
         $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents) {
@@ -164,7 +162,6 @@ class AIService
     public function analyzePatterns(array $tickets): array
     {
         $jsonTickets = json_encode($tickets);
-        Assert::string($jsonTickets, 'JSON encoding failed');
         $cacheKey = 'ai:patterns:' . md5($jsonTickets);
         
         $result = Cache::remember($cacheKey, 3600, function () use ($tickets) {
@@ -184,7 +181,6 @@ class AIService
     public function suggestImprovements(array $data): array
     {
         $jsonData = json_encode($data);
-        Assert::string($jsonData, 'JSON encoding failed');
         $cacheKey = 'ai:improvements:' . md5($jsonData);
         
         $result = Cache::remember($cacheKey, 3600, function () use ($data) {

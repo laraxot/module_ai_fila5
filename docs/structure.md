@@ -7,7 +7,7 @@ Data: 2025-04-23 19:09:55
 - **Namespace principale**: Modules\\AI
 Modules\\AI\\Database\\Factories
 Modules\\AI\\Database\\Seeders
-- **Pacchetto Composer**: laraxot/module_ai_fila3
+- **Pacchetto Composer**: laraxot/module_ai_fila5
 marco sottana
 - **Dipendenze**: openai-php/laravel ^0.10.1 codewithkyrian/transformers ^0.5.2 laravel/pint ^1.13 nunomaduro/phpinsights ^2.11 larastan/larastan ^2.7 vimeo/psalm ^5.17 psalm/plugin-laravel ^2.8 enlightn/enlightn ^2.7 driftingly/rector-laravel ^0.26.2 symplify/phpstan-rules * rector/rector ^0.18.12 thecodingmachine/phpstan-safe-rule ^1.2 repositories type path url ../Xot 
 - **Totale file PHP**: 24

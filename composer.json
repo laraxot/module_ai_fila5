@@ -1,7 +1,7 @@
 {
-    "name": "laraxot/module_ai_fila3",
+    "name": "laraxot/module_ai_fila5",
     "description": "",
-    "homepage": "https://github.com/laraxot/module_ai_fila3",
+    "homepage": "https://github.com/laraxot/module_ai_fila5",
     "license": "MIT",
     "authors": [
         {
@@ -23,6 +23,11 @@
             "Modules\\AI\\": "app/",
             "Modules\\AI\\Database\\Factories\\": "database/factories/",
             "Modules\\AI\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\AI\\Tests\\": "tests/"
         }
     },
     "require": {
