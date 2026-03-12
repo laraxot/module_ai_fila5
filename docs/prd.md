@@ -114,7 +114,7 @@ Senza il modulo AI:
 
 - [predict-drafts-contract.md](predict-drafts-contract.md)
 - [roadmap-and-issues.md](roadmap-and-issues.md)
-- [PRD Indice Centrale](../../../project_docs/PRD_INDEX_2026_03_12.md)
+- [PRD Indice Centrale](../../../../docs/project/PRD_INDEX_2026_03_12.md)
 
 ## Testing & Coverage
 
