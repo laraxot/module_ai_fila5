@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Webmozart\Assert\Assert;
 
-use function Safe\json_decode;
 use function Safe\json_encode;
 
 /**
  * Servizio AI/ML per FixCity Platform
- * 
+ *
  * Integra funzionalità di intelligenza artificiale per:
  * - Classificazione automatica dei ticket
  * - Suggerimenti per risoluzione
@@ -25,8 +24,11 @@ use function Safe\json_encode;
 class AIService
 {
     private string $apiKey;
+
     private string $baseUrl;
+
     private int $timeout;
+
     private int $retryAttempts;
 
     public function __construct()
@@ -35,12 +37,12 @@ class AIService
         $baseUrl = config('ai.openai_base_url', 'https://api.openai.com/v1');
         $timeout = config('ai.timeout', 30);
         $retryAttempts = config('ai.retry_attempts', 3);
-        
+
         Assert::string($apiKey, 'API key must be a string');
         Assert::string($baseUrl, 'Base URL must be a string');
         Assert::integer($timeout, 'Timeout must be an integer');
         Assert::integer($retryAttempts, 'Retry attempts must be an integer');
-        
+
         $this->apiKey = $apiKey;
         $this->baseUrl = $baseUrl;
         $this->timeout = $timeout;
@@ -52,16 +54,17 @@ class AIService
      */
     public function classifyTicket(string $title, string $description): array
     {
-        $cacheKey = 'ai:classification:' . md5($title . $description);
-        
+        $cacheKey = 'ai:classification:'.md5($title.$description);
+
         $result = Cache::remember($cacheKey, 3600, function () use ($title, $description) {
             $prompt = $this->buildClassificationPrompt($title, $description);
             $response = $this->makeAIRequest($prompt, 'classification');
-            
+
             return $response;
         });
-        
+
         Assert::isArray($result, 'Classification result must be an array');
+
         return $result;
     }
 
@@ -70,16 +73,17 @@ class AIService
      */
     public function suggestSolutions(string $title, string $description, string $category): array
     {
-        $cacheKey = 'ai:solutions:' . md5($title . $description . $category);
-        
+        $cacheKey = 'ai:solutions:'.md5($title.$description.$category);
+
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category) {
             $prompt = $this->buildSolutionPrompt($title, $description, $category);
             $response = $this->makeAIRequest($prompt, 'solutions');
-            
+
             return $response;
         });
-        
+
         Assert::isArray($result, 'Solutions result must be an array');
+
         return $result;
     }
 
@@ -88,15 +92,15 @@ class AIService
      */
     public function analyzeSentiment(string $text): array
     {
-        $cacheKey = 'ai:sentiment:' . md5($text);
-        
+        $cacheKey = 'ai:sentiment:'.md5($text);
+
         $result = Cache::remember($cacheKey, 1800, function () use ($text) {
             $prompt = $this->buildSentimentPrompt($text);
             $response = $this->makeAIRequest($prompt, 'sentiment');
-            
+
             return $response;
         });
-        
+
         return is_array($result) ? $result : [];
     }
 
@@ -106,15 +110,15 @@ class AIService
     public function predictPriority(string $title, string $description, array $context = []): array
     {
         $contextStr = json_encode($context) ?: '{}';
-        $cacheKey = 'ai:priority:' . md5($title . $description . $contextStr);
-        
+        $cacheKey = 'ai:priority:'.md5($title.$description.$contextStr);
+
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $context) {
             $prompt = $this->buildPriorityPrompt($title, $description, $context);
             $response = $this->makeAIRequest($prompt, 'priority');
-            
+
             return $response;
         });
-        
+
         return is_array($result) ? $result : [];
     }
 
@@ -125,16 +129,17 @@ class AIService
     {
         $jsonTickets = json_encode($tickets);
         $jsonAgents = json_encode($agents);
-        $cacheKey = 'ai:routing:' . md5($jsonTickets . $jsonAgents);
-        
+        $cacheKey = 'ai:routing:'.md5($jsonTickets.$jsonAgents);
+
         $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents) {
             $prompt = $this->buildRoutingPrompt($tickets, $agents);
             $response = $this->makeAIRequest($prompt, 'routing');
-            
+
             return $response;
         });
-        
+
         Assert::isArray($result, 'Routing result must be an array');
+
         return $result;
     }
 
@@ -143,16 +148,17 @@ class AIService
      */
     public function generateAutoResponse(string $ticketContent, string $category, string $priority): string
     {
-        $cacheKey = 'ai:response:' . md5($ticketContent . $category . $priority);
-        
+        $cacheKey = 'ai:response:'.md5($ticketContent.$category.$priority);
+
         $result = Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority) {
             $prompt = $this->buildResponsePrompt($ticketContent, $category, $priority);
             $response = $this->makeAIRequest($prompt, 'response');
-            
+
             return $response;
         });
-        
+
         Assert::string($result, 'Auto response must be a string');
+
         return $result;
     }
 
@@ -162,16 +168,17 @@ class AIService
     public function analyzePatterns(array $tickets): array
     {
         $jsonTickets = json_encode($tickets);
-        $cacheKey = 'ai:patterns:' . md5($jsonTickets);
-        
+        $cacheKey = 'ai:patterns:'.md5($jsonTickets);
+
         $result = Cache::remember($cacheKey, 3600, function () use ($tickets) {
             $prompt = $this->buildPatternAnalysisPrompt($tickets);
             $response = $this->makeAIRequest($prompt, 'patterns');
-            
+
             return $response;
         });
-        
+
         Assert::isArray($result, 'Pattern analysis result must be an array');
+
         return $result;
     }
 
@@ -181,16 +188,17 @@ class AIService
     public function suggestImprovements(array $data): array
     {
         $jsonData = json_encode($data);
-        $cacheKey = 'ai:improvements:' . md5($jsonData);
-        
+        $cacheKey = 'ai:improvements:'.md5($jsonData);
+
         $result = Cache::remember($cacheKey, 3600, function () use ($data) {
             $prompt = $this->buildImprovementPrompt($data);
             $response = $this->makeAIRequest($prompt, 'improvements');
-            
+
             return $response;
         });
-        
+
         Assert::isArray($result, 'Improvements result must be an array');
+
         return $result;
     }
 
@@ -277,7 +285,7 @@ Rispondi in formato JSON:
     private function buildPriorityPrompt(string $title, string $description, array $context): string
     {
         $contextStr = json_encode($context, JSON_PRETTY_PRINT);
-        
+
         return "Predici la priorità di questo ticket:
 
 Titolo: {$title}
@@ -309,7 +317,7 @@ Rispondi in formato JSON:
     {
         $ticketsStr = json_encode($tickets, JSON_PRETTY_PRINT);
         $agentsStr = json_encode($agents, JSON_PRETTY_PRINT);
-        
+
         return "Ottimizza l'assegnazione di questi ticket agli agenti disponibili:
 
 Ticket: {$ticketsStr}
@@ -367,7 +375,7 @@ Rispondi solo con il testo della risposta, senza formattazione aggiuntiva.";
     private function buildPatternAnalysisPrompt(array $tickets): string
     {
         $ticketsStr = json_encode($tickets, JSON_PRETTY_PRINT);
-        
+
         return "Analizza i pattern in questi ticket per identificare:
 
 Ticket: {$ticketsStr}
@@ -408,7 +416,7 @@ Rispondi in formato JSON:
     private function buildImprovementPrompt(array $data): string
     {
         $dataStr = json_encode($data, JSON_PRETTY_PRINT);
-        
+
         return "Suggerisci miglioramenti per il servizio di gestione ticket basandoti su questi dati:
 
 Dati: {$dataStr}
@@ -455,40 +463,41 @@ Rispondi in formato JSON:
     private function makeAIRequest(string $prompt, string $type): string
     {
         $attempt = 0;
-        
+
         while ($attempt < $this->retryAttempts) {
             try {
                 $response = Http::timeout($this->timeout)
                     ->withHeaders([
-                        'Authorization' => 'Bearer ' . $this->apiKey,
+                        'Authorization' => 'Bearer '.$this->apiKey,
                         'Content-Type' => 'application/json',
                     ])
-                    ->post($this->baseUrl . '/chat/completions', [
+                    ->post($this->baseUrl.'/chat/completions', [
                         'model' => 'gpt-4',
                         'messages' => [
                             [
                                 'role' => 'system',
-                                'content' => 'Sei un assistente AI specializzato nella gestione di ticket per amministrazioni pubbliche italiane. Rispondi sempre in formato JSON valido.'
+                                'content' => 'Sei un assistente AI specializzato nella gestione di ticket per amministrazioni pubbliche italiane. Rispondi sempre in formato JSON valido.',
                             ],
                             [
                                 'role' => 'user',
-                                'content' => $prompt
-                            ]
+                                'content' => $prompt,
+                            ],
                         ],
                         'temperature' => 0.3,
-                        'max_tokens' => 2000
+                        'max_tokens' => 2000,
                     ]);
 
                 if ($response->successful()) {
                     $data = $response->json();
                     Assert::isArray($data, 'API response must be an array');
 
-                    if (isset($data['choices']) && is_array($data['choices']) && 
+                    if (isset($data['choices']) && is_array($data['choices']) &&
                         isset($data['choices'][0]) && is_array($data['choices'][0]) &&
                         isset($data['choices'][0]['message']) && is_array($data['choices'][0]['message']) &&
                         isset($data['choices'][0]['message']['content'])) {
                         $content = $data['choices'][0]['message']['content'];
                         Assert::string($content, 'API content must be a string');
+
                         return $content;
                     }
 
@@ -499,14 +508,14 @@ Rispondi in formato JSON:
                     'type' => $type,
                     'attempt' => $attempt + 1,
                     'status' => $response->status(),
-                    'response' => $response->body()
+                    'response' => $response->body(),
                 ]);
 
             } catch (\Exception $e) {
                 Log::error('AI API request error', [
                     'type' => $type,
                     'attempt' => $attempt + 1,
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
                 ]);
             }
 
@@ -514,142 +523,6 @@ Rispondi in formato JSON:
             sleep(pow(2, $attempt)); // Exponential backoff
         }
 
-        throw new \Exception('AI API request failed after ' . $this->retryAttempts . ' attempts');
-    }
-
-    /**
-     * Parse risposta classificazione
-     */
-    private function parseClassificationResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'category' => 'altro',
-                'subcategory' => 'generale',
-                'confidence' => 0.5,
-                'tags' => [],
-                'urgency_indicators' => []
-            ];
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Parse risposta soluzioni
-     */
-    private function parseSolutionResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'solutions' => [],
-                'preventive_measures' => [],
-                'follow_up_actions' => []
-            ];
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Parse risposta sentiment
-     */
-    private function parseSentimentResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'sentiment' => 'neutral',
-                'emotion' => 'neutrale',
-                'confidence' => 0.5,
-                'key_phrases' => [],
-                'urgency_level' => 'medium',
-                'recommended_response_tone' => 'professionale'
-            ];
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Parse risposta priorità
-     */
-    private function parsePriorityResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'priority' => 'medium',
-                'confidence' => 0.5,
-                'reasoning' => 'Priorità standard',
-                'estimated_resolution_time' => '3-5 giorni',
-                'required_escalation' => false,
-                'risk_factors' => []
-            ];
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Parse risposta routing
-     */
-    private function parseRoutingResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'assignments' => [],
-                'unassigned_tickets' => [],
-                'overload_warnings' => [],
-                'efficiency_score' => 0.5
-            ];
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Parse risposta pattern
-     */
-    private function parsePatternResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'temporal_trends' => [],
-                'geographic_hotspots' => [],
-                'category_insights' => [],
-                'recommendations' => []
-            ];
-        }
-
-        return $decoded;
-    }
-
-    /**
-     * Parse risposta miglioramenti
-     */
-    private function parseImprovementResponse(string $response): array
-    {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'process_improvements' => [],
-                'technology_upgrades' => [],
-                'training_recommendations' => []
-            ];
-        }
-
-        return $decoded;
+        throw new \Exception('AI API request failed after '.$this->retryAttempts.' attempts');
     }
 }

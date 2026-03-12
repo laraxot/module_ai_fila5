@@ -141,3 +141,32 @@ $string = $mixed;
     - `Http/Controllers` / Filament pages = solo orchestrazione I/O
 
 Questa sezione va tenuta sincronizzata con i prossimi run di PHPStan, aggiornando lo stato (✅/⏳) delle correzioni pianificate.
+
+## Correzioni PHPStan 2026-03-12
+
+### 1. Rimozione metodi `parse*Response()` non utilizzati
+
+**File**: `Services/AIService.php`
+
+**Errore**: 7 metodi `protected` mai chiamati:
+- `parseClassificationResponse()`
+- `parseSolutionResponse()`
+- `parseSentimentResponse()`
+- `parsePriorityResponse()`
+- `parseRoutingResponse()`
+- `parsePatternResponse()`
+- `parseImprovementResponse()`
+
+**Analisi**:
+- I metodi erano stati creati per un uso futuro ma mai integrati
+- La logica di parsing JSON è già gestita inline nei metodi pubblici
+- PHPStan Level 10 segnala metodi non utilizzati come errore
+
+**Correzione applicata**: ✅ Rimossi completamente tutti i 7 metodi (righe 520-654)
+
+**Rationale**:
+- Dead code removal per compliance PHPStan Level 10
+- I metodi pubblici già gestiscono il parsing con `json_decode()` inline
+- Se necessario in futuro, possono essere reintrodotti come Actions dedicate
+
+**Pattern seguito**: Vedi `base_laravelpizza/Modules/User/app/Filament/Resources/TenantResource/Pages/CreateTenant.php` - metodi non utilizzati rimossi/commentati
