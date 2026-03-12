@@ -268,12 +268,28 @@ PROMPT;
         ];
 
         $drafts = [];
+        $usedTitles = [];
 
         for ($index = 0; $index < $count; $index++) {
-            $template = $templates[$index % count($templates)];
+            $templateIndex = $index % count($templates);
+            $template = $templates[$templateIndex];
+            
+            // Generate unique title by adding index suffix for duplicates
+            $baseTitle = $template['title'];
+            $title = $baseTitle;
+            $suffix = 1;
+            
+            while (in_array($title, $usedTitles, true)) {
+                // Add variation to make title unique
+                $title = preg_replace('/\?$/', '', $baseTitle) . ' - Variante ' . $suffix . '?';
+                $suffix++;
+            }
+            
+            $usedTitles[] = $title;
+            
             $drafts[] = [
-                'title' => $template['title'],
-                'subtitle' => $template['subtitle'],
+                'title' => $title,
+                'subtitle' => $template['subtitle'] . ' (' . ($index + 1) . ')',
                 'description' => $template['description'],
                 'category' => $template['category'],
                 'tags' => $template['tags'],
