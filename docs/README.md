@@ -55,18 +55,18 @@ Questa directory contiene la documentazione completa sull'integrazione MCP in La
 
 La documentazione fa riferimento alle seguenti risorse esterne:
 
-- [Documentazione Ufficiale MCP](../../../project_docs/references/mcp_documentation.md)
-- [Laravel MCP SDK](../../../project_docs/references/laravel_mcp_sdk.md)
-- [Neuron AI Documentation](../../../project_docs/references/neuron_ai_docs.md)
-- [AI Agents in PHP with MCP](../../../project_docs/references/ai_agents_php_mcp.md)
-- [Laravel Helper Tools MCP server](../../../project_docs/references/laravel_helper_tools.md)
+- [Documentazione Ufficiale MCP](../../../../docs/project/references/mcp_documentation.md)
+- [Laravel MCP SDK](../../../../docs/project/references/laravel_mcp_sdk.md)
+- [Neuron AI Documentation](../../../../docs/project/references/neuron_ai_docs.md)
+- [AI Agents in PHP with MCP](../../../../docs/project/references/ai_agents_php_mcp.md)
+- [Laravel Helper Tools MCP server](../../../../docs/project/references/laravel_helper_tools.md)
 
 ## Implementazioni Open Source
 
 Queste implementazioni open source possono essere utilizzate come riferimento:
 
-- [InnoGE/laravel-mcp](../../../project_docs/references/innoge_laravel_mcp.md)
-- [OPGG/laravel-mcp-server](../../../project_docs/references/opgg_laravel_mcp_server.md)
+- [InnoGE/laravel-mcp](../../../../docs/project/references/innoge_laravel_mcp.md)
+- [OPGG/laravel-mcp-server](../../../../docs/project/references/opgg_laravel_mcp_server.md)
 
 ## Contribuire
 
