@@ -2,7 +2,6 @@
 
 **Module:** AI  
 **Version:** 1.0.0  
-**Last Updated:** March 12, 2026  
 **Owner:** Product Team
 
 ---
@@ -98,4 +97,3 @@ Users concerned about data used for AI training.
 
 ---
 
-*Last Updated: March 12, 2026*
