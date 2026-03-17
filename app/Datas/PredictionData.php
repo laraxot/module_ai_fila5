@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Datas;
 
+use function Safe\json_decode;
 use Spatie\LaravelData\Data;
 
 /**
@@ -52,9 +53,9 @@ class PredictionData extends Data
             'is_wagerable' => $this->is_wagerable,
             'status' => 'published',
             'published_at' => now(),
-            'content_blocks' => $this->content_block ? json_decode($this->content_block, true) : [],
-            'sidebar_blocks' => $this->sidebar_block ? json_decode($this->sidebar_block, true) : [],
-            'footer_blocks' => $this->footer_block ? json_decode($this->footer_block, true) : [],
+            'content_blocks' => $this->content_block ? (array) json_decode($this->content_block, true) : [],
+            'sidebar_blocks' => $this->sidebar_block ? (array) json_decode($this->sidebar_block, true) : [],
+            'footer_blocks' => $this->footer_block ? (array) json_decode($this->footer_block, true) : [],
         ];
     }
 
@@ -65,21 +66,25 @@ class PredictionData extends Data
      */
     public static function fromOpenAIResponse(array $data): self
     {
+        $tags = $data['tags'] ?? [];
+        /** @var array<int, string> $tagsArray */
+        $tagsArray = is_array($tags) ? array_values(array_map(static fn (mixed $v): string => (string) $v, $tags)) : [];
+
         return new self(
-            title: $data['title'] ?? '',
-            description: $data['description'] ?? '',
-            content: $data['content'] ?? '',
-            excerpt: $data['excerpt'] ?? $data['description'] ?? '',
-            category: $data['category'] ?? 'Generico',
-            tags: $data['tags'] ?? [],
-            closed_at: $data['closed_at'] ?? now()->addDays(30)->format('Y-m-d'),
-            ends_at: $data['ends_at'] ?? now()->addDays(60)->format('Y-m-d'),
+            title: (string) ($data['title'] ?? ''),
+            description: (string) ($data['description'] ?? ''),
+            content: (string) ($data['content'] ?? ''),
+            excerpt: (string) ($data['excerpt'] ?? $data['description'] ?? ''),
+            category: (string) ($data['category'] ?? 'Generico'),
+            tags: $tagsArray,
+            closed_at: (string) ($data['closed_at'] ?? now()->addDays(30)->format('Y-m-d')),
+            ends_at: (string) ($data['ends_at'] ?? now()->addDays(60)->format('Y-m-d')),
             liquidity_parameter: (float) ($data['liquidity_parameter'] ?? 0.5),
             stocks_count: (int) ($data['stocks_count'] ?? 1000),
             is_wagerable: (bool) ($data['is_wagerable'] ?? true),
-            content_block: $data['content_block'] ?? null,
-            sidebar_block: $data['sidebar_block'] ?? null,
-            footer_block: $data['footer_block'] ?? null,
+            content_block: isset($data['content_block']) ? (string) $data['content_block'] : null,
+            sidebar_block: isset($data['sidebar_block']) ? (string) $data['sidebar_block'] : null,
+            footer_block: isset($data['footer_block']) ? (string) $data['footer_block'] : null,
         );
     }
 }

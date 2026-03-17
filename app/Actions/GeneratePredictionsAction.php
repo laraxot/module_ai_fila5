@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions;
 
+use function Safe\json_decode;
+use function Safe\preg_replace;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Datas\PredictionData;
+use Safe\DateTime;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
 
@@ -59,8 +62,8 @@ class GeneratePredictionsAction
      */
     private function buildPrompt(string $topic, array $options): string
     {
-        $category = $options['category'] ?? 'generico';
-        $language = $options['language'] ?? 'italiano';
+        $category = (string) ($options['category'] ?? 'generico');
+        $language = (string) ($options['language'] ?? 'italiano');
         $today = now()->format('Y-m-d');
 
         return <<<PROMPT
@@ -110,7 +113,7 @@ PROMPT;
      */
     private function callOpenAI(string $prompt): string
     {
-        $apiKey = config('services.openai.api_key');
+        $apiKey = (string) (config('services.openai.api_key') ?? '');
         $model = config('ai.model', 'gpt-3.5-turbo-instruct');
         $temperature = config('ai.temperature', 0.7);
         $maxTokens = config('ai.max_tokens', 1500);
@@ -145,11 +148,18 @@ PROMPT;
             throw new \RuntimeException('OpenAI API request failed: ' . $response->body());
         }
 
+        /** @var array<string, mixed>|null $data */
         $data = $response->json();
-        $result = $data['choices'][0]['text'] ?? '';
+        $choices = is_array($data) ? ($data['choices'] ?? null) : null;
+        $firstChoice = is_array($choices) ? ($choices[0] ?? null) : null;
+        $text = is_array($firstChoice) ? ($firstChoice['text'] ?? '') : '';
+        $result = is_string($text) ? $text : '';
+
+        $usage = is_array($data) ? ($data['usage'] ?? null) : null;
+        $totalTokens = is_array($usage) ? ($usage['total_tokens'] ?? 0) : 0;
 
         Log::debug('OpenAI API response received', [
-            'tokens_used' => $data['usage']['total_tokens'] ?? 0,
+            'tokens_used' => $totalTokens,
         ]);
 
         return trim($result);
@@ -167,14 +177,14 @@ PROMPT;
         $response = preg_replace('/^```json\s*/i', '', $response);
         $response = preg_replace('/^```\s*/i', '', $response);
         $response = preg_replace('/\s*```$/', '', $response);
-        $response = trim($response);
+        $response = trim($response ?? '');
 
         Log::debug('Parsing OpenAI response', [
             'response_length' => strlen($response),
         ]);
 
         /** @var array<string, mixed> $data */
-        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR) ?? [];
 
         return $data;
     }
@@ -201,8 +211,9 @@ PROMPT;
         // Validate dates
         if (isset($data['closed_at'])) {
             try {
-                $closedAt = new \DateTime($data['closed_at']);
-                $today = new \DateTime();
+                $closedAtStr = is_string($data['closed_at']) ? $data['closed_at'] : (string) $data['closed_at'];
+                $closedAt = new DateTime($closedAtStr);
+                $today = new DateTime();
 
                 if ($closedAt <= $today) {
                     throw new \InvalidArgumentException('closed_at must be in the future');
