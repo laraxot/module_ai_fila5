@@ -309,7 +309,7 @@ PROMPT;
                 'analysis' => $template['analysis'],
                 'event_end_date' => now()->addDays(20 + ($index * 11))->toDateString(),
                 'liquidity' => 5000 + ($index * 750),
-                'options' => $template['options'] ?? ['Sì', 'No'],
+                'options' => $template['options'],
             ];
         }
 
