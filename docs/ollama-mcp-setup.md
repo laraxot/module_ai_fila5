@@ -33,11 +33,11 @@ L'integrazione MCP con Ollama serve a trattare il modello locale come infrastrut
 - Endpoint locale: `http://127.0.0.1:11434`
 - Modello di default: `qwen2.5-coder:7b`
 - Configurazioni aggiornate:
-  - root [`.mcp.json`](/var/www/_bases/base_quaeris_fila5_mono/.mcp.json)
-  - Laravel [`laravel/mcp.json`](/var/www/_bases/base_quaeris_fila5_mono/laravel/mcp.json)
-  - Cursor [`bashscripts/ai/.cursor/mcp.json`](/var/www/_bases/base_quaeris_fila5_mono/bashscripts/ai/.cursor/mcp.json)
-  - Windsurf [`bashscripts/ai/.windsurf/mcp_config.json`](/var/www/_bases/base_quaeris_fila5_mono/bashscripts/ai/.windsurf/mcp_config.json)
-  - VS Code [`bashscripts/ai/.vscode/mcp.json`](/var/www/_bases/base_quaeris_fila5_mono/bashscripts/ai/.vscode/mcp.json)
+  - root [`.mcp.json`](./.mcp.json)
+  - Laravel [`laravel/mcp.json`](./laravel/mcp.json)
+  - Cursor [`bashscripts/ai/.cursor/mcp.json`](./bashscripts/ai/.cursor/mcp.json)
+  - Windsurf [`bashscripts/ai/.windsurf/mcp_config.json`](./bashscripts/ai/.windsurf/mcp_config.json)
+  - VS Code [`bashscripts/ai/.vscode/mcp.json`](./bashscripts/ai/.vscode/mcp.json)
 
 ## Nota per altri agenti
 
