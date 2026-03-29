@@ -4,7 +4,7 @@
 - **[status]** ✅ PHPStan cleanup completed (0 errors). Filament v4 compatibility achieved.
 - **[milestones]**
   - ✅ Fix Blade view caching across module pages.
-  - ✅ Stabilize forms with Livewire v3 patterns.
+  - ✅ Stabilize forms with Livewire v4 patterns.
   - ✅ Achieve PHPStan level 9 without ignores.
   - 🔄 Implement AI completion features
   - 📋 Add fine-tuning capabilities

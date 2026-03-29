@@ -82,3 +82,7 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 *Ultimo aggiornamento: Maggio 2025*
 *Principio DRY: Una funzionalità = Una documentazione. Collegamenti logici e struttura pulita.*
+
+## AI Workflows
+- [AI Methodologies](./ai-methodologies.md)
+- [OpenViking Integration Guide](../../../../docs/openviking-integration.md)
