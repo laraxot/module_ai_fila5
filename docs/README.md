@@ -95,3 +95,10 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 - Project compiled index: [../../../../docs/wiki/index.md](../../../../docs/wiki/index.md)
 - Adoption notes and QMD: [../../../../docs/project/karpathy-llm-wiki-adoption.md](../../../../docs/project/karpathy-llm-wiki-adoption.md), [../../../../docs/project/qmd-local-docs-search.md](../../../../docs/project/qmd-local-docs-search.md)
 - [AI LLM Wiki](./llm-wiki.md)
+
+
+## Standard Rules & Workflow
+
+- [[BMAD Method](../../../../docs/wiki/concepts/bmad-method.md)]
+- [[Context Engineering](../../../../docs/wiki/concepts/context-engineering.md)]
+- [[LLM Wiki Governance](../../../../docs/wiki/concepts/llm-wiki-governance.md)]
