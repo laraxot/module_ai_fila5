@@ -1,18 +1,25 @@
-# AI Wiki Index
+# Wiki Locale Index
 
-> Updated: 2026-04-15
+## Karpathy LLM Wiki Standard
 
-## Foundations
+- [forbidden-folders-rule](../../../../docs/wiki/concepts/forbidden-folders.md): Strict structural constraints.
+- [llm-wiki-standard](../../../../docs/wiki/concepts/karpathy-wiki.md): Repository mapping and knowledge lifecycle.
 
-- [schema](./schema.md): rules for ingest, query, and lint inside the AI wiki.
-- [README](./README.md): purpose of the compiled wiki layer.
-- [log](./log.md): append-only local history.
+## Sacred Hierarchy
 
-## Overviews
+- [concepts/](./concepts/): Architectural patterns and methodologies.
+- [entities/](./entities/): Key models and components.
+- [sources/](./sources/): Research data and external links.
+- [comparisons/](./comparisons/): Alternative implementations.
+- [decisions/](./decisions/): ADL (Architectural Decision Log).
+- [troubleshooting/](./troubleshooting/): Known issues and solutions.
+- [_archive/](./_archive/): Legacy documentation.
+- [_templates/](./_templates/): Standard templates.
 
-- [ai-module](./overviews/ai-module.md): module role, stable knowledge, risks, and entry points.
+## Compiled Pages
 
-## Concepts
-
-- [ai-mcp-governance](./concepts/ai-mcp-governance.md): stable MCP positioning and reading order for the AI module.
-- [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md): local-first model policy and escalation rules.
+| Page | Type | Source | Updated |
+|------|------|--------|---------|
+| [.gitkeep](./concepts/.gitkeep) | Concept | - | 2026-04-21 |
+| [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | - | 2026-04-21 |
+| [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md) | Concept | - | 2026-04-21 |
