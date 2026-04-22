@@ -23,3 +23,5 @@
 | [.gitkeep](./concepts/.gitkeep) | Concept | - | 2026-04-21 |
 | [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | - | 2026-04-21 |
 | [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md) | Concept | - | 2026-04-21 |
+| [openrouter-context-compression](./concepts/openrouter-context-compression.md) | Concept | - | 2026-04-22 |
+| [context-compression-plugin](./concepts/context-compression-plugin.md) | Concept | - | 2026-04-22 |
