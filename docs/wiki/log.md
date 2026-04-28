@@ -1,5 +1,15 @@
 # AI Wiki Log
 
+## [2026-04-28] ops | context-compression plugin install + config + verify
+- installato/aggiornato `context-mode@latest` (versione rilevata: `1.0.103`).
+- ripulito `.agents/config.json` da marker di merge e validato JSON.
+- configurato provider OpenRouter con plugin:
+  - `provider.openrouter.options.plugins = [{ "id": "context-compression" }]`
+- configurato MCP server locale:
+  - `mcpServers.context-mode` con `npx -y context-mode`
+- aggiornata documentazione del modulo:
+  - `concepts/context-compression-plugin.md`
+
 ## [2026-04-15] init | wiki bootstrap
 - Added schema, index, and module adoption guide.
 
