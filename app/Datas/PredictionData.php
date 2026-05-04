@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\AI\Datas;
 
-use function Safe\json_decode;
 use Spatie\LaravelData\Data;
+
+use function Safe\json_decode;
 
 /**
  * Data Transfer Object for AI-generated prediction data.
@@ -13,7 +14,7 @@ use Spatie\LaravelData\Data;
 class PredictionData extends Data
 {
     /**
-     * @param array<int, string> $tags
+     * @param  array<int, string>  $tags
      */
     public function __construct(
         public string $title,
@@ -62,7 +63,7 @@ class PredictionData extends Data
     /**
      * Create from OpenAI response.
      *
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     public static function fromOpenAIResponse(array $data): self
     {

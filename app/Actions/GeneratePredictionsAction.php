@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions;
 
-use function Safe\json_decode;
-use function Safe\preg_replace;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Datas\PredictionData;
 use Safe\DateTime;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
+
+use function Safe\json_decode;
+use function Safe\preg_replace;
 
 /**
  * Generate realistic predictions using AI for prediction markets.
@@ -26,7 +27,8 @@ class GeneratePredictionsAction
     /**
      * Execute the AI prediction generation.
      *
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
+     *
      * @throws Throwable
      */
     public function execute(string $topic, array $options = []): PredictionData
@@ -58,7 +60,7 @@ class GeneratePredictionsAction
     /**
      * Build the prompt for OpenAI.
      *
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     private function buildPrompt(string $topic, array $options): string
     {
@@ -145,7 +147,7 @@ PROMPT;
                 'body' => $response->body(),
             ]);
 
-            throw new \RuntimeException('OpenAI API request failed: ' . $response->body());
+            throw new \RuntimeException('OpenAI API request failed: '.$response->body());
         }
 
         /** @var array<string, mixed>|null $data */
@@ -169,6 +171,7 @@ PROMPT;
      * Parse the OpenAI response.
      *
      * @return array<string, mixed>
+     *
      * @throws \JsonException
      */
     private function parseResponse(string $response): array
@@ -192,7 +195,8 @@ PROMPT;
     /**
      * Validate the generated data.
      *
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
+     *
      * @throws \InvalidArgumentException
      */
     private function validate(array $data): void
@@ -202,7 +206,7 @@ PROMPT;
         $required = ['title', 'description', 'content', 'category', 'tags', 'closed_at'];
 
         foreach ($required as $field) {
-            if (!isset($data[$field]) || $data[$field] === '') {
+            if (! isset($data[$field]) || $data[$field] === '') {
                 Log::error('Missing required field', ['field' => $field]);
                 throw new \InvalidArgumentException("Missing required field: {$field}");
             }
@@ -213,7 +217,7 @@ PROMPT;
             try {
                 $closedAtStr = is_string($data['closed_at']) ? $data['closed_at'] : (string) $data['closed_at'];
                 $closedAt = new DateTime($closedAtStr);
-                $today = new DateTime();
+                $today = new DateTime;
 
                 if ($closedAt <= $today) {
                     throw new \InvalidArgumentException('closed_at must be in the future');
@@ -224,7 +228,7 @@ PROMPT;
         }
 
         // Validate tags is array
-        if (!is_array($data['tags'])) {
+        if (! is_array($data['tags'])) {
             throw new \InvalidArgumentException('tags must be an array');
         }
 

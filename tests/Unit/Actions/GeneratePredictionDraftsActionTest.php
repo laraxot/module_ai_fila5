@@ -13,7 +13,7 @@ class GeneratePredictionDraftsActionTest extends TestCase
     {
         config()->set('openai.api_key', null);
 
-        $drafts = (new GeneratePredictionDraftsAction())->execute(3);
+        $drafts = (new GeneratePredictionDraftsAction)->execute(3);
 
         $this->assertCount(3, $drafts);
         $this->assertSame(['title', 'subtitle', 'description', 'category', 'tags', 'analysis', 'event_end_date', 'liquidity'], array_keys($drafts[0]));
