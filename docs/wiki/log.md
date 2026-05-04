@@ -1,5 +1,10 @@
 # AI Wiki Log
 
+## [2026-05-04] ingest | bashscripts agents/codex skill mirror
+
+- Aggiunta pagina `comparisons/bashscripts-agents-codex-skill-mirror.md` (ponte verso inventario bashscripts 252/252).
+- Aggiornato `index.md` (tabella Compiled Pages).
+
 ## [2026-04-28] ops | context-compression plugin install + config + verify
 - installato/aggiornato `context-mode@latest` (versione rilevata: `1.0.103`).
 - ripulito `.agents/config.json` da marker di merge e validato JSON.

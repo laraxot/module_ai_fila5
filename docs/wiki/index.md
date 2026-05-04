@@ -31,6 +31,7 @@ Integrazione AI locale (Ollama) e cloud (OpenRouter) per generazione contenuti, 
 | [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md) | Concept | Strategia Ollama locale | 2026-04-21 |
 | [openrouter-context-compression](./concepts/openrouter-context-compression.md) | Concept | Compressione contesto OpenRouter | 2026-04-22 |
 | [context-compression-plugin](./concepts/context-compression-plugin.md) | Concept | Plugin compressione contesto | 2026-04-22 |
+| [bashscripts-agents-codex-skill-mirror](./comparisons/bashscripts-agents-codex-skill-mirror.md) | Comparison | Mirror skill `.agents` / `.codex` (252/252) e policy | 2026-05-04 |
 
 ## Best Practices
 
@@ -55,4 +56,4 @@ Integrazione AI locale (Ollama) e cloud (OpenRouter) per generazione contenuti, 
 |--------|------|-----------|
 | [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | Connessione MCP AI, troubleshooting |
 
-Aggiornato: 2026-04-28
+Aggiornato: 2026-05-04
