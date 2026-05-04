@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Test suite for AIService
- * 
+ *
  * @TODO: Implement proper tests for actual AIService methods:
  * - classifyTicket()
  * - suggestSolutions()
@@ -27,13 +27,11 @@ class AIServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new AIService();
+        $this->service = new AIService;
     }
 
     /**
      * Placeholder test - AIService needs proper implementation
-     * 
-     * @return void
      */
     public function test_service_can_be_instantiated(): void
     {

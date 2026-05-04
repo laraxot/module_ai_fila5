@@ -114,7 +114,7 @@ class FineTuning extends XotBasePage
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     protected function sendFineTuningRequest(array $data, string $endpoint): Response
     {
@@ -128,7 +128,7 @@ class FineTuning extends XotBasePage
     /**
      * Restituisce le azioni del form, come il pulsante per avviare il fine-tuning.
      *
-     * @return array<int, \Filament\Actions\Action>
+     * @return array<int, Action>
      */
     protected function getFormActions(): array
     {
