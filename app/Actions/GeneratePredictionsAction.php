@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Datas\PredictionData;
 use Safe\DateTime;
-use Spatie\QueueableAction\QueueableAction;
-use Throwable;
-
 use function Safe\json_decode;
 use function Safe\preg_replace;
+use Spatie\QueueableAction\QueueableAction;
+use Throwable;
 
 /**
  * Generate realistic predictions using AI for prediction markets.
@@ -64,8 +63,10 @@ class GeneratePredictionsAction
      */
     private function buildPrompt(string $topic, array $options): string
     {
-        $category = (string) ($options['category'] ?? 'generico');
-        $language = (string) ($options['language'] ?? 'italiano');
+        $rawCategory = $options['category'] ?? 'generico';
+        $rawLanguage = $options['language'] ?? 'italiano';
+        $category = is_scalar($rawCategory) ? trim((string) $rawCategory) : 'generico';
+        $language = is_scalar($rawLanguage) ? trim((string) $rawLanguage) : 'italiano';
         $today = now()->format('Y-m-d');
 
         return <<<PROMPT
@@ -115,10 +116,17 @@ PROMPT;
      */
     private function callOpenAI(string $prompt): string
     {
-        $apiKey = (string) (config('services.openai.api_key') ?? '');
-        $model = config('ai.model', 'gpt-3.5-turbo-instruct');
-        $temperature = config('ai.temperature', 0.7);
-        $maxTokens = config('ai.max_tokens', 1500);
+        $rawApiKey = config('services.openai.api_key');
+        $apiKey = is_string($rawApiKey) ? $rawApiKey : '';
+
+        $rawModel = config('ai.model', 'gpt-3.5-turbo-instruct');
+        $model = is_string($rawModel) ? $rawModel : 'gpt-3.5-turbo-instruct';
+
+        $rawTemperature = config('ai.temperature', 0.7);
+        $temperature = is_numeric($rawTemperature) ? (float) $rawTemperature : 0.7;
+
+        $rawMaxTokens = config('ai.max_tokens', 1500);
+        $maxTokens = is_numeric($rawMaxTokens) ? (int) $rawMaxTokens : 1500;
 
         Log::debug('Calling OpenAI API', [
             'model' => $model,
@@ -177,18 +185,17 @@ PROMPT;
     private function parseResponse(string $response): array
     {
         // Remove markdown code blocks if present
-        $response = preg_replace('/^```json\s*/i', '', $response);
-        $response = preg_replace('/^```\s*/i', '', $response);
-        $response = preg_replace('/\s*```$/', '', $response);
-        $response = trim($response ?? '');
+        $response = $this->stripMarkdownFence($response, '/^```json\s*/i');
+        $response = $this->stripMarkdownFence($response, '/^```\s*/i');
+        $response = $this->stripMarkdownFence($response, '/\s*```$/');
+        $response = trim($response);
 
         Log::debug('Parsing OpenAI response', [
             'response_length' => strlen($response),
         ]);
 
-        /** @var array<string, mixed> $data */
-        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR) ?? [];
-
+        /** @var array<string, mixed> */
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
         return $data;
     }
 
@@ -213,18 +220,20 @@ PROMPT;
         }
 
         // Validate dates
-        if (isset($data['closed_at'])) {
-            try {
-                $closedAtStr = is_string($data['closed_at']) ? $data['closed_at'] : (string) $data['closed_at'];
-                $closedAt = new DateTime($closedAtStr);
-                $today = new DateTime;
-
-                if ($closedAt <= $today) {
-                    throw new \InvalidArgumentException('closed_at must be in the future');
-                }
-            } catch (\Exception $e) {
+        try {
+            $rawClosedAt = $data['closed_at'];
+            if (! is_scalar($rawClosedAt)) {
                 throw new \InvalidArgumentException('Invalid closed_at date format');
             }
+
+            $closedAt = new DateTime(trim((string) $rawClosedAt));
+            $today = new DateTime();
+
+            if ($closedAt <= $today) {
+                throw new \InvalidArgumentException('closed_at must be in the future');
+            }
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException('Invalid closed_at date format');
         }
 
         // Validate tags is array
@@ -234,12 +243,24 @@ PROMPT;
 
         // Validate liquidity_parameter is between 0 and 1
         if (isset($data['liquidity_parameter'])) {
-            $liquidity = (float) $data['liquidity_parameter'];
+            $rawLiquidity = $data['liquidity_parameter'];
+            if (! is_numeric($rawLiquidity)) {
+                throw new \InvalidArgumentException('liquidity_parameter must be numeric');
+            }
+
+            $liquidity = (float) $rawLiquidity;
             if ($liquidity < 0 || $liquidity > 1) {
                 throw new \InvalidArgumentException('liquidity_parameter must be between 0 and 1');
             }
         }
 
         Log::debug('Validation passed');
+    }
+
+    private function stripMarkdownFence(string $value, string $pattern): string
+    {
+        $replaced = preg_replace($pattern, '', $value);
+
+        return is_string($replaced) ? $replaced : $value;
     }
 }

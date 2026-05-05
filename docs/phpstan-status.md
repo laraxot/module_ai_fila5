@@ -45,3 +45,19 @@
 - livello MAX molto strict, molti errori legacy
 - baseline approccio pragmatico per codice esistente
 - focus: zero nuovi errori, fix progressivi legacy
+
+## aggiornamento operativo
+
+- modulo `ai` riportato a **0 errori** con `./vendor/bin/phpstan analyse Modules/AI --level=max --no-progress`
+- eliminati cast da `mixed` non sicuri in:
+  - `app/Actions/GeneratePredictionsAction.php`
+  - `app/Actions/Predict/GeneratePredictionDraftsAction.php`
+  - `app/Datas/PredictionData.php`
+  - `app/Services/AIService.php`
+- rimossi ignore obsoleti nei test unitari AI (`CompletionActionTest`, `SentimentActionTest`) che generavano errori `ignore.unmatchedLine`
+
+## motivazione tecnica
+
+- ridurre fragilita runtime (cast diretti da `mixed`)
+- rendere esplicita la validazione dei dati esterni (config/api payload)
+- allineare il modulo a phpstan max senza suppressions artificiali

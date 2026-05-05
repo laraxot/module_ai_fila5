@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'learning_rate' => 'Learning Rate',
     'learning_rate_helper' => 'E.g. 0.001',

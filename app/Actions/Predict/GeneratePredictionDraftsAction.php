@@ -7,11 +7,10 @@ namespace Modules\AI\Actions\Predict;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use OpenAI\Laravel\Facades\OpenAI;
-use Webmozart\Assert\Assert;
-
 use function Safe\json_decode;
 use function Safe\preg_match;
 use function Safe\preg_replace;
+use Webmozart\Assert\Assert;
 
 /**
  * Generate structured prediction drafts that can be persisted by the Predict module.
@@ -41,8 +40,8 @@ final class GeneratePredictionDraftsAction
         }
 
         $response = OpenAI::chat()->create([
-            'model' => (string) config('ai.chat_model', 'gpt-4o-mini'),
-            'temperature' => (float) config('ai.temperature', 0.6),
+            'model' => $this->resolveModel(),
+            'temperature' => $this->resolveTemperature(),
             'max_tokens' => min(3800, max(1200, $count * 320)),
             'messages' => [
                 [
@@ -56,7 +55,8 @@ final class GeneratePredictionDraftsAction
             ],
         ]);
 
-        $text = trim((string) data_get($response, 'choices.0.message.content', ''));
+        $rawText = data_get($response, 'choices.0.message.content', '');
+        $text = is_scalar($rawText) ? trim((string) $rawText) : '';
 
         return $this->parseDrafts($text, $count);
     }
@@ -111,9 +111,9 @@ PROMPT;
     private function parseDrafts(string $text, int $expectedCount): array
     {
         $normalized = trim($text);
-        $normalized = preg_replace('/^```json\s*/', '', $normalized) ?? $normalized;
-        $normalized = preg_replace('/^```\s*/', '', $normalized) ?? $normalized;
-        $normalized = preg_replace('/\s*```$/', '', $normalized) ?? $normalized;
+        $normalized = $this->replaceRegex('/^```json\s*/', '', $normalized);
+        $normalized = $this->replaceRegex('/^```\s*/', '', $normalized);
+        $normalized = $this->replaceRegex('/\s*```$/', '', $normalized);
 
         /** @var mixed $decoded */
         $decoded = json_decode($normalized, true);
@@ -128,17 +128,17 @@ PROMPT;
                 continue;
             }
 
-            $title = trim((string) Arr::get($item, 'title', ''));
-            $subtitle = trim((string) Arr::get($item, 'subtitle', ''));
-            $description = trim((string) Arr::get($item, 'description', ''));
-            $category = trim((string) Arr::get($item, 'category', 'Altro'));
-            $analysis = trim((string) Arr::get($item, 'analysis', ''));
-            $eventEndDate = trim((string) Arr::get($item, 'event_end_date', ''));
+            $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
+            $subtitle = $this->toNormalizedString(Arr::get($item, 'subtitle', ''));
+            $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
+            $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
+            $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
+            $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
             /** @var array<int, mixed> $tags */
             $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
-            $liquidity = (int) Arr::get($item, 'liquidity', 5000);
-            /** @var array<int, string> $options */
-            $options = array_values(Arr::wrap(Arr::get($item, 'options', [])));
+            $rawLiquidity = Arr::get($item, 'liquidity', 5000);
+            $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
+            $options = $this->normalizeOptions(Arr::get($item, 'options', []));
 
             if ($title === '' || $description === '' || $analysis === '') {
                 continue;
@@ -164,8 +164,52 @@ PROMPT;
         return array_slice($drafts, 0, $expectedCount);
     }
 
+    private function resolveModel(): string
+    {
+        $rawModel = config('ai.chat_model', 'gpt-4o-mini');
+
+        return is_string($rawModel) && trim($rawModel) !== '' ? $rawModel : 'gpt-4o-mini';
+    }
+
+    private function resolveTemperature(): float
+    {
+        $rawTemperature = config('ai.temperature', 0.6);
+
+        return is_numeric($rawTemperature) ? (float) $rawTemperature : 0.6;
+    }
+
+    private function toNormalizedString(mixed $value): string
+    {
+        return is_scalar($value) ? trim((string) $value) : '';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function normalizeOptions(mixed $value): array
+    {
+        $items = Arr::wrap($value);
+        $options = [];
+
+        foreach ($items as $item) {
+            if (! is_scalar($item)) {
+                continue;
+            }
+
+            $normalized = trim((string) $item);
+            if ($normalized === '') {
+                continue;
+            }
+
+            $options[] = $normalized;
+        }
+
+        return $options;
+    }
+
     /**
      * @param  array<int, mixed>  $tags
+     *
      * @return array<int, string>
      */
     private function normalizeTags(array $tags): array
@@ -173,6 +217,10 @@ PROMPT;
         $normalized = [];
 
         foreach ($tags as $tag) {
+            if (! is_scalar($tag)) {
+                continue;
+            }
+
             $value = trim((string) $tag);
             if ($value === '') {
                 continue;
@@ -293,7 +341,8 @@ PROMPT;
 
             while (in_array($title, $usedTitles, true)) {
                 // Add variation to make title unique
-                $title = preg_replace('/\?$/', '', $baseTitle).' - Variante '.$suffix.'?';
+                $trimmedBaseTitle = $this->replaceRegex('/\?$/', '', $baseTitle);
+                $title = $trimmedBaseTitle.' - Variante '.$suffix.'?';
                 $suffix++;
             }
 
@@ -313,5 +362,12 @@ PROMPT;
         }
 
         return $drafts;
+    }
+
+    private function replaceRegex(string $pattern, string $replacement, string $subject): string
+    {
+        $result = preg_replace($pattern, $replacement, $subject);
+
+        return is_string($result) ? $result : $subject;
     }
 }
