@@ -8,5 +8,5 @@ return [
     // 'icon' => 'fas-air-freshener',
     'icon' => 'ui-brain',
     'navigation_sort' => 1,
-    'fine_tuning_url' => config('FINE_TUNING_API_URL', 'http://localhost:8000/api/fine-tuning'), // Usare config() invece di env() per compatibilità con la cache di configurazione
+    'fine_tuning_url' => config('services.openai.fine_tuning_url', 'http://localhost:8000/api/fine-tuning'),
 ];

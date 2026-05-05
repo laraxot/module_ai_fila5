@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Tests\Unit\Services;
 
-use Modules\AI\App\Services\AIService;
+use Modules\AI\Services\AIService;
 use Tests\TestCase;
 
 /**
@@ -35,7 +35,6 @@ class AIServiceTest extends TestCase
      */
     public function test_service_can_be_instantiated(): void
     {
-        /** @phpstan-ignore-next-line property.notFound, method.nonObject */
         $this->assertInstanceOf(AIService::class, $this->service);
     }
 }

@@ -14,15 +14,11 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Modules\Xot\Filament\Pages\XotBasePage;
-use Webmozart\Assert\Assert;
-
 use function Safe\file_get_contents;
+use Webmozart\Assert\Assert;
 
 class FineTuning extends XotBasePage
 {
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
-
-    protected string $view = 'ai::filament.pages.fine-tuning';
 
     public string $learning_rate = '0.001';
 
@@ -32,8 +28,45 @@ class FineTuning extends XotBasePage
 
     public string $dataset = 'dataset1';
 
-    /** @var TemporaryUploadedFile */
-    public $dataset_file;
+    public ?TemporaryUploadedFile $dataset_file = null;
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
+
+    protected string $view = 'ai::filament.pages.fine-tuning';
+
+    /**
+     * Avvia il processo di fine-tuning.
+     */
+    public function startFineTuning(): void
+    {
+        $data = [
+            'learning_rate' => (float) $this->learning_rate,
+            'batch_size' => (int) $this->batch_size,
+            'epochs' => (int) $this->epochs,
+            'dataset' => $this->dataset,
+        ];
+
+        if ($this->dataset_file) {
+            $data['dataset_file'] = $this->dataset_file->getRealPath(); // Percorso del file caricato
+        }
+
+        Assert::string($apiEndpoint = Config::get('ai.backend_api.fine_tuning_url'));
+
+        $response = $this->sendFineTuningRequest($data, $apiEndpoint);
+
+        if ($response->successful()) {
+            Notification::make()
+                ->title('Success')
+                ->body('Fine-tuning started successfully')
+                ->success()
+                ->send();
+        } else {
+            Notification::make()
+                ->title('Error')
+                ->body('Fine-tuning failed to start')
+                ->danger()
+                ->send();
+        }
+    }
 
     // Metodo rimosso: safeTranslate() non utilizzato
 
@@ -76,41 +109,6 @@ class FineTuning extends XotBasePage
                 ->required()
                 ->helperText('Upload the dataset file for training'),
         ];
-    }
-
-    /**
-     * Avvia il processo di fine-tuning.
-     */
-    public function startFineTuning(): void
-    {
-        $data = [
-            'learning_rate' => (float) $this->learning_rate,
-            'batch_size' => (int) $this->batch_size,
-            'epochs' => (int) $this->epochs,
-            'dataset' => $this->dataset,
-        ];
-
-        if ($this->dataset_file) {
-            $data['dataset_file'] = $this->dataset_file->getRealPath(); // Percorso del file caricato
-        }
-
-        Assert::string($apiEndpoint = Config::get('ai.backend_api.fine_tuning_url'));
-
-        $response = $this->sendFineTuningRequest($data, $apiEndpoint);
-
-        if ($response->successful()) {
-            Notification::make()
-                ->title('Success')
-                ->body('Fine-tuning started successfully')
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Error')
-                ->body('Fine-tuning failed to start')
-                ->danger()
-                ->send();
-        }
     }
 
     /**

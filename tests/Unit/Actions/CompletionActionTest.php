@@ -31,11 +31,9 @@ class CompletionActionTest extends TestCase
         $expectedText = 'PHP is a server-side scripting language designed for web development.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows([
             'promptTokens' => 5,
             'completionTokens' => 20,
@@ -43,7 +41,6 @@ class CompletionActionTest extends TestCase
         ]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows([
             'choices' => [$mockChoice],
             'usage' => $mockUsage,
@@ -63,7 +60,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -82,11 +78,9 @@ class CompletionActionTest extends TestCase
         $expectedText = 'No prompt provided.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows([
             'promptTokens' => 0,
             'completionTokens' => 5,
@@ -94,7 +88,6 @@ class CompletionActionTest extends TestCase
         ]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows([
             'choices' => [$mockChoice],
             'usage' => $mockUsage,
@@ -105,7 +98,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -121,21 +113,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'Response to long prompt.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 250]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 10]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 260]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -143,7 +129,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -160,21 +145,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'The meaning of life is a philosophical question.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 15]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 12]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 27]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -182,7 +161,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -198,21 +176,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'PHP es un lenguaje de programación. PHP is a programming language.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 12]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 18]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 30]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -220,7 +192,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -236,21 +207,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'return $n <= 1 ? 1 : $n * factorial($n - 1); }';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 20]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 25]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 45]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -258,7 +223,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -274,21 +238,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'SOLID principles are five design principles for object-oriented programming.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 10]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 15]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 25]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -296,7 +254,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -312,21 +269,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'Laravel best practices include using Eloquent ORM, following PSR standards, and implementing proper validation.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 12]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 22]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 34]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -334,7 +285,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
@@ -350,21 +300,15 @@ class CompletionActionTest extends TestCase
         $expectedText = 'Once upon a time, there was a developer named Alex who found a bug that glowed with an otherworldly light.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockChoice->allows(['text' => $expectedText]);
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['promptTokens' => 15]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['completionTokens' => 30]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockUsage->allows(['totalTokens' => 45]);
 
         $mockResponse = Mockery::mock(CreateResponse::class);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['choices' => [$mockChoice]]);
-        /** @phpstan-ignore-next-line method.nonObject */
         $mockResponse->allows(['usage' => $mockUsage]);
 
         OpenAI::shouldReceive('completions->create')
@@ -372,7 +316,6 @@ class CompletionActionTest extends TestCase
             ->andReturn($mockResponse);
 
         // Act
-        /** @phpstan-ignore-next-line property.notFound */
         $result = $this->action->execute($prompt);
 
         // Assert
