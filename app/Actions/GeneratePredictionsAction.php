@@ -13,6 +13,9 @@ use function Safe\preg_replace;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
 
+use function Safe\json_decode;
+use function Safe\preg_replace;
+
 /**
  * Generate realistic predictions using AI for prediction markets.
  *
