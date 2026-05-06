@@ -6,7 +6,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Modules\AI\App\Http\Controllers\Api\AIController;
 
-Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('ai')->group(function (): void {
+Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('ai')->group(function(): void {
     // Classificazione e analisi
     Route::post('/classify', [AIController::class, 'classifyTicket']);
     Route::post('/sentiment', [AIController::class, 'analyzeSentiment']);
