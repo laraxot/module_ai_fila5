@@ -9,8 +9,8 @@ use Modules\Xot\Providers\XotBaseRouteServiceProvider;
 
 class RouteServiceProvider extends XotBaseRouteServiceProvider
 {
-
     public string $name = 'AI';
+
     protected string $moduleNamespace = 'Modules\AI\Http\Controllers';
 
     protected string $module_dir = __DIR__;

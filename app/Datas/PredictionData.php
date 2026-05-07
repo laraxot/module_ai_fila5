@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\AI\Datas;
 
-use function Safe\json_decode;
 use Spatie\LaravelData\Data;
+
+use function Safe\json_decode;
 
 /**
  * Data Transfer Object for AI-generated prediction data.
@@ -30,8 +31,7 @@ class PredictionData extends Data
         public ?string $content_block = null,
         public ?string $sidebar_block = null,
         public ?string $footer_block = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Convert to array for Predict model.
@@ -97,7 +97,7 @@ class PredictionData extends Data
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private static function toStringValue(array $data, string $key, string $default = ''): string
     {
@@ -107,7 +107,7 @@ class PredictionData extends Data
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private static function toNullableStringValue(array $data, string $key): ?string
     {
@@ -119,7 +119,7 @@ class PredictionData extends Data
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private static function toFloatValue(array $data, string $key, float $default): float
     {
@@ -129,7 +129,7 @@ class PredictionData extends Data
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private static function toIntValue(array $data, string $key, int $default): int
     {
@@ -139,7 +139,7 @@ class PredictionData extends Data
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private static function toBoolValue(array $data, string $key, bool $default): bool
     {
