@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\AI\Datas;
 
-use function Safe\json_decode;
 use Spatie\LaravelData\Data;
+
+use function Safe\json_decode;
 
 /**
  * Data Transfer Object for AI-generated prediction data.

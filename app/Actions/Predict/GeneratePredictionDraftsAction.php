@@ -7,10 +7,11 @@ namespace Modules\AI\Actions\Predict;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use OpenAI\Laravel\Facades\OpenAI;
+use Webmozart\Assert\Assert;
+
 use function Safe\json_decode;
 use function Safe\preg_match;
 use function Safe\preg_replace;
-use Webmozart\Assert\Assert;
 
 /**
  * Generate structured prediction drafts that can be persisted by the Predict module.
@@ -211,7 +212,6 @@ PROMPT;
 
     /**
      * @param  array<int, mixed>  $tags
-     *
      * @return array<int, string>
      */
     private function normalizeTags(array $tags): array
