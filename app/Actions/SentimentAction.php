@@ -9,10 +9,11 @@ use Exception;
 use Modules\AI\Contracts\SentimentAnalyzer;
 use Modules\AI\Datas\SentimentData;
 // use function Codewithkyrian\Transformers\Pipelines\pipeline;
-use function Safe\error_log;
 use Spatie\QueueableAction\QueueableAction;
-// use function Codewithkyrian\Transformers\Pipelines\pipeline;
 use Throwable;
+
+// use function Codewithkyrian\Transformers\Pipelines\pipeline;
+use function Safe\error_log;
 
 class BasicSentimentAnalyzer implements SentimentAnalyzer
 {
@@ -77,8 +78,8 @@ class SentimentAction
     public function __construct()
     {
         $this->analyzer = class_exists('Codewithkyrian\Transformers\Transformers')
-            ? new TransformersSentimentAnalyzer()
-            : new BasicSentimentAnalyzer();
+            ? new TransformersSentimentAnalyzer
+            : new BasicSentimentAnalyzer;
     }
 
     /**
@@ -143,14 +144,14 @@ class TransformersSentimentAnalyzer implements SentimentAnalyzer
 
             if (! class_exists('\\Codewithkyrian\\Transformers\\Pipelines\\Pipeline')) {
                 // Fall back to basic sentiment analysis if transformers not available
-                $basicAnalyzer = new BasicSentimentAnalyzer();
+                $basicAnalyzer = new BasicSentimentAnalyzer;
 
                 return $basicAnalyzer->analyze($text);
             }
 
             // Check if pipeline function exists before calling it
             if (! function_exists('\\Codewithkyrian\\Transformers\\Pipelines\\pipeline')) {
-                $basicAnalyzer = new BasicSentimentAnalyzer();
+                $basicAnalyzer = new BasicSentimentAnalyzer;
 
                 return $basicAnalyzer->analyze($text);
             }
@@ -163,7 +164,7 @@ class TransformersSentimentAnalyzer implements SentimentAnalyzer
                 throw new Exception('Transformers pipeline functionality temporarily disabled');
             } catch (Throwable $e) {
                 // Fall back to basic sentiment analysis if pipeline creation fails
-                $basicAnalyzer = new BasicSentimentAnalyzer();
+                $basicAnalyzer = new BasicSentimentAnalyzer;
 
                 return $basicAnalyzer->analyze($text);
             }

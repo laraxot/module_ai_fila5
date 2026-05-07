@@ -7,8 +7,9 @@ namespace Modules\AI\Services;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use function Safe\json_encode;
 use Webmozart\Assert\Assert;
+
+use function Safe\json_encode;
 
 /**
  * Servizio AI/ML per FixCity Platform
@@ -59,6 +60,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 3600, function () use ($title, $description) {
             $prompt = $this->buildClassificationPrompt($title, $description);
+
             return $this->makeAIRequest($prompt, 'classification');
         });
 
@@ -76,6 +78,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category) {
             $prompt = $this->buildSolutionPrompt($title, $description, $category);
+
             return $this->makeAIRequest($prompt, 'solutions');
         });
 
@@ -93,6 +96,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 1800, function () use ($text) {
             $prompt = $this->buildSentimentPrompt($text);
+
             return $this->makeAIRequest($prompt, 'sentiment');
         });
 
@@ -102,8 +106,7 @@ class AIService
     /**
      * Predice la priorità di un ticket
      *
-     * @param array<string, mixed> $context
-     *
+     * @param  array<string, mixed>  $context
      * @return array<string, mixed>
      */
     public function predictPriority(string $title, string $description, array $context = []): array
@@ -113,6 +116,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $context) {
             $prompt = $this->buildPriorityPrompt($title, $description, $context);
+
             return $this->makeAIRequest($prompt, 'priority');
         });
 
@@ -122,9 +126,8 @@ class AIService
     /**
      * Ottimizza il routing dei ticket
      *
-     * @param array<int, array<string, mixed>> $tickets
-     * @param array<int, array<string, mixed>> $agents
-     *
+     * @param  array<int, array<string, mixed>>  $tickets
+     * @param  array<int, array<string, mixed>>  $agents
      * @return array<string, mixed>
      */
     public function optimizeRouting(array $tickets, array $agents): array
@@ -135,6 +138,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents) {
             $prompt = $this->buildRoutingPrompt($tickets, $agents);
+
             return $this->makeAIRequest($prompt, 'routing');
         });
 
@@ -150,6 +154,7 @@ class AIService
 
         return Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority) {
             $prompt = $this->buildResponsePrompt($ticketContent, $category, $priority);
+
             return $this->makeAIRequest($prompt, 'response');
         });
     }
@@ -157,8 +162,7 @@ class AIService
     /**
      * Analizza pattern nei ticket per insights
      *
-     * @param array<int, array<string, mixed>> $tickets
-     *
+     * @param  array<int, array<string, mixed>>  $tickets
      * @return array<string, mixed>
      */
     public function analyzePatterns(array $tickets): array
@@ -168,6 +172,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 3600, function () use ($tickets) {
             $prompt = $this->buildPatternAnalysisPrompt($tickets);
+
             return $this->makeAIRequest($prompt, 'patterns');
         });
 
@@ -177,8 +182,7 @@ class AIService
     /**
      * Suggerisce miglioramenti per il servizio
      *
-     * @param array<string, mixed> $data
-     *
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
      */
     public function suggestImprovements(array $data): array
@@ -188,6 +192,7 @@ class AIService
 
         $result = Cache::remember($cacheKey, 3600, function () use ($data) {
             $prompt = $this->buildImprovementPrompt($data);
+
             return $this->makeAIRequest($prompt, 'improvements');
         });
 
@@ -274,7 +279,7 @@ Rispondi in formato JSON:
     /**
      * Costruisci prompt per priorità
      *
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     private function buildPriorityPrompt(string $title, string $description, array $context): string
     {
@@ -307,8 +312,8 @@ Rispondi in formato JSON:
     /**
      * Costruisci prompt per routing
      *
-     * @param array<int, array<string, mixed>> $tickets
-     * @param array<int, array<string, mixed>> $agents
+     * @param  array<int, array<string, mixed>>  $tickets
+     * @param  array<int, array<string, mixed>>  $agents
      */
     private function buildRoutingPrompt(array $tickets, array $agents): string
     {
@@ -369,7 +374,7 @@ Rispondi solo con il testo della risposta, senza formattazione aggiuntiva.";
     /**
      * Costruisci prompt per analisi pattern
      *
-     * @param array<int, array<string, mixed>> $tickets
+     * @param  array<int, array<string, mixed>>  $tickets
      */
     private function buildPatternAnalysisPrompt(array $tickets): string
     {
@@ -412,7 +417,7 @@ Rispondi in formato JSON:
     /**
      * Costruisci prompt per miglioramenti
      *
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     private function buildImprovementPrompt(array $data): string
     {

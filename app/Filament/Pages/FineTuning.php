@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Modules\Xot\Filament\Pages\XotBasePage;
-use function Safe\file_get_contents;
 use Webmozart\Assert\Assert;
+
+use function Safe\file_get_contents;
 
 class FineTuning extends XotBasePage
 {
-
     public string $learning_rate = '0.001';
 
     public int $batch_size = 32;
@@ -29,6 +29,7 @@ class FineTuning extends XotBasePage
     public string $dataset = 'dataset1';
 
     public ?TemporaryUploadedFile $dataset_file = null;
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
 
     protected string $view = 'ai::filament.pages.fine-tuning';
