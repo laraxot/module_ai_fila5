@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Datas\PredictionData;
 use Safe\DateTime;
+<<<<<<< Updated upstream
 use function Safe\json_decode;
 use function Safe\preg_replace;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
 
+=======
+>>>>>>> Stashed changes
 use function Safe\json_decode;
 use function Safe\preg_replace;
+use Spatie\QueueableAction\QueueableAction;
+use Throwable;
 
 /**
  * Generate realistic predictions using AI for prediction markets.
