@@ -10,6 +10,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 use function Safe\json_decode;
 use function Safe\preg_match;
 use function Safe\preg_replace;
+use Webmozart\Assert\Assert;
 
 /**
  * Generate structured prediction drafts that can be persisted by the Predict module.
