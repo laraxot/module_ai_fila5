@@ -33,7 +33,7 @@ Aggiungere nel body della richiesta:
 }
 ```
 
-### Abilitazione in OpenCode (`.agents/config.json`)
+### Abilitazione in OpenCode (`laravel/opencode.json`)
 
 Aggiungere la sezione `provider.openrouter.options`:
 
@@ -53,10 +53,11 @@ Questo passa i parametri extra a OpenRouter per ogni chiamata effettuata tramite
 
 ## Contesto progetto
 
-- Il file di configurazione OpenCode è `.agents/config.json`
+- Il file di configurazione OpenCode è `laravel/opencode.json`
 - Il modello principale è `anthropic/claude-sonnet-4-5` via OpenRouter
 - Il problema si manifesta durante BMAD `create-story` con prompt molto lunghi (agenti con system prompt + tool input + output = ~132K token)
 - La regola `context-compression-discipline.md` descrive come ridurre il context anche lato client (ctx_batch_execute, context-mode MCP)
+- Il retrieval QMD deve usare cache fuori repo via `laravel/.mcp.json`
 
 ## Riferimenti
 
