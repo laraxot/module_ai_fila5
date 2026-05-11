@@ -56,4 +56,4 @@ Integrazione AI locale (Ollama) e cloud (OpenRouter) per generazione contenuti, 
 |--------|------|-----------|
 | [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | Connessione MCP AI, troubleshooting |
 
-Aggiornato: 2026-05-04
+Aggiornato: 2026-05-11

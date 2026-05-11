@@ -8,18 +8,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Datas\PredictionData;
 use Safe\DateTime;
-<<<<<<< Updated upstream
-use function Safe\json_decode;
-use function Safe\preg_replace;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
 
-=======
->>>>>>> Stashed changes
 use function Safe\json_decode;
 use function Safe\preg_replace;
-use Spatie\QueueableAction\QueueableAction;
-use Throwable;
 
 /**
  * Generate realistic predictions using AI for prediction markets.
@@ -204,6 +197,7 @@ PROMPT;
 
         /** @var array<string, mixed> */
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
         return $data;
     }
 
@@ -235,7 +229,7 @@ PROMPT;
             }
 
             $closedAt = new DateTime(trim((string) $rawClosedAt));
-            $today = new DateTime();
+            $today = new DateTime;
 
             if ($closedAt <= $today) {
                 throw new \InvalidArgumentException('closed_at must be in the future');

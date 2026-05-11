@@ -23,7 +23,7 @@ npm install -g context-mode@latest
 
 ### Provider OpenRouter
 
-Nel file `.agents/config.json`:
+Nel file `laravel/opencode.json`:
 
 ```json
 {
@@ -39,14 +39,25 @@ Nel file `.agents/config.json`:
 
 ### MCP server context-mode
 
-Sempre in `.agents/config.json`:
+Sempre in `laravel/opencode.json`:
 
 ```json
 {
-  "mcpServers": {
+  "mcp": {
     "context-mode": {
-      "command": "npx",
-      "args": ["-y", "context-mode"]
+      "type": "local",
+      "command": ["context-mode"],
+      "enabled": true
+    },
+    "qmd": {
+      "type": "local",
+      "command": ["qmd", "--index", "fixcity", "mcp"],
+      "enabled": true,
+      "environment": {
+        "XDG_CONFIG_HOME": "{env:HOME}/.cache/fixcity/qmd-config",
+        "XDG_CACHE_HOME": "{env:HOME}/.cache/fixcity/qmd-cache",
+        "HOME": "{env:HOME}/.cache/fixcity/qmd-home"
+      }
     }
   }
 }
@@ -56,12 +67,14 @@ Sempre in `.agents/config.json`:
 
 - `command -v context-mode` deve restituire il path del binario.
 - `npm list -g context-mode --depth=0` deve mostrare la versione installata.
-- `.agents/config.json` deve essere JSON valido.
+- `opencode debug config` da `laravel/` deve completare senza errori.
+- `laravel/.mcp.json` deve puntare le cache QMD fuori repo (`${HOME}/.cache/fixcity/...`).
 
 ## Note pratiche
 
 - `context-mode --help` avvia il server MCP su stdio (comportamento normale).
 - Il plugin OpenRouter non sostituisce la disciplina docs/wiki: evita overflow, non crea memoria persistente.
+- `compaction.auto` e `compaction.prune` in `laravel/opencode.json` riducono il rischio di trascinare tool output vecchi nella stessa sessione.
 
 ## Collegamenti
 
