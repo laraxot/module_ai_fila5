@@ -1,12 +1,12 @@
-# AI Module - rules Index
+# AI Module - concepts Index
 
 ## Purpose
-Index for AI module rules.
+Index for AI module concepts.
 
 ## On-Demand Loading
 
 ```bash
-qmd search "AI rules" --limit 5
+qmd search "AI concepts" --limit 5
 ```
 
 ## See Also
