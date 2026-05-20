@@ -68,7 +68,7 @@ Sempre in `.agents/config.json`:
 
 ```json
 {
-  "mcpServers": {
+  "mcp": {
     "context-mode": {
       "command": "npx",
       "args": ["-y", "context-mode"]
