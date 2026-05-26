@@ -23,11 +23,7 @@ npm install -g context-mode@latest
 
 ### Provider OpenRouter
 
-<<<<<<< HEAD
 Nel file `laravel/opencode.json`:
-=======
-Nel file `.agents/config.json`:
->>>>>>> 01dce8d29 (initial commit)
 
 ```json
 {
@@ -43,7 +39,6 @@ Nel file `.agents/config.json`:
 
 ### MCP server context-mode
 
-<<<<<<< HEAD
 Sempre in `laravel/opencode.json`:
 
 ```json
@@ -63,16 +58,6 @@ Sempre in `laravel/opencode.json`:
         "XDG_CACHE_HOME": "{env:HOME}/.cache/fixcity/qmd-cache",
         "HOME": "{env:HOME}/.cache/fixcity/qmd-home"
       }
-=======
-Sempre in `.agents/config.json`:
-
-```json
-{
-  "mcp": {
-    "context-mode": {
-      "command": "npx",
-      "args": ["-y", "context-mode"]
->>>>>>> 01dce8d29 (initial commit)
     }
   }
 }
@@ -82,21 +67,14 @@ Sempre in `.agents/config.json`:
 
 - `command -v context-mode` deve restituire il path del binario.
 - `npm list -g context-mode --depth=0` deve mostrare la versione installata.
-<<<<<<< HEAD
 - `opencode debug config` da `laravel/` deve completare senza errori.
 - `laravel/.mcp.json` deve puntare le cache QMD fuori repo (`${HOME}/.cache/fixcity/...`).
-=======
-- `.agents/config.json` deve essere JSON valido.
->>>>>>> 01dce8d29 (initial commit)
 
 ## Note pratiche
 
 - `context-mode --help` avvia il server MCP su stdio (comportamento normale).
 - Il plugin OpenRouter non sostituisce la disciplina docs/wiki: evita overflow, non crea memoria persistente.
-<<<<<<< HEAD
 - `compaction.auto` e `compaction.prune` in `laravel/opencode.json` riducono il rischio di trascinare tool output vecchi nella stessa sessione.
-=======
->>>>>>> 01dce8d29 (initial commit)
 
 ## Collegamenti
 
