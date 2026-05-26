@@ -13,11 +13,14 @@
 
 # AI Wiki Log
 
+<<<<<<< HEAD
 ## [2026-05-11] ops | opencode runtime allineato a context-compression
 - corretto il punto operativo da `.agents/config.json` a `laravel/opencode.json`.
 - documentato che OpenCode abilita `provider.openrouter.options.plugins = [{ "id": "context-compression" }]`.
 - documentato che `context-mode` e `qmd` sono MCP locali di supporto e che le cache QMD devono stare fuori repo in `${HOME}/.cache/fixcity/...`.
 
+=======
+>>>>>>> 01dce8d29 (initial commit)
 ## [2026-05-04] ingest | bashscripts agents/codex skill mirror
 
 - Aggiunta pagina `comparisons/bashscripts-agents-codex-skill-mirror.md` (ponte verso inventario bashscripts 252/252).
