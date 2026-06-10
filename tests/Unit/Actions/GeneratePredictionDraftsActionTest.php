@@ -16,7 +16,8 @@ class GeneratePredictionDraftsActionTest extends TestCase
         $drafts = (new GeneratePredictionDraftsAction)->execute(3);
 
         $this->assertCount(3, $drafts);
-        $this->assertSame(['title', 'subtitle', 'description', 'category', 'tags', 'analysis', 'event_end_date', 'liquidity'], array_keys($drafts[0]));
+        $this->assertSame(['title', 'subtitle', 'description', 'category', 'tags', 'analysis', 'event_end_date', 'liquidity', 'options'], array_keys($drafts[0]));
         $this->assertNotEmpty($drafts[0]['tags']);
+        $this->assertNotEmpty($drafts[0]['options']);
     }
 }
