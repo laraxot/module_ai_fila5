@@ -27,7 +27,8 @@ final class GeneratePredictionDraftsAction
      *   tags: array<int, string>,
      *   analysis: string,
      *   event_end_date: string,
-     *   liquidity: int
+     *   liquidity: int,
+     *   options: array<int, string>
      * }>
      */
     public function execute(int $count): array
@@ -106,7 +107,8 @@ PROMPT;
      *   tags: array<int, string>,
      *   analysis: string,
      *   event_end_date: string,
-     *   liquidity: int
+     *   liquidity: int,
+     *   options: array<int, string>
      * }>
      */
     private function parseDrafts(string $text, int $expectedCount): array
@@ -256,7 +258,8 @@ PROMPT;
      *   tags: array<int, string>,
      *   analysis: string,
      *   event_end_date: string,
-     *   liquidity: int
+     *   liquidity: int,
+     *   options: array<int, string>
      * }>
      */
     private function fallbackDrafts(int $count): array

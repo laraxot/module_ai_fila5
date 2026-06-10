@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Modules\AI\Tests\Unit\Actions;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\AI\Actions\GeneratePredictionsAction;
 use Modules\AI\Datas\PredictionData;
