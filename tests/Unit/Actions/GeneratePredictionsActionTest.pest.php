@@ -4,30 +4,30 @@ declare(strict_types=1);
 
 namespace Modules\AI\Tests\Unit\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\GeneratePredictionsAction;
 use Modules\AI\Datas\PredictionData;
-use Modules\Predict\Models\Predict;
+use Modules\AI\Tests\Support\OpenAiHttpFake;
+use Modules\AI\Tests\TestCase;
 
-uses(RefreshDatabase::class);
+uses(TestCase::class);
 
 /**
  * Test per la generazione AI di predizioni singole.
  */
 it('generates a single prediction with AI', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload([
+        'title' => 'Elezioni politiche 2026',
+        'category' => 'Politica',
+    ]));
 
-    // Act
-    $prediction = $action->execute('Elezioni politiche 2026', [
+    $prediction = app(GeneratePredictionsAction::class)->execute('Elezioni politiche 2026', [
         'category' => 'Politica',
         'language' => 'it',
     ]);
 
-    // Assert
     expect($prediction)->toBeInstanceOf(PredictionData::class);
-    expect($prediction->title)->toBeString();
-    expect($prediction->title)->not->toBeEmpty();
+    expect($prediction->title)->toBe('Elezioni politiche 2026');
     expect($prediction->description)->toBeString();
     expect($prediction->category)->toBe('Politica');
     expect($prediction->tags)->toBeArray();
@@ -39,32 +39,35 @@ it('generates a single prediction with AI', function () {
  * Test per la generazione di multiple predizioni.
  */
 it('generates multiple unique predictions', function () {
-    // Arrange
+    Http::fake([
+        'api.openai.com/*' => Http::sequence()
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Topic 0 title']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]])
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Topic 1 title']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]])
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Topic 2 title']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]])
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Topic 3 title']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]])
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Topic 4 title']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]]),
+    ]);
+
     $action = app(GeneratePredictionsAction::class);
     $titles = [];
 
-    // Act
     for ($i = 0; $i < 5; $i++) {
         $prediction = $action->execute("Topic {$i}");
         $titles[] = $prediction->title;
     }
 
-    // Assert
     expect($titles)->toHaveCount(5);
-    expect(array_unique($titles))->toHaveCount(5); // All titles should be unique
+    expect(array_unique($titles))->toHaveCount(5);
 });
 
 /**
  * Test per la validazione dei dati generati.
  */
 it('generates valid prediction data structure', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload());
 
-    // Act
-    $prediction = $action->execute('Test prediction');
+    $prediction = app(GeneratePredictionsAction::class)->execute('Test prediction');
 
-    // Assert - Verify all required fields
     expect($prediction)->toHaveProperties([
         'title',
         'description',
@@ -79,7 +82,6 @@ it('generates valid prediction data structure', function () {
         'is_wagerable',
     ]);
 
-    // Validate data types
     expect($prediction->liquidity_parameter)->toBeFloat();
     expect($prediction->liquidity_parameter)->toBeGreaterThanOrEqual(0.0);
     expect($prediction->liquidity_parameter)->toBeLessThanOrEqual(1.0);
@@ -95,14 +97,11 @@ it('generates valid prediction data structure', function () {
  * Test per la validazione delle date future.
  */
 it('generates future dates for closed_at', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload());
+
     $now = now();
+    $prediction = app(GeneratePredictionsAction::class)->execute('Test prediction');
 
-    // Act
-    $prediction = $action->execute('Test prediction');
-
-    // Assert
     $closedAt = new DateTime($prediction->closed_at);
     expect($closedAt)->toBeGreaterThan($now);
 });
@@ -111,36 +110,25 @@ it('generates future dates for closed_at', function () {
  * Test per il fallback quando OpenAI non è disponibile.
  */
 it('uses fallback when OpenAI API key is not configured', function () {
-    // Arrange
-    $originalKey = config('openai.api_key');
-    config(['openai.api_key' => null]); // Simulate missing API key
+    config(['services.openai.api_key' => null]);
 
-    $action = app(GeneratePredictionsAction::class);
-
-    // Act
-    $prediction = $action->execute('Test prediction');
-
-    // Assert - Should still generate valid data from fallback
-    expect($prediction)->toBeInstanceOf(PredictionData::class);
-    expect($prediction->title)->not->toBeEmpty();
-
-    // Restore
-    config(['openai.api_key' => $originalKey]);
-})->skip('Requires config manipulation');
+    expect(fn () => app(GeneratePredictionsAction::class)->execute('Test prediction'))
+        ->toThrow(RuntimeException::class);
+})->skip('GeneratePredictionsAction has no offline fallback yet');
 
 /**
  * Test per la generazione con categoria specifica.
  */
 it('respects category parameter', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload([
+        'title' => 'Serie A 2026',
+        'category' => 'Sport',
+    ]));
 
-    // Act
-    $prediction = $action->execute('Serie A 2026', [
+    $prediction = app(GeneratePredictionsAction::class)->execute('Serie A 2026', [
         'category' => 'Sport',
     ]);
 
-    // Assert
     expect($prediction->category)->toBe('Sport');
 });
 
@@ -148,14 +136,11 @@ it('respects category parameter', function () {
  * Test per la conversione in array per Predict model.
  */
 it('converts prediction data to predict array', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
-    $prediction = $action->execute('Test prediction');
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload());
 
-    // Act
+    $prediction = app(GeneratePredictionsAction::class)->execute('Test prediction');
     $predictArray = $prediction->toPredictArray();
 
-    // Assert
     expect($predictArray)->toBeArray();
     expect($predictArray)->toHaveKeys([
         'title',
@@ -173,7 +158,6 @@ it('converts prediction data to predict array', function () {
         'published_at',
     ]);
 
-    // Verify title is localized
     expect($predictArray['title'])->toBeArray();
     expect($predictArray['title'])->toHaveKey('it');
 });
@@ -182,17 +166,15 @@ it('converts prediction data to predict array', function () {
  * Test per la validazione dei tags.
  */
 it('generates valid tags array', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload([
+        'tags' => ['bitcoin', 'crypto', 'mercato'],
+    ]));
 
-    // Act
-    $prediction = $action->execute('Bitcoin crypto prediction');
+    $prediction = app(GeneratePredictionsAction::class)->execute('Bitcoin crypto prediction');
 
-    // Assert
     expect($prediction->tags)->toBeArray();
     expect($prediction->tags)->not->toBeEmpty();
 
-    // Verify all tags are strings
     foreach ($prediction->tags as $tag) {
         expect($tag)->toBeString();
         expect($tag)->not->toBeEmpty();
@@ -203,11 +185,9 @@ it('generates valid tags array', function () {
  * Test per la gestione errori con topic vuoto.
  */
 it('handles empty topic gracefully', function () {
-    // Arrange
-    $action = app(GeneratePredictionsAction::class);
+    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload());
 
-    // Act & Assert
-    expect(fn () => $action->execute(''))
+    expect(fn () => app(GeneratePredictionsAction::class)->execute(''))
         ->not->toThrow(Exception::class);
 })->todo('Implement error handling');
 
@@ -215,17 +195,20 @@ it('handles empty topic gracefully', function () {
  * Test per la generazione batch con rate limiting.
  */
 it('respects rate limiting in batch generation', function () {
-    // Arrange
+    Http::fake([
+        'api.openai.com/*' => Http::sequence()
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Prediction 0']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]])
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Prediction 1']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]])
+            ->push(['choices' => [['text' => json_encode(OpenAiHttpFake::predictionPayload(['title' => 'Prediction 2']), JSON_THROW_ON_ERROR)]], 'usage' => ['total_tokens' => 50]]),
+    ]);
+
     $action = app(GeneratePredictionsAction::class);
     $startTime = microtime(true);
 
-    // Act - Generate 3 predictions
     for ($i = 0; $i < 3; $i++) {
         $action->execute("Prediction {$i}");
     }
 
-    // Assert
     $elapsedTime = microtime(true) - $startTime;
-    // Should take at least 2 seconds (1 second delay between calls)
     expect($elapsedTime)->toBeGreaterThan(1.5);
 })->skip('Rate limiting not implemented yet');

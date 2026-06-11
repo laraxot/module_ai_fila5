@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\AI\Tests\Unit\Services;
 
 use Modules\AI\Services\AIService;
-use Tests\TestCase;
+use Modules\AI\Tests\TestCase;
 
 /**
  * Test suite for AIService

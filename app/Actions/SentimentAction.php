@@ -14,6 +14,7 @@ use Throwable;
 
 // use function Codewithkyrian\Transformers\Pipelines\pipeline;
 use function Safe\error_log;
+use function Safe\preg_match;
 
 class BasicSentimentAnalyzer implements SentimentAnalyzer
 {
@@ -24,24 +25,19 @@ class BasicSentimentAnalyzer implements SentimentAnalyzer
      */
     public function analyze(string $text): array
     {
-        // Basic sentiment analysis using simple text patterns
+        if (trim($text) === '') {
+            return [
+                'label' => 'NEGATIVE',
+                'score' => 0,
+                'warning' => 'Using basic sentiment analysis - install transformers for better accuracy',
+            ];
+        }
+
         $positiveWords = ['good', 'great', 'excellent', 'positive', 'happy'];
         $negativeWords = ['bad', 'poor', 'terrible', 'negative', 'unhappy'];
 
-        $positiveCount = 0;
-        $negativeCount = 0;
-
-        foreach ($positiveWords as $word) {
-            if (stripos($text, $word) !== false) {
-                $positiveCount++;
-            }
-        }
-
-        foreach ($negativeWords as $word) {
-            if (stripos($text, $word) !== false) {
-                $negativeCount++;
-            }
-        }
+        $positiveCount = $this->countWholeWordMatches($text, $positiveWords);
+        $negativeCount = $this->countWholeWordMatches($text, $negativeWords);
 
         $score = ($positiveCount - $negativeCount) / max(1, $positiveCount + $negativeCount);
 
@@ -50,6 +46,22 @@ class BasicSentimentAnalyzer implements SentimentAnalyzer
             'score' => abs($score),
             'warning' => 'Using basic sentiment analysis - install transformers for better accuracy',
         ];
+    }
+
+    /**
+     * @param  list<string>  $words
+     */
+    private function countWholeWordMatches(string $text, array $words): int
+    {
+        $count = 0;
+
+        foreach ($words as $word) {
+            if (preg_match('/\b'.preg_quote($word, '/').'\b/i', $text) === 1) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }
 

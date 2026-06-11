@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\AI\Tests\Unit\Actions;
 
 use Modules\AI\Actions\Predict\GeneratePredictionDraftsAction;
-use Tests\TestCase;
+use Modules\AI\Tests\TestCase;
 
 class GeneratePredictionDraftsActionTest extends TestCase
 {
