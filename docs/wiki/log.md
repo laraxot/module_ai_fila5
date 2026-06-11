@@ -1,3 +1,11 @@
+## [2026-06-11] test | pest AI suite green (36 test)
+
+- `Modules/AI/tests/TestCase` → `XotBaseTestCase` (no `RefreshDatabase`)
+- `OpenAiHttpFake` per `Http::fake` e `OpenAI::fake` / `CreateResponse::fake`
+- `BasicSentimentAnalyzer`: word boundary + testo vuoto
+- `Menu`/`BaseTreeModel` Cms: `TypedHasRecursiveRelationships` (fix fatal migrazioni)
+- Wiki: [pest-test-suite-fixes.md](troubleshooting/pest-test-suite-fixes.md)
+
 ## [2026-06-05] docs | HackerNoon harness — tips 001-022 in wiki locale
 
 - Stub/checklist: second-brain → canon Xot, ai-harness, [hackernoon map](../../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md), [llm-wiki.txt](../../../../../bashscripts/tools/prompts/llm-wiki.txt)
