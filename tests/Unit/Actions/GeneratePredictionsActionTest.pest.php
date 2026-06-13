@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\AI\Tests\Unit\Actions;
 
-use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\GeneratePredictionsAction;
 use Modules\AI\Datas\PredictionData;
 use Modules\AI\Tests\Support\OpenAiHttpFake;
@@ -27,14 +26,3 @@ it('generates a single prediction with AI', function () {
     expect($prediction->title)->toBe('Elezioni politiche 2026');
     expect($prediction->category)->toBe('Politica');
 });
-
-it('generates valid prediction data structure', function () {
-    OpenAiHttpFake::fakeCompletions(OpenAiHttpFake::predictionPayload());
-
-    $prediction = app(GeneratePredictionsAction::class)->execute('Test prediction');
-
-    expect($prediction)->toHaveProperties([
-        'title', 'description', 'content', 'excerpt', 'category', 'tags',
-        'closed_at', 'ends_at', 'liquidity_parameter', 'stocks_count', 'is_wagerable',
-    ]);
-})->skip('Run with full OpenAiHttpFake suite when needed');
