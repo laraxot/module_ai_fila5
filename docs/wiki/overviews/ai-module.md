@@ -1,8 +1,17 @@
 # AI Module Overview
 
-> Updated: 2026-04-15
-> Sources: [../../README.md](../../README.md), [../../structure.md](../../structure.md), [../../research.md](../../research.md)
-> Raw: [../../mcp.md](../../mcp.md), [../../mcp/mcp-integration-overview.md](../../mcp/mcp-integration-overview.md), [../../ollama-strategy.md](../../ollama-strategy.md), [../../tools.md](../../tools.md)
+> Updated: 2026-06-13
+
+## Completamento (2026-06-13)
+
+| Gate | Stato |
+|------|-------|
+| PHPStan `Modules/AI` | ✅ |
+| Pest Actions | 🔄 allineare worktree Sentiment/Completion |
+| Coverage | [#12](https://github.com/laraxot/module_ai_fila5/issues/12) |
+
+- Testing: [concepts/testing.md](../concepts/testing.md)
+- Hub: [platform-completion-roadmap](../../../Xot/docs/wiki/overviews/platform-completion-roadmap.md)
 
 ## Summary
 
