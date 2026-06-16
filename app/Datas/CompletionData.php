@@ -13,5 +13,6 @@ class CompletionData extends Data
         public int $promptTokens,
         public int $completionTokens,
         public int $totalTokens,
-    ) {}
+    ) {
+    }
 }
