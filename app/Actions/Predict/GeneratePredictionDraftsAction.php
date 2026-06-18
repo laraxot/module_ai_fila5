@@ -30,6 +30,7 @@ final class GeneratePredictionDraftsAction
      *   liquidity: int,
      *   options: array<int, string>
      * }>
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function execute(int $count): array
     {
@@ -110,6 +111,7 @@ PROMPT;
      *   liquidity: int,
      *   options: array<int, string>
      * }>
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function parseDrafts(string $text, int $expectedCount): array
     {

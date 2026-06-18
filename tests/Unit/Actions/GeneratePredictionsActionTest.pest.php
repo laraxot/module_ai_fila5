@@ -29,7 +29,7 @@ describe('Generate Predictions Action', function (): void {
         Assert::assertNotEmpty($prediction->title);
         Assert::assertSame('Politica', $prediction->category);
         Assert::assertNotEmpty($prediction->tags);
-        Assert::assertTrue($prediction->is_wagerable);
+        Assert::assertTrue($prediction->isWagerable);
     });
 
     test('generates multiple unique predictions', function (): void {
@@ -77,9 +77,9 @@ describe('Generate Predictions Action', function (): void {
         Assert::assertNotEmpty($prediction->description);
         Assert::assertNotEmpty($prediction->content);
         Assert::assertNotEmpty($prediction->category);
-        Assert::assertGreaterThanOrEqual(0.0, $prediction->liquidity_parameter);
-        Assert::assertLessThanOrEqual(1.0, $prediction->liquidity_parameter);
-        Assert::assertGreaterThan(0, $prediction->stocks_count);
+        Assert::assertGreaterThanOrEqual(0.0, $prediction->liquidityParameter);
+        Assert::assertLessThanOrEqual(1.0, $prediction->liquidityParameter);
+        Assert::assertGreaterThan(0, $prediction->stocksCount);
         Assert::assertNotEmpty($prediction->tags);
     });
 
@@ -90,7 +90,7 @@ describe('Generate Predictions Action', function (): void {
         $now = now();
         $prediction = $action->execute('Test prediction');
 
-        $closedAt = Carbon::parse($prediction->closed_at);
+        $closedAt = Carbon::parse($prediction->closedAt);
         Assert::assertTrue($closedAt->isAfter($now));
     });
 
