@@ -54,7 +54,7 @@ class Completion extends XotBasePage implements HasForms
             $data = $this->completionForm->getState();
             Assert::string($prompt = $data['prompt']);
 
-            $action = new CompletionAction();
+            $action = new CompletionAction;
             $result = $action->execute($prompt);
 
             $this->dispatch('completion-completed', result: $result);
@@ -69,7 +69,7 @@ class Completion extends XotBasePage implements HasForms
             $data = $this->completionForm->getState();
             Assert::string($prompt = $data['prompt']);
 
-            $action = new SentimentAction();
+            $action = new SentimentAction;
             $result = $action->execute($prompt);
 
             $this->dispatch('sentiment-completed', result: $result);
