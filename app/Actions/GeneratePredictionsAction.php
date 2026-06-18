@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions;
 
+use Exception;
+use InvalidArgumentException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Datas\PredictionData;
+use RuntimeException;
 use Safe\DateTime;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
@@ -30,6 +33,7 @@ class GeneratePredictionsAction
      * @param  array<string, mixed>  $options
      *
      * @throws Throwable
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function execute(string $topic, array $options = []): PredictionData
     {
@@ -114,6 +118,8 @@ PROMPT;
 
     /**
      * Call OpenAI API.
+     *
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function callOpenAI(string $prompt): string
     {
@@ -156,7 +162,7 @@ PROMPT;
                 'body' => $response->body(),
             ]);
 
-            throw new \RuntimeException('OpenAI API request failed: '.$response->body());
+            throw new RuntimeException('OpenAI API request failed: '.$response->body());
         }
 
         /** @var array<string, mixed>|null $data */
@@ -182,6 +188,7 @@ PROMPT;
      * @return array<string, mixed>
      *
      * @throws \JsonException
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function parseResponse(string $response): array
     {
@@ -206,7 +213,8 @@ PROMPT;
      *
      * @param  array<string, mixed>  $data
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function validate(array $data): void
     {
@@ -217,7 +225,7 @@ PROMPT;
         foreach ($required as $field) {
             if (! isset($data[$field]) || $data[$field] === '') {
                 Log::error('Missing required field', ['field' => $field]);
-                throw new \InvalidArgumentException("Missing required field: {$field}");
+                throw new InvalidArgumentException("Missing required field: {$field}");
             }
         }
 
@@ -225,34 +233,34 @@ PROMPT;
         try {
             $rawClosedAt = $data['closed_at'];
             if (! is_scalar($rawClosedAt)) {
-                throw new \InvalidArgumentException('Invalid closed_at date format');
+                throw new InvalidArgumentException('Invalid closed_at date format');
             }
 
             $closedAt = new DateTime(trim((string) $rawClosedAt));
             $today = new DateTime;
 
             if ($closedAt <= $today) {
-                throw new \InvalidArgumentException('closed_at must be in the future');
+                throw new InvalidArgumentException('closed_at must be in the future');
             }
-        } catch (\Exception $e) {
-            throw new \InvalidArgumentException('Invalid closed_at date format');
+        } catch (Exception $e) {
+            throw new InvalidArgumentException('Invalid closed_at date format');
         }
 
         // Validate tags is array
         if (! is_array($data['tags'])) {
-            throw new \InvalidArgumentException('tags must be an array');
+            throw new InvalidArgumentException('tags must be an array');
         }
 
         // Validate liquidity_parameter is between 0 and 1
         if (isset($data['liquidity_parameter'])) {
             $rawLiquidity = $data['liquidity_parameter'];
             if (! is_numeric($rawLiquidity)) {
-                throw new \InvalidArgumentException('liquidity_parameter must be numeric');
+                throw new InvalidArgumentException('liquidity_parameter must be numeric');
             }
 
             $liquidity = (float) $rawLiquidity;
             if ($liquidity < 0 || $liquidity > 1) {
-                throw new \InvalidArgumentException('liquidity_parameter must be between 0 and 1');
+                throw new InvalidArgumentException('liquidity_parameter must be between 0 and 1');
             }
         }
 
