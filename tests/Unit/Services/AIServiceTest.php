@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Modules\AI\Tests\Unit\Services;
 
-use Modules\AI\Services\AIService;
+use Modules\AI\Actions\CompletionAction;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
-uses(\Modules\AI\Tests\TestCase::class);
+uses(TestCase::class);
 
 beforeEach(function (): void {
-    /** @var \Modules\AI\Tests\TestCase $this */
-$this->service = new AIService;
+    /** @var TestCase $this */
+    $this->action = new CompletionAction;
 });
 
-describe('AIService', function (): void {
-    test('_service_can_be_instantiated', function (): void {
-        /** @var \Modules\AI\Tests\TestCase $this */
-Assert::assertInstanceOf(AIService::class, $this->service);
+describe('CompletionAction', function (): void {
+    test('_action_can_be_instantiated', function (): void {
+        /** @var TestCase $this */
+        Assert::assertInstanceOf(CompletionAction::class, $this->action);
     });
 });
