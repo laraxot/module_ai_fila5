@@ -77,6 +77,6 @@ return [
     | Which analyzer SentimentAction should use: 'basic' (pattern matching)
     | or 'transformers' (ML pipeline, falls back to basic when unavailable).
     */
-    'sentiment_driver' => env('AI_SENTIMENT_DRIVER', 'basic'),
+    'sentiment_driver' => config('services.openai.sentiment_driver', 'basic'),
 
 ];
