@@ -69,4 +69,14 @@ return [
     */
     'logging' => config('services.openai.logging', true),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Sentiment Analysis Driver
+    |--------------------------------------------------------------------------
+    |
+    | Which analyzer SentimentAction should use: 'basic' (pattern matching)
+    | or 'transformers' (ML pipeline, falls back to basic when unavailable).
+    */
+    'sentiment_driver' => env('AI_SENTIMENT_DRIVER', 'basic'),
+
 ];
