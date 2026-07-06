@@ -33,10 +33,10 @@ class AIService
 
     public function __construct()
     {
-        $apiKey = config('ai.openai_api_key', '');
-        $baseUrl = config('ai.openai_base_url', 'https://api.openai.com/v1');
-        $timeout = config('ai.timeout', 30);
-        $retryAttempts = config('ai.retry_attempts', 3);
+        $apiKey = config('services.openai.api_key', '');
+        $baseUrl = config('services.openai.base_url', 'https://api.openai.com/v1');
+        $timeout = config('services.openai.timeout', 30);
+        $retryAttempts = config('services.openai.retry_attempts', 3);
 
         Assert::string($apiKey, 'API key must be a string');
         Assert::string($baseUrl, 'Base URL must be a string');
@@ -60,14 +60,11 @@ class AIService
 
         $result = Cache::remember($cacheKey, 3600, function () use ($title, $description) {
             $prompt = $this->buildClassificationPrompt($title, $description);
-            $response = $this->makeAIRequest($prompt, 'classification');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'classification');
         });
 
-        Assert::isArray($result, 'Classification result must be an array');
-
-        return $result;
+        return $this->decodeJsonObject($result);
     }
 
     /**
@@ -81,14 +78,11 @@ class AIService
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category) {
             $prompt = $this->buildSolutionPrompt($title, $description, $category);
-            $response = $this->makeAIRequest($prompt, 'solutions');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'solutions');
         });
 
-        Assert::isArray($result, 'Solutions result must be an array');
-
-        return $result;
+        return $this->decodeJsonObject($result);
     }
 
     /**
@@ -102,18 +96,17 @@ class AIService
 
         $result = Cache::remember($cacheKey, 1800, function () use ($text) {
             $prompt = $this->buildSentimentPrompt($text);
-            $response = $this->makeAIRequest($prompt, 'sentiment');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'sentiment');
         });
 
-        return is_array($result) ? $result : [];
+        return $this->decodeJsonObject($result);
     }
 
     /**
      * Predice la priorità di un ticket
      *
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      * @return array<string, mixed>
      */
     public function predictPriority(string $title, string $description, array $context = []): array
@@ -123,19 +116,18 @@ class AIService
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $context) {
             $prompt = $this->buildPriorityPrompt($title, $description, $context);
-            $response = $this->makeAIRequest($prompt, 'priority');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'priority');
         });
 
-        return is_array($result) ? $result : [];
+        return $this->decodeJsonObject($result);
     }
 
     /**
      * Ottimizza il routing dei ticket
      *
-     * @param array<int, array<string, mixed>> $tickets
-     * @param array<int, array<string, mixed>> $agents
+     * @param  array<int, array<string, mixed>>  $tickets
+     * @param  array<int, array<string, mixed>>  $agents
      * @return array<string, mixed>
      */
     public function optimizeRouting(array $tickets, array $agents): array
@@ -146,14 +138,11 @@ class AIService
 
         $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents) {
             $prompt = $this->buildRoutingPrompt($tickets, $agents);
-            $response = $this->makeAIRequest($prompt, 'routing');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'routing');
         });
 
-        Assert::isArray($result, 'Routing result must be an array');
-
-        return $result;
+        return $this->decodeJsonObject($result);
     }
 
     /**
@@ -163,22 +152,17 @@ class AIService
     {
         $cacheKey = 'ai:response:'.md5($ticketContent.$category.$priority);
 
-        $result = Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority) {
+        return Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority) {
             $prompt = $this->buildResponsePrompt($ticketContent, $category, $priority);
-            $response = $this->makeAIRequest($prompt, 'response');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'response');
         });
-
-        Assert::string($result, 'Auto response must be a string');
-
-        return $result;
     }
 
     /**
      * Analizza pattern nei ticket per insights
      *
-     * @param array<int, array<string, mixed>> $tickets
+     * @param  array<int, array<string, mixed>>  $tickets
      * @return array<string, mixed>
      */
     public function analyzePatterns(array $tickets): array
@@ -188,14 +172,11 @@ class AIService
 
         $result = Cache::remember($cacheKey, 3600, function () use ($tickets) {
             $prompt = $this->buildPatternAnalysisPrompt($tickets);
-            $response = $this->makeAIRequest($prompt, 'patterns');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'patterns');
         });
 
-        Assert::isArray($result, 'Pattern analysis result must be an array');
-
-        return $result;
+        return $this->decodeJsonObject($result);
     }
 
     /**
@@ -211,14 +192,11 @@ class AIService
 
         $result = Cache::remember($cacheKey, 3600, function () use ($data) {
             $prompt = $this->buildImprovementPrompt($data);
-            $response = $this->makeAIRequest($prompt, 'improvements');
 
-            return $response;
+            return $this->makeAIRequest($prompt, 'improvements');
         });
 
-        Assert::isArray($result, 'Improvements result must be an array');
-
-        return $result;
+        return $this->decodeJsonObject($result);
     }
 
     /**
@@ -538,7 +516,6 @@ Rispondi in formato JSON:
                     'status' => $response->status(),
                     'response' => $response->body(),
                 ]);
-
             } catch (\Exception $e) {
                 Log::error('AI API request error', [
                     'type' => $type,
@@ -552,5 +529,36 @@ Rispondi in formato JSON:
         }
 
         throw new \Exception('AI API request failed after '.$this->retryAttempts.' attempts');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function decodeJsonObject(string $result): array
+    {
+        $normalized = trim($result);
+        if ($normalized === '') {
+            return [];
+        }
+
+        try {
+            $decoded = \Safe\json_decode($normalized, true, 512, JSON_THROW_ON_ERROR);
+            if (! is_array($decoded)) {
+                return [];
+            }
+
+            $result = [];
+            foreach ($decoded as $key => $value) {
+                if (! is_string($key)) {
+                    continue;
+                }
+
+                $result[$key] = $value;
+            }
+
+            return $result;
+        } catch (\Throwable) {
+            return [];
+        }
     }
 }
