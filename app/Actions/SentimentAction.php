@@ -7,15 +7,13 @@ namespace Modules\AI\Actions;
 use Exception;
 use Modules\AI\Actions\Sentiment\BasicSentimentAnalyzer;
 use Modules\AI\Actions\Sentiment\TransformersSentimentAnalyzer;
-use Modules\AI\Contracts\SentimentAnalyzer;
 use Modules\AI\Datas\SentimentData;
 use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\error_log;
 
 /**
- * Sentiment analysis using the driver configured in `ai.sentiment_driver`
- * ('transformers' when the ML pipeline is desired, otherwise 'basic').
+ * Sentiment analysis using transformers when available, otherwise basic pattern matching.
  */
 class SentimentAction
 {
@@ -23,7 +21,9 @@ class SentimentAction
 
     public function execute(string $prompt): SentimentData
     {
-        $analyzer = $this->resolveAnalyzer();
+        $analyzer = class_exists('Codewithkyrian\Transformers\Transformers')
+            ? new TransformersSentimentAnalyzer
+            : new BasicSentimentAnalyzer;
 
         try {
             $result = $analyzer->analyze($prompt);
@@ -37,13 +37,5 @@ class SentimentAction
                 'status' => 'error',
             ]);
         }
-    }
-
-    private function resolveAnalyzer(): SentimentAnalyzer
-    {
-        return match (config('ai.sentiment_driver', 'basic')) {
-            'transformers' => new TransformersSentimentAnalyzer,
-            default => new BasicSentimentAnalyzer,
-        };
     }
 }
