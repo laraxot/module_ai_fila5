@@ -15,5 +15,6 @@ class SentimentData extends Data
         public ?string $error = null,
         public ?string $status = null,
         public ?bool $fallback = null,
-    ) {}
+    ) {
+    }
 }
