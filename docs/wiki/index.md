@@ -85,3 +85,6 @@ Integrazione AI locale (Ollama) e cloud (OpenRouter) per generazione contenuti, 
 | [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | Connessione MCP AI, troubleshooting |
 
 Aggiornato: 2026-05-11
+## Composer / nwidart
+
+- [composer-root-minimal-nwidart](concepts/composer-root-minimal-nwidart.md) — root skeleton nwidart (modello fixcity)
