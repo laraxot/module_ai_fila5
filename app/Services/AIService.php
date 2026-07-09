@@ -5,25 +5,23 @@ declare(strict_types=1);
 namespace Modules\AI\Services;
 
 use Illuminate\Support\Facades\Cache;
-use Modules\AI\Support\AiJsonResponseDecoder;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_encode;
 
 /**
  * Servizio AI/ML per FixCity Platform
+ *
+ * Integra funzionalità di intelligenza artificiale per:
+ * - Classificazione automatica dei ticket
+ * - Suggerimenti per risoluzione
+ * - Analisi del sentiment
+ * - Predizione di priorità
+ * - Ottimizzazione del routing
  */
 class AIService
 {
-    private string $apiKey;
-
-    private string $baseUrl;
-
-    private int $timeout;
-
-    private int $retryAttempts;
-
-    private ?AIChatCompletionClient $chatClient = null;
+    private AIChatCompletionClient $client;
 
     public function __construct()
     {
@@ -37,10 +35,7 @@ class AIService
         Assert::integer($timeout, 'Timeout must be an integer');
         Assert::integer($retryAttempts, 'Retry attempts must be an integer');
 
-        $this->apiKey = $apiKey;
-        $this->baseUrl = $baseUrl;
-        $this->timeout = $timeout;
-        $this->retryAttempts = $retryAttempts;
+        $this->client = new AIChatCompletionClient($apiKey, $baseUrl, $timeout, $retryAttempts);
     }
 
     /**
@@ -50,13 +45,13 @@ class AIService
     {
         $cacheKey = 'ai:classification:'.md5($title.$description);
 
-        $result = Cache::remember($cacheKey, 3600, function () use ($title, $description) {
+        $result = Cache::remember($cacheKey, 3600, function () use ($title, $description): string {
             $prompt = AIServicePromptBuilder::classification($title, $description);
 
-            return $this->makeAIRequest($prompt, 'classification');
+            return $this->client->request($prompt, 'classification');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 
     /**
@@ -66,13 +61,13 @@ class AIService
     {
         $cacheKey = 'ai:solutions:'.md5($title.$description.$category);
 
-        $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category) {
+        $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category): string {
             $prompt = AIServicePromptBuilder::solutions($title, $description, $category);
 
-            return $this->makeAIRequest($prompt, 'solutions');
+            return $this->client->request($prompt, 'solutions');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 
     /**
@@ -82,13 +77,13 @@ class AIService
     {
         $cacheKey = 'ai:sentiment:'.md5($text);
 
-        $result = Cache::remember($cacheKey, 1800, function () use ($text) {
+        $result = Cache::remember($cacheKey, 1800, function () use ($text): string {
             $prompt = AIServicePromptBuilder::sentiment($text);
 
-            return $this->makeAIRequest($prompt, 'sentiment');
+            return $this->client->request($prompt, 'sentiment');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 
     /**
@@ -97,16 +92,16 @@ class AIService
      */
     public function predictPriority(string $title, string $description, array $context = []): array
     {
-        $contextStr = json_encode($context);
+        $contextStr = json_encode($context) ?: '{}';
         $cacheKey = 'ai:priority:'.md5($title.$description.$contextStr);
 
-        $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $context) {
+        $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $context): string {
             $prompt = AIServicePromptBuilder::priority($title, $description, $context);
 
-            return $this->makeAIRequest($prompt, 'priority');
+            return $this->client->request($prompt, 'priority');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 
     /**
@@ -120,23 +115,23 @@ class AIService
         $jsonAgents = json_encode($agents);
         $cacheKey = 'ai:routing:'.md5($jsonTickets.$jsonAgents);
 
-        $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents) {
+        $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents): string {
             $prompt = AIServicePromptBuilder::routing($tickets, $agents);
 
-            return $this->makeAIRequest($prompt, 'routing');
+            return $this->client->request($prompt, 'routing');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 
     public function generateAutoResponse(string $ticketContent, string $category, string $priority): string
     {
         $cacheKey = 'ai:response:'.md5($ticketContent.$category.$priority);
 
-        return Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority) {
+        return Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority): string {
             $prompt = AIServicePromptBuilder::autoResponse($ticketContent, $category, $priority);
 
-            return $this->makeAIRequest($prompt, 'response');
+            return $this->client->request($prompt, 'response');
         });
     }
 
@@ -149,13 +144,13 @@ class AIService
         $jsonTickets = json_encode($tickets);
         $cacheKey = 'ai:patterns:'.md5($jsonTickets);
 
-        $result = Cache::remember($cacheKey, 3600, function () use ($tickets) {
+        $result = Cache::remember($cacheKey, 3600, function () use ($tickets): string {
             $prompt = AIServicePromptBuilder::patternAnalysis($tickets);
 
-            return $this->makeAIRequest($prompt, 'patterns');
+            return $this->client->request($prompt, 'patterns');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 
     /**
@@ -167,33 +162,12 @@ class AIService
         $jsonData = json_encode($data);
         $cacheKey = 'ai:improvements:'.md5($jsonData);
 
-        $result = Cache::remember($cacheKey, 3600, function () use ($data) {
+        $result = Cache::remember($cacheKey, 3600, function () use ($data): string {
             $prompt = AIServicePromptBuilder::improvements($data);
 
-            return $this->makeAIRequest($prompt, 'improvements');
+            return $this->client->request($prompt, 'improvements');
         });
 
-        return AiJsonResponseDecoder::decodeObject($result);
-    }
-
-    private function makeAIRequest(string $prompt, string $type): string
-    {
-        return $this->chatClient()->request($prompt, $type);
-    }
-
-    private function chatClient(): AIChatCompletionClient
-    {
-        if ($this->chatClient instanceof AIChatCompletionClient) {
-            return $this->chatClient;
-        }
-
-        $this->chatClient = new AIChatCompletionClient(
-            $this->apiKey,
-            $this->baseUrl,
-            $this->timeout,
-            $this->retryAttempts,
-        );
-
-        return $this->chatClient;
+        return AIServiceJsonDecoder::decodeObject($result);
     }
 }

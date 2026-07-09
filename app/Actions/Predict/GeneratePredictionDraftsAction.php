@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Modules\AI\Actions\Predict;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use Modules\AI\Support\PredictionDraftFallbackTemplates;
-use OpenAI\Laravel\Facades\OpenAI;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
 use function Safe\preg_match;
 use function Safe\preg_replace;
+
 
 /**
  * Generate structured prediction drafts that can be persisted by the Predict module.
@@ -31,8 +31,6 @@ final class GeneratePredictionDraftsAction
      *   liquidity: int,
      *   options: array<int, string>
      * }>
-     *
-     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function execute(int $count): array
     {
@@ -44,23 +42,30 @@ final class GeneratePredictionDraftsAction
             return $this->fallbackDrafts($count);
         }
 
-        $response = OpenAI::chat()->create([
-            'model' => $this->resolveModel(),
-            'temperature' => $this->resolveTemperature(),
-            'max_tokens' => min(3800, max(1200, $count * 320)),
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => 'Sei un editor italiano specializzato in prediction market. Produci solo JSON valido, niente markdown e niente testo extra.',
-                ],
-                [
-                    'role' => 'user',
-                    'content' => $this->buildPrompt($count),
-                ],
-            ],
-        ]);
+        $apiKey = config('openai.api_key');
+        if (! is_string($apiKey) || $apiKey === '') {
+            return $this->fallbackDrafts($count);
+        }
 
-        $rawText = data_get($response, 'choices.0.message.content', '');
+        $response = Http::withToken($apiKey)
+            ->post('https://api.openai.com/v1/chat/completions', [
+                'model' => $this->resolveModel(),
+                'temperature' => $this->resolveTemperature(),
+                'max_tokens' => min(3800, max(1200, $count * 320)),
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'Sei un editor italiano specializzato in prediction market. Produci solo JSON valido, niente markdown e niente testo extra.',
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $this->buildPrompt($count),
+                    ],
+                ],
+            ]);
+
+        $rawData = $response->json();
+        $rawText = is_array($rawData) ? data_get($rawData, 'choices.0.message.content', '') : '';
         $text = is_scalar($rawText) ? trim((string) $rawText) : '';
 
         return $this->parseDrafts($text, $count);
@@ -113,8 +118,6 @@ PROMPT;
      *   liquidity: int,
      *   options: array<int, string>
      * }>
-     *
-     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function parseDrafts(string $text, int $expectedCount): array
     {
@@ -129,7 +132,6 @@ PROMPT;
             return $this->fallbackDrafts($expectedCount);
         }
 
-        /** @var list<array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> $drafts */
         $drafts = [];
 
         foreach ($decoded as $item) {
@@ -137,65 +139,43 @@ PROMPT;
                 continue;
             }
 
-            $draft = $this->mapDraftFromItem($item);
-            if ($draft !== null) {
-                $drafts[] = $draft;
+            $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
+            $subtitle = $this->toNormalizedString(Arr::get($item, 'subtitle', ''));
+            $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
+            $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
+            $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
+            $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
+            /** @var array<int, mixed> $tags */
+            $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
+            $rawLiquidity = Arr::get($item, 'liquidity', 5000);
+            $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
+            $options = $this->normalizeOptions(Arr::get($item, 'options', []));
+
+            if ($title === '' || $description === '' || $analysis === '') {
+                continue;
             }
+
+            $drafts[] = [
+                'title' => Str::limit($title, 140, ''),
+                'subtitle' => $subtitle,
+                'description' => $description,
+                'category' => $category !== '' ? $category : 'Altro',
+                'tags' => $this->normalizeTags($tags),
+                'analysis' => $analysis,
+                'event_end_date' => $this->normalizeDate($eventEndDate),
+                'liquidity' => max(1000, min(50000, $liquidity)),
+                'options' => $options,
+            ];
         }
 
         if (count($drafts) < $expectedCount) {
             return $this->fallbackDrafts($expectedCount);
         }
 
-        return array_slice($drafts, 0, $expectedCount);
-    }
+        /** @var array<int, array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> $sliced */
+        $sliced = array_slice($drafts, 0, $expectedCount);
 
-    /**
-     * @param  array<mixed, mixed>  $item
-     * @return array{
-     *   title: string,
-     *   subtitle: string,
-     *   description: string,
-     *   category: string,
-     *   tags: array<int, string>,
-     *   analysis: string,
-     *   event_end_date: string,
-     *   liquidity: int,
-     *   options: array<int, string>
-     * }|null
-     */
-    private function mapDraftFromItem(array $item): ?array
-    {
-        $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
-        $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
-        $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
-        if (! $this->hasRequiredDraftFields($title, $description, $analysis)) {
-            return null;
-        }
-
-        $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
-        $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
-        /** @var array<int, mixed> $tags */
-        $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
-        $rawLiquidity = Arr::get($item, 'liquidity', 5000);
-        $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
-
-        return [
-            'title' => Str::limit($title, 140, ''),
-            'subtitle' => $this->toNormalizedString(Arr::get($item, 'subtitle', '')),
-            'description' => $description,
-            'category' => $category !== '' ? $category : 'Altro',
-            'tags' => $this->normalizeTags($tags),
-            'analysis' => $analysis,
-            'event_end_date' => $this->normalizeDate($eventEndDate),
-            'liquidity' => max(1000, min(50000, $liquidity)),
-            'options' => $this->normalizeOptions(Arr::get($item, 'options', [])),
-        ];
-    }
-
-    private function hasRequiredDraftFields(string $title, string $description, string $analysis): bool
-    {
-        return $title !== '' && $description !== '' && $analysis !== '';
+        return $sliced;
     }
 
     private function resolveModel(): string
@@ -295,13 +275,91 @@ PROMPT;
      */
     private function fallbackDrafts(int $count): array
     {
-        $templates = PredictionDraftFallbackTemplates::all();
+        $templates = [
+            [
+                'category' => 'Sport',
+                'title' => 'La squadra italiana vincera una coppa europea entro la fine della stagione?',
+                'subtitle' => 'Calcio europeo',
+                'description' => 'Mercato su una possibile vittoria internazionale di un club italiano nella stagione corrente.',
+                'analysis' => 'Il mercato combina forma recente, profondita della rosa e calendario residuo. La domanda e risolvibile con un esito pubblico e chiaro.',
+                'tags' => ['sport', 'calcio', 'europa'],
+                'options' => ['Sì', 'No'],
+            ],
+            [
+                'category' => 'Crypto',
+                'title' => 'Bitcoin chiudera il trimestre sopra i 120000 dollari?',
+                'subtitle' => 'Mercati crypto',
+                'description' => 'Predizione sul prezzo di chiusura trimestrale di Bitcoin rispetto a una soglia chiara.',
+                'analysis' => 'La domanda e verificabile su fonti di mercato pubbliche e ha una soglia netta. E utile per utenti che seguono momentum e volatilita.',
+                'tags' => ['crypto', 'bitcoin', 'mercati'],
+                'options' => ['Sì', 'No'],
+            ],
+            [
+                'category' => 'Politica',
+                'title' => 'Il governo approvera una riforma fiscale strutturale entro sei mesi?',
+                'subtitle' => 'Politica italiana',
+                'description' => 'Mercato politico su approvazione formale di una riforma fiscale entro una finestra temporale definita.',
+                'analysis' => 'La risoluzione puo essere legata a fonti istituzionali. La domanda resta concreta e non dipende da interpretazioni troppo elastiche.',
+                'tags' => ['politica', 'italia', 'riforme'],
+                'options' => ['Sì', 'No'],
+            ],
+            [
+                'category' => 'Tecnologia',
+                'title' => 'Un nuovo modello AI open source superera il benchmark di riferimento entro 90 giorni?',
+                'subtitle' => 'AI e benchmark',
+                'description' => 'Predizione su rilascio e performance di un modello AI open source rispetto a un benchmark noto.',
+                'analysis' => 'La metrica deve essere definita prima della pubblicazione del mercato. Questo rende la risoluzione trasparente e difendibile.',
+                'tags' => ['ai', 'open-source', 'benchmark'],
+                'options' => ['Sì', 'No'],
+            ],
+            [
+                'category' => 'Economia',
+                'title' => 'La BCE tagliera i tassi almeno due volte entro l anno?',
+                'subtitle' => 'Politica monetaria',
+                'description' => 'Mercato macroeconomico legato alle decisioni ufficiali sui tassi nell anno in corso.',
+                'analysis' => 'La domanda ha una fonte di risoluzione ufficiale e facilita una lettura probabilistica chiara da parte degli utenti.',
+                'tags' => ['economia', 'bce', 'tassi'],
+                'options' => ['0.25%', '0.50%', 'Mantenimento', 'Altro'],
+            ],
+            [
+                'category' => 'Intrattenimento',
+                'title' => 'Un film italiano entrera nella top 10 box office europea entro l estate?',
+                'subtitle' => 'Cinema europeo',
+                'description' => 'Mercato entertainment basato su ranking di box office europei in una finestra temporale definita.',
+                'analysis' => 'La domanda usa una metrica pubblica e permette una risoluzione semplice. Il copy puo attirare anche utenti non specialisti.',
+                'tags' => ['cinema', 'box-office', 'europa'],
+                'options' => ['Sì', 'No'],
+            ],
+            [
+                'category' => 'Scienza',
+                'title' => 'Una terapia innovativa otterra un via libera regolatorio entro 12 mesi?',
+                'subtitle' => 'Ricerca e salute',
+                'description' => 'Predizione su un evento regolatorio chiaro relativo a una terapia innovativa.',
+                'analysis' => 'La risoluzione e ancorata a una decisione pubblica. Il mercato e utile per utenti interessati a scienza applicata e health innovation.',
+                'tags' => ['scienza', 'salute', 'regolatorio'],
+                'options' => ['Sì', 'No'],
+            ],
+        ];
+
         $drafts = [];
         $usedTitles = [];
 
         for ($index = 0; $index < $count; $index++) {
-            $template = $templates[$index % count($templates)];
-            $title = $this->uniqueFallbackTitle($template['title'], $usedTitles);
+            $templateIndex = $index % count($templates);
+            $template = $templates[$templateIndex];
+
+            // Generate unique title by adding index suffix for duplicates
+            $baseTitle = $template['title'];
+            $title = $baseTitle;
+            $suffix = 1;
+
+            while (in_array($title, $usedTitles, true)) {
+                // Add variation to make title unique
+                $trimmedBaseTitle = $this->replaceRegex('/\?$/', '', $baseTitle);
+                $title = $trimmedBaseTitle.' - Variante '.$suffix.'?';
+                $suffix++;
+            }
+
             $usedTitles[] = $title;
 
             $drafts[] = [
@@ -317,24 +375,10 @@ PROMPT;
             ];
         }
 
-        return $drafts;
-    }
+        /** @var list<array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> $draftsList */
+        $draftsList = $drafts;
 
-    /**
-     * @param  list<string>  $usedTitles
-     */
-    private function uniqueFallbackTitle(string $baseTitle, array $usedTitles): string
-    {
-        $title = $baseTitle;
-        $suffix = 1;
-
-        while (in_array($title, $usedTitles, true)) {
-            $trimmedBaseTitle = $this->replaceRegex('/\?$/', '', $baseTitle);
-            $title = $trimmedBaseTitle.' - Variante '.$suffix.'?';
-            $suffix++;
-        }
-
-        return $title;
+        return $draftsList;
     }
 
     private function replaceRegex(string $pattern, string $replacement, string $subject): string
