@@ -68,3 +68,4 @@ docs/archive/
 *~head
 
 agentdb.rvf
+tests/AuditCoverage
