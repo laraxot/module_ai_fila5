@@ -2,10 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Support;
+namespace Modules\AI\Actions\Prediction;
 
-class PredictionDraftFallbackTemplates
+use Spatie\QueueableAction\QueueableAction;
+
+final class GetPredictionDraftFallbackTemplatesAction
 {
+    use QueueableAction;
+
     /**
      * @return list<array{
      *   category: string,
@@ -17,7 +21,7 @@ class PredictionDraftFallbackTemplates
      *   options: array<int, string>
      * }>
      */
-    public static function all(): array
+    public function execute(): array
     {
         return [
             [
