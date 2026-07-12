@@ -5,24 +5,29 @@ declare(strict_types=1);
 namespace Modules\AI\Actions\Sentiment;
 
 use Exception;
-use Modules\AI\Contracts\SentimentAnalyzer;
+use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\error_log;
 
-class TransformersSentimentAnalyzer implements SentimentAnalyzer
+final class AnalyzeTransformersSentimentAction
 {
+    use QueueableAction;
+
+    public function __construct(
+        private readonly AnalyzeBasicSentimentAction $analyzeBasicSentimentAction,
+    ) {
+    }
+
     /**
-     * {@inheritDoc}
-     *
      * @return array<string, mixed>
      */
-    public function analyze(string $text): array
+    public function execute(string $text): array
     {
         if ($this->canUseTransformersPipeline()) {
             error_log('Transformers sentiment pipeline disabled; using basic fallback.');
         }
 
-        return (new BasicSentimentAnalyzer)->analyze($text);
+        return $this->analyzeBasicSentimentAction->execute($text);
     }
 
     private function canUseTransformersPipeline(): bool

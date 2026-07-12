@@ -31,9 +31,10 @@
         }
     },
     "require": {
-        "openai-php/laravel": "*"
+        "openai-php/laravel": "^0.10",
+        "php": "^8.3"
     },
-    "require-dev_comment": {
+    "require-dev": {
         "codewithkyrian/transformers": "^0.5.2",
         "laravel/pint": "^1.13",
         "nunomaduro/phpinsights": "^2.11",

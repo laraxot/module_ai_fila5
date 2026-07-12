@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Sentiment;
 
-use Modules\AI\Contracts\SentimentAnalyzer;
+use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\preg_match;
 
-class BasicSentimentAnalyzer implements SentimentAnalyzer
+final class AnalyzeBasicSentimentAction
 {
+    use QueueableAction;
+
     /**
-     * {@inheritDoc}
-     *
      * @return array<string, mixed>
      */
-    public function analyze(string $text): array
+    public function execute(string $text): array
     {
         if (trim($text) === '') {
             return [

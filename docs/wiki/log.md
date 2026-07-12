@@ -57,3 +57,10 @@
 - summary:
   - compiled the first durable AI module syntheses from MCP and local-first runtime docs
   - aligned the module wiki with the project-level LLM wiki model
+
+## [2026-07-12] quality | claude-audit Actions QueueableAction contract
+
+- Scope swarm: `Modules/AI`.
+- Decisione riusabile: ogni classe sotto `app/Actions` deve usare `Spatie\QueueableAction\QueueableAction` ed esporre `execute(...)`; eventuale `handle()` resta solo wrapper legacy.
+- Verifica locale aggiunta: `tests/Unit/Actions/QueueableActionContractTest.php`.
+- Nota audit: `claude-audit --static` usa euristiche di test coverage non sempre allineate ai test Pest presenti.

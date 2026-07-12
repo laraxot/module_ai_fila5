@@ -56,7 +56,7 @@ class AIChatCompletionClient
                 'Content-Type' => 'application/json',
             ])
             ->post($this->baseUrl.'/chat/completions', [
-                'model' => 'gpt-4',
+                'model' => (string) config('ai.chat_model', 'gpt-4o-mini'),
                 'messages' => [
                     [
                         'role' => 'system',
