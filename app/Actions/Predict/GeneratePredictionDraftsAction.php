@@ -7,14 +7,13 @@ namespace Modules\AI\Actions\Predict;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use Modules\AI\Actions\Prediction\GetPredictionDraftFallbackTemplatesAction;
-use Webmozart\Assert\Assert;
+use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
 use Spatie\QueueableAction\QueueableAction;
+use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
 use function Safe\preg_match;
 use function Safe\preg_replace;
-
 
 /**
  * Generate structured prediction drafts that can be persisted by the Predict module.
@@ -272,7 +271,7 @@ PROMPT;
      */
     private function fallbackDrafts(int $count): array
     {
-        $templates = (new GetPredictionDraftFallbackTemplatesAction)->execute();
+        $templates = (new GetPredictionFallbackTemplatesAction)->execute();
 
         $drafts = [];
         $usedTitles = [];
@@ -282,6 +281,7 @@ PROMPT;
             $template = $templates[$templateIndex];
 
             // Generate unique title by adding index suffix for duplicates
+            Assert::string($template['title']);
             $baseTitle = $template['title'];
             $title = $baseTitle;
             $suffix = 1;
@@ -295,6 +295,7 @@ PROMPT;
 
             $usedTitles[] = $title;
 
+            Assert::string($template['subtitle']);
             $drafts[] = [
                 'title' => $title,
                 'subtitle' => $template['subtitle'].' ('.($index + 1).')',

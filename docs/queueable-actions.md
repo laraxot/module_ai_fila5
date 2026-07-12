@@ -60,3 +60,10 @@ cd laravel
 php -d memory_limit=2048M vendor/bin/phpstan analyse Modules/AI --no-progress
 vendor/bin/pint Modules/AI/app/Actions
 ```
+
+## Note di manutenzione
+
+- `GeneratePredictionDraftsAction::fallbackDrafts()` riusa i template da
+  `Actions/Prediction/GetPredictionDraftFallbackTemplatesAction` invece di
+  duplicarli inline: evita drift tra le due liste di template italiani
+  (quality pass PHPMD/PHPInsights).
