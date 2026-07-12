@@ -6,21 +6,11 @@ namespace Modules\AI\Actions\Prediction;
 
 use Spatie\QueueableAction\QueueableAction;
 
-final class GetPredictionDraftFallbackTemplatesAction
+final class GetPredictionFallbackTemplatesAction
 {
     use QueueableAction;
 
-    /**
-     * @return list<array{
-     *   category: string,
-     *   title: string,
-     *   subtitle: string,
-     *   description: string,
-     *   analysis: string,
-     *   tags: array<int, string>,
-     *   options: array<int, string>
-     * }>
-     */
+    /** @return array<int, array<string, mixed>> */
     public function execute(): array
     {
         return [
