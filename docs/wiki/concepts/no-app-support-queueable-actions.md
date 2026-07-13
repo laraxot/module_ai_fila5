@@ -20,6 +20,6 @@ related:
 | `Sentiment/BasicSentimentAnalyzer` | `AnalyzeBasicSentimentAction` |
 | `Sentiment/TransformersSentimentAnalyzer` | `AnalyzeTransformersSentimentAction` |
 | `ScalarCaster` | `CastScalarToStringAction`, `CastScalarToNullableStringAction`, `CastScalarToStringListAction` |
-| `PredictionDraftFallbackTemplates` | `GetPredictionDraftFallbackTemplatesAction` |
+| `PredictionDraftFallbackTemplates` | `GetPredictionFallbackTemplatesAction` |
 
 `SentimentAction` orchestra le action sentiment; `OpenAiPredictionMapper` usa le cast action.

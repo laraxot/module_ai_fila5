@@ -2,7 +2,7 @@
 title: "Queueable Actions — AI Module"
 type: concept
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-13
 confidence: high
 tags: [queueable-action, spatie, architecture, laraxot, ai]
 related:
@@ -67,3 +67,32 @@ vendor/bin/pint Modules/AI/app/Actions
   `Actions/Prediction/GetPredictionDraftFallbackTemplatesAction` invece di
   duplicarli inline: evita drift tra le due liste di template italiani
   (quality pass PHPMD/PHPInsights).
+
+## Layout Actions (post-migrazione Services)
+
+| Path | Ruolo |
+|------|-------|
+| `Actions/Prompt/BuildAIPromptAction` | Dispatcher prompt per tipo (`classification`, `solutions`, …) |
+| `Actions/Prompt/AIPromptTemplates` | Costanti JSON schema (routing, pattern, improvements) |
+| `Actions/Support/MakeAIRequestAction` | HTTP chat/completions OpenAI + retry |
+| `Actions/AiJsonResponseDecoderAction` | Decode JSON risposta AI (sostituisce `AIServiceJsonDecoder`) |
+| `Actions/ClassifyTicketAction` | Classificazione ticket (cache + prompt + request + decode) |
+| `Actions/SuggestSolutionsAction` | Suggerimenti soluzioni ticket |
+
+**Eliminato:** `app/Services/` — niente layer `*Service`; logica in Actions queueable.
+
+### Esempio prompt + request
+
+```php
+$prompt = app(BuildAIPromptAction::class)->execute('classification', [
+    'title' => $title,
+    'description' => $description,
+]);
+
+$raw = app(MakeAIRequestAction::class, [
+    'prompt' => $prompt,
+    'type' => 'classification',
+])->execute();
+
+$data = AiJsonResponseDecoderAction::decodeObject($raw);
+```

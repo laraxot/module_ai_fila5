@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Modules\AI\Actions;
 
 use Illuminate\Support\Facades\Cache;
+use Modules\AI\Actions\Prompt\BuildAIPromptAction;
 use Modules\AI\Actions\Support\MakeAIRequestAction;
-use Modules\AI\Services\AIServicePromptBuilder;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
-use function Safe\json_decode;
 
 class SuggestSolutionsAction
 {
@@ -33,19 +32,21 @@ class SuggestSolutionsAction
         $cacheKey = 'ai:solutions:'.md5($title.$description.$category);
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category): string {
-            $prompt = AIServicePromptBuilder::solutions($title, $description, $category);
+            $prompt = app(BuildAIPromptAction::class)->execute('solutions', [
+                'title' => $title,
+                'description' => $description,
+                'category' => $category,
+            ]);
 
-            return (new MakeAIRequestAction($prompt, 'solutions'))->execute();
+            return app(MakeAIRequestAction::class, [
+                'prompt' => $prompt,
+                'type' => 'solutions',
+            ])->execute();
         });
 
         Assert::string($result, 'Solutions result must be a JSON string');
 
-        /** @var array<string, mixed> $result */
-        $result = json_decode($result, true);
-
-        Assert::isArray($result, 'Solutions result must be an array');
-
-        return $result;
+        return AiJsonResponseDecoderAction::decodeObject($result);
     }
 
     /**

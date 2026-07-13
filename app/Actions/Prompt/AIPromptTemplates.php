@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Services;
+namespace Modules\AI\Actions\Prompt;
 
-class AIServicePromptTemplates
+final class AIPromptTemplates
 {
     public const ROUTING_JSON = <<<'JSON'
 {

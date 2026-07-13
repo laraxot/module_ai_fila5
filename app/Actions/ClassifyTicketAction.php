@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Modules\AI\Actions;
 
 use Illuminate\Support\Facades\Cache;
+use Modules\AI\Actions\Prompt\BuildAIPromptAction;
 use Modules\AI\Actions\Support\MakeAIRequestAction;
-use Modules\AI\Services\AIServicePromptBuilder;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
-use function Safe\json_decode;
 
 class ClassifyTicketAction
 {
@@ -31,7 +30,10 @@ class ClassifyTicketAction
         $cacheKey = 'ai:classification:'.md5($title.$description);
 
         $result = Cache::remember($cacheKey, 3600, function () use ($title, $description): string {
-            $prompt = AIServicePromptBuilder::classification($title, $description);
+            $prompt = app(BuildAIPromptAction::class)->execute('classification', [
+                'title' => $title,
+                'description' => $description,
+            ]);
 
             return app(MakeAIRequestAction::class, [
                 'prompt' => $prompt,
@@ -41,8 +43,7 @@ class ClassifyTicketAction
 
         Assert::string($result, 'Classification result must be a JSON string');
 
-        /** @var array<string, mixed> */
-        return json_decode($result, true);
+        return AiJsonResponseDecoderAction::decodeObject($result);
     }
 
     /**
