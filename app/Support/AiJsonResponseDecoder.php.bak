@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\AI\Support;
+
+use Modules\AI\Actions\AiJsonResponseDecoderAction;
+
+class AiJsonResponseDecoder
+{
+    public static function decodeObject(string $result): array
+    {
+        return app(AiJsonResponseDecoderAction::class)->execute($result);
+    }
+}
