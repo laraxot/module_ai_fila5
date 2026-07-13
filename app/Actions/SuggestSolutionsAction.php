@@ -46,7 +46,7 @@ class SuggestSolutionsAction
 
         Assert::string($result, 'Solutions result must be a JSON string');
 
-        return AiJsonResponseDecoderAction::decodeObject($result);
+        return app(AiJsonResponseDecoderAction::class)->execute($result);
     }
 
     /**
