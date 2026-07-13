@@ -64,3 +64,8 @@
 - Decisione riusabile: ogni classe sotto `app/Actions` deve usare `Spatie\QueueableAction\QueueableAction` ed esporre `execute(...)`; eventuale `handle()` resta solo wrapper legacy.
 - Verifica locale aggiunta: `tests/Unit/Actions/QueueableActionContractTest.php`.
 - Nota audit: `claude-audit --static` usa euristiche di test coverage non sempre allineate ai test Pest presenti.
+
+## [2026-07-12] phpstan | prediction fallback typed actions
+
+- `GetPredictionFallbackTemplatesAction` espone template con ` list<array{...}>`, non `array<string,mixed>`.
+- `CastScalarToStringListAction::execute()` usa return nativo `array` con PHPDoc `list<string>`: `list<string>` non e un return type PHP valido.
