@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Actions\Prompt;
+namespace Modules\AI\Datas;
 
 final class AIPromptTemplates
 {

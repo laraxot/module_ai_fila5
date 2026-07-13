@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\AI\Support;
+
+use Modules\AI\Actions\Cast\ScalarCasterAction;
+
+class ScalarCaster
+{
+    public static function string(mixed $value, string $default = ''): string
+    {
+        return app(ScalarCasterAction::class)->execute($value, $default);
+    }
+
+    public static function nullableString(mixed $value): ?string
+    {
+        return app(ScalarCasterAction::class)->nullableString($value);
+    }
+
+    public static function stringList(mixed $value): array
+    {
+        return app(ScalarCasterAction::class)->stringList($value);
+    }
+}

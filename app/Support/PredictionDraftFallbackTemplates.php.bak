@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\AI\Support;
+
+use Modules\AI\Actions\PredictionDraftFallbackTemplatesAction;
+
+class PredictionDraftFallbackTemplates
+{
+    public static function all(): array
+    {
+        return app(PredictionDraftFallbackTemplatesAction::class)->execute();
+    }
+}
