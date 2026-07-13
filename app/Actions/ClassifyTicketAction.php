@@ -43,7 +43,7 @@ class ClassifyTicketAction
 
         Assert::string($result, 'Classification result must be a JSON string');
 
-        return AiJsonResponseDecoderAction::decodeObject($result);
+        return app(AiJsonResponseDecoderAction::class)->execute($result);
     }
 
     /**
