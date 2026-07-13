@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Predict;
 
+use Spatie\QueueableAction\QueueableAction;
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Modules\AI\Support\PredictionDraftFallbackTemplates;
+use Modules\AI\Actions\Cast\ScalarCasterAction;
+use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
 use OpenAI\Laravel\Facades\OpenAI;
 use Webmozart\Assert\Assert;
 
@@ -19,6 +22,8 @@ use function Safe\preg_replace;
  */
 final class GeneratePredictionDraftsAction
 {
+    use QueueableAction;
+
     /**
      * @return array<int, array{
      *   title: string,
@@ -295,25 +300,26 @@ PROMPT;
      */
     private function fallbackDrafts(int $count): array
     {
-        $templates = PredictionDraftFallbackTemplates::all();
+        $templates = app(GetPredictionFallbackTemplatesAction::class)->execute();
+        $caster = app(ScalarCasterAction::class);
         $drafts = [];
         $usedTitles = [];
 
         for ($index = 0; $index < $count; $index++) {
             $template = $templates[$index % count($templates)];
-            $title = $this->uniqueFallbackTitle($template['title'], $usedTitles);
+            $title = $this->uniqueFallbackTitle($caster->execute($template['title'] ?? ''), $usedTitles);
             $usedTitles[] = $title;
 
             $drafts[] = [
                 'title' => $title,
-                'subtitle' => $template['subtitle'].' ('.($index + 1).')',
-                'description' => $template['description'],
-                'category' => $template['category'],
-                'tags' => $template['tags'],
-                'analysis' => $template['analysis'],
+                'subtitle' => $caster->execute($template['subtitle'] ?? '').' ('.($index + 1).')',
+                'description' => $caster->execute($template['description'] ?? ''),
+                'category' => $caster->execute($template['category'] ?? ''),
+                'tags' => $caster->stringList($template['tags'] ?? []),
+                'analysis' => $caster->execute($template['analysis'] ?? ''),
                 'event_end_date' => now()->addDays(20 + ($index * 11))->toDateString(),
                 'liquidity' => 5000 + ($index * 750),
-                'options' => $template['options'],
+                'options' => $caster->stringList($template['options'] ?? []),
             ];
         }
 
