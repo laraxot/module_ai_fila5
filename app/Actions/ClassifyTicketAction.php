@@ -17,8 +17,7 @@ class ClassifyTicketAction
     public function __construct(
         private readonly ?string $title = null,
         private readonly ?string $description = null,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, mixed>
@@ -27,7 +26,7 @@ class ClassifyTicketAction
     {
         $title = $title ?? $this->title ?? '';
         $description = $description ?? $this->description ?? '';
-        $cacheKey = 'ai:classification:'.md5($title.$description);
+        $cacheKey = 'ai:classification:' . md5($title . $description);
 
         $result = Cache::remember($cacheKey, 3600, function () use ($title, $description): string {
             $prompt = app(BuildAIPromptAction::class)->execute('classification', [
