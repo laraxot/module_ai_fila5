@@ -43,6 +43,14 @@ class PredictionData extends Data
     public ?string $footerBlock = null;
 
     /**
+     * @param  array<string, mixed>  $data
+     */
+    public static function fromOpenAIResponse(array $data): self
+    {
+        return OpenAiPredictionMapper::toPredictionData($data);
+    }
+
+    /**
      * Convert to array for Predict model.
      *
      * @return array<string, mixed>
@@ -67,13 +75,5 @@ class PredictionData extends Data
             'sidebar_blocks' => $this->sidebarBlock ? (array) json_decode($this->sidebarBlock, true) : [],
             'footer_blocks' => $this->footerBlock ? (array) json_decode($this->footerBlock, true) : [],
         ];
-    }
-
-    /**
-     * @param  array<string, mixed>  $data
-     */
-    public static function fromOpenAIResponse(array $data): self
-    {
-        return OpenAiPredictionMapper::toPredictionData($data);
     }
 }
