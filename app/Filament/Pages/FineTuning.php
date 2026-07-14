@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Filament\Pages;
 
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -20,6 +21,7 @@ use function Safe\file_get_contents;
 
 class FineTuning extends XotBasePage
 {
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog';
     public string $learningRate = '0.001';
 
     public int $batchSize = 32;
@@ -29,8 +31,6 @@ class FineTuning extends XotBasePage
     public string $dataset = 'dataset1';
 
     public ?TemporaryUploadedFile $datasetFile = null;
-
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
 
     protected string $view = 'ai::filament.pages.fine-tuning';
 

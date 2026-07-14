@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Predict;
 
-use Spatie\QueueableAction\QueueableAction;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
 use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
@@ -312,7 +311,7 @@ PROMPT;
 
             $drafts[] = [
                 'title' => $title,
-                'subtitle' => $caster->execute($template['subtitle'] ?? '').' ('.($index + 1).')',
+                'subtitle' => $caster->execute($template['subtitle'] ?? '') . ' (' . ($index + 1) . ')',
                 'description' => $caster->execute($template['description'] ?? ''),
                 'category' => $caster->execute($template['category'] ?? ''),
                 'tags' => $caster->stringList($template['tags'] ?? []),
@@ -336,7 +335,7 @@ PROMPT;
 
         while (in_array($title, $usedTitles, true)) {
             $trimmedBaseTitle = $this->replaceRegex('/\?$/', '', $baseTitle);
-            $title = $trimmedBaseTitle.' - Variante '.$suffix.'?';
+            $title = $trimmedBaseTitle . ' - Variante ' . $suffix . '?';
             $suffix++;
         }
 

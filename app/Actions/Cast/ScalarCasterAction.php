@@ -13,6 +13,11 @@ final class ScalarCasterAction
 {
     use QueueableAction;
 
+    public static function string(mixed $value, string $default = ''): string
+    {
+        return app(self::class)->execute($value, $default);
+    }
+
     public function execute(mixed $value, string $default = ''): string
     {
         return $this->handle($value, $default);
@@ -25,11 +30,6 @@ final class ScalarCasterAction
         }
 
         return is_scalar($value) ? (string) $value : $default;
-    }
-
-    public static function string(mixed $value, string $default = ''): string
-    {
-        return app(self::class)->execute($value, $default);
     }
 
     public function nullableString(mixed $value): ?string
