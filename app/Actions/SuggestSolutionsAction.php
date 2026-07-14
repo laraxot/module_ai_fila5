@@ -18,8 +18,7 @@ class SuggestSolutionsAction
         private readonly ?string $title = null,
         private readonly ?string $description = null,
         private readonly ?string $category = null,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, mixed>
@@ -29,7 +28,7 @@ class SuggestSolutionsAction
         $title = $title ?? $this->title ?? '';
         $description = $description ?? $this->description ?? '';
         $category = $category ?? $this->category ?? '';
-        $cacheKey = 'ai:solutions:'.md5($title.$description.$category);
+        $cacheKey = 'ai:solutions:' . md5($title . $description . $category);
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category): string {
             $prompt = app(BuildAIPromptAction::class)->execute('solutions', [

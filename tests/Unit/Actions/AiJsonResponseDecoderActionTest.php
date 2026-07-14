@@ -3,7 +3,6 @@
 namespace Modules\AI\Tests\Unit\Actions;
 
 use Modules\AI\Actions\AiJsonResponseDecoderAction;
-use Modules\AI\Tests\TestCase;
 
 uses(\Modules\AI\Tests\TestCase::class);
 

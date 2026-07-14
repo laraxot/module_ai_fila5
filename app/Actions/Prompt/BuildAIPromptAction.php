@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Prompt;
 
-use Modules\AI\Datas\AIPromptTemplates;
-
 use InvalidArgumentException;
+use Modules\AI\Datas\AIPromptTemplates;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
@@ -52,7 +51,7 @@ final class BuildAIPromptAction
             'improvements' => $this->improvements(
                 $this->stringKeyMap(is_array($params['data'] ?? null) ? $params['data'] : []),
             ),
-            default => throw new InvalidArgumentException('Unsupported AI prompt type: '.$type),
+            default => throw new InvalidArgumentException('Unsupported AI prompt type: ' . $type),
         };
     }
 
@@ -177,7 +176,7 @@ Considera:
 - Precedenti performance
 
 Rispondi in formato JSON:
-".AIPromptTemplates::ROUTING_JSON;
+" . AIPromptTemplates::ROUTING_JSON;
     }
 
     private function autoResponse(string $ticketContent, string $category, string $priority): string
@@ -219,7 +218,7 @@ Identifica:
 - Opportunità di miglioramento
 
 Rispondi in formato JSON:
-".AIPromptTemplates::PATTERN_JSON;
+" . AIPromptTemplates::PATTERN_JSON;
     }
 
     /**
@@ -229,7 +228,7 @@ Rispondi in formato JSON:
     {
         return 'Suggerisci miglioramenti per il servizio di gestione ticket basandoti su questi dati:
 
-Dati: '.json_encode($data, JSON_PRETTY_PRINT).AIPromptTemplates::IMPROVEMENTS_JSON;
+Dati: ' . json_encode($data, JSON_PRETTY_PRINT) . AIPromptTemplates::IMPROVEMENTS_JSON;
     }
 
     /**

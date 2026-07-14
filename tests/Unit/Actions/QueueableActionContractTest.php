@@ -6,23 +6,26 @@ namespace Modules\AI\Tests\Unit\Actions;
 
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use ReflectionClass;
 use Spatie\QueueableAction\QueueableAction;
+use SplFileInfo;
 
 uses(TestCase::class);
 
 it('keeps AI actions queueable with execute entrypoints', function (): void {
-    $actionsPath = dirname(__DIR__, 3).'/app/Actions';
-    $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($actionsPath));
+    $actionsPath = dirname(__DIR__, 3) . '/app/Actions';
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($actionsPath));
     $classes = [];
 
     foreach ($iterator as $file) {
-        if (! $file instanceof \SplFileInfo || ! $file->isFile() || $file->getExtension() !== 'php') {
+        if (! $file instanceof SplFileInfo || ! $file->isFile() || $file->getExtension() !== 'php') {
             continue;
         }
 
-        $relative = str_replace($actionsPath.'/', '', $file->getPathname());
-        $classes[] = 'Modules\\AI\\Actions\\'.str_replace(['/', '.php'], ['\\', ''], $relative);
+        $relative = str_replace($actionsPath . '/', '', $file->getPathname());
+        $classes[] = 'Modules\\AI\\Actions\\' . str_replace(['/', '.php'], ['\\', ''], $relative);
     }
 
     Assert::assertNotSame([], $classes);

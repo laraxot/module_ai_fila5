@@ -21,7 +21,7 @@ beforeEach(function (): void {
 });
 
 afterEach(function (): void {
-Mockery::close();
+    Mockery::close();
 
 });
 
