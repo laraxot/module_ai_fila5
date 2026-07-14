@@ -18,8 +18,7 @@ class MakeAIRequestAction
     public function __construct(
         private readonly ?string $prompt = null,
         private readonly ?string $type = null,
-    ) {
-    }
+    ) {}
 
     public function execute(?string $prompt = null, ?string $type = null): string
     {
@@ -76,7 +75,7 @@ class MakeAIRequestAction
             sleep((int) pow(2, $attempt));
         }
 
-        throw new Exception('AI API request failed after '.$retryAttempts.' attempts');
+        throw new Exception('AI API request failed after ' . $retryAttempts . ' attempts');
     }
 
     private function attemptChatCompletion(
@@ -87,10 +86,10 @@ class MakeAIRequestAction
     ): string {
         $response = Http::timeout($timeout)
             ->withHeaders([
-                'Authorization' => 'Bearer '.$apiKey,
+                'Authorization' => 'Bearer ' . $apiKey,
                 'Content-Type' => 'application/json',
             ])
-            ->post($baseUrl.'/chat/completions', [
+            ->post($baseUrl . '/chat/completions', [
                 'model' => (string) config('ai.chat_model', 'gpt-4o-mini'),
                 'messages' => [
                     [

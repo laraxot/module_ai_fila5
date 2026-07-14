@@ -16,17 +16,6 @@ use Modules\Xot\Tests\XotBaseTestCase;
  */
 abstract class TestCase extends XotBaseTestCase
 {
-    /**
-     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
-     */
-    protected function getPackageProviders(Application $app): array
-    {
-        return [
-            ...parent::getPackageProviders($app),
-            AIServiceProvider::class,
-        ];
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -38,5 +27,16 @@ abstract class TestCase extends XotBaseTestCase
             'ai.temperature' => 0.7,
             'ai.max_tokens' => 1500,
         ]);
+    }
+
+    /**
+     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     */
+    protected function getPackageProviders(Application $app): array
+    {
+        return [
+            ...parent::getPackageProviders($app),
+            AIServiceProvider::class,
+        ];
     }
 }
