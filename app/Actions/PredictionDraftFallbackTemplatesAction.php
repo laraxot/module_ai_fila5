@@ -7,8 +7,6 @@
  * the primary prediction generation fails or when mock data is needed.
  * Each template includes category, title, subtitle, description, analysis,
  * tags, and options arrays.
- *
- * @package Modules\AI\Actions
  */
 
 namespace Modules\AI\Actions;
@@ -34,23 +32,6 @@ use Spatie\QueueableAction\QueueableAction;
 final class PredictionDraftFallbackTemplatesAction
 {
     use QueueableAction;
-    /**
-     * Execute the action and return fallback templates.
-     *
-     * @return array<int, array{
-     *     category: string,
-     *     title: string,
-     *     subtitle: string,
-     *     description: string,
-     *     analysis: string,
-     *     tags: array<int, string>,
-     *     options: array<int, string>
-     * }> List of fallback prediction templates
-     */
-    public function execute(): array
-    {
-        return self::all();
-    }
 
     /**
      * Get all fallback prediction draft templates.
@@ -132,5 +113,23 @@ final class PredictionDraftFallbackTemplatesAction
                 'options' => ['Sì', 'No'],
             ],
         ];
+    }
+
+    /**
+     * Execute the action and return fallback templates.
+     *
+     * @return array<int, array{
+     *     category: string,
+     *     title: string,
+     *     subtitle: string,
+     *     description: string,
+     *     analysis: string,
+     *     tags: array<int, string>,
+     *     options: array<int, string>
+     * }> List of fallback prediction templates
+     */
+    public function execute(): array
+    {
+        return self::all();
     }
 }

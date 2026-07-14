@@ -30,7 +30,7 @@ class SentimentAction
 
             return SentimentData::from($result);
         } catch (Exception $e) {
-            error_log('Sentiment analysis error: '.$e->getMessage());
+            error_log('Sentiment analysis error: ' . $e->getMessage());
 
             return SentimentData::from([
                 'error' => $e->getMessage(),
