@@ -45,17 +45,17 @@ final class RequestChatCompletionAction
             sleep(2 ** $attempt);
         }
 
-        throw new Exception('AI API request failed after '.$retryAttempts.' attempts');
+        throw new Exception('AI API request failed after ' . $retryAttempts . ' attempts');
     }
 
     private function attemptChatCompletion(string $prompt, string $apiKey, string $baseUrl, int $timeout): string
     {
         $response = Http::timeout($timeout)
             ->withHeaders([
-                'Authorization' => 'Bearer '.$apiKey,
+                'Authorization' => 'Bearer ' . $apiKey,
                 'Content-Type' => 'application/json',
             ])
-            ->post($baseUrl.'/chat/completions', [
+            ->post($baseUrl . '/chat/completions', [
                 'model' => $this->configString('ai.chat_model', 'services.openai.chat_model', 'gpt-4o-mini'),
                 'messages' => [
                     [

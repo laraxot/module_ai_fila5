@@ -8,7 +8,6 @@ use Mockery;
 use Modules\AI\Actions\SentimentAction;
 use Modules\AI\Datas\SentimentData;
 use PHPUnit\Framework\Assert;
-use Tests\TestCase;
 
 uses(\Modules\AI\Tests\TestCase::class);
 
@@ -17,7 +16,7 @@ beforeEach(function (): void {
 });
 
 afterEach(function (): void {
-Mockery::close();
+    Mockery::close();
 
 });
 
