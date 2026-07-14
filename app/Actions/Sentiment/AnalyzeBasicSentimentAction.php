@@ -48,7 +48,7 @@ final class AnalyzeBasicSentimentAction
         $count = 0;
 
         foreach ($words as $word) {
-            if (preg_match('/\b'.preg_quote($word, '/').'\b/i', $text) === 1) {
+            if (preg_match('/\b' . preg_quote($word, '/') . '\b/i', $text) === 1) {
                 $count++;
             }
         }
