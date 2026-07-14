@@ -69,3 +69,11 @@ docs/archive/
 
 agentdb.rvf
 audit-coverage/
+<<<<<<< HEAD
+=======
+.cursor/
+.vscode/
+.windsurf/
+.devcontainer/
+.claude-audit/
+>>>>>>> 3703580 (delete .claude-audit/)
