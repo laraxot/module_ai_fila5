@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
+use JsonException;
 use Modules\AI\Datas\PredictionData;
 use RuntimeException;
 use Safe\DateTime;
@@ -153,7 +154,7 @@ PROMPT;
                 'body' => $response->body(),
             ]);
 
-            throw new RuntimeException('OpenAI API request failed: '.$response->body());
+            throw new RuntimeException('OpenAI API request failed: ' . $response->body());
         }
 
         return $this->extractCompletionText($response->json());
@@ -207,7 +208,7 @@ PROMPT;
      *
      * @return array<string, mixed>
      *
-     * @throws \JsonException
+     * @throws JsonException
      *
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
