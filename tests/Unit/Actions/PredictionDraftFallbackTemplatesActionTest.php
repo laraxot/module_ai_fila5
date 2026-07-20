@@ -15,11 +15,14 @@ describe('PredictionDraftFallbackTemplates Action', function (): void {
         $this->assertIsArray($result);
         $this->assertNotEmpty($result);
 
-        $this->assertContainsOnly(['category', 'title', 'subtitle', 'description', 'analysis', 'tags', 'options'], array_keys($result[0]));
+        $expectedKeys = ['analysis', 'category', 'description', 'options', 'subtitle', 'tags', 'title'];
+        $actualKeys = array_keys($result[0]);
+        sort($actualKeys);
+        $this->assertSame($expectedKeys, $actualKeys);
 
         // Verify that we have multiple categories
         $categories = array_unique(array_column($result, 'category'));
-        $this->assertGreaterThanOrEqual(count($categories), 5);
+        $this->assertGreaterThanOrEqual(5, count($categories));
 
         // Verify required fields for each template
         foreach ($result as $template) {
