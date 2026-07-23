@@ -17,8 +17,7 @@ class ClassifyTicketAction
     public function __construct(
         private readonly ?string $title = null,
         private readonly ?string $description = null,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, mixed>

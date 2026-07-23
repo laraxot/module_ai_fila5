@@ -13,7 +13,6 @@ final class AnalyzeTransformersSentimentAction
 {
     use QueueableAction;
 
-
     /**
      * @return array<string, mixed>
      */

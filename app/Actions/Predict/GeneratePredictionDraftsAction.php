@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Predict;
 
-use Spatie\QueueableAction\QueueableAction;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
 use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
