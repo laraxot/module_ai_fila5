@@ -18,8 +18,7 @@ class MakeAIRequestAction
     public function __construct(
         private readonly ?string $prompt = null,
         private readonly ?string $type = null,
-    ) {
-    }
+    ) {}
 
     public function execute(?string $prompt = null, ?string $type = null): string
     {
