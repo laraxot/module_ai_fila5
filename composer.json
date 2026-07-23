@@ -31,14 +31,21 @@
         }
     },
     "require": {
-        "openai-php/laravel": "^0.20",
-        "php": "^8.3"
+        "openai-php/laravel": "*"
     },
-    "require-dev": {
+    "require-dev_comment": {
         "codewithkyrian/transformers": "^0.5.2",
         "laravel/pint": "^1.13",
         "nunomaduro/phpinsights": "^2.11",
+<<<<<<< .merge_file_FZm3kB
         "driftingly/rector-laravel": "^2.5",
+=======
+        "larastan/larastan": "*",
+        "vimeo/psalm": "^5.17",
+        "psalm/plugin-laravel": "^2.8",
+        "enlightn/enlightn": "^2.7",
+        "driftingly/rector-laravel": "^0.26.2",
+>>>>>>> .merge_file_Q0RTf5
         "symplify/phpstan-rules": "*",
         "rector/rector": "^2.2.7",
         "thecodingmachine/phpstan-safe-rule": "^1.2"
