@@ -21,18 +21,18 @@ final class BuildAIPromptAction
     {
         return match ($type) {
             'classification' => $this->classification(
-                Assert::string($params['title'] ?? ''),
-                Assert::string($params['description'] ?? ''),
+                $this->paramString($params, 'title'),
+                $this->paramString($params, 'description'),
             ),
             'solutions' => $this->solutions(
-                Assert::string($params['title'] ?? ''),
-                Assert::string($params['description'] ?? ''),
-                Assert::string($params['category'] ?? ''),
+                $this->paramString($params, 'title'),
+                $this->paramString($params, 'description'),
+                $this->paramString($params, 'category'),
             ),
-            'sentiment' => $this->sentiment(Assert::string($params['text'] ?? '')),
+            'sentiment' => $this->sentiment($this->paramString($params, 'text')),
             'priority' => $this->priority(
-                Assert::string($params['title'] ?? ''),
-                Assert::string($params['description'] ?? ''),
+                $this->paramString($params, 'title'),
+                $this->paramString($params, 'description'),
                 $this->stringKeyMap(is_array($params['context'] ?? null) ? $params['context'] : []),
             ),
             'routing' => $this->routing(
@@ -40,9 +40,9 @@ final class BuildAIPromptAction
                 $this->ticketList(is_array($params['agents'] ?? null) ? $params['agents'] : []),
             ),
             'auto_response' => $this->autoResponse(
-                Assert::string($params['ticket_content'] ?? ''),
-                Assert::string($params['category'] ?? ''),
-                Assert::string($params['priority'] ?? ''),
+                $this->paramString($params, 'ticket_content'),
+                $this->paramString($params, 'category'),
+                $this->paramString($params, 'priority'),
             ),
             'pattern_analysis' => $this->patternAnalysis(
                 $this->ticketList(is_array($params['tickets'] ?? null) ? $params['tickets'] : []),
@@ -228,6 +228,17 @@ Rispondi in formato JSON:
         return 'Suggerisci miglioramenti per il servizio di gestione ticket basandoti su questi dati:
 
 Dati: '.json_encode($data, JSON_PRETTY_PRINT).AIPromptTemplates::IMPROVEMENTS_JSON;
+    }
+
+    /**
+     * @param  array<string, mixed>  $params
+     */
+    private function paramString(array $params, string $key): string
+    {
+        $value = $params[$key] ?? '';
+        Assert::string($value);
+
+        return $value;
     }
 
     /**
