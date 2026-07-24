@@ -9,10 +9,9 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 use Modules\Xot\Actions\Cast\SafeIntCastAction;
 use Safe\Exceptions\JsonException;
+use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\json_decode;
-
-use Spatie\QueueableAction\QueueableAction;
 
 class GenerateOllamaAction
 {
@@ -37,6 +36,18 @@ class GenerateOllamaAction
         ]);
     }
 
+    /**
+     * @param array{
+     *     model?: string,
+     *     stream?: bool,
+     *     options?: array<string, float|int>
+     * } $options
+     * @return array{
+     *     response: string,
+     *     done: bool,
+     *     tokens: array{prompt: int, generated: int}
+     * }
+     */
     public function execute(string $prompt, array $options = []): array
     {
         $optionOverrides = $options['options'] ?? [];
@@ -73,6 +84,13 @@ class GenerateOllamaAction
         }
     }
 
+    /**
+     * @return array{
+     *     response: string,
+     *     done: bool,
+     *     tokens: array{prompt: int, generated: int}
+     * }
+     */
     public function executeOptimized(string $prompt): array
     {
         return $this->execute($prompt, [
@@ -85,6 +103,13 @@ class GenerateOllamaAction
         ]);
     }
 
+    /**
+     * @return array{
+     *     response: string,
+     *     done: bool,
+     *     tokens: array{prompt: int, generated: int}
+     * }
+     */
     public function executeMinimal(string $prompt): array
     {
         return $this->execute($prompt, [
