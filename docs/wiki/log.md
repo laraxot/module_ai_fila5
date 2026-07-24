@@ -1,3 +1,10 @@
+## [2026-07-24] architecture | Ollama Actions ownership in AI
+
+- Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
+- Path: `Modules\AI\Actions\Ollama\{Chat,Generate}OllamaAction` + `ContextCompressorAction`
+- Root: `domain-actions-belong-to-domain-module` · skill `xot-is-framework-base`
+- Second brain max: healthcheck + QMD + write-back modulo
+
 ## [2026-06-11] test | pest AI suite green (36 test)
 
 - `Modules/AI/tests/TestCase` → `XotBaseTestCase` (no `RefreshDatabase`)
