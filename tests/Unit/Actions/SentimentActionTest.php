@@ -7,9 +7,11 @@ namespace Modules\AI\Tests\Unit\Actions;
 use Mockery;
 use Modules\AI\Actions\SentimentAction;
 use Modules\AI\Datas\SentimentData;
+use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 use Tests\TestCase;
 
+<<<<<<< HEAD
 uses(\Modules\AI\Tests\TestCase::class);
 // Laraxot — see module docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
@@ -26,9 +28,12 @@ uses(\Modules\AI\Tests\TestCase::class);
 // Laraxot module file — see docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
+=======
+uses(TestCase::class);
+>>>>>>> 205dfa0 (.)
 
 beforeEach(function (): void {
-    /** @var \Modules\AI\Tests\TestCase $this */
+    /** @var TestCase $this */
 });
 
 afterEach(function (): void {
@@ -38,8 +43,13 @@ Mockery::close();
 
 describe('Sentiment Action', function (): void {
     test('_analyzes_positive_sentiment_correctly', function (): void {
+<<<<<<< HEAD
         /** @var \Modules\AI\Tests\TestCase $this */
         $action = new SentimentAction;
+=======
+        /** @var TestCase $this */
+        $action = new SentimentAction();
+>>>>>>> 205dfa0 (.)
         $text = 'This is a great product with excellent features. I am very happy with it.';
 
         $result = $action->execute($text);
