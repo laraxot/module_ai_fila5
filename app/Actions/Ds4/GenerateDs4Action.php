@@ -1,0 +1,133 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\AI\Actions\Ds4;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
+use Modules\Xot\Actions\Cast\SafeIntCastAction;
+use Safe\Exceptions\JsonException;
+
+use function Safe\json_decode;
+
+use Spatie\QueueableAction\QueueableAction;
+
+class GenerateDs4Action
+{
+    use QueueableAction;
+
+    private Client $client;
+
+    /** @var array<string, float|int> */
+    private array $defaultOptions = [
+        'max_tokens' => 256,
+        'temperature' => 0.3,
+        'top_p' => 0.7,
+    ];
+
+    public function __construct()
+    {
+        $this->client = new Client([
+            'base_uri' => config('services.ds4.url', 'http://127.0.0.1:8000'),
+            'headers' => [
+                'Authorization' => 'Bearer '.config('services.ds4.token', 'dsv4-local'),
+                'Content-Type' => 'application/json',
+            ],
+            'timeout' => 120.0,
+        ]);
+    }
+
+    /**
+     * @param array{
+     *     model?: string,
+     *     stream?: bool,
+     *     options?: array<string, float|int>
+     * } $options
+     * @return array{
+     *     response: string,
+     *     done: bool,
+     *     tokens: array{prompt: int, generated: int}
+     * }
+     */
+    public function execute(string $prompt, array $options = []): array
+    {
+        $optionOverrides = $options['options'] ?? [];
+        if (! is_array($optionOverrides)) {
+            $optionOverrides = [];
+        }
+
+        $model = $options['model'] ?? config('services.ds4.model', 'deepseek-v4-flash');
+
+        $payload = [
+            'model' => $model,
+            'prompt' => $prompt,
+            'max_tokens' => $optionOverrides['max_tokens'] ?? $this->defaultOptions['max_tokens'],
+            'temperature' => $optionOverrides['temperature'] ?? $this->defaultOptions['temperature'],
+            'top_p' => $optionOverrides['top_p'] ?? $this->defaultOptions['top_p'],
+            'stream' => $options['stream'] ?? false,
+        ];
+
+        try {
+            $response = $this->client->post('/v1/completions', ['json' => $payload]);
+            $decoded = json_decode($response->getBody()->getContents(), true);
+            $data = $decoded;
+            if (! is_array($data)) {
+                $data = [];
+            }
+
+            $choices = $data['choices'] ?? [];
+            $firstChoice = is_array($choices) && count($choices) > 0 ? $choices[0] : [];
+            $usage = $data['usage'] ?? [];
+
+            return [
+                'response' => is_string($firstChoice['text'] ?? null) ? $firstChoice['text'] : '',
+                'done' => true,
+                'tokens' => [
+                    'prompt' => SafeIntCastAction::cast($usage['prompt_tokens'] ?? 0),
+                    'generated' => SafeIntCastAction::cast($usage['completion_tokens'] ?? 0),
+                ],
+            ];
+        } catch (GuzzleException|JsonException $e) {
+            Log::error('ds4 Generate API error', ['error' => $e->getMessage()]);
+            throw new \RuntimeException('ds4 API error: '.$e->getMessage(), 0, $e);
+        }
+    }
+
+    /**
+     * @return array{
+     *     response: string,
+     *     done: bool,
+     *     tokens: array{prompt: int, generated: int}
+     * }
+     */
+    public function executeOptimized(string $prompt): array
+    {
+        return $this->execute($prompt, [
+            'options' => [
+                'max_tokens' => 256,
+                'temperature' => 0.3,
+                'top_p' => 0.7,
+            ],
+        ]);
+    }
+
+    /**
+     * @return array{
+     *     response: string,
+     *     done: bool,
+     *     tokens: array{prompt: int, generated: int}
+     * }
+     */
+    public function executeMinimal(string $prompt): array
+    {
+        return $this->execute($prompt, [
+            'options' => [
+                'max_tokens' => 128,
+                'temperature' => 0.1,
+                'top_p' => 0.5,
+            ],
+        ]);
+    }
+}
