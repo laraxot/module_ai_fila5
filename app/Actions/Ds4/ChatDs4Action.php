@@ -6,6 +6,7 @@ namespace Modules\AI\Actions\Ds4;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Modules\Xot\Actions\Cast\SafeIntCastAction;
 use Safe\Exceptions\JsonException;
@@ -30,9 +31,9 @@ class ChatDs4Action
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => config('services.ds4.url', 'http://127.0.0.1:8000'),
+            'base_uri' => Config::string('services.ds4.url', 'http://127.0.0.1:8000'),
             'headers' => [
-                'Authorization' => 'Bearer '.config('services.ds4.token', 'dsv4-local'),
+                'Authorization' => 'Bearer '.Config::string('services.ds4.token', 'dsv4-local'),
                 'Content-Type' => 'application/json',
             ],
             'timeout' => 120.0,
@@ -82,10 +83,10 @@ class ChatDs4Action
                 $data = [];
             }
 
-            $choices = $data['choices'] ?? [];
-            $firstChoice = is_array($choices) && count($choices) > 0 ? $choices[0] : [];
-            $messageData = $firstChoice['message'] ?? [];
-            $usage = $data['usage'] ?? [];
+            $choices = $data['choices'] ?? null;
+            $firstChoice = is_array($choices) && is_array($choices[0] ?? null) ? $choices[0] : [];
+            $messageData = is_array($firstChoice['message'] ?? null) ? $firstChoice['message'] : [];
+            $usage = is_array($data['usage'] ?? null) ? $data['usage'] : [];
 
             return [
                 'content' => is_string($messageData['content'] ?? null) ? $messageData['content'] : '',
