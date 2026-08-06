@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Modules\Xot\Actions\Cast\SafeStringCastAction;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
@@ -18,8 +19,7 @@ class MakeAIRequestAction
     public function __construct(
         private readonly ?string $prompt = null,
         private readonly ?string $type = null,
-    ) {
-    }
+    ) {}
 
     public function execute(?string $prompt = null, ?string $type = null): string
     {
@@ -91,7 +91,7 @@ class MakeAIRequestAction
                 'Content-Type' => 'application/json',
             ])
             ->post($baseUrl.'/chat/completions', [
-                'model' => (string) config('ai.chat_model', 'gpt-4o-mini'),
+                'model' => SafeStringCastAction::cast(config('ai.chat_model', 'gpt-4o-mini')),
                 'messages' => [
                     [
                         'role' => 'system',

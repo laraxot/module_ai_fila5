@@ -9,7 +9,6 @@ use Modules\AI\Filament\Resources\AiActionProposalResource\Pages;
 use Modules\AI\Filament\Resources\AiActionProposalResource\Schemas\AiActionProposalForm;
 use Modules\AI\Models\AiActionProposal;
 use Modules\Xot\Filament\Resources\XotBaseResource;
-use Override;
 
 class AiActionProposalResource extends XotBaseResource
 {
@@ -17,8 +16,12 @@ class AiActionProposalResource extends XotBaseResource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-sparkles';
 
-    #[Override]
-    public static function getFormSchema(): array
+    /**
+     * Schema legacy del form: la sorgente di verità è AiActionProposalForm::getFormSchema().
+     *
+     * @return array<string, \Filament\Schemas\Components\Component>
+     */
+    public static function getFormSchemaOld(): array
     {
         return AiActionProposalForm::getFormSchema();
     }

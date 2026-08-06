@@ -6,6 +6,7 @@ namespace Modules\AI\Actions\Ds4;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Modules\Xot\Actions\Cast\SafeIntCastAction;
 use Safe\Exceptions\JsonException;
@@ -30,9 +31,9 @@ class GenerateDs4Action
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => config('services.ds4.url', 'http://127.0.0.1:8000'),
+            'base_uri' => Config::string('services.ds4.url', 'http://127.0.0.1:8000'),
             'headers' => [
-                'Authorization' => 'Bearer '.config('services.ds4.token', 'dsv4-local'),
+                'Authorization' => 'Bearer '.Config::string('services.ds4.token', 'dsv4-local'),
                 'Content-Type' => 'application/json',
             ],
             'timeout' => 120.0,
@@ -77,9 +78,9 @@ class GenerateDs4Action
                 $data = [];
             }
 
-            $choices = $data['choices'] ?? [];
-            $firstChoice = is_array($choices) && count($choices) > 0 ? $choices[0] : [];
-            $usage = $data['usage'] ?? [];
+            $choices = $data['choices'] ?? null;
+            $firstChoice = is_array($choices) && is_array($choices[0] ?? null) ? $choices[0] : [];
+            $usage = is_array($data['usage'] ?? null) ? $data['usage'] : [];
 
             return [
                 'response' => is_string($firstChoice['text'] ?? null) ? $firstChoice['text'] : '',
