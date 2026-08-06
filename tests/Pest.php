@@ -7,3 +7,5 @@ declare(strict_types=1);
  * Ogni file test dichiara uses(\Modules\AI\Tests\TestCase::class).
  * Vietato RefreshDatabase (dati sacri) e uses()->in() qui.
  */
+
+require_once __DIR__.'/../../Xot/tests/XotBasePest.php';
