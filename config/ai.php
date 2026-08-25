@@ -11,7 +11,7 @@ return [
     |
     | The default model to use for completions.
     */
-    'model' => env('OPENAI_MODEL', 'gpt-3.5-turbo-instruct'),
+   'model' => config('services.openai.model', 'gpt-3.5-turbo-instruct'),
 
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ return [
     |
     | The default model to use for chat completions.
     */
-    'chat_model' => env('OPENAI_CHAT_MODEL', 'gpt-3.5-turbo'),
+   'chat_model' => config('services.openai.chat_model', 'gpt-3.5-turbo'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return [
     | Controls randomness in outputs. Lower values are more deterministic.
     | Range: 0.0 - 2.0
     */
-    'temperature' => env('OPENAI_TEMPERATURE', 0.7),
+   'temperature' => config('services.openai.temperature', 0.7),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     | Maximum number of tokens to generate in the completion.
     */
-    'max_tokens' => env('OPENAI_MAX_TOKENS', 1500),
+   'max_tokens' => config('services.openai.max_tokens', 1500),
 
     /*
     |--------------------------------------------------------------------------
@@ -49,9 +49,15 @@ return [
     | Configuration for rate limiting API calls.
     */
     'rate_limit' => [
-        'max_predictions_per_request' => (int) env('AI_MAX_PREDICTIONS', 100),
-        'delay_between_calls_ms' => (int) env('AI_DELAY_MS', 1000),
-        'timeout_seconds' => (int) env('AI_TIMEOUT', 30),
+       'max_predictions_per_request' => is_numeric(config('services.openai.max_predictions', 100))
+            ? (int) config('services.openai.max_predictions', 100)
+            : 100,
+        'delay_between_calls_ms' => is_numeric(config('services.openai.delay_ms', 1000))
+            ? (int) config('services.openai.delay_ms', 1000)
+            : 1000,
+        'timeout_seconds' => is_numeric(config('services.openai.timeout', 30))
+            ? (int) config('services.openai.timeout', 30)
+            : 30,
     ],
 
     /*
@@ -61,6 +67,6 @@ return [
     |
     | Enable or disable logging for AI operations.
     */
-    'logging' => env('AI_LOGGING', true),
+   'logging' => config('services.openai.logging', true),
 
 ];

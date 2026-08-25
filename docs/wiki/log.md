@@ -1,5 +1,3 @@
-# AI Wiki Log
-
 ## [2026-04-15] init | wiki bootstrap
 - Added schema, index, and module adoption guide.
 
@@ -24,3 +22,15 @@
 - summary:
   - compiled the first durable AI module syntheses from MCP and local-first runtime docs
   - aligned the module wiki with the project-level LLM wiki model
+
+## [2026-07-12] quality | claude-audit Actions QueueableAction contract
+
+- Scope swarm: `Modules/AI`.
+- Decisione riusabile: ogni classe sotto `app/Actions` deve usare `Spatie\QueueableAction\QueueableAction` ed esporre `execute(...)`; eventuale `handle()` resta solo wrapper legacy.
+- Verifica locale aggiunta: `tests/Unit/Actions/QueueableActionContractTest.php`.
+- Nota audit: `claude-audit --static` usa euristiche di test coverage non sempre allineate ai test Pest presenti.
+
+## [2026-07-12] phpstan | prediction fallback typed actions
+
+- `GetPredictionFallbackTemplatesAction` espone template con ` list<array{...}>`, non `array<string,mixed>`.
+- `CastScalarToStringListAction::execute()` usa return nativo `array` con PHPDoc `list<string>`: `list<string>` non e un return type PHP valido.

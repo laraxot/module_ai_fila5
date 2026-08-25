@@ -19,8 +19,8 @@ use RuntimeException;
 use Webmozart\Assert\Assert;
 
 /**
- * @property \Filament\Schemas\Schema $form
- * @property \Filament\Schemas\Schema $completionForm
+ * @property Schema $form
+ * @property Schema $completionForm
  */
 class Completion extends XotBasePage implements HasForms
 {
@@ -86,16 +86,11 @@ class Completion extends XotBasePage implements HasForms
             throw new RuntimeException('Nessun utente autenticato trovato.');
         }
 
-        if (! $user instanceof Model) {
-            throw new RuntimeException('L\'utente autenticato deve essere un modello Eloquent per permettere aggiornamenti.');
-        }
-
-        /* @var Authenticatable&Model $user */
         return $user;
     }
 
     /**
-     * @return array<int, \Filament\Actions\Action>
+     * @return array<int, Action>
      */
     protected function getFormActions(): array
     {
