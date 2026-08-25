@@ -20,7 +20,11 @@ use function Safe\preg_replace;
  */
 final class GeneratePredictionDraftsAction
 {
+<<<<<<< HEAD
    use QueueableAction;
+=======
+    use QueueableAction;
+>>>>>>> laraxot/dev
 
     /**
      * @return array<int, array{
@@ -31,7 +35,11 @@ final class GeneratePredictionDraftsAction
      *   tags: array<int, string>,
      *   analysis: string,
      *   event_end_date: string,
+<<<<<<< HEAD
     *   liquidity: int,
+=======
+     *   liquidity: int,
+>>>>>>> laraxot/dev
      *   options: array<int, string>
      * }>
      */
@@ -45,7 +53,11 @@ final class GeneratePredictionDraftsAction
             return $this->fallbackDrafts($count);
         }
 
+<<<<<<< HEAD
        $response = Http::withToken($apiKey)
+=======
+        $response = Http::withToken($apiKey)
+>>>>>>> laraxot/dev
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => $this->resolveModel(),
                 'temperature' => $this->resolveTemperature(),
@@ -113,14 +125,22 @@ PROMPT;
      *   tags: array<int, string>,
      *   analysis: string,
      *   event_end_date: string,
+<<<<<<< HEAD
     *   liquidity: int,
+=======
+     *   liquidity: int,
+>>>>>>> laraxot/dev
      *   options: array<int, string>
      * }>
      */
     private function parseDrafts(string $text, int $expectedCount): array
     {
         $normalized = trim($text);
+<<<<<<< HEAD
        $normalized = $this->replaceRegex('/^```json\s*/', '', $normalized);
+=======
+        $normalized = $this->replaceRegex('/^```json\s*/', '', $normalized);
+>>>>>>> laraxot/dev
         $normalized = $this->replaceRegex('/^```\s*/', '', $normalized);
         $normalized = $this->replaceRegex('/\s*```$/', '', $normalized);
 
@@ -137,7 +157,11 @@ PROMPT;
                 continue;
             }
 
+<<<<<<< HEAD
            $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
+=======
+            $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
+>>>>>>> laraxot/dev
             $subtitle = $this->toNormalizedString(Arr::get($item, 'subtitle', ''));
             $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
             $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
@@ -170,7 +194,11 @@ PROMPT;
             return $this->fallbackDrafts($expectedCount);
         }
 
+<<<<<<< HEAD
        /** @var array<int, array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> */
+=======
+        /** @var array<int, array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> */
+>>>>>>> laraxot/dev
         return array_slice($drafts, 0, $expectedCount);
     }
 
@@ -226,7 +254,11 @@ PROMPT;
         $normalized = [];
 
         foreach ($tags as $tag) {
+<<<<<<< HEAD
            if (! is_scalar($tag)) {
+=======
+            if (! is_scalar($tag)) {
+>>>>>>> laraxot/dev
                 continue;
             }
 
@@ -265,13 +297,21 @@ PROMPT;
      *   tags: array<int, string>,
      *   analysis: string,
      *   event_end_date: string,
+<<<<<<< HEAD
     *   liquidity: int,
+=======
+     *   liquidity: int,
+>>>>>>> laraxot/dev
      *   options: array<int, string>
      * }>
      */
     private function fallbackDrafts(int $count): array
     {
+<<<<<<< HEAD
        $templates = (new GetPredictionFallbackTemplatesAction)->execute();
+=======
+        $templates = (new GetPredictionFallbackTemplatesAction)->execute();
+>>>>>>> laraxot/dev
 
         $drafts = [];
         $usedTitles = [];
@@ -281,21 +321,33 @@ PROMPT;
             $template = $templates[$templateIndex];
 
             // Generate unique title by adding index suffix for duplicates
+<<<<<<< HEAD
            Assert::string($template['title']);
+=======
+            Assert::string($template['title']);
+>>>>>>> laraxot/dev
             $baseTitle = $template['title'];
             $title = $baseTitle;
             $suffix = 1;
 
             while (in_array($title, $usedTitles, true)) {
                 // Add variation to make title unique
+<<<<<<< HEAD
                $trimmedBaseTitle = $this->replaceRegex('/\?$/', '', $baseTitle);
+=======
+                $trimmedBaseTitle = $this->replaceRegex('/\?$/', '', $baseTitle);
+>>>>>>> laraxot/dev
                 $title = $trimmedBaseTitle.' - Variante '.$suffix.'?';
                 $suffix++;
             }
 
             $usedTitles[] = $title;
 
+<<<<<<< HEAD
            Assert::string($template['subtitle']);
+=======
+            Assert::string($template['subtitle']);
+>>>>>>> laraxot/dev
             $drafts[] = [
                 'title' => $title,
                 'subtitle' => $template['subtitle'].' ('.($index + 1).')',
@@ -309,7 +361,11 @@ PROMPT;
             ];
         }
 
+<<<<<<< HEAD
        /** @var list<array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> */
+=======
+        /** @var list<array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> */
+>>>>>>> laraxot/dev
         return $drafts;
     }
 
