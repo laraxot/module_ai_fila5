@@ -8,4 +8,4 @@ declare(strict_types=1);
  * Vietato RefreshDatabase (dati sacri) e uses()->in() qui.
  */
 
-require_once __DIR__.'/../../Xot/tests/XotBasePest.php';
+pest()->extend(\Modules\AI\Tests\TestCase::class)->in(__DIR__.'/Unit', __DIR__.'/Feature');
