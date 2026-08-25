@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-Aggiornato: 2026-05-11
-## Composer / nwidart
-
-=======
 ---
 title: "AI Module Wiki Index"
 type: index
@@ -99,5 +94,4 @@ Integrazione AI locale (Ollama) e cloud (OpenRouter) per generazione contenuti, 
 Aggiornato: 2026-05-11
 ## Composer / nwidart
 
->>>>>>> laraxot/dev
 - [composer-root-minimal-nwidart](concepts/composer-root-minimal-nwidart.md) — root skeleton nwidart (modello fixcity)

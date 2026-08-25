@@ -33,11 +33,7 @@ class GeneratePredictionsAction
      * @param  array<string, mixed>  $options
      *
      * @throws Throwable
-<<<<<<< HEAD
-    *
-=======
      *
->>>>>>> laraxot/dev
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function execute(string $topic, array $options = []): PredictionData
@@ -73,11 +69,7 @@ class GeneratePredictionsAction
      */
     private function buildPrompt(string $topic, array $options): string
     {
-<<<<<<< HEAD
-       $rawCategory = $options['category'] ?? 'generico';
-=======
         $rawCategory = $options['category'] ?? 'generico';
->>>>>>> laraxot/dev
         $rawLanguage = $options['language'] ?? 'italiano';
         $category = is_scalar($rawCategory) ? trim((string) $rawCategory) : 'generico';
         $language = is_scalar($rawLanguage) ? trim((string) $rawLanguage) : 'italiano';
@@ -127,11 +119,7 @@ PROMPT;
 
     /**
      * Call OpenAI API.
-<<<<<<< HEAD
-    *
-=======
      *
->>>>>>> laraxot/dev
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function callOpenAI(string $prompt): string
@@ -150,11 +138,7 @@ PROMPT;
         ])
             ->timeout(30)
             ->post('https://api.openai.com/v1/completions', [
-<<<<<<< HEAD
-               'model' => $config['model'],
-=======
                 'model' => $config['model'],
->>>>>>> laraxot/dev
                 'prompt' => $prompt,
                 'temperature' => $config['temperature'],
                 'max_tokens' => $config['maxTokens'],
@@ -169,11 +153,7 @@ PROMPT;
                 'body' => $response->body(),
             ]);
 
-<<<<<<< HEAD
-           throw new RuntimeException('OpenAI API request failed: '.$response->body());
-=======
             throw new RuntimeException('OpenAI API request failed: '.$response->body());
->>>>>>> laraxot/dev
         }
 
         return $this->extractCompletionText($response->json());
@@ -212,11 +192,7 @@ PROMPT;
         $text = is_array($firstChoice) ? ($firstChoice['text'] ?? '') : '';
         $result = is_string($text) ? $text : '';
 
-<<<<<<< HEAD
-       $usage = $data['usage'] ?? null;
-=======
         $usage = $data['usage'] ?? null;
->>>>>>> laraxot/dev
         $totalTokens = is_array($usage) ? ($usage['total_tokens'] ?? 0) : 0;
 
         Log::debug('OpenAI API response received', [
@@ -232,21 +208,13 @@ PROMPT;
      * @return array<string, mixed>
      *
      * @throws \JsonException
-<<<<<<< HEAD
-    *
-=======
      *
->>>>>>> laraxot/dev
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
     private function parseResponse(string $response): array
     {
         // Remove markdown code blocks if present
-<<<<<<< HEAD
-       $response = $this->stripMarkdownFence($response, '/^```json\s*/i');
-=======
         $response = $this->stripMarkdownFence($response, '/^```json\s*/i');
->>>>>>> laraxot/dev
         $response = $this->stripMarkdownFence($response, '/^```\s*/i');
         $response = $this->stripMarkdownFence($response, '/\s*```$/');
         $response = trim($response);
@@ -255,11 +223,7 @@ PROMPT;
             'response_length' => strlen($response),
         ]);
 
-<<<<<<< HEAD
-       /** @var array<string, mixed> */
-=======
         /** @var array<string, mixed> */
->>>>>>> laraxot/dev
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
@@ -268,11 +232,7 @@ PROMPT;
      *
      * @param  array<string, mixed>  $data
      *
-<<<<<<< HEAD
-    * @throws InvalidArgumentException
-=======
      * @throws InvalidArgumentException
->>>>>>> laraxot/dev
      *
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
@@ -280,11 +240,7 @@ PROMPT;
     {
         Log::debug('Validating prediction data', ['data' => $data]);
 
-<<<<<<< HEAD
-       $this->validateRequiredFields($data);
-=======
         $this->validateRequiredFields($data);
->>>>>>> laraxot/dev
         $this->validateClosedAt($data);
         $this->validateTags($data);
         $this->validateLiquidityParameter($data);

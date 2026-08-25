@@ -6,9 +6,6 @@ type: concept
 
 # Context Compression Plugin (context-mode)
 
-<<<<<<< HEAD
-- [context-compression-plugin-openrouter root](../../../../../../docs/wiki/concepts/context-compression-plugin-openrouter.md)
-=======
 ## Scopo
 
 Quando una richiesta supera la context window del modello, servono due livelli:
@@ -86,4 +83,3 @@ Sempre in `laravel/opencode.json`:
 - [log wiki modulo AI](../log.md)
 - [context-mode-mcp root](../../../../../../docs/wiki/concepts/context-mode-mcp.md)
 - [context-compression-plugin-openrouter root](../../../../../../docs/wiki/concepts/context-compression-plugin-openrouter.md)
->>>>>>> laraxot/dev
