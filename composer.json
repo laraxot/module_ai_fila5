@@ -36,14 +36,7 @@
         "php": "^8.3"
     },
     "require-dev": {
-        "codewithkyrian/transformers": "^0.5.2",
-        "laravel/pint": "^1.13",
-        "nunomaduro/phpinsights": "^2.11",
-        "larastan/larastan": "*",
-        "driftingly/rector-laravel": "^2.5",
-        "symplify/phpstan-rules": "*",
-        "rector/rector": "^2.2.7",
-        "thecodingmachine/phpstan-safe-rule": "^1.2"
+        "codewithkyrian/transformers": "^0.5.2"
     },
     "repositories": [
         {
