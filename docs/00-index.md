@@ -1,30 +1,47 @@
-# 📚 AI Module - Documentation Index
+---
+title: "AI — indice della documentazione"
+description: "Documentazione del modulo AI: integrazione modelli linguistici."
+module: AI
+tags: [ai, documentazione, modulo, laraxot]
+status: active
+repository: https://github.com/laraxot/module_ai_fila5
+related:
+  - ./00-index.md
+  - ./index.md
+  - ../../../../docs/wiki/audits/docs-redundancy-audit.md
+issues: https://github.com/laraxot/module_ai_fila5/issues
+discussions: https://github.com/laraxot/module_ai_fila5/discussions
+---
 
-**Path**: `laravel/Modules/AI/docs/`  
-**Modulo**: @Modules/AI
+# AI Module - Documentation Index
 
-## 📄 Documenti
+**Path**: `laravel/Modules/AI/docs/`
+**Modulo**: `Modules/AI`
+**Last updated**: 2026-03-26
+
+## Documenti canonici del modulo
 
 ### Product
 | File | Scopo |
-|------|-------|
-| PRD.md | Product Requirements |
-| PRODUCT_ROADMAP.md | Roadmap |
-| PRODUCT_STRATEGY.md | Strategy |
-| PRODUCT_LAUNCH_PLAN.md | Launch Plan |
+|---|---|
+| [PRD.md](./PRD.md) | Product requirements |
+| [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md) | Roadmap |
+| [PRODUCT_STRATEGY.md](./PRODUCT_STRATEGY.md) | Strategy |
+| [PRODUCT_LAUNCH_PLAN.md](./PRODUCT_LAUNCH_PLAN.md) | Launch plan |
 
 ### Development
 | File | Scopo |
-|------|-------|
-| GSD_WORKFLOW.md | GSD Workflow |
-| SPRINT_PLANNING.md | Sprint Planning |
-| USER_RESEARCH.md | User Research |
+|---|---|
+| [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
+| [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
+| [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
 
-## 🔗 Riferimenti
+## Riferimenti canonici esterni al modulo
 
-- [Xot Module](../Xot/docs/00-index.md) - Base classes
-- [AGENTS.md](../../../../AGENTS.md) - Project guidelines
+- [Ralph + GSD + BMAD orchestration](../../../../bashscripts/ai/.agents/docs/architecture/ralph-gsd-bmad-orchestration.md)
+- [AI agents docs index](../../../../bashscripts/ai/.agents/docs/00-INDEX.md)
+- [AGENTS.md](../../../../AGENTS.md)
 
----
+## Nota anti-ridondanza
 
-**Ultimo Aggiornamento**: 2026-03-24
+La governance di Ralph, BMAD e GSD non va duplicata qui: questo indice deve solo rimandare al documento canonico centrale.

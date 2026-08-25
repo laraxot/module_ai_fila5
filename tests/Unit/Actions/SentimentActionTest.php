@@ -7,401 +7,273 @@ namespace Modules\AI\Tests\Unit\Actions;
 use Mockery;
 use Modules\AI\Actions\SentimentAction;
 use Modules\AI\Datas\SentimentData;
-use Tests\TestCase;
+use Modules\AI\Tests\TestCase;
+use PHPUnit\Framework\Assert;
 
-class SentimentActionTest extends TestCase
-{
-    private SentimentAction $action;
+uses(TestCase::class);
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->action = new SentimentAction;
-    }
+beforeEach(function (): void {
+    /** @var TestCase $this */
+});
 
-    /** @test */
-    public function it_analyzes_positive_sentiment_correctly(): void
-    {
-        // Arrange
+afterEach(function (): void {
+    Mockery::close();
+});
+
+describe('Sentiment Action', function (): void {
+    test('_analyzes_positive_sentiment_correctly', function (): void {
+        /** @var TestCase $this */
+        $action = new SentimentAction();
         $text = 'This is a great product with excellent features. I am very happy with it.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE')
-            ->and($result->score)->toBeGreaterThan(0);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+        Assert::assertGreaterThan(0, $result->score);
+    });
 
-    /** @test */
-    public function it_analyzes_negative_sentiment_correctly(): void
-    {
-        // Arrange
+    test('_analyzes_negative_sentiment_correctly', function (): void {
+        $action = new SentimentAction();
         $text = 'This is a bad product with terrible features. I am very unhappy with it.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('NEGATIVE')
-            ->and($result->score)->toBeGreaterThan(0);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('NEGATIVE', $result->label);
+        Assert::assertGreaterThan(0, $result->score);
+    });
 
-    /** @test */
-    public function it_analyzes_neutral_sentiment_correctly(): void
-    {
-        // Arrange
+    test('_analyzes_neutral_sentiment_correctly', function (): void {
+        $action = new SentimentAction();
         $text = 'This is a product with some features. I have mixed feelings about it.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBeIn(['POSITIVE', 'NEGATIVE']);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertContains($result->label, ['POSITIVE', 'NEGATIVE']);
+    });
 
-    /** @test */
-    public function it_handles_empty_text(): void
-    {
-        // Arrange
+    test('_handles_empty_text', function (): void {
+        $action = new SentimentAction();
         $text = '';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('NEGATIVE')
-            ->and($result->score)->toBe(0);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('NEGATIVE', $result->label);
+        Assert::assertSame(0, $result->score);
+    });
 
-    /** @test */
-    public function it_handles_text_with_only_positive_words(): void
-    {
-        // Arrange
+    test('_handles_text_with_only_positive_words', function (): void {
+        $action = new SentimentAction();
         $text = 'good great excellent positive happy';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE')
-            ->and($result->score)->toBe(1.0);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+        Assert::assertSame(1.0, $result->score);
+    });
 
-    /** @test */
-    public function it_handles_text_with_only_negative_words(): void
-    {
-        // Arrange
+    test('_handles_text_with_only_negative_words', function (): void {
+        $action = new SentimentAction();
         $text = 'bad poor terrible negative unhappy';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('NEGATIVE')
-            ->and($result->score)->toBe(1.0);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('NEGATIVE', $result->label);
+        Assert::assertSame(1.0, $result->score);
+    });
 
-    /** @test */
-    public function it_handles_text_with_mixed_sentiment(): void
-    {
-        // Arrange
+    test('_handles_text_with_mixed_sentiment', function (): void {
+        $action = new SentimentAction();
         $text = 'This product is good but has some bad aspects. Overall I am happy but also concerned.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBeIn(['POSITIVE', 'NEGATIVE']);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertContains($result->label, ['POSITIVE', 'NEGATIVE']);
+    });
 
-    /** @test */
-    public function it_handles_case_insensitive_sentiment_analysis(): void
-    {
-        // Arrange
+    test('_handles_case_insensitive_sentiment_analysis', function (): void {
+        $action = new SentimentAction();
         $text = 'This is a GREAT product with EXCELLENT features. I am VERY HAPPY with it.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_special_characters(): void
-    {
-        // Arrange
+    test('_handles_text_with_special_characters', function (): void {
+        $action = new SentimentAction();
         $text = 'This is a great product! I am very happy with it. :)';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_numbers(): void
-    {
-        // Arrange
+    test('_handles_text_with_numbers', function (): void {
+        $action = new SentimentAction();
         $text = 'I rate this product 5 out of 5. It is excellent and I am very happy.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_punctuation(): void
-    {
-        // Arrange
+    test('_handles_text_with_punctuation', function (): void {
+        $action = new SentimentAction();
         $text = 'This product is terrible!!! I am very unhappy with it...';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('NEGATIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('NEGATIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_multiple_sentences(): void
-    {
-        // Arrange
+    test('_handles_text_with_multiple_sentences', function (): void {
+        $action = new SentimentAction();
         $text = 'This is a great product. I am very happy with it. The features are excellent.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_technical_terms(): void
-    {
-        // Arrange
+    test('_handles_text_with_technical_terms', function (): void {
+        $action = new SentimentAction();
         $text = 'The API integration is good. The documentation is excellent. I am happy with the performance.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_emotions(): void
-    {
-        // Arrange
+    test('_handles_text_with_emotions', function (): void {
+        $action = new SentimentAction();
         $text = 'I feel great about this decision. I am so happy and excited. This is wonderful news.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_negations(): void
-    {
-        // Arrange
+    test('_handles_text_with_negations', function (): void {
+        $action = new SentimentAction();
         $text = 'This is not a good product. I am not happy with it.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('NEGATIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('NEGATIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_intensifiers(): void
-    {
-        // Arrange
+    test('_handles_text_with_intensifiers', function (): void {
+        $action = new SentimentAction();
         $text = 'This is extremely good. I am very very happy. The features are absolutely excellent.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_comparisons(): void
-    {
-        // Arrange
+    test('_handles_text_with_comparisons', function (): void {
+        $action = new SentimentAction();
         $text = 'This product is better than the previous one. I am happier now.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_questions(): void
-    {
-        // Arrange
+    test('_handles_text_with_questions', function (): void {
+        $action = new SentimentAction();
         $text = 'Is this a good product? I am happy but also wondering about the quality.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBeIn(['POSITIVE', 'NEGATIVE']);
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertContains($result->label, ['POSITIVE', 'NEGATIVE']);
+    });
 
-    /** @test */
-    public function it_handles_text_with_quotes(): void
-    {
-        // Arrange
+    test('_handles_text_with_quotes', function (): void {
+        $action = new SentimentAction();
         $text = 'The customer said "This is excellent!" and I agree completely.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_abbreviations(): void
-    {
-        // Arrange
+    test('_handles_text_with_abbreviations', function (): void {
+        $action = new SentimentAction();
         $text = 'This is gr8! I am v happy with it. The features are excellent.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_foreign_words(): void
-    {
-        // Arrange
+    test('_handles_text_with_foreign_words', function (): void {
+        $action = new SentimentAction();
         $text = 'This product is bon (good in French). I am molto felice (very happy in Italian).';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_technical_acronyms(): void
-    {
-        // Arrange
+    test('_handles_text_with_technical_acronyms', function (): void {
+        $action = new SentimentAction();
         $text = 'The API is good. The UI/UX is excellent. I am happy with the MVP.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_measurements(): void
-    {
-        // Arrange
+    test('_handles_text_with_measurements', function (): void {
+        $action = new SentimentAction();
         $text = 'The 100% uptime is excellent. The 5-star rating is great. I am very happy.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_time_expressions(): void
-    {
-        // Arrange
+    test('_handles_text_with_time_expressions', function (): void {
+        $action = new SentimentAction();
         $text = 'I am happy today. Yesterday was great. Tomorrow will be excellent.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
 
-    /** @test */
-    public function it_handles_text_with_conditional_statements(): void
-    {
-        // Arrange
+    test('_handles_text_with_conditional_statements', function (): void {
+        $action = new SentimentAction();
         $text = 'If this works, I will be happy. The current state is good.';
 
-        // Act
-        /** @phpstan-ignore-next-line property.notFound */
-        $result = $this->action->execute($text);
+        $result = $action->execute($text);
 
-        // Assert
-        expect($result)->toBeInstanceOf(SentimentData::class)
-            ->and($result->label)->toBe('POSITIVE');
-    }
-
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
-    }
-}
+        Assert::assertInstanceOf(SentimentData::class, $result);
+        Assert::assertSame('POSITIVE', $result->label);
+    });
+});

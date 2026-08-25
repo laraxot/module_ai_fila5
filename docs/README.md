@@ -1,4 +1,23 @@
+---
+title: "AI Module Documentation"
+type: documentation
+tags: [module, documentation]
+created: 2026-06-05
+updated: 2026-07-24
+---
+
 # 🤖 AI Module - Integrazione MCP
+
+## Ownership Actions (obbligatorio)
+
+Le Actions di dominio AI (Ollama, compression, predictions) vivono in
+`app/Actions/` di **questo** modulo — mai in `Modules/Xot/app/Actions/AI/`.
+
+| Doc | Link |
+|-----|------|
+| Wiki ownership | [wiki/concepts/ollama-actions-ownership.md](wiki/concepts/ollama-actions-ownership.md) |
+| Move 2026-07-24 | [ollama-actions-moved-from-xot.md](ollama-actions-moved-from-xot.md) |
+| Root rule | [domain-actions-belong-to-domain-module](../../../../docs/wiki/rules/domain-actions-belong-to-domain-module.md) |
 
 ## 📋 Quick Reference
 | Categoria | Guida | File |
@@ -86,3 +105,26 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 ## AI Workflows
 - [AI Methodologies](./ai-methodologies.md)
 - [OpenViking Integration Guide](../../../../docs/openviking-integration.md)
+
+## LLM Wiki Workflow
+
+- Local compiled wiki: [./wiki/README.md](./wiki/README.md)
+- Local compiled index: [./wiki/index.md](./wiki/index.md)
+- Project wiki layer: [../../../../docs/wiki/README.md](../../../../docs/wiki/README.md)
+- Project compiled index: [../../../../docs/wiki/index.md](../../../../docs/wiki/index.md)
+- Adoption notes and QMD: [../../../../docs/project/karpathy-llm-wiki-adoption.md](../../../../docs/project/karpathy-llm-wiki-adoption.md), [../../../../docs/project/qmd-local-docs-search.md](../../../../docs/project/qmd-local-docs-search.md)
+- [AI LLM Wiki](./llm-wiki.md)
+
+
+## Standard Rules & Workflow
+
+- [[BMAD Method](../../../../docs/wiki/concepts/bmad-method.md)]
+- [[Context Engineering](../../../../docs/wiki/concepts/context-engineering.md)]
+- [[LLM Wiki Governance](../../../../docs/wiki/concepts/llm-wiki-governance.md)]
+
+## Documentation
+
+- [On-Demand Pattern](./ON-DEMAND-PATTERN.md) — Pattern per caricamento efficiente
+- [QMD Setup](./QMD-SETUP.md) — Configurazione ricerca locale
+- [Performance](./PERFORMANCE-OPTIMIZATION.md) — Metriche e best practice
+- [Project Structure](./PROJECT-STRUCTURE.md) — Directory layout
