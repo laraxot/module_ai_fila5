@@ -20,11 +20,7 @@ use function Safe\file_get_contents;
 
 class FineTuning extends XotBasePage
 {
-<<<<<<< HEAD
-   public string $learningRate = '0.001';
-=======
     public string $learningRate = '0.001';
->>>>>>> laraxot/dev
 
     public int $batchSize = 32;
 
@@ -32,11 +28,7 @@ class FineTuning extends XotBasePage
 
     public string $dataset = 'dataset1';
 
-<<<<<<< HEAD
-   public ?TemporaryUploadedFile $datasetFile = null;
-=======
     public ?TemporaryUploadedFile $datasetFile = null;
->>>>>>> laraxot/dev
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
 
@@ -87,22 +79,14 @@ class FineTuning extends XotBasePage
     protected function getFormSchema(): array
     {
         return [
-<<<<<<< HEAD
-           TextInput::make('learningRate')
-=======
             TextInput::make('learningRate')
->>>>>>> laraxot/dev
                 ->label('Learning Rate')
                 ->required()
                 ->numeric()
                 ->minValue(0)
                 ->helperText('Set the learning rate for fine-tuning'),
 
-<<<<<<< HEAD
-           TextInput::make('batchSize')
-=======
             TextInput::make('batchSize')
->>>>>>> laraxot/dev
                 ->label('Batch Size')
                 ->required()
                 ->numeric()
@@ -123,11 +107,7 @@ class FineTuning extends XotBasePage
                     'dataset2' => 'Dataset 2',
                 ])
                 ->required(),
-<<<<<<< HEAD
-           FileUpload::make('datasetFile')
-=======
             FileUpload::make('datasetFile')
->>>>>>> laraxot/dev
                 ->label('Dataset File')
                 ->required()
                 ->helperText('Upload the dataset file for training'),
@@ -139,11 +119,7 @@ class FineTuning extends XotBasePage
      */
     protected function sendFineTuningRequest(array $data, string $endpoint): Response
     {
-<<<<<<< HEAD
-       Assert::string($datasetFile = $data['dataset_file']);
-=======
         Assert::string($datasetFile = $data['dataset_file']);
->>>>>>> laraxot/dev
         Assert::string($content = file_get_contents($datasetFile));
 
         return Http::attach('dataset_file', $content, basename($datasetFile))

@@ -19,11 +19,7 @@ class SentimentAction
 {
     use QueueableAction;
 
-<<<<<<< HEAD
    public function execute(string $prompt): SentimentData
-=======
-    public function execute(string $prompt): SentimentData
->>>>>>> laraxot/dev
     {
         $analyzer = class_exists('Codewithkyrian\Transformers\Transformers')
             ? app(AnalyzeTransformersSentimentAction::class)
