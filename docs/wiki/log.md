@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 ## [2026-07-24] architecture | Ollama Actions ownership in AI
 
 - Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
@@ -42,7 +40,6 @@
 - aggiornata documentazione del modulo:
   - `concepts/context-compression-plugin.md`
 
->>>>>>> laraxot/dev
 ## [2026-04-15] init | wiki bootstrap
 - Added schema, index, and module adoption guide.
 

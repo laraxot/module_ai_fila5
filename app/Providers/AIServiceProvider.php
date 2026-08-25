@@ -12,11 +12,7 @@ class AIServiceProvider extends XotBaseServiceProvider
 {
     public string $name = 'AI'; // lower del nome
 
-<<<<<<< HEAD
-   public function register(): void
-=======
     public function register(): void
->>>>>>> laraxot/dev
     {
         parent::register();
 
