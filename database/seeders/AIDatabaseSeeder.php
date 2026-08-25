@@ -8,7 +8,11 @@ use Illuminate\Database\Seeder;
 
 class AIDatabaseSeeder extends Seeder
 {
+<<<<<<< HEAD
    public function run(): void
+=======
+    public function run(): void
+>>>>>>> laraxot/dev
     {
         $this->call([
             AiThreadSeeder::class,

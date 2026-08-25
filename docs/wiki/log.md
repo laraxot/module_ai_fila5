@@ -1,3 +1,48 @@
+<<<<<<< HEAD
+=======
+## [2026-07-24] architecture | Ollama Actions ownership in AI
+
+- Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
+- Path: `Modules\AI\Actions\Ollama\{Chat,Generate}OllamaAction` + `ContextCompressorAction`
+- Root: `domain-actions-belong-to-domain-module` · skill `xot-is-framework-base`
+- Second brain max: healthcheck + QMD + write-back modulo
+
+## [2026-06-11] test | pest AI suite green (36 test)
+
+- `Modules/AI/tests/TestCase` → `XotBaseTestCase` (no `RefreshDatabase`)
+- `OpenAiHttpFake` per `Http::fake` e `OpenAI::fake` / `CreateResponse::fake`
+- `BasicSentimentAnalyzer`: word boundary + testo vuoto
+- `Menu`/`BaseTreeModel` Cms: `TypedHasRecursiveRelationships` (fix fatal migrazioni)
+- Wiki: [pest-test-suite-fixes.md](troubleshooting/pest-test-suite-fixes.md)
+
+## [2026-06-05] docs | HackerNoon harness — tips 001-022 in wiki locale
+
+- Stub/checklist: second-brain → canon Xot, ai-harness, [hackernoon map](../../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md), [llm-wiki.txt](../../../../../bashscripts/tools/prompts/llm-wiki.txt)
+- GitHub: [#272](https://github.com/laraxot/base_fixcity_fila5/issues/272) / [D#273](https://github.com/laraxot/base_fixcity_fila5/discussions/273)
+
+# AI Wiki Log
+
+## [2026-05-11] ops | opencode runtime allineato a context-compression
+- corretto il punto operativo da `.agents/config.json` a `laravel/opencode.json`.
+- documentato che OpenCode abilita `provider.openrouter.options.plugins = [{ "id": "context-compression" }]`.
+- documentato che `context-mode` e `qmd` sono MCP locali di supporto e che le cache QMD devono stare fuori repo in `${HOME}/.cache/fixcity/...`.
+
+## [2026-05-04] ingest | bashscripts agents/codex skill mirror
+
+- Aggiunta pagina `comparisons/bashscripts-agents-codex-skill-mirror.md` (ponte verso inventario bashscripts 252/252).
+- Aggiornato `index.md` (tabella Compiled Pages).
+
+## [2026-04-28] ops | context-compression plugin install + config + verify
+- installato/aggiornato `context-mode@latest` (versione rilevata: `1.0.103`).
+- ripulito `.agents/config.json` da marker di merge e validato JSON.
+- configurato provider OpenRouter con plugin:
+  - `provider.openrouter.options.plugins = [{ "id": "context-compression" }]`
+- configurato MCP server locale:
+  - `mcpServers.context-mode` con `npx -y context-mode`
+- aggiornata documentazione del modulo:
+  - `concepts/context-compression-plugin.md`
+
+>>>>>>> laraxot/dev
 ## [2026-04-15] init | wiki bootstrap
 - Added schema, index, and module adoption guide.
 
