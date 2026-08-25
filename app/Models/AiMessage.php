@@ -32,13 +32,13 @@ use Modules\Xot\Models\XotBaseModel;
  */
 class AiMessage extends XotBaseModel
 {
-    public const ROLE_USER = 'user';
+    public const string ROLE_USER = 'user';
 
-    public const ROLE_ASSISTANT = 'assistant';
+    public const string ROLE_ASSISTANT = 'assistant';
 
-    public const ROLE_TOOL = 'tool';
+    public const string ROLE_TOOL = 'tool';
 
-    public const ROLE_SYSTEM = 'system';
+    public const string ROLE_SYSTEM = 'system';
 
     /**
      * @var list<string>

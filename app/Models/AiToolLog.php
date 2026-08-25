@@ -36,9 +36,9 @@ use Modules\Xot\Models\XotBaseModel;
  */
 class AiToolLog extends XotBaseModel
 {
-    public const STATUS_OK = 'ok';
+    public const string STATUS_OK = 'ok';
 
-    public const STATUS_ERROR = 'error';
+    public const string STATUS_ERROR = 'error';
 
     /**
      * @var list<string>
