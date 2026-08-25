@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 return [
     'name' => 'AI',
+<<<<<<< HEAD
    'description' => 'Integrazione AI e fine-tuning',
+=======
+    'description' => 'Integrazione AI e fine-tuning',
+>>>>>>> laraxot/dev
     'icon' => 'ai-icon',
     'navigation' => [
         'enabled' => true,

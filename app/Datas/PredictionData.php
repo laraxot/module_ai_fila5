@@ -13,7 +13,11 @@ use function Safe\json_decode;
  */
 class PredictionData extends Data
 {
+<<<<<<< HEAD
    public string $title = '';
+=======
+    public string $title = '';
+>>>>>>> laraxot/dev
 
     public string $description = '';
 
@@ -56,7 +60,11 @@ class PredictionData extends Data
             'excerpt' => $this->excerpt,
             'category_name' => $this->category,
             'tags' => $this->tags,
+<<<<<<< HEAD
            'closed_at' => $this->closedAt,
+=======
+            'closed_at' => $this->closedAt,
+>>>>>>> laraxot/dev
             'ends_at' => $this->endsAt,
             'liquidity_parameter' => $this->liquidityParameter,
             'stocks_count' => $this->stocksCount,
@@ -74,6 +82,10 @@ class PredictionData extends Data
      */
     public static function fromOpenAIResponse(array $data): self
     {
+<<<<<<< HEAD
        return OpenAiPredictionMapper::toPredictionData($data);
+=======
+        return OpenAiPredictionMapper::toPredictionData($data);
+>>>>>>> laraxot/dev
     }
 }

@@ -33,7 +33,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'PHP is a server-side scripting language designed for web development.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows([
@@ -61,7 +65,11 @@ describe('Completion Action', function (): void {
             ])
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -77,7 +85,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'No prompt provided.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows([
@@ -96,7 +108,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -109,7 +125,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'Response to long prompt.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 250]);
@@ -124,7 +144,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -138,7 +162,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'The meaning of life is a philosophical question.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 15]);
@@ -153,7 +181,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -166,7 +198,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'PHP es un lenguaje de programación. PHP is a programming language.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 12]);
@@ -181,7 +217,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -194,7 +234,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'return $n <= 1 ? 1 : $n * factorial($n - 1); }';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 20]);
@@ -209,7 +253,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -222,7 +270,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'SOLID principles are five design principles for object-oriented programming.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 10]);
@@ -237,7 +289,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -250,7 +306,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'Laravel best practices include using Eloquent ORM, following PSR standards, and implementing proper validation.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 12]);
@@ -265,7 +325,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
@@ -278,7 +342,11 @@ describe('Completion Action', function (): void {
         $expectedText = 'Once upon a time, there was a developer named Alex who found a bug that glowed with an otherworldly light.';
 
         $mockChoice = Mockery::mock(CreateResponseChoice::class);
+<<<<<<< HEAD
        $mockChoice->allows(['text' => $expectedText]);
+=======
+        $mockChoice->allows(['text' => $expectedText]);
+>>>>>>> laraxot/dev
 
         $mockUsage = Mockery::mock(CreateResponseUsage::class);
         $mockUsage->allows(['promptTokens' => 15]);
@@ -293,7 +361,11 @@ describe('Completion Action', function (): void {
             ->once()
             ->andReturn($mockResponse);
 
+<<<<<<< HEAD
        $result = $action->execute($prompt);
+=======
+        $result = $action->execute($prompt);
+>>>>>>> laraxot/dev
 
         Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
