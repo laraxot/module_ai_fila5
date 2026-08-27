@@ -19,7 +19,7 @@ class SentimentAction
 {
     use QueueableAction;
 
-    public function execute(string $prompt): SentimentData
+   public function execute(string $prompt): SentimentData
     {
         $analyzer = class_exists('Codewithkyrian\Transformers\Transformers')
             ? app(AnalyzeTransformersSentimentAction::class)
