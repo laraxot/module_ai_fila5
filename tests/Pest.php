@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Modules\AI\Tests\TestCase;
 
 /*
  * Bootstrap Pest — modulo AI.
@@ -8,4 +9,4 @@ declare(strict_types=1);
  * Vietato RefreshDatabase (dati sacri) e uses()->in() qui.
  */
 
-pest()->extend(\Modules\AI\Tests\TestCase::class)->in(__DIR__.'/Unit', __DIR__.'/Feature');
+pest()->extend(TestCase::class)->in(__DIR__.'/Unit', __DIR__.'/Feature');

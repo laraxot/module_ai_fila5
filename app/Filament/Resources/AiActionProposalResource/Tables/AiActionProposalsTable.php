@@ -29,7 +29,7 @@ class AiActionProposalsTable extends XotBaseResourceTable
             ->color('success')
             ->requiresConfirmation()
             ->visible(
-                static fn (AiActionProposal $record): bool => AiActionProposal::STATUS_PENDING === $record->status
+                static fn (AiActionProposal $record): bool => $record->status === AiActionProposal::STATUS_PENDING
             )
             ->action(function (AiActionProposal $record): void {
                 app(ConfirmAiActionProposalAction::class)->execute($record, (int) Auth::id());
@@ -41,7 +41,7 @@ class AiActionProposalsTable extends XotBaseResourceTable
             ->color('danger')
             ->requiresConfirmation()
             ->visible(
-                static fn (AiActionProposal $record): bool => AiActionProposal::STATUS_PENDING === $record->status
+                static fn (AiActionProposal $record): bool => $record->status === AiActionProposal::STATUS_PENDING
             )
             ->action(function (AiActionProposal $record): void {
                 app(CancelAiActionProposalAction::class)->execute($record);
