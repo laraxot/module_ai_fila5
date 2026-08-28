@@ -10,8 +10,6 @@ use Modules\AI\Datas\SentimentData;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
-uses(TestCase::class);
-
 beforeEach(function (): void {
     /** @var TestCase $this */
 });
