@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
+use Modules\AI\Tests\TestCase;
+
 /*
  * Bootstrap Pest — modulo AI.
- * Ogni file test dichiara da sé uses(\Modules\AI\Tests\TestCase::class).
- * Vietato RefreshDatabase (dati sacri) e pest()->extend()->in() / uses()->in() qui:
- * toccano le classi @internal Pest\Configuration e Pest\PendingCalls\UsesCall
- * (PHPStan method.internalClass) e sono comunque ridondanti visto che ogni file
- * dichiara già il proprio binding.
+ * `pest()->extend(TestCase::class)->in(...)` è la forma **consigliata** (XOT-5.41).
+ * Non duplicare `uses(TestCase::class)` nei file: XOR → TestCaseAlreadyInUse.
+ * Vietato RefreshDatabase (dati sacri).
  */
+pest()->extend(TestCase::class)->in(__DIR__.'/Unit', __DIR__.'/Feature');
