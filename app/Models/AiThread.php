@@ -7,7 +7,7 @@ namespace Modules\AI\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Modules\TechPlanner\Models\Profile;
+use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Models\XotBaseModel;
 
 /**
@@ -15,14 +15,14 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * A persisted conversation thread between a user and the AI assistant.
  *
- * @property-read Profile|null $creator
+ * @property-read ProfileContract|null $creator
  * @property-read Collection<int, AiMessage> $messages
  * @property-read int|null $messages_count
  * @property-read Collection<int, AiActionProposal> $proposals
  * @property-read int|null $proposals_count
  * @property-read Collection<int, AiToolLog> $toolLogs
  * @property-read int|null $tool_logs_count
- * @property-read Profile|null $updater
+ * @property-read ProfileContract|null $updater
  *
  * @method static Builder<static>|AiThread newModelQuery()
  * @method static Builder<static>|AiThread newQuery()
