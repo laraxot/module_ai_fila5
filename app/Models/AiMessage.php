@@ -6,7 +6,6 @@ namespace Modules\AI\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Modules\TechPlanner\Models\Profile;
 use Modules\Xot\Models\XotBaseModel;
 
 /**
@@ -14,9 +13,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * A single message (user|assistant|tool|system) within an AiThread.
  *
- * @property-read Profile|null $creator
  * @property-read AiThread|null $thread
- * @property-read Profile|null $updater
  *
  * @method static Builder<static>|AiMessage newModelQuery()
  * @method static Builder<static>|AiMessage newQuery()
