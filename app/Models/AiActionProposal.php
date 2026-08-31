@@ -7,7 +7,7 @@ namespace Modules\AI\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Modules\TechPlanner\Models\Profile;
+use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Models\XotBaseModel;
 
 /**
@@ -34,9 +34,9 @@ use Modules\Xot\Models\XotBaseModel;
  * @property string|null $error
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Profile|null $creator
+ * @property-read ProfileContract|null $creator
  * @property-read AiThread|null $thread
- * @property-read Profile|null $updater
+ * @property-read ProfileContract|null $updater
  *
  * @method static Builder<static>|AiActionProposal newModelQuery()
  * @method static Builder<static>|AiActionProposal newQuery()
