@@ -34,11 +34,12 @@ use Modules\Xot\Models\XotBaseModel;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read AiThread $thread
- *
  * @method static Builder<static>|AiActionProposal newModelQuery()
  * @method static Builder<static>|AiActionProposal newQuery()
  * @method static Builder<static>|AiActionProposal query()
- *
+ * @property-read \Modules\Quaeris\Models\Profile|null $creator
+ * @property-read \Modules\Quaeris\Models\Profile|null $deleter
+ * @property-read \Modules\Quaeris\Models\Profile|null $updater
  * @mixin \Eloquent
  */
 class AiActionProposal extends XotBaseModel

@@ -27,11 +27,12 @@ use Modules\Xot\Models\XotBaseModel;
  * @property Carbon|null $updated_at
  * @property-read AiThread $thread
  * @property-read AiActionProposal|null $proposal
- *
  * @method static Builder<static>|AiToolLog newModelQuery()
  * @method static Builder<static>|AiToolLog newQuery()
  * @method static Builder<static>|AiToolLog query()
- *
+ * @property-read \Modules\Quaeris\Models\Profile|null $creator
+ * @property-read \Modules\Quaeris\Models\Profile|null $deleter
+ * @property-read \Modules\Quaeris\Models\Profile|null $updater
  * @mixin \Eloquent
  */
 class AiToolLog extends XotBaseModel

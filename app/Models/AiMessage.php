@@ -23,11 +23,12 @@ use Modules\Xot\Models\XotBaseModel;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read AiThread $thread
- *
  * @method static Builder<static>|AiMessage newModelQuery()
  * @method static Builder<static>|AiMessage newQuery()
  * @method static Builder<static>|AiMessage query()
- *
+ * @property-read \Modules\Quaeris\Models\Profile|null $creator
+ * @property-read \Modules\Quaeris\Models\Profile|null $deleter
+ * @property-read \Modules\Quaeris\Models\Profile|null $updater
  * @mixin \Eloquent
  */
 class AiMessage extends XotBaseModel

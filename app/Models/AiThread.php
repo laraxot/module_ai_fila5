@@ -26,11 +26,15 @@ use Modules\Xot\Models\XotBaseModel;
  * @property-read Collection<int, AiMessage> $messages
  * @property-read Collection<int, AiActionProposal> $proposals
  * @property-read Collection<int, AiToolLog> $toolLogs
- *
  * @method static Builder<static>|AiThread newModelQuery()
  * @method static Builder<static>|AiThread newQuery()
  * @method static Builder<static>|AiThread query()
- *
+ * @property-read \Modules\Quaeris\Models\Profile|null $creator
+ * @property-read \Modules\Quaeris\Models\Profile|null $deleter
+ * @property-read int|null $messages_count
+ * @property-read int|null $proposals_count
+ * @property-read int|null $tool_logs_count
+ * @property-read \Modules\Quaeris\Models\Profile|null $updater
  * @mixin \Eloquent
  */
 class AiThread extends XotBaseModel
