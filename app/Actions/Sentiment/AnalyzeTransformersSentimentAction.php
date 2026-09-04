@@ -14,7 +14,7 @@ final class AnalyzeTransformersSentimentAction
     use QueueableAction;
 
     public function __construct(
-        private readonly AnalyzeBasicSentimentAction $analyzeBasicSentimentAction,
+        private readonly AnalyzeBasicSentimentAction $basicSentiment,
     ) {
     }
 
@@ -27,7 +27,7 @@ final class AnalyzeTransformersSentimentAction
             error_log('Transformers sentiment pipeline disabled; using basic fallback.');
         }
 
-        return $this->analyzeBasicSentimentAction->execute($text);
+        return $this->basicSentiment->execute($text);
     }
 
     private function canUseTransformersPipeline(): bool

@@ -33,6 +33,17 @@ e un singolo metodo pubblico `execute(...)`.
   sono stati inlineati come metodi privati statici (`toString`, `toNullableString`,
   `toStringList`) nel mapper. Originale ritirato a `.bak`.
 
+## Aggiornamento 2026-09-04 (quality gate PHPMD)
+
+`Actions/Predict/GetPredictionDraftFallbackTemplatesAction` descritta al punto sopra
+**non risultava piu cablata**: `GeneratePredictionDraftsAction::fallbackDrafts()` usa
+in realta `Actions/Prediction/GetPredictionFallbackTemplatesAction` (namespace e nome
+diversi). La classe in `Actions/Predict/` era quindi codice morto (0 chiamanti nel
+monorepo, solo citata in questa doc) oltre che un finding PHPMD `LongClassName`
+(42 caratteri, soglia 40). Ritirata a `.bak` nello stesso modo delle altre voci di
+questa pagina. Riferimento vivo per i template di fallback resta
+`Actions/Prediction/GetPredictionFallbackTemplatesAction`.
+
 ## Effetto
 
 - `app/Services/` e `app/Support/` non contengono piu file `.php` (solo `.bak`), quindi
