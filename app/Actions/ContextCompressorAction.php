@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions;
 
-use OpenAI\OpenAI;
+use OpenAI;
 use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\preg_split;
@@ -41,14 +41,11 @@ class ContextCompressorAction
     {
         try {
             $apiKey = getenv('OPENAI_API_KEY');
-            if (! class_exists('OpenAI\OpenAI') || ! is_string($apiKey) || $apiKey === '') {
+            if (! class_exists('OpenAI') || ! is_string($apiKey) || $apiKey === '') {
                 return null;
             }
 
             $client = OpenAI::client($apiKey);
-            if (! is_object($client)) {
-                return null;
-            }
 
             $clientVars = get_object_vars($client);
             $responses = $clientVars['responses'] ?? null;
@@ -71,26 +68,58 @@ class ContextCompressorAction
 
     private static function extractCompressedText(mixed $response): ?string
     {
-        if (! is_array($response) || ! isset($response['output']) || ! is_array($response['output'])) {
+        $output = self::extractOutputItems($response);
+        if ($output === null) {
             return null;
         }
 
-        foreach ($response['output'] as $outputItem) {
-            if (! is_array($outputItem) || ! isset($outputItem['content']) || ! is_array($outputItem['content'])) {
-                continue;
-            }
-
-            foreach ($outputItem['content'] as $contentItem) {
-                if (is_array($contentItem) && isset($contentItem['text']) && is_string($contentItem['text'])) {
-                    $textOut = trim($contentItem['text']);
-                    if ($textOut !== '') {
-                        return $textOut;
-                    }
-                }
+        foreach ($output as $outputItem) {
+            $text = self::extractTextFromOutputItem($outputItem);
+            if ($text !== null) {
+                return $text;
             }
         }
 
         return null;
+    }
+
+    /**
+     * @return array<mixed>|null
+     */
+    private static function extractOutputItems(mixed $response): ?array
+    {
+        if (! is_array($response) || ! isset($response['output']) || ! is_array($response['output'])) {
+            return null;
+        }
+
+        return $response['output'];
+    }
+
+    private static function extractTextFromOutputItem(mixed $outputItem): ?string
+    {
+        if (! is_array($outputItem) || ! isset($outputItem['content']) || ! is_array($outputItem['content'])) {
+            return null;
+        }
+
+        foreach ($outputItem['content'] as $contentItem) {
+            $text = self::extractTextFromContentItem($contentItem);
+            if ($text !== null) {
+                return $text;
+            }
+        }
+
+        return null;
+    }
+
+    private static function extractTextFromContentItem(mixed $contentItem): ?string
+    {
+        if (! is_array($contentItem) || ! isset($contentItem['text']) || ! is_string($contentItem['text'])) {
+            return null;
+        }
+
+        $textOut = trim($contentItem['text']);
+
+        return $textOut === '' ? null : $textOut;
     }
 
     private static function extractiveFallback(string $text, int $targetChars): string

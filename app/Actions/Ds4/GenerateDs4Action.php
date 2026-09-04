@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Modules\Xot\Actions\Cast\SafeIntCastAction;
+use RuntimeException;
 use Safe\Exceptions\JsonException;
 
 use function Safe\json_decode;
@@ -92,7 +93,7 @@ class GenerateDs4Action
             ];
         } catch (GuzzleException|JsonException $e) {
             Log::error('ds4 Generate API error', ['error' => $e->getMessage()]);
-            throw new \RuntimeException('ds4 API error: '.$e->getMessage(), 0, $e);
+            throw new RuntimeException('ds4 API error: '.$e->getMessage(), 0, $e);
         }
     }
 
