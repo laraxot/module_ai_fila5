@@ -19,7 +19,7 @@ final class AnalyzeTransformersSentimentAction
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array{label: string, score: int|float, warning: string}
      */
     public function execute(string $text): array
     {
