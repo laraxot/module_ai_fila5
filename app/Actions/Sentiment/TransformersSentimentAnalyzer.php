@@ -14,7 +14,7 @@ class TransformersSentimentAnalyzer implements SentimentAnalyzer
     /**
      * {@inheritDoc}
      *
-     * @return array<string, mixed>
+     * @return array{label: string, score: int|float, warning: string}
      */
     public function analyze(string $text): array
     {

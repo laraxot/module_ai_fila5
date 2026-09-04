@@ -10,7 +10,17 @@ final class GetPredictionFallbackTemplatesAction
 {
     use QueueableAction;
 
-    /** @return array<int, array<string, mixed>> */
+    /**
+     * @return array<int, array{
+     *   category: string,
+     *   title: string,
+     *   subtitle: string,
+     *   description: string,
+     *   analysis: string,
+     *   tags: list<string>,
+     *   options: list<string>
+     * }>
+     */
     public function execute(): array
     {
         return [
