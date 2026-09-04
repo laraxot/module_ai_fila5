@@ -133,37 +133,10 @@ PROMPT;
         $drafts = [];
 
         foreach ($decoded as $item) {
-            if (! is_array($item)) {
-                continue;
+            $draft = $this->parseDraftItem($item);
+            if ($draft !== null) {
+                $drafts[] = $draft;
             }
-
-            $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
-            $subtitle = $this->toNormalizedString(Arr::get($item, 'subtitle', ''));
-            $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
-            $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
-            $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
-            $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
-            /** @var array<int, mixed> $tags */
-            $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
-            $rawLiquidity = Arr::get($item, 'liquidity', 5000);
-            $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
-            $options = $this->normalizeOptions(Arr::get($item, 'options', []));
-
-            if ($title === '' || $description === '' || $analysis === '') {
-                continue;
-            }
-
-            $drafts[] = [
-                'title' => Str::limit($title, 140, ''),
-                'subtitle' => $subtitle,
-                'description' => $description,
-                'category' => $category !== '' ? $category : 'Altro',
-                'tags' => $this->normalizeTags($tags),
-                'analysis' => $analysis,
-                'event_end_date' => $this->normalizeDate($eventEndDate),
-                'liquidity' => max(1000, min(50000, $liquidity)),
-                'options' => $options,
-            ];
         }
 
         if (count($drafts) < $expectedCount) {
@@ -172,6 +145,54 @@ PROMPT;
 
         /** @var array<int, array{title: string, subtitle: string, description: string, category: string, tags: array<int, string>, analysis: string, event_end_date: string, liquidity: int, options: array<int, string>}> */
         return array_slice($drafts, 0, $expectedCount);
+    }
+
+    /**
+     * @return array{
+     *   title: string,
+     *   subtitle: string,
+     *   description: string,
+     *   category: string,
+     *   tags: array<int, string>,
+     *   analysis: string,
+     *   event_end_date: string,
+     *   liquidity: int,
+     *   options: array<int, string>
+     * }|null
+     */
+    private function parseDraftItem(mixed $item): ?array
+    {
+        if (! is_array($item)) {
+            return null;
+        }
+
+        $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
+        $subtitle = $this->toNormalizedString(Arr::get($item, 'subtitle', ''));
+        $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
+        $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
+        $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
+        $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
+        /** @var array<int, mixed> $tags */
+        $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
+        $rawLiquidity = Arr::get($item, 'liquidity', 5000);
+        $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
+        $options = $this->normalizeOptions(Arr::get($item, 'options', []));
+
+        if ($title === '' || $description === '' || $analysis === '') {
+            return null;
+        }
+
+        return [
+            'title' => Str::limit($title, 140, ''),
+            'subtitle' => $subtitle,
+            'description' => $description,
+            'category' => $category !== '' ? $category : 'Altro',
+            'tags' => $this->normalizeTags($tags),
+            'analysis' => $analysis,
+            'event_end_date' => $this->normalizeDate($eventEndDate),
+            'liquidity' => max(1000, min(50000, $liquidity)),
+            'options' => $options,
+        ];
     }
 
     private function resolveModel(): string
