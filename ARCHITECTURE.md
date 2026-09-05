@@ -1,102 +1,124 @@
-# AI Module Architecture
+# Architettura Modulo AI
 
-LLM bridge: provider-agnostic inference, prompts, completions. Foundation for all AI capabilities.
+Ponte verso LLM: inferenza agnostica dal provider, prompt versionati, completamenti strutturati. Fondazione per tutte le capacità AI.
 
-## Design
+## Scopo
 
-**Scope:** Standardize LLM access across modules. Decouple from OpenAI/DeepSeek/Ollama implementation.
+Standardizzare l'accesso agli LLM senza accoppiamento al provider (OpenAI, DeepSeek, Ollama).
 
-**Contracts:**
-- `AiActionHandlerContract` — action execution interface
-- `SentimentAnalyzer` — sentiment classification abstraction
+**Contratti:**
+- `AiActionHandlerContract` — esegui azione AI
+- `SentimentAnalyzer` — classifica sentiment
 
-**Data Objects:**
-- `CompletionData` — LLM response with metadata
-- `PredictionData` — prediction result (used by AiAssistant)
-- `AIPromptTemplates` — versioned prompt registry
+**Dati:**
+- `CompletionData` — risposta LLM con metadati
+- `PredictionData` — risultato previsione
+- `AIPromptTemplates` — registro prompt versionati
 
-**Actions:**
-- `CompletionAction` — raw inference (minimal)
-- `AiJsonResponseDecoderAction` — structured output parsing
-- `ContextCompressorAction` — token budget compression
-- `SuggestSolutionsAction` — solution generation
-- `ClassifyTicketAction` — ticket classification
-- `SentimentAction` — sentiment scoring
+**Azioni:**
+- `CompletionAction` — inferenza grezza
+- `AiJsonResponseDecoderAction` — parsing output strutturato
+- `ContextCompressorAction` — compressione budget token
 
-## Dependencies
+## Dipendenze
 
 ```
-AI (this module)
-├── openai-php/laravel (external)
-├── Xot (base classes)
-└── Tenant (multi-tenant context)
+AI (questo modulo)
+├── openai-php/laravel (esterno)
+├── Xot (classi base)
+└── Tenant (contesto multi-tenant)
 ```
 
-**Zero coupling to domain modules.** AI is infra-only.
+**Zero accoppiamento a moduli dominio.** AI è solo infrastruttura.
 
-## Integration Pattern
+## Integrazione: Pattern Consigliato
 
-Modules do **not** import AI directly. Instead:
+I moduli **NON importano AI direttamente**. Invece:
 
-1. **Via Contract**: `AiActionHandlerContract` for custom handlers
-2. **Via Event**: Domain modules emit events; AiAssistant listens and calls AI
-3. **Via Service Provider**: Register handlers in `AIServiceProvider::register()`
+1. **Via Contratto:** `AiActionHandlerContract` per handler custom
+2. **Via Evento:** Moduli dominio emettono eventi; AI/AiAssistant ascoltano
+3. **Via Service Provider:** Registra handler in `AIServiceProvider::register()`
 
 ```php
-// WRONG: direct import
+// ❌ SBAGLIATO: import diretto
 use Modules\AI\Actions\CompletionAction;
 
-// RIGHT: use handler contract
+// ✅ CORRETTO: usa contratto handler
 $handler = app(AiActionHandlerRegistry::class)->get('quotation-draft');
 $handler->handle($request);
 ```
 
-**Why:** Loose coupling. AI can be swapped without touching domain code.
+## Best Practices
 
-## Known Issues & Debt
+- **Astrazione handler:** Non usare OpenAI/Groq direttamente; delegare via registry
+- **Versionamento prompt:** Tutti i prompt in `AIPromptTemplates` con fallback
+- **Token budget:** Enforza limite context window con `ContextCompressorAction`
+- **Logging:** Registra ogni inferenza (costo, token, errori) per audit
+- **Retry:** Retry automatico su transient errors (timeout, rate limit)
+- **Testing:** Mock risposte LLM via `AiActionHandlerContract`, non API reale
 
-1. **Incomplete handler registry**: `AiActionHandlerRegistry` has limited handlers. Expand for common patterns (summarize, extract, classify, translate).
+## ⚠️ Bad Practices
 
-2. **No LLM provider abstraction**: Uses OpenAI directly. Should abstract to `LlmProviderContract` (OpenAI, DeepSeek, Ollama compatible).
+- **Import diretto OpenAI** — causa tight coupling, impossibile swappare provider
+- **env() per API key** — accoppiamento a config; usa `config('ai.openai_key')`
+- **Hardcoded prompt** — prompt dovrebbe essere versionato in `AIPromptTemplates`
+- **Nessun budget token** — input illimitato causa crash o costi altissimi
+- **Service class wrapper** — usa Actions + QueueableAction, non Services
+- **Nessun logging** — impossibile debuggare fallimenti o anomalie
 
-3. **Missing prompt versioning**: Prompts hardcoded. Should be versioned in `AIPromptTemplates` with fallbacks.
+## 🚨 False Friends
 
-4. **No token budget enforcement**: `ContextCompressorAction` exists but not enforced. Should auto-compress if input > model's context window.
+- **"Uso Config al posto di env()"** — `config()` legge ENV al boot; se ENV cambia runtime, config non si aggiorna. Usa `config()` solo in ApplicationServiceProvider, non in logica business
+- **"AiAssistant è modulo AI"** — NO: AiAssistant è orchestratore dominio, AI è infra. Confonderli causa duplication
+- **"Retry automatico significa affidabilità"** — NO: retry su 5xx; su 4xx (auth, rate limit) spesso fallisce. Distingui errori
+- **"Token compression è sempre sicuro"** — NO: comprimere contesto perde informazioni. Documenta cosa viene scartato
+- **"Una risposta JSON = output strutturato"** — NO: JSON malformato non fa errore; valida sempre con schema
 
-5. **Duplication with AiAssistant**: AiAssistant implements parallel LLM orchestration (Groq, OpenAI direct calls). Should consolidate into AI module's handler system.
+## Problemi Noti & Debito Tecnico
 
-## Refactoring: Consolidate LLM Access
+1. **Handler registry incompleto:** Pochi handler pronti. Espandere per pattern comuni (summarize, extract, classify, translate)
 
-**Problem:** AiAssistant talks directly to OpenAI/Groq, bypassing AI module's handler abstraction.
+2. **Nessuna astrazione provider LLM:** Usa OpenAI diretto. Dovrebbe astrarre a `LlmProviderContract` (OpenAI, DeepSeek, Ollama compatibile)
 
-**Solution:**
-1. Extract domain-specific handlers from AiAssistant into AI as `Domain\*Handler` classes
+3. **Prompt non versionati:** Prompts hardcoded. Dovrebbero essere in `AIPromptTemplates` con fallback
+
+4. **Token budget non enforced:** `ContextCompressorAction` esiste ma non usato ovunque. Auto-comprimere se input > context window
+
+5. **Duplication con AiAssistant:** AiAssistant implementa orchestrazione LLM parallela (Groq, OpenAI diretto). Consolidare in handler system
+
+## Refactoring: Consolidare Accesso LLM
+
+**Problema:** AiAssistant parla direttamente a OpenAI/Groq, bypassa astrazione handler AI.
+
+**Soluzione:**
+
+1. Estrai handler dominio da AiAssistant in AI come `Domain\*Handler`
    - `Domain\QuotationDraftHandler` (in AI)
    - `Domain\InterventionReportHandler` (in AI)
    - `Domain\SpeechTranscriptionHandler` (in AI)
 
-2. Refactor AiAssistant to use `AiActionHandlerContract` instead of direct LLM calls
+2. Refactor AiAssistant per usare `AiActionHandlerContract` invece import diretto LLM
 
-3. Register all handlers in AI's `AIServiceProvider`
+3. Registra handler in `AIServiceProvider`
 
-**Impact:**
-- AiAssistant shrinks (thin orchestration layer only)
-- AI becomes the single source of truth for LLM patterns
-- New domain modules can reuse handlers without reimplementing
+**Impatto:**
+- AiAssistant si rimpicciolisce (solo orchestrazione thin)
+- AI diventa single source of truth per pattern LLM
+- Nuovi moduli dominio riusano handler senza reimplementare
 
-## Architecture Decisions
+## Decisioni Architetturali
 
-| Decision | Rationale |
-|----------|-----------|
-| Contracts over classes | Handler interface is stable; implementation swappable |
-| Infra-only scope | AI must not depend on Quotation, Intervention, etc. |
-| Event-driven integration | Domains emit events; AI listens; no circular imports |
-| Provider-agnostic | Support OpenAI, DeepSeek, Ollama via single handler |
+| Decisione | Razionale |
+|-----------|-----------|
+| Contratti over classi | Handler interface stabile; implementazione swappabile |
+| Scope solo infra | AI non dipende da Quotation, Intervention, etc. |
+| Event-driven integration | Domini emettono; AI ascolta; zero import circolare |
+| Agnostico provider | Supporta OpenAI, DeepSeek, Ollama via single handler |
+| Handler, non Action | Handler è sincrono request→response, non queueable |
 
-## See Also
+## Vedi Anche
 
-- `PHILOSOPHY.md` — AI principles and constraints
-- `TESTING.md` — testing LLM interactions (mocking completions)
-- `docs/handler-registry.md` — implementing custom handlers
-- `docs/prompt-versioning.md` — managing prompt templates
-- `docs/consolidation-with-aiassistant.md` — consolidation roadmap
+- `PHILOSOPHY.md` — principi AI e vincoli
+- `TESTING.md` — mock completamenti, test isolati
+- `docs/consolidation-with-aiassistant.md` — roadmap consolidamento
+- `docs/stories/01.consolidate-aiassistant-handlers.story.md` — story BMAD Phase 1
