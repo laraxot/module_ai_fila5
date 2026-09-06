@@ -6,7 +6,6 @@ namespace Modules\AI\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 use Modules\Xot\Models\XotBaseModel;
 
 /**
@@ -14,21 +13,12 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * A single message (user|assistant|tool|system) within an AiThread.
  *
- * @property int $id
- * @property int $ai_thread_id
- * @property int|null $user_id
- * @property string $role
- * @property string|null $content
- * @property array<string, mixed>|null $payload
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read AiThread $thread
+ * @property-read AiThread|null $thread
+ *
  * @method static Builder<static>|AiMessage newModelQuery()
  * @method static Builder<static>|AiMessage newQuery()
  * @method static Builder<static>|AiMessage query()
- * @property-read \Modules\Quaeris\Models\Profile|null $creator
- * @property-read \Modules\Quaeris\Models\Profile|null $deleter
- * @property-read \Modules\Quaeris\Models\Profile|null $updater
+ *
  * @mixin \Eloquent
  */
 class AiMessage extends XotBaseModel

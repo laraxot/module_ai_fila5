@@ -13,7 +13,7 @@ class BasicSentimentAnalyzer implements SentimentAnalyzer
     /**
      * {@inheritDoc}
      *
-     * @return array{label: string, score: int|float, warning: string}
+     * @return array<string, mixed>
      */
     public function analyze(string $text): array
     {

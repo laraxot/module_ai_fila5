@@ -64,13 +64,9 @@ vendor/bin/pint Modules/AI/app/Actions
 ## Note di manutenzione
 
 - `GeneratePredictionDraftsAction::fallbackDrafts()` riusa i template da
-  `Actions/Prediction/GetPredictionFallbackTemplatesAction` invece di
+  `Actions/Prediction/GetPredictionDraftFallbackTemplatesAction` invece di
   duplicarli inline: evita drift tra le due liste di template italiani
   (quality pass PHPMD/PHPInsights).
-- 2026-09-04: rimosso `Actions/Predict/GetPredictionDraftFallbackTemplatesAction`
-  (namespace `Predict`, non `Prediction`), duplicato orfano dei template sopra,
-  0 chiamanti reali nel monorepo. Ritirato a `.bak`. Vedi
-  `docs/wiki/concepts/ai-services-support-to-actions.md`.
 
 ## Layout Actions (post-migrazione Services)
 

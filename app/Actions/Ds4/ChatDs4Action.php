@@ -11,10 +11,9 @@ use Illuminate\Support\Facades\Log;
 use Modules\Xot\Actions\Cast\SafeIntCastAction;
 use RuntimeException;
 use Safe\Exceptions\JsonException;
+use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\json_decode;
-
-use Spatie\QueueableAction\QueueableAction;
 
 class ChatDs4Action
 {
@@ -47,7 +46,6 @@ class ChatDs4Action
      *     stream?: bool,
      *     options?: array<string, float|int>
      * } $options
-     *
      * @return array{
      *     content: string,
      *     thinking: string|null,
@@ -58,30 +56,6 @@ class ChatDs4Action
      */
     public function execute(string $message, array $options = []): array
     {
-        $payload = $this->buildPayload($message, $options);
-
-        try {
-            $response = $this->client->post('/v1/chat/completions', ['json' => $payload]);
-            $decoded = json_decode($response->getBody()->getContents(), true);
-
-            return $this->buildResult($decoded);
-        } catch (GuzzleException|JsonException $e) {
-            Log::error('ds4 Chat API error', ['error' => $e->getMessage()]);
-            throw new RuntimeException('ds4 API error: '.$e->getMessage(), 0, $e);
-        }
-    }
-
-    /**
-     * @param array{
-     *     model?: string,
-     *     stream?: bool,
-     *     options?: array<string, float|int>
-     * } $options
-     *
-     * @return array<string, mixed>
-     */
-    private function buildPayload(string $message, array $options): array
-    {
         $optionOverrides = $options['options'] ?? [];
         if (! is_array($optionOverrides)) {
             $optionOverrides = [];
@@ -89,7 +63,7 @@ class ChatDs4Action
 
         $model = $options['model'] ?? config('services.ds4.model', 'deepseek-v4-flash');
 
-        return [
+        $payload = [
             'model' => $model,
             'messages' => [
                 ['role' => 'user', 'content' => $message],
@@ -99,41 +73,39 @@ class ChatDs4Action
             'top_p' => $optionOverrides['top_p'] ?? $this->defaultOptions['top_p'],
             'stream' => $options['stream'] ?? false,
         ];
-    }
 
-    /**
-     * @return array{
-     *     content: string,
-     *     thinking: string|null,
-     *     done: bool,
-     *     tokens: array{prompt: int, generated: int, total: int},
-     *     duration: array{total: int, prompt: int, generation: int}
-     * }
-     */
-    private function buildResult(mixed $decoded): array
-    {
-        $data = is_array($decoded) ? $decoded : [];
+        try {
+            $response = $this->client->post('/v1/chat/completions', ['json' => $payload]);
+            $decoded = json_decode($response->getBody()->getContents(), true);
+            $data = $decoded;
+            if (! is_array($data)) {
+                $data = [];
+            }
 
-        $choices = $data['choices'] ?? null;
-        $firstChoice = is_array($choices) && is_array($choices[0] ?? null) ? $choices[0] : [];
-        $messageData = is_array($firstChoice['message'] ?? null) ? $firstChoice['message'] : [];
-        $usage = is_array($data['usage'] ?? null) ? $data['usage'] : [];
+            $choices = $data['choices'] ?? null;
+            $firstChoice = is_array($choices) && is_array($choices[0] ?? null) ? $choices[0] : [];
+            $messageData = is_array($firstChoice['message'] ?? null) ? $firstChoice['message'] : [];
+            $usage = is_array($data['usage'] ?? null) ? $data['usage'] : [];
 
-        return [
-            'content' => is_string($messageData['content'] ?? null) ? $messageData['content'] : '',
-            'thinking' => is_string($messageData['reasoning_content'] ?? null) ? $messageData['reasoning_content'] : null,
-            'done' => true,
-            'tokens' => [
-                'prompt' => SafeIntCastAction::cast($usage['prompt_tokens'] ?? 0),
-                'generated' => SafeIntCastAction::cast($usage['completion_tokens'] ?? 0),
-                'total' => SafeIntCastAction::cast($usage['total_tokens'] ?? 0),
-            ],
-            'duration' => [
-                'total' => 0,
-                'prompt' => 0,
-                'generation' => 0,
-            ],
-        ];
+            return [
+                'content' => is_string($messageData['content'] ?? null) ? $messageData['content'] : '',
+                'thinking' => is_string($messageData['reasoning_content'] ?? null) ? $messageData['reasoning_content'] : null,
+                'done' => true,
+                'tokens' => [
+                    'prompt' => SafeIntCastAction::cast($usage['prompt_tokens'] ?? 0),
+                    'generated' => SafeIntCastAction::cast($usage['completion_tokens'] ?? 0),
+                    'total' => SafeIntCastAction::cast($usage['total_tokens'] ?? 0),
+                ],
+                'duration' => [
+                    'total' => 0,
+                    'prompt' => 0,
+                    'generation' => 0,
+                ],
+            ];
+        } catch (GuzzleException|JsonException $e) {
+            Log::error('ds4 Chat API error', ['error' => $e->getMessage()]);
+            throw new RuntimeException('ds4 API error: '.$e->getMessage(), 0, $e);
+        }
     }
 
     /**
