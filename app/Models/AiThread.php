@@ -7,7 +7,6 @@ namespace Modules\AI\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 use Modules\Xot\Models\XotBaseModel;
 
 /**
@@ -17,24 +16,23 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @property int $id
  * @property string $public_id
- * @property int $created_by_user_id
+ * @property string $created_by_user_id
  * @property string $panel_id
- * @property Carbon|null $last_message_at
+ * @property \Carbon\Carbon|null $last_message_at
  * @property array<string, mixed>|null $meta
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
  * @property-read Collection<int, AiMessage> $messages
+ * @property-read int|null $messages_count
  * @property-read Collection<int, AiActionProposal> $proposals
+ * @property-read int|null $proposals_count
  * @property-read Collection<int, AiToolLog> $toolLogs
+ * @property-read int|null $tool_logs_count
+ *
  * @method static Builder<static>|AiThread newModelQuery()
  * @method static Builder<static>|AiThread newQuery()
  * @method static Builder<static>|AiThread query()
- * @property-read \Modules\Quaeris\Models\Profile|null $creator
- * @property-read \Modules\Quaeris\Models\Profile|null $deleter
- * @property-read int|null $messages_count
- * @property-read int|null $proposals_count
- * @property-read int|null $tool_logs_count
- * @property-read \Modules\Quaeris\Models\Profile|null $updater
+ *
  * @mixin \Eloquent
  */
 class AiThread extends XotBaseModel

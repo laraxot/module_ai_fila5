@@ -2,15 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Actions\Prediction;
+namespace Modules\AI\Actions\Predict;
 
 use Spatie\QueueableAction\QueueableAction;
 
-final class GetPredictionFallbackTemplatesAction
+/**
+ * Provide the static editorial templates used as fallback when the OpenAI
+ * prediction-draft generation is unavailable or returns unusable output.
+ */
+class GetPredictionDraftFallbackTemplatesAction
 {
     use QueueableAction;
 
-    /** @return array<int, array<string, mixed>> */
+    /**
+     * @return list<array{
+     *   category: string,
+     *   title: string,
+     *   subtitle: string,
+     *   description: string,
+     *   analysis: string,
+     *   tags: array<int, string>,
+     *   options: array<int, string>
+     * }>
+     */
     public function execute(): array
     {
         return [

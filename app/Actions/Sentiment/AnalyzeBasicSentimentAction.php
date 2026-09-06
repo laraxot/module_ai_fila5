@@ -13,7 +13,7 @@ final class AnalyzeBasicSentimentAction
     use QueueableAction;
 
     /**
-     * @return array{label: string, score: int|float, warning: string}
+     * @return array<string, mixed>
      */
     public function execute(string $text): array
     {
