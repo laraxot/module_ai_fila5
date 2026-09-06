@@ -21,25 +21,24 @@ use Modules\Xot\Models\XotBaseModel;
  * @property int $id
  * @property string $public_id
  * @property int $ai_thread_id
- * @property int $proposed_by_user_id
+ * @property string $proposed_by_user_id
  * @property string $type
  * @property array<string, mixed> $payload
  * @property string|null $preview
  * @property string $status
- * @property int|null $confirmed_by_user_id
+ * @property string|null $confirmed_by_user_id
  * @property Carbon|null $confirmed_at
  * @property Carbon|null $executed_at
  * @property array<string, mixed>|null $result
  * @property string|null $error
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read AiThread $thread
+ * @property-read AiThread|null $thread
+ *
  * @method static Builder<static>|AiActionProposal newModelQuery()
  * @method static Builder<static>|AiActionProposal newQuery()
  * @method static Builder<static>|AiActionProposal query()
- * @property-read \Modules\Quaeris\Models\Profile|null $creator
- * @property-read \Modules\Quaeris\Models\Profile|null $deleter
- * @property-read \Modules\Quaeris\Models\Profile|null $updater
+ *
  * @mixin \Eloquent
  */
 class AiActionProposal extends XotBaseModel

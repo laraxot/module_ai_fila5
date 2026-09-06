@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Filament\Resources;
 
+use Filament\Schemas\Components\Component;
 use Filament\Widgets\Widget;
 use Modules\AI\Filament\Resources\AiActionProposalResource\Pages;
 use Modules\AI\Filament\Resources\AiActionProposalResource\Schemas\AiActionProposalForm;
@@ -17,11 +18,9 @@ class AiActionProposalResource extends XotBaseResource
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-sparkles';
 
     /**
-     * Schema legacy del form: la sorgente di verità è AiActionProposalForm::getFormSchema().
-     *
-     * @return array<string, \Filament\Schemas\Components\Component>
+     * @return array<string, Component>
      */
-    public static function getFormSchemaOld(): array
+    public static function getFormSchema(): array
     {
         return AiActionProposalForm::getFormSchema();
     }
