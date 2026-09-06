@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Modules\AI\Tests\Unit\Actions;
 
 use Modules\AI\Actions\ContextCompressorAction;
-use Modules\AI\Tests\TestCase;
 
 use function Safe\putenv;
-
-uses(TestCase::class);
 
 /**
  * Forces the extractive (non-OpenAI) fallback path by clearing OPENAI_API_KEY
