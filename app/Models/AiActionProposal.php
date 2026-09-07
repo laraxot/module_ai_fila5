@@ -41,7 +41,8 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiActionProposal extends BaseModel
+class AiActionProposal extends XotBaseModel
+    use HasXotFactory;
 {
     public const string STATUS_PENDING = 'pending';
 
