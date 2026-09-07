@@ -35,7 +35,8 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiThread extends BaseModel
+class AiThread extends XotBaseModel
+    use HasXotFactory;
 {
     /**
      * The attributes that are mass assignable.

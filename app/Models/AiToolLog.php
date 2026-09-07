@@ -22,7 +22,8 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiToolLog extends BaseModel
+class AiToolLog extends XotBaseModel
+    use HasXotFactory;
 {
     public const string STATUS_OK = 'ok';
 

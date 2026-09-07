@@ -9,7 +9,7 @@ use Modules\Xot\Models\XotBaseModel;
 /**
  * Base model for AI module, inherits from XotBaseModel.
  */
-abstract class BaseModel extends BaseModel
+abstract class BaseModel extends XotBaseModel
 {
     //
 }
