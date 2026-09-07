@@ -21,7 +21,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiMessage extends XotBaseModel
+class AiMessage extends BaseModel
 {
     public const string ROLE_USER = 'user';
 
