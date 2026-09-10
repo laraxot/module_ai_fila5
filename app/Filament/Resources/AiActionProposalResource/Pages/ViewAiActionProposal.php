@@ -22,6 +22,6 @@ class ViewAiActionProposal extends XotBaseViewRecord
      */
     protected function getInfolistSchema(): array
     {
-        return AiActionProposalInfolist::getInfolistSchema();
+        return app(AiActionProposalInfolist::class)->getInfolistSchema();
     }
 }

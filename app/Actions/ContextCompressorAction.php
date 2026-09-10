@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions;
 
-use OpenAI\OpenAI;
+use OpenAI;
 use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\preg_split;
@@ -41,15 +41,11 @@ class ContextCompressorAction
     {
         try {
             $apiKey = getenv('OPENAI_API_KEY');
-            if (! class_exists('OpenAI\OpenAI') || ! is_string($apiKey) || $apiKey === '') {
+            if (! class_exists('OpenAI') || ! is_string($apiKey) || $apiKey === '') {
                 return null;
             }
 
             $client = OpenAI::client($apiKey);
-            if (! is_object($client)) {
-                return null;
-            }
-
             $clientVars = get_object_vars($client);
             $responses = $clientVars['responses'] ?? null;
             if (! is_object($responses) || ! method_exists($responses, 'create')) {
