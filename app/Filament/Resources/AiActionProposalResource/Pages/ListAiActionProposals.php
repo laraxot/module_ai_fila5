@@ -16,8 +16,5 @@ class ListAiActionProposals extends XotBaseListRecords
     /**
      * @return array<string, Column>
      */
-    public function getTableColumns(): array
-    {
-        return (new AiActionProposalsTable())->getTableColumns();
-    }
+
 }

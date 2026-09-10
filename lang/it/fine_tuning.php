@@ -17,5 +17,5 @@ return [
     'error_title' => 'Errore!',
     'error_body' => 'Si è verificato un errore durante l\'avvio del fine-tuning.',
     'action_label' => 'Avvia Fine-Tuning',
-    'navigation' => ['group' => 'fine tuning.navigation'],
+    'navigation' => ['group' => 'Fine-tuning'],
 ];
