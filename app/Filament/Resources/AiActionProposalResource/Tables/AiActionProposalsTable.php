@@ -17,6 +17,11 @@ use Modules\Xot\Filament\Resources\Tables\XotBaseResourceTable;
 class AiActionProposalsTable extends XotBaseResourceTable
 {
     /**
+     * @var class-string<AiActionProposal>
+     */
+    protected static string $model = AiActionProposal::class;
+
+    /**
      * @return array<int|string, Action|ActionGroup>
      */
     public function getTableActions(): array
@@ -63,7 +68,8 @@ class AiActionProposalsTable extends XotBaseResourceTable
                 ->copyable(),
             'type' => TextColumn::make('type')
                 ->badge()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
             'status' => TextColumn::make('status')
                 ->badge()
                 ->colors([
@@ -77,7 +83,8 @@ class AiActionProposalsTable extends XotBaseResourceTable
                 ->sortable(),
             'preview' => TextColumn::make('preview')
                 ->limit(100)
-                ->wrap(),
+                ->wrap()
+                ->searchable(),
             'created_at' => TextColumn::make('created_at')
                 ->dateTime('d/m/Y H:i')
                 ->sortable(),
