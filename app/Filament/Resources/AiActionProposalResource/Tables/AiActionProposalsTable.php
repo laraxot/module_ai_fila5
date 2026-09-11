@@ -1,0 +1,93 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\AI\Filament\Resources\AiActionProposalResource\Tables;
+
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
+use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Auth;
+use Modules\AI\Actions\CancelAiActionProposalAction;
+use Modules\AI\Actions\ConfirmAiActionProposalAction;
+use Modules\AI\Models\AiActionProposal;
+use Modules\Xot\Filament\Resources\Tables\XotBaseResourceTable;
+
+class AiActionProposalsTable extends XotBaseResourceTable
+{
+    /**
+     * @var class-string<AiActionProposal>
+     */
+    protected static string $model = AiActionProposal::class;
+
+    /**
+     * @return array<int|string, Action|ActionGroup>
+     */
+    public function getTableActions(): array
+    {
+        $actions = parent::getTableActions();
+
+        $actions['confirm'] = Action::make('confirm')
+            ->label(__('ai::action_proposal.actions.confirm'))
+            ->icon('heroicon-o-check-circle')
+            ->color('success')
+            ->requiresConfirmation()
+            ->visible(
+                static fn (AiActionProposal $record): bool => $record->status === AiActionProposal::STATUS_PENDING
+            )
+            ->action(function (AiActionProposal $record): void {
+                app(ConfirmAiActionProposalAction::class)->execute($record, (int) Auth::id());
+            });
+
+        $actions['cancel'] = Action::make('cancel')
+            ->label(__('ai::action_proposal.actions.cancel'))
+            ->icon('heroicon-o-x-circle')
+            ->color('danger')
+            ->requiresConfirmation()
+            ->visible(
+                static fn (AiActionProposal $record): bool => $record->status === AiActionProposal::STATUS_PENDING
+            )
+            ->action(function (AiActionProposal $record): void {
+                app(CancelAiActionProposalAction::class)->execute($record);
+            });
+
+        return $actions;
+    }
+
+    /**
+     * @return array<string, Column>
+     */
+    public function getTableColumns(): array
+    {
+        return [
+            'id' => TextColumn::make('id')->sortable()->searchable(),
+            'thread.public_id' => TextColumn::make('thread.public_id')
+                ->limit(12)
+                ->searchable()
+                ->copyable(),
+            'type' => TextColumn::make('type')
+                ->badge()
+                ->searchable()
+                ->sortable(),
+            'status' => TextColumn::make('status')
+                ->badge()
+                ->colors([
+                    'warning' => AiActionProposal::STATUS_PENDING,
+                    'secondary' => AiActionProposal::STATUS_CANCELLED,
+                    'info' => AiActionProposal::STATUS_CONFIRMED,
+                    'success' => AiActionProposal::STATUS_EXECUTED,
+                    'danger' => AiActionProposal::STATUS_FAILED,
+                ])
+                ->formatStateUsing(fn (string $state): string => __("ai::action_proposal.statuses.{$state}"))
+                ->sortable(),
+            'preview' => TextColumn::make('preview')
+                ->limit(100)
+                ->wrap()
+                ->searchable(),
+            'created_at' => TextColumn::make('created_at')
+                ->dateTime('d/m/Y H:i')
+                ->sortable(),
+        ];
+    }
+}
