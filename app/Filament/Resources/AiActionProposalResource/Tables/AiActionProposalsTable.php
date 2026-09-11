@@ -58,7 +58,9 @@ class AiActionProposalsTable extends XotBaseResourceTable
         return [
             'id' => TextColumn::make('id')->sortable()->searchable(),
             'thread.public_id' => TextColumn::make('thread.public_id')
-                ->limit(12),
+                ->limit(12)
+                ->searchable()
+                ->copyable(),
             'type' => TextColumn::make('type')
                 ->badge()
                 ->searchable(),
@@ -74,8 +76,8 @@ class AiActionProposalsTable extends XotBaseResourceTable
                 ->formatStateUsing(fn (string $state): string => __("ai::action_proposal.statuses.{$state}"))
                 ->sortable(),
             'preview' => TextColumn::make('preview')
-                ->limit(50)
-                ->toggleable(isToggledHiddenByDefault: true),
+                ->limit(100)
+                ->wrap(),
             'created_at' => TextColumn::make('created_at')
                 ->dateTime('d/m/Y H:i')
                 ->sortable(),
