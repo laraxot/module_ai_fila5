@@ -8,4 +8,4 @@ related:
 
 # UX AI
 
-Nessuna superficie chrome da migrare. Non cambiare layout panel.
+Nessuna superficie chrome da migrare. Non cambiare layout panel. Verdetto: [livewire-inventory.md](./livewire-inventory.md).
