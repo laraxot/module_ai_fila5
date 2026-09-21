@@ -29,13 +29,6 @@ abstract class TestCase extends XotBaseTestCase
 
     protected function setUp(): void
     {
-<<<<<<< HEAD
-        // Alcuni test guardano lo schema (es. il tipo delle colonne che indicano
-        // una persona): senza il fixture condiviso le tabelle non esistono.
-        $this->prepareSharedSqliteForTesting();
-
-=======
->>>>>>> laraxot/dev
         parent::setUp();
 
         config([
