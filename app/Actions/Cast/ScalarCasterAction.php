@@ -13,11 +13,17 @@ final class ScalarCasterAction
 {
     use QueueableAction;
 
+    /**
+     * @param  mixed  $value  Any raw payload value; non-scalars fall back to $default
+     */
     public function execute(mixed $value, string $default = ''): string
     {
         return $this->handle($value, $default);
     }
 
+    /**
+     * @param  mixed  $value  Any raw payload value; non-scalars fall back to $default
+     */
     public function handle(mixed $value, string $default = ''): string
     {
         if ($value === null) {
@@ -27,11 +33,17 @@ final class ScalarCasterAction
         return is_scalar($value) ? (string) $value : $default;
     }
 
+    /**
+     * @param  mixed  $value  Any raw payload value; non-scalars fall back to $default
+     */
     public static function string(mixed $value, string $default = ''): string
     {
         return app(self::class)->execute($value, $default);
     }
 
+    /**
+     * @param  mixed  $value  Any raw payload value; non-scalars become null
+     */
     public function nullableString(mixed $value): ?string
     {
         if ($value === null) {
@@ -44,6 +56,7 @@ final class ScalarCasterAction
     }
 
     /**
+     * @param  mixed  $value  Expected array of scalars; non-array input returns []
      * @return list<string>
      */
     public function stringList(mixed $value): array
@@ -63,6 +76,9 @@ final class ScalarCasterAction
         return $out;
     }
 
+    /**
+     * @param  mixed  $value  Any raw payload value; non-scalars become ''
+     */
     private function scalarCheck(mixed $value): string
     {
         return is_scalar($value) ? (string) $value : '';
