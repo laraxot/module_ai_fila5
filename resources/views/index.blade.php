@@ -1,3 +1,7 @@
+<?php
+
+declare(strict_types=1);
+?>
 @extends('ai::layouts.master')
 
 @section('content')

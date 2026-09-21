@@ -184,6 +184,9 @@ PROMPT;
         ];
     }
 
+    /**
+     * @param  mixed  $payload  Raw $response->json() payload from the OpenAI completions API
+     */
     private function extractCompletionText(mixed $payload): string
     {
         $data = is_array($payload) ? $payload : [];

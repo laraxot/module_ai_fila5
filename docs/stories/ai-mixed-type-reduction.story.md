@@ -3,6 +3,7 @@ title: "Reduce mixed type usage - AI module"
 status: done
 type: story
 created: 2026-09-04
+updated: 2026-09-21
 ---
 
 # Reduce mixed type usage - AI module
@@ -14,3 +15,23 @@ created: 2026-09-04
 **Resta da fare**: le rimanenti ~67 occorrenze sono state lasciate `mixed` con motivazione documentata in `docs/coverage.md` (sezione 2026-09-04) — cast utility, colonne JSON Eloquent, factory, payload JSON/HTTP/form esterni a shape non stabile. Nessuna e' stata giudicata un typing gap reale; restringerle avrebbe richiesto un `@var`/cast non supportato dal codice runtime (vietato) o avrebbe solo spostato `mixed` di un livello (es. `array<array-key, mixed>`). Se in futuro emerge uno schema stabile per uno di questi payload (es. contratto OpenAI fissato), rivalutare.
 
 Dettaglio completo: `Modules/AI/docs/coverage.md`.
+
+## 2026-09-21 — follow-up `declare(strict_types=1)` sulle viste
+
+**Perché**: il fine-tuning e il completion mandano numeri (learning rate, batch
+size) dal form alla Action. Senza `strict_types` sul Blade, PHP può coercere
+`"0.001"` / `1` in modi diversi da quelli già tipizzati in `app/`. Lo scope
+resta la vista: non si convertono widget, non si riapre `mixed`.
+
+**Fatto** (prepend, primi byte intatti):
+- `resources/views/index.blade.php`
+- `resources/views/filament/pages/setting.blade.php`
+- `resources/views/filament/pages/completion.blade.php`
+- `resources/views/filament/pages/fine-tuning.blade.php`
+- `resources/views/admin/dashboard/item.blade.php`
+- `resources/views/layouts/master.blade.php`
+
+**Skip**: `lang/en/fine_tuning.php` e `lang/it/fine_tuning.php` avevano già
+`declare`. User `AdminPanelProvider` non toccato.
+
+`php -l`: 0 errori.

@@ -10,6 +10,9 @@ final class CastScalarToNullableStringAction
 {
     use QueueableAction;
 
+    /**
+     * @param  mixed  $value  Any raw payload value; non-scalars become null
+     */
     public function execute(mixed $value): ?string
     {
         if ($value === null) {

@@ -11,6 +11,7 @@ final class CastScalarToStringListAction
     use QueueableAction;
 
     /**
+     * @param  mixed  $value  Expected array of scalars; non-array input returns []
      * @return list<string>
      */
     public function execute(mixed $value): array

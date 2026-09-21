@@ -39,7 +39,6 @@ Le Actions di dominio AI (Ollama, compression, predictions) vivono in
 - `/mcp/` - Documentazione completa MCP (00-11)
 - `/tutorials/` - Tutorial pratici Laravel+MCP
 - `/phpstan/` - Configurazioni PHPStan
-- `/bmad/livewire-inventory.md` — campagna HTTP→widget: zero candidati in AI
 
 ## Panoramica
 

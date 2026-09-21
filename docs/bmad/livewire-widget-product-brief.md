@@ -8,4 +8,4 @@ related:
 
 # Brief AI
 
-Nessuna UI HTTP da portare nel panel. Zero Http/Livewire. MCP/Ollama restano Actions. Nessun widget da HTTP.
+Nessuna UI HTTP da portare nel panel. Zero Http/Livewire. MCP/Ollama restano Actions. Nessun widget da HTTP: [livewire-inventory.md](./livewire-inventory.md).

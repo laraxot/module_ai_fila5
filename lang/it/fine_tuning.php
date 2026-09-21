@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'learning_rate' => 'Tasso di apprendimento',
     'learning_rate_helper' => 'Es. 0.001',
