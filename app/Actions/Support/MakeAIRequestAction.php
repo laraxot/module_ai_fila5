@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Modules\Xot\Actions\Cast\SafeStringCastAction;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
@@ -85,13 +84,16 @@ class MakeAIRequestAction
         string $baseUrl,
         int $timeout,
     ): string {
+        $chatModel = config('ai.chat_model', 'gpt-4o-mini');
+        Assert::string($chatModel, 'Chat model must be a string');
+
         $response = Http::timeout($timeout)
             ->withHeaders([
                 'Authorization' => 'Bearer '.$apiKey,
                 'Content-Type' => 'application/json',
             ])
             ->post($baseUrl.'/chat/completions', [
-                'model' => SafeStringCastAction::cast(config('ai.chat_model', 'gpt-4o-mini')),
+                'model' => $chatModel,
                 'messages' => [
                     [
                         'role' => 'system',
@@ -115,17 +117,12 @@ class MakeAIRequestAction
             return '';
         }
 
-        $json = $response->json();
-
-        return $this->extractChatCompletionContent(\is_array($json) ? $json : null);
+        return $this->extractChatCompletionContent($response->json());
     }
 
-    /**
-     * @param  array<array-key, mixed>|null  $payload
-     */
-    private function extractChatCompletionContent(?array $payload): string
+    private function extractChatCompletionContent(mixed $payload): string
     {
-        $content = $payload !== null ? Arr::get($payload, 'choices.0.message.content') : null;
+        $content = is_array($payload) ? Arr::get($payload, 'choices.0.message.content') : null;
 
         return is_string($content) ? $content : '';
     }

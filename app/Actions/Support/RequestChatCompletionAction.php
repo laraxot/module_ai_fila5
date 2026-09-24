@@ -80,17 +80,12 @@ final class RequestChatCompletionAction
             return '';
         }
 
-        $json = $response->json();
-
-        return $this->extractChatCompletionContent(\is_array($json) ? $json : null);
+        return $this->extractChatCompletionContent($response->json());
     }
 
-    /**
-     * @param  array<array-key, mixed>|null  $payload
-     */
-    private function extractChatCompletionContent(?array $payload): string
+    private function extractChatCompletionContent(mixed $payload): string
     {
-        $content = $payload !== null ? Arr::get($payload, 'choices.0.message.content') : null;
+        $content = is_array($payload) ? Arr::get($payload, 'choices.0.message.content') : null;
 
         return is_string($content) ? $content : '';
     }
