@@ -2,12 +2,17 @@
 title: "Project Structure — Module AI"
 type: documentation
 created: 2026-05-11
+<<<<<<< .merge_file_irMxyr
 updated: 2026-09-17
+=======
+updated: 2026-05-11
+>>>>>>> .merge_file_3EQ71B
 tags: [structure, architecture, module]
 ---
 
 # Project Structure — Module **AI**
 
+<<<<<<< .merge_file_irMxyr
 This documents the layout of `laravel/Modules/AI/docs/` itself (the docs-wiki on-demand pattern), not the PHP module's `app/` code layout — for that see [structure.md](./structure.md) (namespace, Composer package, file/class counts).
 
 ## Directory Structure
@@ -40,6 +45,37 @@ Verified against the actual tree on 2026-09-17 (previous versions of this diagra
 ├── performance-optimization.md    # Metriche e best practice
 ├── project-structure.md           # questo file
 └── README.md                      # indice navigabile del modulo (overview + ownership + catalogo per argomento)
+=======
+## Directory Structure
+
+```
+./laravel/Modules/AI/docs/
+├── wiki/                          # Knowledge base locale (LLM Wiki)
+│   ├── index.md                  # Master catalog
+│   ├── log.md                    # Activity log
+│   ├── concepts/                 # Topic/theme pages
+│   ├── entities/                 # Organization/person pages
+│   ├── rules/                    # ⚠️ 151+ regole progettuali
+│   │   ├── 00-INDEX.md          # Indice regole
+│   │   ├── 00-TRIGGER_MAP.md    # Trigger map (link a globale)
+│   │   └── *.md                 # Regole specifiche modulo
+│   ├── skills/                   # Skill progettuali
+│   │   ├── INDEX.md
+│   │   └── *.md
+│   ├── commands/                 # Comandi progettuali
+│   │   ├── INDEX.md
+│   │   └── *.md
+│   ├── memories/                 # Memorie progettuali
+│   │   ├── INDEX.md
+│   │   └── *.md
+│   ├── decisions/                # Architecture decision records
+│   └── troubleshooting/          # Bug fixes, error resolutions
+├── ON-DEMAND-PATTERN.md          # 🌟 QUESTO FILE — Pattern on-demand
+├── QMD-SETUP.md                  # Configurazione QMD
+├── PERFORMANCE-OPTIMIZATION.md    # Metriche e best practice
+├── ARCHITECTURE.md               # (opzionale) Architettura modulo
+└── README.md                     # (opzionale) Overview modulo
+>>>>>>> .merge_file_3EQ71B
 ```
 
 ## File Chiave
