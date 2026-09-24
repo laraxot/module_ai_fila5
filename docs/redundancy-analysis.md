@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: "AI redundancy analysis — index"
 type: index
@@ -19,6 +18,3 @@ This file used to be a one-line stub pointing at `docs/analysis/redundancies/sum
 | [metodi-duplicati-analisi.md](./metodi-duplicati-analisi.md) | Duplicate *method* detection across 18 modules + 2 themes (broader, project-wide scope) — not a duplicate of `duplicate-methods-analysis.md`, different scope, see note in that file. |
 
 For the docs-duplication problem itself (this file's original topic), see the changelog entry in [README.md](./README.md#changelog) for what was merged/deleted in the 2026-09-17 pass.
-=======
-Redundancy analysis available: docs/analysis/redundancies/summary.md
->>>>>>> laraxot/dev
