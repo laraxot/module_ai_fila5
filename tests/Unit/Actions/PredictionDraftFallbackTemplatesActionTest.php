@@ -9,7 +9,7 @@ use PHPUnit\Framework\Assert;
 
 describe('PredictionDraftFallbackTemplates Action', function (): void {
     test('_returns_expected_template_categories', function (): void {
-        $action = new PredictionDraftFallbackTemplatesAction;
+        $action = new PredictionDraftFallbackTemplatesAction();
         $result = $action->execute();
 
         Assert::assertNotEmpty($result);
@@ -33,7 +33,7 @@ describe('PredictionDraftFallbackTemplates Action', function (): void {
     });
 
     test('_has_expected_categories_present', function (): void {
-        $action = new PredictionDraftFallbackTemplatesAction;
+        $action = new PredictionDraftFallbackTemplatesAction();
         $result = $action->execute();
 
         $categories = array_column($result, 'category');
@@ -46,7 +46,7 @@ describe('PredictionDraftFallbackTemplates Action', function (): void {
     });
 
     test('_templates_contain_options', function (): void {
-        $action = new PredictionDraftFallbackTemplatesAction;
+        $action = new PredictionDraftFallbackTemplatesAction();
         $result = $action->execute();
 
         foreach ($result as $template) {
@@ -63,7 +63,7 @@ describe('PredictionDraftFallbackTemplates Action', function (): void {
     });
 
     test('_templates_have_tags', function (): void {
-        $action = new PredictionDraftFallbackTemplatesAction;
+        $action = new PredictionDraftFallbackTemplatesAction();
         $result = $action->execute();
 
         foreach ($result as $template) {
@@ -74,7 +74,7 @@ describe('PredictionDraftFallbackTemplates Action', function (): void {
     });
 
     test('_template_structure_matches_expectation', function (): void {
-        $action = new PredictionDraftFallbackTemplatesAction;
+        $action = new PredictionDraftFallbackTemplatesAction();
         $result = $action->execute();
 
         Assert::assertNotEmpty($result);

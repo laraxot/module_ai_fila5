@@ -1,69 +1,21 @@
 <?php
 
-/**
- * Action that provides fallback prediction draft templates.
- *
- * Returns a list of predefined prediction draft templates used when
- * the primary prediction generation fails or when mock data is needed.
- * Each template includes category, title, subtitle, description, analysis,
- * tags, and options arrays.
- *
- * @package Modules\AI\Actions
- */
+declare(strict_types=1);
 
-namespace Modules\AI\Actions;
+namespace Modules\AI\Support;
 
-use Spatie\QueueableAction\QueueableAction;
-
-/**
- * Provides fallback prediction draft templates.
- *
- * This Action is used when the primary prediction generation service
- * is unavailable or when test data is needed. It returns a structured
- * array of prediction templates organized by category.
- *
- * @example
- * // Get fallback templates for testing
- * $templates = app(\Modules\AI\Actions\PredictionDraftFallbackTemplatesAction::class)
- *     ->execute();
- *
- * // Access first template
- * $firstTemplate = $templates[0];
- * // $firstTemplate['category'] => 'Sport'
- */
-final class PredictionDraftFallbackTemplatesAction
+class PredictionDraftFallbackTemplates
 {
-    use QueueableAction;
     /**
-     * Execute the action and return fallback templates.
-     *
-     * @return array<int, array{
-     *     category: string,
-     *     title: string,
-     *     subtitle: string,
-     *     description: string,
-     *     analysis: string,
-     *     tags: array<int, string>,
-     *     options: array<int, string>
-     * }> List of fallback prediction templates
-     */
-    public function execute(): array
-    {
-        return self::all();
-    }
-
-    /**
-     * Get all fallback prediction draft templates.
-     *
-     * @return array<int, array{
-     *     category: string,
-     *     title: string,
-     *     subtitle: string,
-     *     description: string,
-     *     analysis: string,
-     *     tags: array<int, string>,
-     *     options: array<int, string>
-     * }> List of fallback prediction templates
+     * @return list<array{
+     *   category: string,
+     *   title: string,
+     *   subtitle: string,
+     *   description: string,
+     *   analysis: string,
+     *   tags: array<int, string>,
+     *   options: array<int, string>
+     * }>
      */
     public static function all(): array
     {

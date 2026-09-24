@@ -124,6 +124,7 @@ PROMPT;
         $normalized = $this->replaceRegex('/^```\s*/', '', $normalized);
         $normalized = $this->replaceRegex('/\s*```$/', '', $normalized);
 
+        /** @var mixed $decoded */
         $decoded = json_decode($normalized, true);
         if (! is_array($decoded)) {
             return $this->fallbackDrafts($expectedCount);
@@ -187,16 +188,12 @@ PROMPT;
         return is_numeric($rawTemperature) ? (float) $rawTemperature : 0.6;
     }
 
-    /**
-     * @param  mixed  $value  Raw Arr::get() value from decoded JSON; non-scalars become ''
-     */
     private function toNormalizedString(mixed $value): string
     {
         return is_scalar($value) ? trim((string) $value) : '';
     }
 
     /**
-     * @param  mixed  $value  Raw options payload; scalars are normalized, the rest skipped
      * @return array<int, string>
      */
     private function normalizeOptions(mixed $value): array
