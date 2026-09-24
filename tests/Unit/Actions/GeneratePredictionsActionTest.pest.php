@@ -12,6 +12,13 @@ use Modules\AI\Tests\Support\OpenAiHttpFake;
 use PHPUnit\Framework\Assert;
 
 uses(\Modules\AI\Tests\TestCase::class);
+<<<<<<< .merge_file_IRcpLW
+=======
+<<<<<<< .merge_file_xZXFVg
+=======
+<<<<<<< .merge_file_1WvDdA
+=======
+>>>>>>> .merge_file_z6j7CR
 // Laraxot — see module docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
@@ -22,6 +29,11 @@ uses(\Modules\AI\Tests\TestCase::class);
 // Laraxot module file — see docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
 // Laraxot module file — see docs/wiki for domain contract.
+<<<<<<< .merge_file_IRcpLW
+=======
+>>>>>>> .merge_file_AEaex3
+>>>>>>> .merge_file_gpnMmI
+>>>>>>> .merge_file_z6j7CR
 
 describe('Generate Predictions Action', function (): void {
     test('generates a single prediction with AI', function (): void {
