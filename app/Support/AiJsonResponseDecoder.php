@@ -24,7 +24,7 @@ class AiJsonResponseDecoder
             $decoded = json_decode($normalized, true, 512, JSON_THROW_ON_ERROR);
 
             return is_array($decoded) ? self::stringKeyArray($decoded) : [];
-        } catch (Throwable) {
+        } catch (\Throwable) {
             return [];
         }
     }
