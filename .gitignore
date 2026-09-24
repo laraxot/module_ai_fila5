@@ -68,4 +68,22 @@ docs/archive/
 *~head
 
 agentdb.rvf
-tests/AuditCoverage
+
+# Pest + audit-coverage bridge (claude-audit — path /tests/ nel matcher)
+!tests/
+!tests/**
+
+# Laraxot — claude-audit bridge + tests/AuditCoverage forbidden (never commit)
+audit-coverage/
+tests/AuditCoverage/
+
+# Laraxot — IDE folders forbidden at module/theme root (see module-theme-root-hygiene)
+.cursor/
+.devcontainer/
+.vscode/
+.windsurf/
+
+# Laraxot — quality tool configs forbidden in module/theme root (use laravel/phpinsights.php, laravel/rector.php)
+phpinsights.php
+rector.php
+.claude-audit/
