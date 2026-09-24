@@ -8,7 +8,7 @@ use Modules\AI\Models\AiActionProposal;
 use PHPUnit\Framework\Assert;
 
 test('ai action proposal casts attributes', function (): void {
-    $casts = (new AiActionProposal)->getCasts();
+    $casts = (new AiActionProposal())->getCasts();
 
     Assert::assertSame('array', $casts['payload']);
     Assert::assertSame('array', $casts['result']);
