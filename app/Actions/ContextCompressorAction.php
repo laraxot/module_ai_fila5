@@ -69,9 +69,6 @@ class ContextCompressorAction
         }
     }
 
-    /**
-     * @param  mixed  $response  Raw payload from $responses->create() (array shape expected)
-     */
     private static function extractCompressedText(mixed $response): ?string
     {
         if (! is_array($response) || ! isset($response['output']) || ! is_array($response['output'])) {
