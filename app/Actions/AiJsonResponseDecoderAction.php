@@ -63,7 +63,7 @@ final class AiJsonResponseDecoderAction
             $decoded = Safe\json_decode($normalized, true, 512, JSON_THROW_ON_ERROR);
 
             return is_array($decoded) ? self::stringKeyArray($decoded) : [];
-        } catch (Throwable) {
+        } catch (\Throwable) {
             return [];
         }
     }
