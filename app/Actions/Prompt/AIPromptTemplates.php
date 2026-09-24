@@ -6,7 +6,11 @@ namespace Modules\AI\Actions\Prompt;
 
 final class AIPromptTemplates
 {
+<<<<<<< .merge_file_qyn2S8
     public const ROUTING_JSON = <<<'JSON'
+=======
+    public const string ROUTING_JSON = <<<'JSON'
+>>>>>>> .merge_file_ute3a2
 {
   "assignments": [
     {
@@ -23,7 +27,11 @@ final class AIPromptTemplates
 }
 JSON;
 
+<<<<<<< .merge_file_qyn2S8
     public const PATTERN_JSON = <<<'JSON'
+=======
+    public const string PATTERN_JSON = <<<'JSON'
+>>>>>>> .merge_file_ute3a2
 {
   "temporal_trends": {
     "peak_hours": ["9-11", "14-16"],
@@ -45,7 +53,11 @@ JSON;
 }
 JSON;
 
+<<<<<<< .merge_file_qyn2S8
     public const IMPROVEMENTS_JSON = <<<'JSON'
+=======
+    public const string IMPROVEMENTS_JSON = <<<'JSON'
+>>>>>>> .merge_file_ute3a2
 
 Fornisci suggerimenti per:
 - Processi operativi

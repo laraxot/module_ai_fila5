@@ -223,10 +223,8 @@ PROMPT;
             'response_length' => strlen($response),
         ]);
 
-        /** @var array<string, mixed> $parsed */
-        $parsed = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-
-        return $parsed;
+        /** @var array<string, mixed> */
+        return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
