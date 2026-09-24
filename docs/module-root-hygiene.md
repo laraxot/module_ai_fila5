@@ -52,6 +52,7 @@ The underlying needs are legitimate; the module root is just the wrong home:
 Nothing unique was destroyed — real content moved to a real home *before* the
 forbidden folder was removed.
 
+<<<<<<< .merge_file_6I5YB2
 > **Drift detected (2026-09-17), in this checkout of the module (`base_restaurant_fila5`)**:
 > `Modules/AI/scripts/` still exists with all four items listed above
 > (`fine_tuning.py`, `test_fine_tuning.py`, `ci/contributor-lines-report.mjs`,
@@ -65,6 +66,8 @@ forbidden folder was removed.
 > this doc if the migration was abandoned). Not resolved in this documentation
 > pass, since moving `scripts/` is a structural change, not a doc edit.
 
+=======
+>>>>>>> .merge_file_7XIGLn
 ## The zen of a clean root
 
 A module root should read like a table of contents: `app/`, `config/`,

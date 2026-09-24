@@ -1,5 +1,7 @@
-# Documentation Index (superato)
+# Documentation Index
 
-Bridge: questo file era un puntatore molto breve e non aggiornato.
+Modulo: AI
 
-**Fonte canonica**: [`index.md`](./index.md) — indice unico e navigabile di `laravel/Modules/AI/docs/`, organizzato per argomento.
+## File disponibili
+
+<!-- auto-generato: elencare i file .md presenti -->

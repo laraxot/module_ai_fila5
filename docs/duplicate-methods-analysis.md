@@ -1,7 +1,5 @@
 # Analisi Metodi Duplicati - Modulo AI
 
-> Scope: solo il codice del modulo `AI`. Per un'analisi simile ma a scope piu' ampio (18 moduli + 2 temi Laraxot) vedi [metodi-duplicati-analisi.md](./metodi-duplicati-analisi.md) — non sono lo stesso documento, coprono perimetri diversi.
-
 **Data Generazione**: 2025-10-15 06:41:17
 **Totale Gruppi di Duplicati**: 
 
