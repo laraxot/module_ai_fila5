@@ -8,9 +8,11 @@ use Modules\AI\Actions\CompletionAction;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
+uses(TestCase::class);
+
 beforeEach(function (): void {
     /** @var TestCase $this */
-    $this->action = new CompletionAction();
+    $this->action = new CompletionAction;
 });
 
 describe('CompletionAction', function (): void {
