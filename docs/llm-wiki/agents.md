@@ -3,15 +3,13 @@ title: "Agent instructions"
 type: reference
 tags: [agents, coding-agent, llm-wiki]
 created: 2026-07-01
-updated: 2026-09-17
+updated: 2026-07-01
 qmd: "istruzioni agenti LLM wiki modulo"
 issues: []
 discussions: []
 related:
   - ./coding-agent-manifests.md
 ---
-
-> Merged 2026-09-17: folded in the extra sections (Rule 4, workflows, cross-linking, quality checklist) that only existed in the near-duplicate `../wiki/agents.md`, which had a fuller body but an unfixed `{{TYPE^}}` template placeholder in its title and literal `YYYY-MM-DD` placeholders in its frontmatter example. `../wiki/agents.md` was deleted after this merge — this file is now the single canonical copy.
 
 # AI Module LLM Wiki Agent Instructions
 
@@ -70,86 +68,3 @@ related:
 ### Rule 3: Link Heavily
 - Every page MUST have 3+ incoming links
 - Every page MUST have 3+ outgoing links
-- Use wikilinks: `[[concepts/page]]`
-
-### Rule 4: Atomic Commits
-- One ingestion = one commit
-- Message format: `docs: {action} {description}`
-
-## When to Use Module Wiki vs Project Wiki
-
-### Create Module Page If:
-- Concept is unique to AI
-- Pattern is AI-specific
-- Decision only affects AI
-
-### Reference Project Wiki (`../../docs/wiki/`) If:
-- Concept spans multiple modules
-- Pattern is project-wide (e.g., Actions over Services)
-- Decision affects architecture globally
-
-## Workflows
-
-### Ingest
-
-```
-User: "ingest {path-to-raw-file}"
-
-Steps:
-1. Read source from raw/
-2. Extract key concepts, entities, data
-3. Create/update wiki pages
-4. Update index.md and log.md
-5. Commit changes
-```
-
-### Query
-
-```
-User: Ask a question
-
-Steps:
-1. Search index.md for relevant categories
-2. Read matching wiki pages
-3. Synthesize answer with explicit citations
-4. Create new pages for high-value insights
-```
-
-### Lint
-
-```
-User: "lint wiki"
-
-Steps:
-1. Scan for contradictions, orphans, stale claims
-2. Report findings with file paths
-3. Suggest and apply fixes
-4. Commit changes
-```
-
-## Cross-Linking to Project Wiki
-
-When referencing project-wide concepts:
-
-```markdown
-Related:
-- Project-wide: [[../../docs/wiki/concepts/laraxot-architecture]]
-- Module-specific: [[concepts/module-concept]]
-```
-
-## Quality Checklist
-
-### Before Committing
-- [ ] Frontmatter schema is valid
-- [ ] Filename is lowercase-kebab-case.md
-- [ ] Page has at least 1 outgoing link
-- [ ] index.md is updated (if new page)
-- [ ] log.md is updated (if ingestion)
-- [ ] No content duplication (DRY)
-- [ ] Commit message: `docs: {action} {description}`
-
-## Related Documentation
-
-- [Project Wiki Integration](../../../../../docs/wiki/index.md) (repo-root wiki index, not this module's local `wiki/`; there is no `docs/wiki/README.md` at repo root)
-- [Module's own local wiki](../wiki/README.md)
-- [Module Documentation](../README.md)

@@ -169,24 +169,18 @@ Aggiungi solo i server che realmente ti servono per il tuo workflow. Puoi sempre
 
 Per utilizzare il server MCP MySQL con le stesse credenziali del tuo progetto Laravel, segui questi passi:
 
-> Nota: gli esempi sotto usano path assoluti di un altro progetto Laraxot
-> (`base_predict_fila5_mono`), ereditati da un template condiviso tra i moduli;
-> non corrispondono al path di questo repo (`base_restaurant_fila5`, senza
-> `/html/`), e lo script `start-mcp-mysql.sh`/`mcp-manager-v2.sh` non esiste
-> in questo repo. Adatta i path al progetto corrente prima di usarli.
-
 1. **Crea lo script di avvio**
    - Crea un file chiamato `start-mcp-mysql.sh` nella root del progetto:
      ```bash
      #!/bin/bash
      set -a
-     source <path-progetto>/laravel/.env
+     source /var/www/html/_bases/base_predict_fila5_mono/laravel/.env
      set +a
      npx -y @modelcontextprotocol/server-mysql
      ```
    - Rendi eseguibile lo script:
      ```bash
-     chmod +x <path-progetto>/start-mcp-mysql.sh
+     chmod +x /var/www/html/_bases/base_predict_fila5_mono/start-mcp-mysql.sh
      ```
 
 2. **Configura il server MCP MySQL solo a livello di progetto**
@@ -210,10 +204,8 @@ Per utilizzare il server MCP MySQL con le stesse credenziali del tuo progetto La
 - Tutti i server MCP devono essere configurati in modo uniforme e minimale.
 - Solo server MCP ufficiali e realmente utili al workflow.
 - Tutti i server MCP sono avviati tramite `npx` (nessun path locale, nessun host/port, nessun env globale).
-- Il server MySQL è sempre locale al progetto e avviato tramite uno script bash
-  dedicato (es. `bashscripts/mcp/mcp-manager-v2.sh`, path d'esempio da un altro
-  progetto Laraxot: non esiste ancora in questo repo, va creato se si adotta
-  questo workflow)
+- Il server MySQL è sempre locale al progetto e avviato tramite lo script bash:
+  `/var/www/html/_bases/base_predict_fila5_mono/bashscripts/mcp/mcp-manager-v2.sh`
 - Nessuna duplicazione di variabili o configurazioni tra ambienti.
 - Ogni modifica va applicata a tutti i file di configurazione coinvolti (VSCode, Cursor, Windsurf).
 - La documentazione deve sempre riflettere questa filosofia di coerenza e semplicità.
@@ -252,7 +244,7 @@ Esempio da usare in `.vscode/mcp.json`, `.cursor/mcp.json`, `mcp_config.json` di
       "args": ["-y", "@modelcontextprotocol/server-redis"]
     },
     "mysql": {
-      "command": "<path-progetto>/bashscripts/mcp/mcp-manager-v2.sh"
+      "command": "/var/www/html/_bases/base_predict_fila5_mono/bashscripts/mcp/mcp-manager-v2.sh"
     },
     "puppeteer": {
       "command": "npx",

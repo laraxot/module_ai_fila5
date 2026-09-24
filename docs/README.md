@@ -17,18 +17,18 @@ Le Actions di dominio AI (Ollama, compression, predictions) vivono in
 |-----|------|
 | Wiki ownership | [wiki/concepts/ollama-actions-ownership.md](wiki/concepts/ollama-actions-ownership.md) |
 | Move 2026-07-24 | [ollama-actions-moved-from-xot.md](ollama-actions-moved-from-xot.md) |
-| Root rule | [domain-actions-belong-to-domain-module](../../../../bashscripts/ai/wiki/rules/domain-actions-belong-to-domain-module.md) |
+| Root rule | [domain-actions-belong-to-domain-module](../../../../docs/wiki/rules/domain-actions-belong-to-domain-module.md) |
 
 ## 📋 Quick Reference
 | Categoria | Guida | File |
 |-----------|-------| ---- |
-| **Setup** | MCP Server Setup | [mcp/01-installazione.md](mcp/01-installazione.md) |
-| **Config** | Configurazione | [mcp/02-configurazione.md](mcp/02-configurazione.md) |
-| **Usage** | Utilizzo pratico | [mcp/03-utilizzo.md](mcp/03-utilizzo.md) |
+| **Setup** | MCP Server Setup | [mcp/01_installazione.md](mcp/01_installazione.md) |
+| **Config** | Configurazione | [mcp/02_configurazione.md](mcp/02_configurazione.md) |
+| **Usage** | Utilizzo pratico | [mcp/03_utilizzo.md](mcp/03_utilizzo.md) |
 | **Integration** | Chat System | [chat.md](chat.md) |
-| **Training** | Fine Tuning | [fine-tuning.md](fine-tuning.md) |
+| **Training** | Fine Tuning | [fine_tuning.md](fine_tuning.md) |
 | **Tools** | Ollama, CLI Tools | [ollama.md](ollama.md), [tools.md](tools.md) |
-| **Troubleshooting** | Errori comuni | [mcp/06-troubleshooting.md](mcp/06-troubleshooting.md) |
+| **Troubleshooting** | Errori comuni | [mcp/06_troubleshooting.md](mcp/06_troubleshooting.md) |
 
 ## 🎯 Core Features
 - **MCP Protocol**: Database integration, external services, custom tools
@@ -50,23 +50,52 @@ Questa directory contiene la documentazione completa sull'integrazione MCP in La
 
 ### Indice della Documentazione
 
-La guida MCP completa e numerata vive in [mcp/00-indice.md](./mcp/00-indice.md) (00-11). Punti di ingresso equivalenti ai tre argomenti sotto:
+1. [Guida all'Integrazione MCP](./MCP_INTEGRATION_GUIDE.md)
+   - Panoramica completa del protocollo MCP
+   - Vantaggi dell'integrazione in Laravel
+   - Architettura e componenti principali
+   - Casi d'uso generali e implementazione base
 
-1. [Introduzione a MCP](./mcp/00-introduzione.md) — panoramica del protocollo, vantaggi per Laravel, architettura e componenti principali.
-2. [Utilizzo pratico](./mcp/03-utilizzo.md) — casi d'uso, automazione, assistenza utente, analisi dati.
-3. [Implementazione pratica](./mcp/05-implementazione-pratica.md) — sviluppo di tool MCP, testing, debugging.
+2. [Casi d'Uso di MCP in Laravel](./MCP_CASI_USO.md)
+   - Esempi dettagliati di casi d'uso specifici
+   - Automazione dei processi di business
+   - Assistenza utente e supporto
+   - Analisi e gestione dei dati
+   - Sviluppo e debugging
 
-## Tutorial e riferimenti esterni
+3. [Implementazione MCP in Laravel](./MCP_IMPLEMENTAZIONE_LARAVEL.md)
+   - Guida dettagliata all'implementazione
+   - Sviluppo di strumenti MCP
+   - Integrazione con l'architettura esistente
+   - Testing e debugging
+   - Conformità con PHPStan Livello 9
 
-I riferimenti a documentazione MCP esterna (SDK ufficiale, Neuron AI, implementazioni open source come InnoGE/laravel-mcp e OPGG/laravel-mcp-server) che qui erano linkati sotto `docs/project/references/` non esistono piu' in questo repo: quella cartella e' stata rimossa in una ristrutturazione precedente. I tutorial pratici equivalenti restano in [tutorials/](./tutorials/) (vedi [index.md](./index.md#tutorial) per l'elenco).
+## Risorse Esterne
+
+La documentazione fa riferimento alle seguenti risorse esterne:
+
+- [Documentazione Ufficiale MCP](../../../../docs/project/references/mcp_documentation.md)
+- [Laravel MCP SDK](../../../../docs/project/references/laravel_mcp_sdk.md)
+- [Neuron AI Documentation](../../../../docs/project/references/neuron_ai_docs.md)
+- [AI Agents in PHP with MCP](../../../../docs/project/references/ai_agents_php_mcp.md)
+- [Laravel Helper Tools MCP server](../../../../docs/project/references/laravel_helper_tools.md)
+
+## Implementazioni Open Source
+
+Queste implementazioni open source possono essere utilizzate come riferimento:
+
+- [InnoGE/laravel-mcp](../../../../docs/project/references/innoge_laravel_mcp.md)
+- [OPGG/laravel-mcp-server](../../../../docs/project/references/opgg_laravel_mcp_server.md)
 
 ## Contribuire
 
-Se desideri contribuire a questa documentazione o all'implementazione del modulo AI, segui le linee guida del progetto e assicurati che il codice sia conforme agli standard PHPStan del modulo (vedi [phpstan-status.md](./phpstan-status.md)).
+Se desideri contribuire a questa documentazione o all'implementazione del modulo AI, segui le linee guida del progetto e assicurati che il codice sia conforme agli standard di PHPStan livello 9.
 
 ---
 
-> ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [installazione-mcp-servers.md](./installazione-mcp-servers.md).**
+> ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [INSTALLAZIONE_MCP_SERVERS.md](./INSTALLAZIONE_MCP_SERVERS.md).**
+
+🔗 **Guida installazione MCP servers:** [INSTALLAZIONE_MCP_SERVERS.md](./INSTALLAZIONE_MCP_SERVERS.md)
 
 ---
 
@@ -75,21 +104,23 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 ## AI Workflows
 - [AI Methodologies](./ai-methodologies.md)
-- [OpenViking setup (bashscripts/ai)](../../../../bashscripts/ai/.agents/docs/openviking-setup.md)
+- [OpenViking Integration Guide](../../../../docs/openviking-integration.md)
 
 ## LLM Wiki Workflow
 
 - Local compiled wiki: [./wiki/README.md](./wiki/README.md)
 - Local compiled index: [./wiki/index.md](./wiki/index.md)
+- Project wiki layer: [../../../../docs/wiki/README.md](../../../../docs/wiki/README.md)
 - Project compiled index: [../../../../docs/wiki/index.md](../../../../docs/wiki/index.md)
+- Adoption notes and QMD: [../../../../docs/project/karpathy-llm-wiki-adoption.md](../../../../docs/project/karpathy-llm-wiki-adoption.md), [../../../../docs/project/qmd-local-docs-search.md](../../../../docs/project/qmd-local-docs-search.md)
 - [AI LLM Wiki](./llm-wiki.md)
 
 
 ## Standard Rules & Workflow
 
-- [BMAD Method (local)](./wiki/bmad-method.md)
-- [Context Engineering](../../../../bashscripts/ai/wiki/concepts/context-engineering.md)
-- [LLM Wiki Governance](../../../../bashscripts/ai/wiki/concepts/llm-wiki-governance.md)
+- [[BMAD Method](../../../../docs/wiki/concepts/bmad-method.md)]
+- [[Context Engineering](../../../../docs/wiki/concepts/context-engineering.md)]
+- [[LLM Wiki Governance](../../../../docs/wiki/concepts/llm-wiki-governance.md)]
 
 ## Documentation
 
