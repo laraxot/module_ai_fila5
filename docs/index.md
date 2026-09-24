@@ -5,7 +5,7 @@ module: AI
 type: index
 tags: [ai, documentazione, indice, modulo]
 status: active
-updated: 2026-09-17
+updated: 2026-09-03
 ---
 
 # AI Module - Documentation Index
@@ -20,8 +20,7 @@ Altri indici presenti nella cartella (`00-index.md`, `INDEX.md`) sono tentativi 
 |---|---|
 | [README.md](./README.md) | Overview del modulo, ownership Actions, quick reference |
 | [readme-en.md](./readme-en.md) | Presentazione in inglese |
-| [philosophy.md](./philosophy.md) | Finalita', responsabilita' e principi di design del modulo (versione corta) |
-| [PHILOSOPHY.md](./PHILOSOPHY.md) | Filosofia estesa del modulo (dogmi, cost control, 4 modelli/32 action/zero service class) — non e' un duplicato di `philosophy.md`, e' un documento diverso e piu' lungo; scritto nel contesto della base FixCity (il modulo `AI` e' condiviso tra le basi Laraxot, vedi `composer.json` -> `laraxot/module_ai_fila5`), i riferimenti a FixCity restano validi come esempio applicativo |
+| [philosophy.md](./philosophy.md) | Finalita', responsabilita' e principi di design del modulo |
 | [ai-methodologies.md](./ai-methodologies.md) | Indice locale DRY dei workflow AI, rimanda alle fonti canoniche |
 
 ## Prodotto e pianificazione
@@ -49,7 +48,6 @@ Altri indici presenti nella cartella (`00-index.md`, `INDEX.md`) sono tentativi 
 | [database-factories-seeders.md](./database-factories-seeders.md) | Stato copertura migration/factory/seeder per modello |
 | [performance-optimization.md](./performance-optimization.md) | Metriche e best practice di performance |
 | [deferred-operator-assistant-agent.md](./deferred-operator-assistant-agent.md) | Nota su tool-calling differito in `OperatorAssistantAgent` (gestionale_commesse) |
-| [consolidation-with-aiassistant.md](./consolidation-with-aiassistant.md) | Decisione architetturale: non fondere `AI` con il modulo `AiAssistant` (module non presente in questa base, valutazione da altra base Laraxot), estrarre invece gli handler in `AI` |
 
 ### Integrazione con il modulo Predict
 
@@ -133,7 +131,6 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 | [copilot-redundancy-audit-2026-05-25.md](./copilot-redundancy-audit-2026-05-25.md) | Audit ridondanza 2026-05-25 |
 | [ponytail-audit-2026-07-02.md](./ponytail-audit-2026-07-02.md) | Ponytail audit: SentimentAction driver selection in config |
 | [ponytail-audit-over-engineering.md](./ponytail-audit-over-engineering.md) | Ponytail audit su over-engineering |
-| [coverage.md](./coverage.md) | Log qualita'/coverage per sessione (es. 2026-09-04: riduzione uso `mixed`, con elenco file cambiati e PHPStan/PHPMD/Pest a verifica) |
 
 ## Governance, convenzioni e hygiene
 
@@ -246,7 +243,8 @@ Questi file non sono stati toccati, ma sono duplicati, stub o snapshot superati 
 
 ### Indici precedenti di questa stessa cartella
 
-- [00-index.md](./00-index.md) e [INDEX.md](./INDEX.md) - erano indici precedenti/parziali di questa cartella (uno centrato sui soli doc "prodotto" con link a `PRD.md`/`PRODUCT_ROADMAP.md` in maiuscolo che non corrispondevano ai file reali, l'altro un puntatore breve non aggiornato). Convertiti in bridge stub che rimandano qui, secondo la convenzione on-demand del repo, invece di essere cancellati.
+- [00-index.md](./00-index.md) - indice precedente centrato sui soli doc "prodotto", con link a `PRD.md`/`PRODUCT_ROADMAP.md` ecc. in maiuscolo che non corrispondono ai file reali (minuscoli). Superato da questo `index.md`.
+- [INDEX.md](./INDEX.md) - puntatore molto breve, non aggiornato. Superato da questo `index.md`.
 
 ### Stub "module: theme" che rimandano a Themes/docs/shared-components
 
@@ -272,40 +270,19 @@ Stub underscore verso Themes: [mcp/00_indice.md](./mcp/00_indice.md), [mcp/00_in
 
 ### Boilerplate prodotto mai popolato
 
-Sei file condividono lo stesso template generico (`**Module:** AI`, `**Version:** 1.0.0`/`1.0`, `**Owner:**`/`**Author:** Product Team`) mai riempito con contenuto reale, mentre l'omologo piu' corto elencato sopra contiene note effettive del progetto. Ognuno di questi ha anche varianti case-diverse identiche byte-per-byte (verificato con `diff -q`), non elencate singolarmente sotto per brevita':
+Cinque file condividono lo stesso template generico (`**Module:** AI`, `**Version:** 1.0.0`, `**Owner:** Product Team`) mai riempito con contenuto reale, mentre l'omologo piu' corto elencato sopra contiene note effettive del progetto.
 
-- [product_roadmap.md](./product_roadmap.md) (+ [product-roadmap.md](./product-roadmap.md), [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md), identici) -> vedi [roadmap.md](./roadmap.md)
-- [product_strategy.md](./product_strategy.md) (+ [PRODUCT_STRATEGY.md](./PRODUCT_STRATEGY.md), identico) -> vedi [product-strategy.md](./product-strategy.md) e [strategy.md](./strategy.md)
-- [sprint_planning.md](./sprint_planning.md) (+ [sprint-planning.md](./sprint-planning.md), [SPRINT_PLANNING.md](./SPRINT_PLANNING.md), identici) -> vedi [sprint.md](./sprint.md)
-- [user_research.md](./user_research.md) (+ [user-research.md](./user-research.md), [USER_RESEARCH.md](./USER_RESEARCH.md), identici) -> vedi [research.md](./research.md)
-- [product_launch_plan.md](./product_launch_plan.md) (+ [product-launch-plan.md](./product-launch-plan.md), [PRODUCT_LAUNCH_PLAN.md](./PRODUCT_LAUNCH_PLAN.md), identici) -> vedi [launch.md](./launch.md)
-- [PRD.md](./PRD.md) — stesso template (591 righe generiche, "Status: Draft", "Author: Product Team", datato 2026-03-12) -> vedi [prd.md](./prd.md) (124 righe, contenuto reale specifico prediction market)
+- [product_roadmap.md](./product_roadmap.md) -> vedi [roadmap.md](./roadmap.md)
+- [product_strategy.md](./product_strategy.md) -> vedi [product-strategy.md](./product-strategy.md) e [strategy.md](./strategy.md)
+- [sprint_planning.md](./sprint_planning.md) -> vedi [sprint.md](./sprint.md)
+- [user_research.md](./user_research.md) -> vedi [research.md](./research.md)
+- [product_launch_plan.md](./product_launch_plan.md) -> vedi [launch.md](./launch.md)
 
 ### Altri superati o ridondanti
 
 - [structure.md](./structure.md) - versione del 2025-04-23, superata da [project-structure.md](./project-structure.md) (2026-05-11).
 - [metodi_duplicati_analisi.md](./metodi_duplicati_analisi.md) - stessa analisi di [duplicate-methods-analysis.md](./duplicate-methods-analysis.md), stessa data (2025-10-15), rigenerata con formato diverso ("Super Mucca Edition").
 - [phpstan-remediation-2025-12-23.md](./phpstan-remediation-2025-12-23.md) - identico byte per byte a [phpstan-remediation.md](./phpstan-remediation.md) (diff vuoto).
-- [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo. Stesso stub, identico, anche in [redundancy-analysis.md](./redundancy-analysis.md) e [REDUNDANCY_ANALYSIS.md](./REDUNDANCY_ANALYSIS.md) (elencato sopra tra i report qualita', ma e' anch'esso solo lo stub). Il target `docs/analysis/redundancies/summary.md` non esiste in questo repo (verificato): il rimando e' morto, non solo esterno al modulo.
-- [ROADMAP.md](./ROADMAP.md) - snapshot piu' corto e piu' vecchio (19 righe) dello stesso contenuto di [roadmap.md](./roadmap.md) (214 righe); non identico byte-per-byte ma superseduto in sostanza.
+- [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
 - [merge-conflict-files-list.md](./merge-conflict-files-list.md) e [merge-conflicts-list.md](./merge-conflicts-list.md) - due elenchi di file con marker di conflitto da una sessione di merge passata (vedi memoria `project_notify-conflict-remediation-2026-09-03`); presumibilmente risolti, da verificare prima di rimuovere.
 - [wiki/agents.md](./wiki/agents.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](./llm-wiki/agents.md).
-
-### Altre coppie case-variant non ancora catalogate (verificate con `diff -q`, tutte identiche byte-per-byte)
-
-Stesso fenomeno del cluster `mcp/` sopra ma sui file radice: per ogni voce sotto, la versione elencata nelle tabelle principali e' quella kebab-case minuscola; le altre grafie esistono anch'esse come file distinti (non symlink) con contenuto identico e non erano ancora state segnalate in questo indice:
-
-- [bad-practices.md](./bad-practices.md) == [bad_practices.md](./bad_practices.md) == [BAD_PRACTICES.md](./BAD_PRACTICES.md)
-- [best-practices.md](./best-practices.md) == [best_practices.md](./best_practices.md) == [BEST_PRACTICES.md](./BEST_PRACTICES.md)
-- [false-friends.md](./false-friends.md) == [false_friends.md](./false_friends.md) == [FALSE_FRIENDS.md](./FALSE_FRIENDS.md)
-- [gsd-workflow.md](./gsd-workflow.md) == [gsd_workflow.md](./gsd_workflow.md) == [GSD_WORKFLOW.md](./GSD_WORKFLOW.md)
-- [generate-predictions-action.md](./generate-predictions-action.md) == [generate_predictions_action.md](./generate_predictions_action.md) == [GENERATE_PREDICTIONS_ACTION.md](./GENERATE_PREDICTIONS_ACTION.md)
-- [boost-skill-fix-summary.md](./boost-skill-fix-summary.md) == [boost_skill_fix_summary.md](./boost_skill_fix_summary.md) == [BOOST_SKILL_FIX_SUMMARY.md](./BOOST_SKILL_FIX_SUMMARY.md)
-- [metodi-duplicati-analisi.md](./metodi-duplicati-analisi.md) == [metodi_duplicati_analisi.md](./metodi_duplicati_analisi.md) == [METODI_DUPLICATI_ANALISI.md](./METODI_DUPLICATI_ANALISI.md)
-- [next-steps.md](./next-steps.md) == [NEXT-STEPS.md](./NEXT-STEPS.md)
-- [on-demand-pattern.md](./on-demand-pattern.md) == [ON-DEMAND-PATTERN.md](./ON-DEMAND-PATTERN.md)
-- [qmd-setup.md](./qmd-setup.md) == [QMD-SETUP.md](./QMD-SETUP.md)
-- [performance-optimization.md](./performance-optimization.md) == [PERFORMANCE-OPTIMIZATION.md](./PERFORMANCE-OPTIMIZATION.md)
-- [project-structure.md](./project-structure.md) == [PROJECT-STRUCTURE.md](./PROJECT-STRUCTURE.md)
-
-Idem per gli indici delle sottocartelle `wiki/*/`: ogni `index.md` elencato sopra ha un gemello `INDEX.md` identico byte-per-byte nella stessa cartella (`wiki/commands/`, `wiki/concepts/`, `wiki/memories/`, `wiki/rules/`, `wiki/skills/`, `wiki/troubleshooting/`, verificato con `diff -q`); la coppia minuscola `index.md` e' quella da trattare come canonica, per coerenza con `index.md`/`INDEX.md`/`00-index.md` di questa stessa cartella (vedi sopra).
