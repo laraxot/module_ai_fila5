@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Prompt;
 
+use Modules\AI\Datas\AIPromptTemplates;
+
 use InvalidArgumentException;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
@@ -21,18 +23,18 @@ final class BuildAIPromptAction
     {
         return match ($type) {
             'classification' => $this->classification(
-                $this->paramString($params, 'title'),
-                $this->paramString($params, 'description'),
+                Assert::string($params['title'] ?? ''),
+                Assert::string($params['description'] ?? ''),
             ),
             'solutions' => $this->solutions(
-                $this->paramString($params, 'title'),
-                $this->paramString($params, 'description'),
-                $this->paramString($params, 'category'),
+                Assert::string($params['title'] ?? ''),
+                Assert::string($params['description'] ?? ''),
+                Assert::string($params['category'] ?? ''),
             ),
-            'sentiment' => $this->sentiment($this->paramString($params, 'text')),
+            'sentiment' => $this->sentiment(Assert::string($params['text'] ?? '')),
             'priority' => $this->priority(
-                $this->paramString($params, 'title'),
-                $this->paramString($params, 'description'),
+                Assert::string($params['title'] ?? ''),
+                Assert::string($params['description'] ?? ''),
                 $this->stringKeyMap(is_array($params['context'] ?? null) ? $params['context'] : []),
             ),
             'routing' => $this->routing(
@@ -40,9 +42,9 @@ final class BuildAIPromptAction
                 $this->ticketList(is_array($params['agents'] ?? null) ? $params['agents'] : []),
             ),
             'auto_response' => $this->autoResponse(
-                $this->paramString($params, 'ticket_content'),
-                $this->paramString($params, 'category'),
-                $this->paramString($params, 'priority'),
+                Assert::string($params['ticket_content'] ?? ''),
+                Assert::string($params['category'] ?? ''),
+                Assert::string($params['priority'] ?? ''),
             ),
             'pattern_analysis' => $this->patternAnalysis(
                 $this->ticketList(is_array($params['tickets'] ?? null) ? $params['tickets'] : []),
@@ -228,17 +230,6 @@ Rispondi in formato JSON:
         return 'Suggerisci miglioramenti per il servizio di gestione ticket basandoti su questi dati:
 
 Dati: '.json_encode($data, JSON_PRETTY_PRINT).AIPromptTemplates::IMPROVEMENTS_JSON;
-    }
-
-    /**
-     * @param  array<string, mixed>  $params
-     */
-    private function paramString(array $params, string $key): string
-    {
-        $value = $params[$key] ?? '';
-        Assert::string($value);
-
-        return $value;
     }
 
     /**
