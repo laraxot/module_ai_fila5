@@ -1,90 +1,49 @@
 ---
-title: "AI Module Wiki Index"
+title: "AI module wiki index"
 type: index
 module: AI
-tags: [ai, wiki, index, ollama, mcp]
+tags: [ai, wiki, index, providers, ollama, second-brain]
 created: 2026-04-15
-updated: 2026-06-05
-qmd: "ai module wiki index ollama mcp second brain harness"
+updated: 2026-09-25
+qmd: "AI module wiki Claude GPT Gemini OpenAI Ollama DS4 MCP second brain provider documentation"
 issues:
   - "https://github.com/laraxot/base_fixcity_fila5/issues/272"
 discussions:
   - "https://github.com/laraxot/base_fixcity_fila5/discussions/273"
 related:
-  - ../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md
-  - ../../../../docs/wiki/bmad/architecture.md
-  - ../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md
-  - ../../docs/wiki/concepts/ai-harness-module-discipline.md
+  - ./concepts/second-brain-local-discipline.md
+  - ./concepts/provider-support-and-doc-ownership.md
+  - ../../../../Themes/docs/wiki/concepts/ai-harness-theme-discipline.md
+  - ../../../../../docs/wiki/index.md
 ---
 
-# AI Module LLM Wiki
+# AI module wiki
 
-## AI / second brain
+Use this index to find the current owner documentation. Provider support claims
+belong to the implementation map and must be checked against source before they
+are copied into agent or theme guides.
 
-- [hackernoon-ai-coding-tips-fixcity-map](../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md)
-- [bmad/architecture](../../../../docs/wiki/bmad/architecture.md)
-- [frontmatter + GitHub](../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md)
-- [ai-harness-module-discipline](../../docs/wiki/concepts/ai-harness-module-discipline.md)
-- [second-brain-local-discipline](./concepts/second-brain-local-discipline.md) → canon Xot
+## AI providers and agent clients
 
+- [Provider support and documentation ownership](./concepts/provider-support-and-doc-ownership.md) — implemented paths and verified limits for GPT/OpenAI, Ollama, DS4, Claude and Gemini.
+- [Second-brain discipline for Claude, GPT, Gemini and other agents](./concepts/second-brain-local-discipline.md) — agent instructions link to the module/wiki owner rather than duplicate it.
+- [Themes AI harness](../../../../Themes/docs/wiki/concepts/ai-harness-theme-discipline.md) — boundary between module runtime and theme presentation.
 
-Indice operativo del wiki AI.
+## Module concepts
 
-## Struttura canonica (sacred)
+- [MCP governance](./concepts/ai-mcp-governance.md)
+- [Local-first Ollama strategy](./concepts/local-first-ollama-strategy.md)
+- [OpenRouter context compression](./concepts/openrouter-context-compression.md)
+- [Context compression plugin](./concepts/context-compression-plugin.md)
+- [Composer root minimal for nwidart](./concepts/composer-root-minimal-nwidart.md)
 
-- [concepts/](./concepts/): Pattern architetturali e metodologie AI.
-- [entities/](./entities/): Modelli e componenti chiave.
-- [sources/](./sources/): Dati di ricerca e link esterni.
-- [comparisons/](./comparisons/): Implementazioni alternative.
-- [decisions/](./decisions/): ADL (Architectural Decision Log).
-- [troubleshooting/](./troubleshooting/): Problemi noti e soluzioni.
-- [_archive/](./_archive/): Documentazione legacy.
-- [_templates/](./_templates/): Template standard.
+## Comparisons and troubleshooting
 
-## Regole collegate
+- [Agents/Codex skill mirror](./comparisons/bashscripts-agents-codex-skill-mirror.md)
+- [MCP governance troubleshooting](./concepts/ai-mcp-governance.md)
 
-- [forbidden-folders-rule](../../../../docs/wiki/concepts/forbidden-folders.md): Vincoli strutturali strict.
-- [llm-wiki-standard](../../../../docs/project/karpathy-llm-wiki-adoption.md): Mapping repository e ciclo di vita conoscenza.
-- [laravel-boost-mcp-server](../../../../docs/wiki/concepts/laravel-boost-mcp-server.md): Server MCP Laravel Boost per AI.
+## Root second brain
 
-## Scopo AI Module
-
-Integrazione AI locale (Ollama) e cloud (OpenRouter) per generazione contenuti, predizioni e automazione.
-
-## Compiled Pages
-
-| Pagina | Tipo | Argomento | Data |
-|--------|------|-----------|------|
-| [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | Governance MCP AI | 2026-04-21 |
-| [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md) | Concept | Strategia Ollama locale | 2026-04-21 |
-| [openrouter-context-compression](./concepts/openrouter-context-compression.md) | Concept | Compressione contesto OpenRouter | 2026-04-22 |
-| [context-compression-plugin](./concepts/context-compression-plugin.md) | Concept | Plugin compressione contesto | 2026-04-22 |
-| [bashscripts-agents-codex-skill-mirror](./comparisons/bashscripts-agents-codex-skill-mirror.md) | Comparison | Mirror skill `.agents` / `.codex` (252/252) e policy | 2026-05-04 |
-
-## Best Practices
-
-- Usare `handle()` non `execute()` in Spatie QueueableAction (vedi [phpstan-action-method-naming](../../../../docs/wiki/concepts/phpstan-action-method-naming.md))
-- Preferire Ollama locale per token cost reduction (vedi [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md))
-- Usare `casts()` method non `$casts` property (vedi [model-casts-phpstan](../../../../docs/wiki/concepts/model-casts-phpstan.md))
-
-## Bad Practices
-
-- NUN usare `dehydrated(false)` nei trait - blocca salvataggio (vedi CoordinatePicker fix in Geo)
-- NUN hardcodare API keys - usare `.env` e config (vedi [security-audit](../../../../docs/wiki/concepts/security-audit.md))
-- NUN creare Service classes - usare Actions (vedi [actions-over-services-governance](https://github.com/laraxot/base_fixcity_fila5/blob/main/.opencode/skills/actions-over-services-governance/SKILL.md))
-
-## False Friends
-
-- `->live()` in Filament non rende il campo sempre live - serve `$applyStateBindingModifiers()` (vedi [coordinate-picker-state-binding-rule](../../Geo/docs/wiki/concepts/coordinate-picker-state-binding-rule.md))
-- `dehydrated(false)` sembra mantenere il campo nei dati ma blocca il salvataggio (vedi [coordinate-picker-filament5-save-pattern](../../Geo/docs/wiki/concepts/coordinate-picker-filament5-save-pattern.md))
-
-## Troubleshooting
-
-| Pagina | Tipo | Argomento |
-|--------|------|-----------|
-| [ai-mcp-governance](./concepts/ai-mcp-governance.md) | Concept | Connessione MCP AI, troubleshooting |
-
-Aggiornato: 2026-05-11
-## Composer / nwidart
-
-- [composer-root-minimal-nwidart](concepts/composer-root-minimal-nwidart.md) — root skeleton nwidart (modello fixcity)
+- [Project wiki index](../../../../../docs/wiki/index.md)
+- [AI module documentation index](../INDEX.md)
+- [PHPStan fixes history](../phpstan-fixes-history.md)
