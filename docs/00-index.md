@@ -1,23 +1,23 @@
 ---
-title: "AI module documentation index"
-type: index
+title: "AI — indice della documentazione"
+description: "Documentazione del modulo AI: integrazione modelli linguistici."
 module: AI
-tags: [ai, documentation, index, mcp]
-created: 2026-03-26
-updated: 2026-09-25
-qmd: "ai module documentation index mcp contracts"
+tags: [ai, documentazione, modulo, laraxot]
+status: active
+repository: https://github.com/laraxot/module_ai_fila5
 related:
-  - "./README.md"
-  - "./wiki/index.md"
-  - "./wiki/concepts/dashboard-page-contract.md"
-  - "../../../../docs/stories/2.4.module-theme-docs-hygiene.story.md"
+  - ./00-index.md
+  - ./index.md
+  - ../../../../docs/wiki/audits/docs-redundancy-audit.md
+issues: https://github.com/laraxot/module_ai_fila5/issues
+discussions: https://github.com/laraxot/module_ai_fila5/discussions
 ---
 
 # AI Module - Documentation Index
 
 **Path**: `laravel/Modules/AI/docs/`
 **Modulo**: `Modules/AI`
-**Last updated**: 2026-09-25
+**Last updated**: 2026-03-26
 
 ## Documenti canonici del modulo
 
@@ -35,10 +35,6 @@ related:
 | [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
 | [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
 | [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
-
-## Contracts
-
-- [Dashboard page contract](./wiki/concepts/dashboard-page-contract.md) — `Dashboard` must extend `XotBaseDashboard` so Filament discovers the module dashboard contract.
 
 ## Riferimenti canonici esterni al modulo
 

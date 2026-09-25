@@ -52,25 +52,6 @@ The underlying needs are legitimate; the module root is just the wrong home:
 Nothing unique was destroyed — real content moved to a real home *before* the
 forbidden folder was removed.
 
-<<<<<<< HEAD
-=======
-<<<<<<< .merge_file_6I5YB2
-> **Drift detected (2026-09-17), in this checkout of the module (`base_restaurant_fila5`)**:
-> `Modules/AI/scripts/` still exists with all four items listed above
-> (`fine_tuning.py`, `test_fine_tuning.py`, `ci/contributor-lines-report.mjs`,
-> `.gitignore`) — the migration described is not reflected here. Neither
-> `bashscripts/tools/ai-fine-tuning/` nor `.github/ci/contributor-lines-report.mjs`
-> exist at the repo root, and `docs/fine-tuning.md` still has no pointer to
-> either. Since `Modules/AI` is its own git repo shared across Laraxot bases
-> (`laraxot/module_ai_fila5`), this may be a base whose checkout predates the
-> migration, or the migration may have been reverted upstream — needs a
-> dedicated follow-up to reconcile (either redo the migration here, or correct
-> this doc if the migration was abandoned). Not resolved in this documentation
-> pass, since moving `scripts/` is a structural change, not a doc edit.
-
-=======
->>>>>>> .merge_file_7XIGLn
->>>>>>> laraxot/dev
 ## The zen of a clean root
 
 A module root should read like a table of contents: `app/`, `config/`,

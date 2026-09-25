@@ -1,3 +1,10 @@
+## [2026-07-24] architecture | Ollama Actions ownership in AI
+
+- Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
+- Path: `Modules\AI\Actions\Ollama\{Chat,Generate}OllamaAction` + `ContextCompressorAction`
+- Root: `domain-actions-belong-to-domain-module` · skill `xot-is-framework-base`
+- Second brain max: healthcheck + QMD + write-back modulo
+
 ## [2026-06-11] test | pest AI suite green (36 test)
 
 - `Modules/AI/tests/TestCase` → `XotBaseTestCase` (no `RefreshDatabase`)
@@ -12,14 +19,6 @@
 - GitHub: [#272](https://github.com/laraxot/base_fixcity_fila5/issues/272) / [D#273](https://github.com/laraxot/base_fixcity_fila5/discussions/273)
 
 # AI Wiki Log
-
-## [2026-09-25] docs | agenti Claude/GPT/Gemini provider-neutral
-
-- Stabilito che regole e conoscenza persistente restano nella wiki owner; le guide
-  provider contengono solo configurazioni e differenze operative verificate.
-- Chiarito che `Themes/` indica ownership visuale FO, non l'elenco dei provider AI.
-- Rimosse dalle istruzioni AI le prescrizioni di commit/push automatico.
-- Riferimento: [second-brain-local-discipline](concepts/second-brain-local-discipline.md).
 
 ## [2026-05-11] ops | opencode runtime allineato a context-compression
 - corretto il punto operativo da `.agents/config.json` a `laravel/opencode.json`.
@@ -65,7 +64,15 @@
 - summary:
   - compiled the first durable AI module syntheses from MCP and local-first runtime docs
   - aligned the module wiki with the project-level LLM wiki model
-## [2026-09-25] docs | Dashboard contract and provider support map
-- Corrected the stale PHPStan history example: the module panel landing page extends `XotBaseDashboard`.
-- Added a code-backed provider status map and indexed it for QMD retrieval.
-- Linked the Gemini theme reference to the AI module owner and clarified that it is not an integration guide.
+
+## [2026-07-12] quality | claude-audit Actions QueueableAction contract
+
+- Scope swarm: `Modules/AI`.
+- Decisione riusabile: ogni classe sotto `app/Actions` deve usare `Spatie\QueueableAction\QueueableAction` ed esporre `execute(...)`; eventuale `handle()` resta solo wrapper legacy.
+- Verifica locale aggiunta: `tests/Unit/Actions/QueueableActionContractTest.php`.
+- Nota audit: `claude-audit --static` usa euristiche di test coverage non sempre allineate ai test Pest presenti.
+
+## [2026-07-12] phpstan | prediction fallback typed actions
+
+- `GetPredictionFallbackTemplatesAction` espone template con ` list<array{...}>`, non `array<string,mixed>`.
+- `CastScalarToStringListAction::execute()` usa return nativo `array` con PHPDoc `list<string>`: `list<string>` non e un return type PHP valido.
