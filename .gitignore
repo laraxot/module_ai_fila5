@@ -87,6 +87,9 @@ agentdb.rvf
 /phpinsights.php
 /.php-cs-fixer.php
 /.php-cs-fixer.dist.php
+<<<<<<< HEAD
 
 # Generated Claude audit coverage scaffold (never commit)
 /audit-coverage/
+=======
+>>>>>>> laraxot/dev
