@@ -1,80 +1,89 @@
-/vendor/
+# Laraxot AI module ignore rules
+
+# Dependencies and package manager artifacts
+vendor/
 node_modules/
-venv/
+package-lock.json
 npm-debug.log
 yarn-error.log
 
-# Laravel 4 specific
+# Python environments and generated files
+venv/
+bin/venv/
+
+# Build output and caches
+build/
+cache/
+docs/cache/
+docs/phpstan/
+*.cache
+.php-cs-fixer.cache
+.phpunit.result.cache
+
+# Temporary files and logs
+*.lock
+*.phar
+*.log
+*.tmp
+*.old
+*.old1
+*.backup
+*.backup.*
+error_log
+
+# Laravel runtime and local environment
 bootstrap/compiled.php
 app/storage/
-
-# Laravel 5 & Lumen specific
 public/storage
 public/hot
-
-# Laravel 5 & Lumen specific with changed public path
 public_html/storage
 public_html/hot
-
 storage/*.key
 .env
 Homestead.yaml
 Homestead.json
 /.vagrant
-.phpunit.result.cache
 
-*.lock
-
-/vendor
-*.phar
-*.cache
-*.log
-*.lock
-.php-cs-fixer.cache
-package-lock.json
+# Git and merge artifacts
 .git-rewrite/
-.php-cs-fixer.cache
-*.git-blame-ignore-revs
 .git-blame-ignore-revs
-node_modules
-node_modules
-vendor/
-build/
-docs/cache/
-cache/
-bin/venv/
--e 
-# PHPStan documentation
-docs/phpstan/
-
-# Backup files
-*.old
-*.old1
-*.backup
-*.backup.*
-lang/lang/
-_docs/
-_docs/
-
-# Second brain: no-docs-archive (wiki) — non tracciare albero legacy docs/archive/
-docs/archive/
-docs/phpstan/
-docs/legacy/
-
-# Copie residue da merge/rebase o editor (mai committare — es. `.agent~HEAD`, `*.md~head`)
 *~HEAD
 *~BASE
 *~LOCAL
 *~REMOTE
+*~head
 *.orig
 *.rej
-*~head
 
-agentdb.rvf
-audit-coverage/
-.cursor/
+# Documentation and legacy material
+_docs/
+lang/lang/
+docs/archive/
+docs/legacy/
+
+# Editor and assistant tooling
 .vscode/
 .windsurf/
 .devcontainer/
 .claude-audit/
-.claude-audit/
+agentdb.rvf
+
+# Generated test artifacts
+/tests/AuditCoverage/
+
+# Agent tooling and local audit output
+
+# Module-local quality tool configuration
+.rector.php
+.phpinsights.php
+
+# Root agent tooling and PHP quality configuration
+/.agents/
+/.codex/
+/.cursor/
+/.opencode/
+/.qwen/
+/rector.php
+/phpinsights.php
+/.php-cs-fixer.php
+/.php-cs-fixer.dist.php

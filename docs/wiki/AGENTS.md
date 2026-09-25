@@ -58,8 +58,15 @@ related:
 - Use wikilinks: `[[concepts/page]]`
 
 ### Rule 4: Atomic Commits
-- One ingestion = one commit
-- Message format: `docs: {action} {description}`
+- Keep an ingestion reviewable and scoped.
+- Create a commit only when the user explicitly requests it; never push by default.
+- When a commit is requested, use `docs: {action} {description}`.
+
+### Rule 5: Provider-neutral source of truth
+- Claude, GPT, Gemini, Codex, and other clients are adapters, not separate owners of project rules.
+- Put durable knowledge in this module wiki or link to the root/theme owner; provider guides only record verified setup and client-specific workflow.
+- Do not create empty provider folders for symmetry or duplicate architectural rules across clients.
+- Keep `Themes/` for frontoffice presentation topics, not AI-provider ownership.
 
 ## When to Use Module Wiki vs Project Wiki
 
