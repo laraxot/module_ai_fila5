@@ -1,8 +1,23 @@
+---
+title: "AI module documentation index"
+type: index
+module: AI
+tags: [ai, documentation, index, mcp]
+created: 2026-03-26
+updated: 2026-09-25
+qmd: "ai module documentation index mcp contracts"
+related:
+  - "./README.md"
+  - "./wiki/index.md"
+  - "./wiki/concepts/dashboard-page-contract.md"
+  - "../../../../docs/stories/2.4.module-theme-docs-hygiene.story.md"
+---
+
 # AI Module - Documentation Index
 
 **Path**: `laravel/Modules/AI/docs/`
 **Modulo**: `Modules/AI`
-**Last updated**: 2026-03-26
+**Last updated**: 2026-09-25
 
 ## Documenti canonici del modulo
 
@@ -20,6 +35,10 @@
 | [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
 | [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
 | [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
+
+## Contracts
+
+- [Dashboard page contract](./wiki/concepts/dashboard-page-contract.md) — `Dashboard` must extend `XotBaseDashboard` so Filament discovers the module dashboard contract.
 
 ## Riferimenti canonici esterni al modulo
 
