@@ -1,13 +1,5 @@
 # 🐄⚡ ANALISI METODI DUPLICATI - SUPER MUCCA EDITION
 
-<<<<<<< HEAD
-=======
-<<<<<<< .merge_file_eRQhtT
-> Scope: 18 moduli + 2 temi dell'intero framework Laraxot (non solo `AI`). Per un'analisi scoped al solo modulo `AI` vedi [duplicate-methods-analysis.md](./duplicate-methods-analysis.md) — non e' un duplicato di questo file, copre un perimetro diverso e piu' ristretto.
-
-=======
->>>>>>> .merge_file_VrPH7J
->>>>>>> laraxot/dev
 **Powered by**: Super Mucca AI 🐄✨  
 **Data**: 15 Ottobre 2025  
 **Versione**: 2.0 ULTIMATE  
