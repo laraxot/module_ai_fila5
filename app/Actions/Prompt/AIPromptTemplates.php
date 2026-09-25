@@ -6,19 +6,7 @@ namespace Modules\AI\Actions\Prompt;
 
 final class AIPromptTemplates
 {
-<<<<<<< HEAD
     public const string ROUTING_JSON = <<<'JSON'
-=======
-<<<<<<< .merge_file_oUOsxe
-    public const string ROUTING_JSON = <<<'JSON'
-=======
-<<<<<<< .merge_file_qyn2S8
-    public const ROUTING_JSON = <<<'JSON'
-=======
-    public const string ROUTING_JSON = <<<'JSON'
->>>>>>> .merge_file_ute3a2
->>>>>>> .merge_file_S23voK
->>>>>>> laraxot/dev
 {
   "assignments": [
     {
@@ -35,19 +23,7 @@ final class AIPromptTemplates
 }
 JSON;
 
-<<<<<<< HEAD
     public const string PATTERN_JSON = <<<'JSON'
-=======
-<<<<<<< .merge_file_oUOsxe
-    public const string PATTERN_JSON = <<<'JSON'
-=======
-<<<<<<< .merge_file_qyn2S8
-    public const PATTERN_JSON = <<<'JSON'
-=======
-    public const string PATTERN_JSON = <<<'JSON'
->>>>>>> .merge_file_ute3a2
->>>>>>> .merge_file_S23voK
->>>>>>> laraxot/dev
 {
   "temporal_trends": {
     "peak_hours": ["9-11", "14-16"],
@@ -69,19 +45,7 @@ JSON;
 }
 JSON;
 
-<<<<<<< HEAD
     public const string IMPROVEMENTS_JSON = <<<'JSON'
-=======
-<<<<<<< .merge_file_oUOsxe
-    public const string IMPROVEMENTS_JSON = <<<'JSON'
-=======
-<<<<<<< .merge_file_qyn2S8
-    public const IMPROVEMENTS_JSON = <<<'JSON'
-=======
-    public const string IMPROVEMENTS_JSON = <<<'JSON'
->>>>>>> .merge_file_ute3a2
->>>>>>> .merge_file_S23voK
->>>>>>> laraxot/dev
 
 Fornisci suggerimenti per:
 - Processi operativi
