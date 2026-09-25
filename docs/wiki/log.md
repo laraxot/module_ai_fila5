@@ -13,6 +13,14 @@
 
 # AI Wiki Log
 
+## [2026-09-25] docs | agenti Claude/GPT/Gemini provider-neutral
+
+- Stabilito che regole e conoscenza persistente restano nella wiki owner; le guide
+  provider contengono solo configurazioni e differenze operative verificate.
+- Chiarito che `Themes/` indica ownership visuale FO, non l'elenco dei provider AI.
+- Rimosse dalle istruzioni AI le prescrizioni di commit/push automatico.
+- Riferimento: [second-brain-local-discipline](concepts/second-brain-local-discipline.md).
+
 ## [2026-05-11] ops | opencode runtime allineato a context-compression
 - corretto il punto operativo da `.agents/config.json` a `laravel/opencode.json`.
 - documentato che OpenCode abilita `provider.openrouter.options.plugins = [{ "id": "context-compression" }]`.
@@ -57,3 +65,7 @@
 - summary:
   - compiled the first durable AI module syntheses from MCP and local-first runtime docs
   - aligned the module wiki with the project-level LLM wiki model
+## [2026-09-25] docs | Dashboard contract and provider support map
+- Corrected the stale PHPStan history example: the module panel landing page extends `XotBaseDashboard`.
+- Added a code-backed provider status map and indexed it for QMD retrieval.
+- Linked the Gemini theme reference to the AI module owner and clarified that it is not an integration guide.
