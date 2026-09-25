@@ -6,8 +6,12 @@ namespace Modules\AI\Services;
 
 class AIServicePromptTemplates
 {
+<<<<<<< HEAD
     /** @var non-empty-string */
     public const string ROUTING_JSON = <<<'JSON'
+=======
+    public const ROUTING_JSON = <<<'JSON'
+>>>>>>> laraxot/dev
 {
   "assignments": [
     {
@@ -24,8 +28,12 @@ class AIServicePromptTemplates
 }
 JSON;
 
+<<<<<<< HEAD
     /** @var non-empty-string */
     public const string PATTERN_JSON = <<<'JSON'
+=======
+    public const PATTERN_JSON = <<<'JSON'
+>>>>>>> laraxot/dev
 {
   "temporal_trends": {
     "peak_hours": ["9-11", "14-16"],
@@ -47,8 +55,12 @@ JSON;
 }
 JSON;
 
+<<<<<<< HEAD
     /** @var non-empty-string */
     public const string IMPROVEMENTS_JSON = <<<'JSON'
+=======
+    public const IMPROVEMENTS_JSON = <<<'JSON'
+>>>>>>> laraxot/dev
 
 Fornisci suggerimenti per:
 - Processi operativi
