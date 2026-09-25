@@ -424,7 +424,7 @@ $prompt = "Che categoria è questo ticket? $ticketText";
 namespace Modules\AI\Actions;
 
 use Spatie\QueueableAction\QueueableAction;
-use Modules\Xot\Actions\AI\Ollama\ChatOllamaAction;
+use Modules\AI\Actions\Ollama\ChatOllamaAction;
 
 class OllamaChatAction extends QueueableAction
 {
