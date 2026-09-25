@@ -118,12 +118,4 @@ def fine_tune():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     app.run(debug=True)
-=======
-<<<<<<< .merge_file_pWLn3u
-    app.run(debug=os.environ.get('FLASK_DEBUG', '0') == '1')
-=======
-    app.run(debug=True)
->>>>>>> .merge_file_v03pI5
->>>>>>> laraxot/dev
