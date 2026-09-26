@@ -1,0 +1,72 @@
+
+*~BASE
+*~head
+*~HEAD
+*~LOCAL
+*~REMOTE
+agentdb.rvf
+app/storage/
+audit-coverage/
+*.backup
+*.backup.*
+# Backup files
+bin/venv/
+bootstrap/compiled.php
+build/
+*.cache
+cache/
+.claude-audit/
+# Copie residue da merge/rebase o editor (mai committare — es. `.agent~HEAD`, `*.md~head`)
+.cursor/
+.devcontainer/
+_docs/
+docs/archive/
+docs/cache/
+docs/phpstan/
+-e 
+.env
+.git-blame-ignore-revs
+*.git-blame-ignore-revs
+.git-rewrite/
+Homestead.json
+Homestead.yaml
+lang/lang/
+# Laravel 4 specific
+# Laravel 5 & Lumen specific
+# Laravel 5 & Lumen specific with changed public path
+# Laraxot — IDE folders forbidden at module/theme root (see module-theme-root-hygiene)
+# Laraxot — quality tool configs forbidden in module/theme root (use laravel/phpinsights.php, laravel/rector.php)
+*.lock
+*.log
+node_modules
+node_modules/
+npm-debug.log
+*.old
+*.old1
+*.orig
+package-lock.json
+# Pest + audit-coverage bridge (claude-audit — path /tests/ nel matcher)
+*.phar
+.php-cs-fixer.cache
+phpinsights.php
+# PHPStan documentation
+.phpunit.result.cache
+public/hot
+public_html/hot
+public_html/storage
+public/storage
+rector.php
+*.rej
+# Second brain: no-docs-archive (wiki) — non tracciare albero legacy docs/archive/
+storage/*.key
+!tests/
+!tests/**
+tests/AuditCoverage/
+/.vagrant
+/vendor
+/vendor/
+vendor/
+venv/
+.vscode/
+.windsurf/
+yarn-error.log
