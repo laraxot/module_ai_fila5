@@ -12,19 +12,6 @@ use Modules\AI\Tests\Support\OpenAiHttpFake;
 use PHPUnit\Framework\Assert;
 
 uses(\Modules\AI\Tests\TestCase::class);
-<<<<<<< HEAD
-// Laraxot — see module docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-// Laraxot module file — see docs/wiki for domain contract.
-=======
->>>>>>> laraxot/dev
 
 describe('Generate Predictions Action', function (): void {
     test('generates a single prediction with AI', function (): void {
