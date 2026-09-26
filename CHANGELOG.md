@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-## [1.0.0-dev.3](https://github.com/laraxot/module_ai_fila5/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-08-25)
-=======
 <<<<<<< .merge_file_LrVRI9
 ## [1.0.0-dev.3](https://github.com/laraxot/module_ai_fila5/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-08-25)
 =======
@@ -30,7 +27,6 @@
 
 # Changelog
 >>>>>>> .merge_file_vkWYbP
->>>>>>> laraxot/dev
 
 ### Bug Fixes
 
