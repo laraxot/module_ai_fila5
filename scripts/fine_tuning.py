@@ -119,6 +119,7 @@ def fine_tune():
 
 if __name__ == "__main__":
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< .merge_file_pWLn3u
     app.run(debug=os.environ.get('FLASK_DEBUG', '0') == '1')
 =======
@@ -127,3 +128,6 @@ if __name__ == "__main__":
 =======
     app.run(debug=os.environ.get('FLASK_DEBUG', '0') == '1')
 >>>>>>> a4f0cbe (.)
+=======
+    app.run(debug=True)
+>>>>>>> laraxot/dev
