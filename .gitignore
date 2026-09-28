@@ -70,3 +70,8 @@ venv/
 .vscode/
 .windsurf/
 yarn-error.log
+graphify-out/
+.claude/
+.claude-audit/
+test-results/
+ai.code-workspace
