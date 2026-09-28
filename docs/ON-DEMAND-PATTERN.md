@@ -1,4 +1,7 @@
 ---
+qmd: "ON DEMAND PATTERN"
+issues: []
+discussions: []
 title: "On-Demand Pattern — Module AI"
 type: documentation
 created: 2026-05-11
