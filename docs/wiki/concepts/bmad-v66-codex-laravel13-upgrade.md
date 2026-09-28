@@ -1,4 +1,7 @@
 ---
+tags: [documentation]
+issues: []
+discussions: []
 title: "BMAD v6.6 Codex Setup for Laravel 13 Upgrade"
 module: "AI"
 type: concept

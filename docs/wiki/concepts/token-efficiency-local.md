@@ -1,4 +1,6 @@
 ---
+issues: []
+discussions: []
 title: "Token efficiency — disciplina locale AI"
 type: concept
 module: AI

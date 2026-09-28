@@ -1,3 +1,14 @@
+---
+title: "ai services support to actions"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ai services support to actions"
+issues: []
+discussions: []
+---
+
 # AI module: Services/Support -> Queueable Actions
 
 Data: 2026-07-16

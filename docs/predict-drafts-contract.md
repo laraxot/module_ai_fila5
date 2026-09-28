@@ -1,3 +1,14 @@
+---
+title: "predict drafts contract"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "predict drafts contract"
+issues: []
+discussions: []
+---
+
 # Contratto Draft AI Per Predict
 
 ## Scopo

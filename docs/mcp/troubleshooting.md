@@ -1,3 +1,14 @@
+---
+title: "troubleshooting"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "troubleshooting"
+issues: []
+discussions: []
+---
+
 # Risoluzione dei Problemi dei Server MCP
 
 ## Panoramica
@@ -39,6 +50,14 @@ Per ulteriori dettagli, vedi il file `AVVISO_MIGRAZIONI.mdc` nella root del prog
 
 ---
 
+title: "troubleshooting"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "troubleshooting"
+issues: []
+discussions: []
 ## Problemi Comuni e Soluzioni
 
 ### 1. Server MCP non Disponibile

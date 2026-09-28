@@ -1,3 +1,14 @@
+---
+title: "02 configurazione"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "02 configurazione"
+issues: []
+discussions: []
+---
+
 # Configurazione dei Server MCP per Progetti Laravel
 
 ## Panoramica
@@ -502,4 +513,12 @@ Hai completato con successo la configurazione dei server MCP per il tuo progetto
 
 ---
 
+title: "02 configurazione"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "02 configurazione"
+issues: []
+discussions: []
 Continua con la sezione [Utilizzo](./03_UTILIZZO.md) per imparare come utilizzare i server MCP nel tuo progetto Laravel.
