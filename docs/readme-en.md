@@ -1,3 +1,14 @@
+---
+title: "readme en"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "readme en"
+issues: []
+discussions: []
+---
+
 # 🤖 AI — English presentation
 
 [![Domain-AI](https://img.shields.io/badge/Domain-AI%20Integration-512DA8.svg)](#)
@@ -14,6 +25,14 @@
 
 ---
 
+title: "readme en"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "readme en"
+issues: []
+discussions: []
 ## Why it exists
 
 Speed up development and operator support with guardrails.

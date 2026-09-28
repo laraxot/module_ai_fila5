@@ -1,3 +1,14 @@
+---
+title: "BAD PRACTICES"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "BAD PRACTICES"
+issues: []
+discussions: []
+---
+
 # Bad Practices – AI
 
 ## ❌ Usare `file_get_contents` per chiamare API

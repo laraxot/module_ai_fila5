@@ -1,3 +1,14 @@
+---
+title: "ai module"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ai module"
+issues: []
+discussions: []
+---
+
 # AI Module Overview
 
 > Updated: 2026-06-13

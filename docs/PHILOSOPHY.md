@@ -1,4 +1,11 @@
 ---
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "PHILOSOPHY"
+issues: []
+discussions: []
 title: "AI Module Philosophy"
 description: "Design principles, architecture, cost control, and operational dogmas for FixCity AI integrations"
 module: AI

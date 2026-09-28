@@ -1,3 +1,14 @@
+---
+title: "product strategy"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "product strategy"
+issues: []
+discussions: []
+---
+
 # AI Module - Product Strategy
 
 **Module:** AI  
@@ -6,6 +17,14 @@
 
 ---
 
+title: "product strategy"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "product strategy"
+issues: []
+discussions: []
 ## Executive Summary
 
 The AI module provides intelligent capabilities across the platform, from content generation to fraud detection. This strategy outlines our approach to building AI features that deliver measurable value while managing costs and risks.

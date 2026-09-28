@@ -1,3 +1,14 @@
+---
+title: "log"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "log"
+issues: []
+discussions: []
+---
+
 ## [2026-07-24] architecture | Ollama Actions ownership in AI
 
 - Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
