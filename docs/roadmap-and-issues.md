@@ -1,3 +1,14 @@
+---
+title: "roadmap and issues"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "roadmap and issues"
+issues: []
+discussions: []
+---
+
 # AI Module - Roadmap & Optimization
 
 **Modulo**: AI (Artificial Intelligence Integration)  
@@ -7,6 +18,14 @@
 
 ---
 
+title: "roadmap and issues"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "roadmap and issues"
+issues: []
+discussions: []
 ## ✅ CORREZIONI OGGI (1 Ottobre 2025)
 
 **PHPStan Fixes**:

@@ -1,4 +1,8 @@
 ---
+created: 2026-09-26
+qmd: "index"
+issues: []
+discussions: []
 title: "AI Module - Documentation Index"
 description: "Indice organizzato per argomento di tutta la documentazione in Modules/AI/docs"
 module: AI

@@ -1,3 +1,14 @@
+---
+title: "ollama actions moved from xot"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ollama actions moved from xot"
+issues: []
+discussions: []
+---
+
 # Ollama actions moved from Modules/Xot to Modules/AI
 
 **Date**: 2026-07-24

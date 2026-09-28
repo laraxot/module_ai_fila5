@@ -1,4 +1,7 @@
 ---
+qmd: "INDEX"
+issues: []
+discussions: []
 title: "concepts index — AI"
 type: index
 tags: [concepts, AI]

@@ -1,3 +1,14 @@
+---
+title: "03 utilizzo"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "03 utilizzo"
+issues: []
+discussions: []
+---
+
 # Utilizzo dei Server MCP per Progetti Laravel
 
 ## Panoramica
@@ -760,4 +771,12 @@ Hai imparato come utilizzare i server MCP nel tuo progetto Laravel. Ora puoi pro
 
 ---
 
+title: "03 utilizzo"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "03 utilizzo"
+issues: []
+discussions: []
 Continua con la sezione [Integrazione con i Moduli](./04_INTEGRAZIONE_MODULI.md) per imparare come integrare i server MCP con i moduli Laravel.

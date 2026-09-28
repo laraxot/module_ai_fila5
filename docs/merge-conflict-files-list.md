@@ -1,3 +1,14 @@
+---
+title: "merge conflict files list"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "merge conflict files list"
+issues: []
+discussions: []
+---
+
 # Merge Conflict Files List
 
 This file contains a comprehensive list of files with merge conflict markers (`<` or `<<<< .merge_file`) that need to be resolved.
@@ -77,6 +88,14 @@ This file contains a comprehensive list of files with merge conflict markers (`<
 - **Automated Testing**: Run tests after resolution to ensure functionality
 
 ---
+title: "merge conflict files list"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "merge conflict files list"
+issues: []
+discussions: []
 *Generated on: $(date)
 *Total files: 96
 *Status: Pending resolution*
