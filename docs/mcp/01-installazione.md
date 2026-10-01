@@ -1,3 +1,14 @@
+---
+title: "01 installazione"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "01 installazione"
+issues: []
+discussions: []
+---
+
 # Installazione dei Server MCP per Progetti Laravel
 
 ## ⚠️ AVVISO IMPORTANTE SUL DATABASE
@@ -281,4 +292,12 @@ Hai completato con successo l'installazione dei server MCP per il tuo progetto L
 
 ---
 
+title: "01 installazione"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "01 installazione"
+issues: []
+discussions: []
 Continua con la sezione [Configurazione](./02_CONFIGURAZIONE.md) per configurare i server MCP per il tuo progetto Laravel.
