@@ -1,3 +1,14 @@
+---
+title: "roadmap"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "roadmap"
+issues: []
+discussions: []
+---
+
 # 🎯 AI MODULE - ROADMAP 2025
 
 **Modulo**: AI ([Description])  
@@ -8,6 +19,14 @@
 
 ---
 
+title: "roadmap"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "roadmap"
+issues: []
+discussions: []
 ## 🎯 MODULE OVERVIEW
 
 Il modulo **AI** [descrizione del modulo].

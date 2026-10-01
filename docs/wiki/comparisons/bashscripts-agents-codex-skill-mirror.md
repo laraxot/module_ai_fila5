@@ -1,4 +1,9 @@
 ---
+tags: [documentation]
+created: 2026-09-26
+qmd: "bashscripts agents codex skill mirror"
+issues: []
+discussions: []
 title: "Mirror skill .agents vs .codex (bashscripts)"
 module: "AI"
 type: "comparison"

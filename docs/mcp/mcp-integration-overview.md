@@ -1,3 +1,14 @@
+---
+title: "mcp integration overview"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "mcp integration overview"
+issues: []
+discussions: []
+---
+
 # Panoramica dell'Integrazione dei Server MCP nei Moduli Laravel
 
 ## Introduzione
