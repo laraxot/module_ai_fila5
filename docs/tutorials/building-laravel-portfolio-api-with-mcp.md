@@ -1,3 +1,14 @@
+---
+title: "building laravel portfolio api with mcp"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "building laravel portfolio api with mcp"
+issues: []
+discussions: []
+---
+
 # Building a Laravel Portfolio API with MCP
 
 ## Introduzione
@@ -886,4 +897,12 @@ class OptimizeProjectDescriptionTool extends Tool
 
 ---
 
+title: "building laravel portfolio api with mcp"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "building laravel portfolio api with mcp"
+issues: []
+discussions: []
 *Ultimo aggiornamento: Maggio 2025*

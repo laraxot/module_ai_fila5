@@ -1,4 +1,7 @@
 ---
+qmd: "phpstan compliance"
+issues: []
+discussions: []
 title: "AI Module - PHPStan Type Compliance"
 type: concept
 tags: [ai, phpstan, types, compliance, quality, static-analysis]

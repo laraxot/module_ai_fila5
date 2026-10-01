@@ -1,3 +1,14 @@
+---
+title: "fine tuning"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "fine tuning"
+issues: []
+discussions: []
+---
+
  
 https://apeatling.com/articles/part-2-building-your-training-data-for-fine-tuning/
 
