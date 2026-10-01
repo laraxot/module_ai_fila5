@@ -1,3 +1,14 @@
+---
+title: "README"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "README"
+issues: []
+discussions: []
+---
+
 # AI Module Roadmap
 
 > "AI and machine learning integration for the Laraxot ecosystem with AI-powered features and automation."
@@ -65,3 +76,11 @@ Provide a **comprehensive AI toolkit** that includes:
 
 ---
 
+title: "README"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "README"
+issues: []
+discussions: []
