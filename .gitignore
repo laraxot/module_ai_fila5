@@ -75,3 +75,4 @@ graphify-out/
 .claude-audit/
 test-results/
 ai.code-workspace
+/.docs-archive/
