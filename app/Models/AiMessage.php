@@ -7,7 +7,6 @@ namespace Modules\AI\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Xot\Contracts\ProfileContract;
-use Modules\Xot\Models\XotBaseModel;
 
 /**
  * Class AiMessage.
@@ -24,7 +23,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiMessage extends XotBaseModel
+class AiMessage extends BaseModel
 {
     public const string ROLE_USER = 'user';
 
