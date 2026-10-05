@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Modules\Xot\Contracts\ProfileContract;
-use Modules\Xot\Models\XotBaseModel;
 
 /**
  * Class AiActionProposal.
@@ -44,7 +43,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiActionProposal extends XotBaseModel
+class AiActionProposal extends BaseModel
 {
     public const string STATUS_PENDING = 'pending';
 

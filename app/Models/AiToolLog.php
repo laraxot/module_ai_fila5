@@ -7,7 +7,6 @@ namespace Modules\AI\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Xot\Contracts\ProfileContract;
-use Modules\Xot\Models\XotBaseModel;
 
 /**
  * Class AiToolLog.
@@ -25,7 +24,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiToolLog extends XotBaseModel
+class AiToolLog extends BaseModel
 {
     public const string STATUS_OK = 'ok';
 
