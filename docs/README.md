@@ -11,6 +11,13 @@ updated: 2026-07-24
 
 # 🤖 AI Module - Integrazione MCP
 
+## Modelli e migrazioni
+
+I modelli persistenti `AiThread`, `AiMessage`, `AiActionProposal` e `AiToolLog`
+estendono `Modules\AI\Models\BaseModel`, mai `XotBaseModel` direttamente.
+Ognuno ha una sola migrazione canonica `create_<modello_plural>_table.php`;
+l'evoluzione dello schema va nel relativo `tableUpdate()`.
+
 ## Ownership Actions (obbligatorio)
 
 Le Actions di dominio AI (Ollama, compression, predictions) vivono in
