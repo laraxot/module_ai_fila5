@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Xot\Contracts\ProfileContract;
-use Modules\Xot\Models\XotBaseModel;
 
 /**
  * Class AiThread.
@@ -30,7 +29,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @mixin \Eloquent
  */
-class AiThread extends XotBaseModel
+class AiThread extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
