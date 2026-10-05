@@ -20,6 +20,14 @@ related:
 
 # AI Module LLM Wiki
 
+## Regola BaseModel e migrazioni
+
+Le classi concrete dei modelli AI usano `Modules\AI\Models\BaseModel`, che
+seleziona la connessione `ai` e centralizza il comportamento Xot. La parità
+modello/migrazione è uno-a-uno: le quattro entità persistenti hanno ciascuna
+il proprio file `create_*_table`; le nuove colonne si aggiungono al file
+canonico con `tableUpdate()`, senza migrazioni `add_*` parallele.
+
 ## Ownership Actions (2026-07-24)
 
 - [ollama-actions-ownership](./concepts/ollama-actions-ownership.md) — Ollama/ContextCompressor in **AI**, non Xot
