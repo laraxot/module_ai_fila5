@@ -36,7 +36,7 @@ discussions: https://github.com/laraxot/module_ai_fila5/discussions
 ### Development
 | File | Scopo |
 |---|---|
-| [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
+| [gsd-workflow.md](./gsd-workflow.md) | Workflow GSD locale al modulo |
 | [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
 | [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
 
