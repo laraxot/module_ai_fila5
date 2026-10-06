@@ -1,3 +1,8 @@
+---
+title: LOG
+module: AI
+---
+
 ## [2026-07-24] architecture | Ollama Actions ownership in AI
 
 - Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
