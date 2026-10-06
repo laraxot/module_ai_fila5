@@ -1,0 +1,126 @@
+---
+title: "Project Structure — Module AI"
+type: documentation
+created: 2026-05-11
+updated: 2026-09-17
+tags: [structure, architecture, module]
+---
+
+# Project Structure — Module **AI**
+
+This documents the layout of `laravel/Modules/AI/docs/` itself (the docs-wiki on-demand pattern), not the PHP module's `app/` code layout — for that see [structure.md](./structure.md) (namespace, Composer package, file/class counts).
+
+## Directory Structure
+
+Verified against the actual tree on 2026-09-17 (previous versions of this diagram described directories that don't exist, e.g. `wiki/rules/00-INDEX.md`, `wiki/rules/00-TRIGGER_MAP.md`, and a root `ARCHITECTURE.md` — none of those are present):
+
+```
+./laravel/Modules/AI/docs/
+├── wiki/                          # Knowledge base locale (LLM Wiki)
+│   ├── README.md                 # Cosa contiene e come usare il wiki compilato
+│   ├── index.md                  # Master catalog
+│   ├── log.md                    # Activity log
+│   ├── schema.md                 # Schema del wiki
+│   ├── concepts/                 # Topic/theme pages (index.md + *.md)
+│   ├── rules/                    # index.md (bridge verso le regole globali del repo)
+│   ├── skills/                   # index.md
+│   ├── commands/                 # index.md
+│   ├── memories/                 # index.md
+│   ├── troubleshooting/          # index.md + pest-test-suite-fixes.md
+│   ├── comparisons/, overviews/  # contenuto puntuale
+│   └── decisions/, entities/, glossary/, how-to/, index/, lint/,
+│       queries/, reference/, summaries/   # solo .gitkeep, scaffold vuoto
+├── llm-wiki/                      # agents.md (istruzioni per gli agenti che alimentano il wiki)
+├── raw/                           # sorgenti grezze, append-only (vedi raw/README.md)
+├── sources/, outputs/             # materiale esterno / report generati
+├── mcp/                           # guida MCP numerata 00-11 (vedi mcp.md e index.md)
+├── tutorials/, stories/           # tutorial pratici, story BMAD
+├── on-demand-pattern.md           # Pattern on-demand (principio)
+├── qmd-setup.md                   # Configurazione QMD
+├── performance-optimization.md    # Metriche e best practice
+├── project-structure.md           # questo file
+└── README.md                      # indice navigabile del modulo (overview + ownership + catalogo per argomento)
+```
+
+## File Chiave
+
+| File | Purpose |
+|------|---------|
+|  | Catalogo di tutto il sapere del modulo |
+|  | Storico attività (ingest/query/lint) |
+|  | Regole + trigger map locale |
+|  | Concetti specifici del modulo |
+|  | **Leggi prima** — pattern da seguire |
+
+## Convenzioni
+
+### Naming
+
+- **Filenames**: lowercase-kebab-case.md
+- **Directories**: lowercase
+- **Titles**: Title Case
+
+### Frontmatter Schema
+
+```yaml
+---
+title: "Page Title"
+type: concept|entity|source|comparison|decision|troubleshooting
+sources: []  # Solo per raw sources
+confidence: high|medium|low
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+tags: [tag1, tag2]
+related:
+  - ../concepts/related.md
+---
+```
+
+### Link Rules
+
+- **Interno modulo**: `[[concepts/page]]` o `[link](./concepts/page.md)`
+- **Modulo altro**: `[[../../OtherModule/docs/wiki/concepts/page]]`
+- **Project wiki**: `[Global rule](../../docs/wiki/rules/rule.md)`
+
+## Workflow con On-Demand Pattern
+
+```mermaid
+graph TD
+    A[Task Received] --> B{Has trigger?}
+    B -->|Yes| C[Read trigger_map]
+    C --> D[Load specific file]
+    B -->|No| E[qmd search]
+    E --> D
+    D --> F[Apply knowledge]
+    F --> G[Update wiki/log]
+```
+
+## Riferimenti Globali
+
+- [Project Wiki Root](../../docs/wiki/)
+- [Global Rules](../../docs/wiki/rules/)
+- [Global Skills](../../docs/wiki/skills/)
+- [Global Commands](../../docs/wiki/commands/)
+- [Global Memories](../../docs/wiki/memories/)
+
+## Setup Initiale (per nuovi moduli)
+
+```bash
+# 1. Crea struttura wiki
+mkdir -p docs/wiki/{rules,skills,commands,memories,concepts,entities,decisions,troubleshooting}
+
+# 2. Crea INDEX files
+cp docs/wiki/rules/INDEX.md docs/wiki/rules/
+cp docs/wiki/skills/INDEX.md docs/wiki/skills/
+# ... etc
+
+# 3. Aggiungi a QMD collection (opzionale, già incluso global)
+# Il .qmd/index.yml include automaticamente docs/**/wiki/
+
+# 4. Committa
+git add docs/
+git commit -m "docs: add wiki structure for AI"
+```
+
+---
+*Pattern: On-Demand | Source: docs/wiki/*

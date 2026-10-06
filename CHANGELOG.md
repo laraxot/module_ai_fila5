@@ -9,6 +9,19 @@ issues: []
 discussions: []
 ---
 
+## [1.0.0-dev.6](https://github.com/laraxot/module_ai_fila5/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2026-09-24)
+
+### Bug Fixes
+
+* **AI:** risolti marker di conflitto in fine_tuning.py ([63171ad](https://github.com/laraxot/module_ai_fila5/commit/63171ad816052357e67663c61effb428678da8bc))
+
+## [1.0.0-dev.5](https://github.com/laraxot/module_ai_fila5/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-09-24)
+
+### Bug Fixes
+
+* **AI:** PHPStan Modules a 0 errori, consolidati i fix dopo il sync ([eceba15](https://github.com/laraxot/module_ai_fila5/commit/eceba159a149fd7d4296313cec56ddf9aa48696b))
+* **AI:** risolti i marker di conflitto reimmessi dal sync con laraxot/dev ([618f9ce](https://github.com/laraxot/module_ai_fila5/commit/618f9ce8f785e5f188d6e752c9e0754cd3df02e4))
+
 ## [1.0.0-dev.3](https://github.com/laraxot/module_ai_fila5/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-08-25)
 ---
 title: "CHANGELOG"
