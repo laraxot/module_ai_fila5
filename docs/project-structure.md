@@ -110,8 +110,8 @@ graph TD
 mkdir -p docs/wiki/{rules,skills,commands,memories,concepts,entities,decisions,troubleshooting}
 
 # 2. Crea INDEX files
-cp docs/wiki/rules/INDEX.md docs/wiki/rules/
-cp docs/wiki/skills/INDEX.md docs/wiki/skills/
+cp docs/wiki/rules/index.md docs/wiki/rules/
+cp docs/wiki/skills/index.md docs/wiki/skills/
 # ... etc
 
 # 3. Aggiungi a QMD collection (opzionale, già incluso global)

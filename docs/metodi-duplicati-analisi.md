@@ -1,3 +1,8 @@
+---
+title: METODI DUPLICATI ANALISI
+module: AI
+---
+
 # 🐄⚡ ANALISI METODI DUPLICATI - SUPER MUCCA EDITION
 
 > Scope: 18 moduli + 2 temi dell'intero framework Laraxot (non solo `AI`). Per un'analisi scoped al solo modulo `AI` vedi [duplicate-methods-analysis.md](./duplicate-methods-analysis.md) — non e' un duplicato di questo file, copre un perimetro diverso e piu' ristretto.

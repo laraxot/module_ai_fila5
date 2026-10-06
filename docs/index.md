@@ -59,7 +59,7 @@ Altri indici presenti nella cartella (`00-index.md`, `INDEX.md`) sono tentativi 
 |---|---|
 | [predict-generation.md](./predict-generation.md) | Come AI deve generare predizioni realistiche per Predict |
 | [predict-drafts-contract.md](./predict-drafts-contract.md) | Contratto reale di `GeneratePredictionDraftsAction` |
-| [generate_predictions_action.md](./generate_predictions_action.md) | Implementazione di `GeneratePredictionsAction` |
+| [generate-predictions-action.md](./generate-predictions-action.md) | Implementazione di `GeneratePredictionsAction` |
 
 Nota: i tre documenti sopra si sovrappongono parzialmente (stessa famiglia di Actions vista da angolazioni diverse). Non sono duplicati esatti quindi restano tutti attivi, ma un consolidamento futuro in un unico doc "Predict integration" ridurrebbe la ridondanza.
 
@@ -140,9 +140,9 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 
 | Doc | Contenuto |
 |---|---|
-| [best_practices.md](./best_practices.md) | Best practices del modulo |
-| [bad_practices.md](./bad_practices.md) | Pratiche da evitare |
-| [false_friends.md](./false_friends.md) | False friends terminologici |
+| [best-practices.md](./best-practices.md) | Best practices del modulo |
+| [bad-practices.md](./bad-practices.md) | Pratiche da evitare |
+| [false-friends.md](./false-friends.md) | False friends terminologici |
 | [file-naming-rules.md](./file-naming-rules.md) | Regole di naming per i file |
 | [on-demand-pattern.md](./on-demand-pattern.md) | Pattern on-demand del modulo |
 | [qmd-setup.md](./qmd-setup.md) | Setup QMD per il modulo |
@@ -150,7 +150,7 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 | [root-file-policy.md](./root-file-policy.md) | Policy sui file in root |
 | [root-files-hygiene.md](./root-files-hygiene.md) | Log hygiene dei file root |
 | [no-ai-tool-scaffold-dirs.md](./no-ai-tool-scaffold-dirs.md) | Perche' certe cartelle scaffold non devono esistere qui |
-| [gsd_workflow.md](./gsd_workflow.md) | Workflow GSD locale al modulo |
+| [gsd-workflow.md](./gsd-workflow.md) | Workflow GSD locale al modulo |
 
 ## Troubleshooting e fix
 
@@ -158,7 +158,7 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 |---|---|
 | [errors.md](./errors.md) | Errori comuni e soluzioni |
 | [codex-error-fix.md](./codex-error-fix.md) | Fix errori di configurazione Codex |
-| [boost_skill_fix_summary.md](./boost_skill_fix_summary.md) | Riepilogo fix Boost skill |
+| [boost-skill-fix-summary.md](./boost-skill-fix-summary.md) | Riepilogo fix Boost skill |
 | [laravel-specialist-skill-installation.md](./laravel-specialist-skill-installation.md) | Installazione skill laravel-specialist |
 
 ## Note e link dump

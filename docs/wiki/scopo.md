@@ -1,3 +1,8 @@
+---
+title: SCOPO
+module: AI
+---
+
 # AI — Scopo (BMAD)
 **Bold**: Modulo AI per assistenti, azioni AI, pannelli Filament.
 **Minimal**: Provider `AdminPanelProvider`, Actions, Contracts, Models; docs/wiki e docs/bmad presenti.
