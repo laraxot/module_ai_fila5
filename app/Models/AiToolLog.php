@@ -6,6 +6,7 @@ namespace Modules\AI\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\AI\Enums\AiToolLogStatusEnum;
 use Modules\Xot\Contracts\ProfileContract;
 
 /**
@@ -13,6 +14,7 @@ use Modules\Xot\Contracts\ProfileContract;
  *
  * Audit trail of tool calls performed by the AI assistant.
  *
+ * @property AiToolLogStatusEnum $status
  * @property-read ProfileContract|null $creator
  * @property-read AiActionProposal|null $proposal
  * @property-read AiThread|null $thread
@@ -26,10 +28,6 @@ use Modules\Xot\Contracts\ProfileContract;
  */
 class AiToolLog extends BaseModel
 {
-    public const string STATUS_OK = 'ok';
-
-    public const string STATUS_ERROR = 'error';
-
     /**
      * @var list<string>
      */
@@ -52,6 +50,7 @@ class AiToolLog extends BaseModel
         return [
             'arguments' => 'array',
             'response' => 'array',
+            'status' => AiToolLogStatusEnum::class,
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];

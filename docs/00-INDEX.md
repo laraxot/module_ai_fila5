@@ -41,3 +41,8 @@ discussions: []
 ## Nota anti-ridondanza
 
 La governance di Ralph, BMAD e GSD non va duplicata qui: questo indice deve solo rimandare al documento canonico centrale.
+
+## Stories PHPStan
+
+- [2026-10-06 PHPStan cleanup — AI](./stories/2026-10-06-phpstan-cleanup-ai.story.md) · [dev](./stories/2026-10-06-phpstan-cleanup-ai.dev.md)
+- [AI domain enums](./bmad/domain-status-enum.md) — enum di stato/ruolo (decisione 2026-10-06)
