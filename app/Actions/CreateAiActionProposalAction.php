@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions;
 
+use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;
 use Modules\AI\Models\AiThread;
 use Ramsey\Uuid\Uuid;
@@ -34,7 +35,7 @@ class CreateAiActionProposalAction
             'type' => $type,
             'payload' => $payload,
             'preview' => $preview,
-            'status' => AiActionProposal::STATUS_PENDING,
+            'status' => AiActionProposalStatusEnum::PENDING,
         ]);
 
         return $proposal;
