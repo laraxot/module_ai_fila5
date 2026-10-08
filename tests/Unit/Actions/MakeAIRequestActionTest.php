@@ -54,7 +54,25 @@ describe('Ticket AI actions', function (): void {
 
         Assert::assertSame('ambiente', $result['category']);
         Http::assertSent(function (Request $request): bool {
-            $prompt = $request['messages'][1]['content'];
+            $payload = $request->data();
+            if (! is_array($payload)) {
+                return false;
+            }
+
+            $messages = $payload['messages'] ?? null;
+            if (! is_array($messages)) {
+                return false;
+            }
+
+            $message = $messages[1] ?? null;
+            if (! is_array($message)) {
+                return false;
+            }
+
+            $prompt = $message['content'] ?? null;
+            if (! is_string($prompt)) {
+                return false;
+            }
 
             return str_contains($prompt, 'Classifica il seguente ticket')
                 && str_contains($prompt, 'Titolo: Rifiuti abbandonati')
@@ -70,7 +88,29 @@ describe('Ticket AI actions', function (): void {
         $result = app(SuggestSolutionsAction::class)->execute('Buca', 'Via Po', 'infrastruttura');
 
         Assert::assertSame([], $result['solutions']);
-        Http::assertSent(fn (Request $request): bool => str_contains($request['messages'][1]['content'], 'Suggerisci soluzioni per questo ticket di infrastruttura')
-            && str_contains($request['messages'][1]['content'], 'Titolo: Buca'));
+        Http::assertSent(function (Request $request): bool {
+            $payload = $request->data();
+            if (! is_array($payload)) {
+                return false;
+            }
+
+            $messages = $payload['messages'] ?? null;
+            if (! is_array($messages)) {
+                return false;
+            }
+
+            $message = $messages[1] ?? null;
+            if (! is_array($message)) {
+                return false;
+            }
+
+            $prompt = $message['content'] ?? null;
+            if (! is_string($prompt)) {
+                return false;
+            }
+
+            return str_contains($prompt, 'Suggerisci soluzioni per questo ticket di infrastruttura')
+                && str_contains($prompt, 'Titolo: Buca');
+        });
     });
 });
