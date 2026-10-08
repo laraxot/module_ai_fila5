@@ -29,7 +29,7 @@ class AiActionProposalsTable extends XotBaseResourceTable
             ->color('success')
             ->requiresConfirmation()
             ->visible(
-                static fn (AiActionProposal $record): bool => $record->status === AiActionProposal::STATUS_PENDING
+                static fn (AiActionProposal $record): bool => $record->status->canBeConfirmed()
             )
             ->action(function (AiActionProposal $record): void {
                 app(ConfirmAiActionProposalAction::class)->execute($record, (int) Auth::id());
@@ -41,7 +41,7 @@ class AiActionProposalsTable extends XotBaseResourceTable
             ->color('danger')
             ->requiresConfirmation()
             ->visible(
-                static fn (AiActionProposal $record): bool => $record->status === AiActionProposal::STATUS_PENDING
+                static fn (AiActionProposal $record): bool => $record->status->canBeCancelled()
             )
             ->action(function (AiActionProposal $record): void {
                 app(CancelAiActionProposalAction::class)->execute($record);
@@ -62,16 +62,9 @@ class AiActionProposalsTable extends XotBaseResourceTable
             'type' => TextColumn::make('type')
                 ->badge()
                 ->searchable(),
+            // badge(): etichetta, colore e icona arrivano dall'enum (HasLabel/HasColor/HasIcon).
             'status' => TextColumn::make('status')
                 ->badge()
-                ->colors([
-                    'warning' => AiActionProposal::STATUS_PENDING,
-                    'secondary' => AiActionProposal::STATUS_CANCELLED,
-                    'info' => AiActionProposal::STATUS_CONFIRMED,
-                    'success' => AiActionProposal::STATUS_EXECUTED,
-                    'danger' => AiActionProposal::STATUS_FAILED,
-                ])
-                ->formatStateUsing(fn (string $state): string => __("ai::action_proposal.statuses.{$state}"))
                 ->sortable(),
             'preview' => TextColumn::make('preview')
                 ->limit(50)
