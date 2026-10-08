@@ -60,4 +60,3 @@ Un merge (`laraxot/dev`, commit `9b0682a`) aveva riportato in `app/Services/` i 
 `AIServiceJsonDecoder`, `AIServicePromptBuilder`, `AIServicePromptTemplates`) e il `.bak`. Erano ancora codice morto (0 chiamanti):
 eliminati, nessuna nuova Action. Equivalenti vivi: `ClassifyTicketAction`, `SuggestSolutionsAction`, `MakeAIRequestAction`,
 `AiJsonResponseDecoderAction`, `BuildAIPromptAction`. Dettagli: [story](../../stories/2026-10-08-services-to-actions-ai.story.md).
-
