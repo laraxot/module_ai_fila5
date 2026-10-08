@@ -1,3 +1,14 @@
+---
+title: "log"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "log"
+issues: []
+discussions: []
+---
+
 ## [2026-07-24] architecture | Ollama Actions ownership in AI
 
 - Canon locale: [ollama-actions-ownership.md](concepts/ollama-actions-ownership.md)
@@ -76,9 +87,3 @@
 
 - `GetPredictionFallbackTemplatesAction` espone template con ` list<array{...}>`, non `array<string,mixed>`.
 - `CastScalarToStringListAction::execute()` usa return nativo `array` con PHPDoc `list<string>`: `list<string>` non e un return type PHP valido.
-
-## [2026-09-24] git | rebase shallow no-op risolto con merge
-
-- Rebase `dev` → `laraxot/dev` fermo con 82 conflitti add/add: i commit replicati erano snapshot senza parent (clone shallow). Tree di `dev` e `laraxot/dev` identici (`a722379`), quindi `git rebase --abort && git merge laraxot/dev`, senza cambi di contenuto.
-- Regola: prima di risolvere a mano dei conflitti "AA" di massa, confrontare `git rev-parse A^{tree} B^{tree}`.
-- PHPStan `Modules/AI` (level max): 0 errori, dopo aver rimosso i marker committati in User/Gdpr che bloccavano il bootstrap.

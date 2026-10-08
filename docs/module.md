@@ -1,4 +1,6 @@
 ---
+issues: []
+discussions: []
 title: "AI Module — Doctrine"
 type: doctrine
 tags: [ai, artificial-intelligence, module-doctrine]

@@ -1,3 +1,14 @@
+---
+title: "ponytail audit 2026 07 02"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ponytail audit 2026 07 02"
+issues: []
+discussions: []
+---
+
 # Ponytail-audit: SentimentAction driver selection moved to config
 
 ## Finding

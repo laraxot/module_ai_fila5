@@ -1,3 +1,14 @@
+---
+title: "phpstan fixes history"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "phpstan fixes history"
+issues: []
+discussions: []
+---
+
 # AI Module - PHPStan Fixes History
 
 ## ✅ Stato Attuale: BASELINE CREATED - PHPStan Level MAX
@@ -17,6 +28,14 @@
 
 ---
 
+title: "phpstan fixes history"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "phpstan fixes history"
+issues: []
+discussions: []
 ## 📋 Strategia Baseline PHPStan
 
 ### Perché il Baseline
@@ -101,7 +120,7 @@ class MyPage extends XotBasePage
 
 ### Pages
 - **Completion** ✅ - Pulito, estende XotBasePage correttamente
-- **Dashboard** ✅ - Pulito, estende XotBasePage correttamente
+- **Dashboard** ✅ - riallineato a `XotBaseDashboard`, base dedicata per i dashboard
 - **FineTuning** ✅ - Già corretto
 
 ### Actions
@@ -135,7 +154,7 @@ class Completion extends XotBasePage implements HasForms
 
 ### Dashboard Page
 ```php
-class Dashboard extends XotBasePage
+class Dashboard extends XotBaseDashboard
 {
     // ✅ Nessuna proprietà navigationIcon
     

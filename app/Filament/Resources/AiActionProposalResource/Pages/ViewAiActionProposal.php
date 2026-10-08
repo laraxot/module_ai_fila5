@@ -13,12 +13,5 @@ class ViewAiActionProposal extends XotBaseViewRecord
 {
     protected static string $resource = AiActionProposalResource::class;
 
-
-    /**
-     * @return array<string, \Filament\Schemas\Components\Component>
-     */
-    protected function getInfolistSchema(): array
-    {
-        return app(AiActionProposalInfolist::class)->getInfolistSchema();
-    }
+    
 }
