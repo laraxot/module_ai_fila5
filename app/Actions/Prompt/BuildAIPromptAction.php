@@ -175,7 +175,7 @@ Considera:
 - Precedenti performance
 
 Rispondi in formato JSON:
-".AIPromptTemplates::ROUTING_JSON;
+".self::ROUTING_JSON;
     }
 
     private function autoResponse(string $ticketContent, string $category, string $priority): string
@@ -217,7 +217,7 @@ Identifica:
 - Opportunità di miglioramento
 
 Rispondi in formato JSON:
-".AIPromptTemplates::PATTERN_JSON;
+".self::PATTERN_JSON;
     }
 
     /**
@@ -227,7 +227,7 @@ Rispondi in formato JSON:
     {
         return 'Suggerisci miglioramenti per il servizio di gestione ticket basandoti su questi dati:
 
-Dati: '.json_encode($data, JSON_PRETTY_PRINT).AIPromptTemplates::IMPROVEMENTS_JSON;
+Dati: '.json_encode($data, JSON_PRETTY_PRINT).self::IMPROVEMENTS_JSON;
     }
 
     /**
@@ -274,4 +274,82 @@ Dati: '.json_encode($data, JSON_PRETTY_PRINT).AIPromptTemplates::IMPROVEMENTS_JS
 
         return $output;
     }
+
+    // Schemi JSON di risposta attesi dal modello: usati solo da questa Action, quindi restano costanti locali.
+    private const string ROUTING_JSON = <<<'JSON'
+{
+  "assignments": [
+    {
+      "ticket_id": 123,
+      "agent_id": 456,
+      "reason": "motivazione assegnazione",
+      "estimated_completion": "2024-01-15",
+      "confidence": 0.85
+    }
+  ],
+  "unassigned_tickets": [789],
+  "overload_warnings": ["agent1 ha troppi ticket"],
+  "efficiency_score": 0.92
+}
+JSON;
+
+    private const string PATTERN_JSON = <<<'JSON'
+{
+  "temporal_trends": {
+    "peak_hours": ["9-11", "14-16"],
+    "peak_days": ["lunedì", "martedì"],
+    "seasonal_patterns": {"estate": "+20%"}
+  },
+  "geographic_hotspots": [
+    {"area": "centro", "count": 45, "trend": "increasing"}
+  ],
+  "category_insights": {
+    "most_common": "infrastruttura",
+    "growing": "ambiente",
+    "declining": "trasporti"
+  },
+  "recommendations": [
+    "Aumentare personale nelle ore di picco",
+    "Focus su area centro"
+  ]
+}
+JSON;
+
+    private const string IMPROVEMENTS_JSON = <<<'JSON'
+
+Fornisci suggerimenti per:
+- Processi operativi
+- Tecnologie
+- Formazione personale
+- Comunicazione cittadini
+- Metriche di performance
+
+Rispondi in formato JSON:
+{
+  "process_improvements": [
+    {
+      "area": "assegnazione ticket",
+      "suggestion": "Implementare sistema di priorità dinamica",
+      "impact": "high",
+      "effort": "medium"
+    }
+  ],
+  "technology_upgrades": [
+    {
+      "technology": "AI routing",
+      "description": "Sistema di assegnazione automatica",
+      "benefits": ["efficienza", "soddisfazione"],
+      "cost_estimate": "€50k"
+    }
+  ],
+  "training_recommendations": [
+    {
+      "role": "operatori",
+      "topics": ["comunicazione", "tecniche risoluzione"],
+      "format": "workshop",
+      "duration": "2 giorni"
+    }
+  ]
+}
+JSON;
 }

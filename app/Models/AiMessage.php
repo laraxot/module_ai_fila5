@@ -6,6 +6,7 @@ namespace Modules\AI\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\AI\Enums\AiMessageRoleEnum;
 use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Models\XotBaseModel;
 
@@ -14,6 +15,7 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * A single message (user|assistant|tool|system) within an AiThread.
  *
+ * @property AiMessageRoleEnum $role
  * @property-read ProfileContract|null $creator
  * @property-read AiThread|null $thread
  * @property-read ProfileContract|null $updater
@@ -26,14 +28,6 @@ use Modules\Xot\Models\XotBaseModel;
  */
 class AiMessage extends XotBaseModel
 {
-    public const string ROLE_USER = 'user';
-
-    public const string ROLE_ASSISTANT = 'assistant';
-
-    public const string ROLE_TOOL = 'tool';
-
-    public const string ROLE_SYSTEM = 'system';
-
     /**
      * @var list<string>
      */
@@ -51,6 +45,7 @@ class AiMessage extends XotBaseModel
     protected function casts(): array
     {
         return [
+            'role' => AiMessageRoleEnum::class,
             'payload' => 'array',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
