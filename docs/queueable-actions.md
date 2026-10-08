@@ -1,4 +1,7 @@
 ---
+qmd: "queueable actions"
+issues: []
+discussions: []
 title: "Queueable Actions — AI Module"
 type: concept
 created: 2026-07-12

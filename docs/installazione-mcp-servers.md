@@ -1,3 +1,14 @@
+---
+title: "installazione mcp servers"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "installazione mcp servers"
+issues: []
+discussions: []
+---
+
 # Installazione e Gestione Centralizzata MCP Servers
 
 ## Obiettivo
@@ -5,6 +16,14 @@ Centralizzare l'installazione dei server MCP in `/var/www/html/_bases/mcp-server
 
 ---
 
+title: "installazione mcp servers"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "installazione mcp servers"
+issues: []
+discussions: []
 ## 1. Struttura consigliata
 
 ```

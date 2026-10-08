@@ -1,3 +1,14 @@
+---
+title: "00 introduzione"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "00 introduzione"
+issues: []
+discussions: []
+---
+
 # Introduzione ai Server MCP per Progetti Laravel
 
 ## Panoramica
@@ -78,4 +89,12 @@ Questa documentazione e gli script correlati sono rilasciati sotto la licenza MI
 
 ---
 
+title: "00 introduzione"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "00 introduzione"
+issues: []
+discussions: []
 Continua con la sezione [Installazione](./01_INSTALLAZIONE.md) per iniziare a configurare i server MCP per il tuo progetto Laravel.
