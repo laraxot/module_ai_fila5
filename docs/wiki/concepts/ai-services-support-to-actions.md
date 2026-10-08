@@ -1,3 +1,14 @@
+---
+title: "ai services support to actions"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ai services support to actions"
+issues: []
+discussions: []
+---
+
 # AI module: Services/Support -> Queueable Actions
 
 Data: 2026-07-16
@@ -42,3 +53,10 @@ e un singolo metodo pubblico `execute(...)`.
   `audit-queueable-action-trait.sh`.
 - PHPStan `Modules/AI`: da 13 a 2 "errori" (i 2 residui sono soltanto pattern di ignore
   globali non matchati nello scope del singolo modulo — `phpstan.neon` e immutabile).
+
+## Aggiornamento 2026-10-08
+
+Un merge (`laraxot/dev`, commit `9b0682a`) aveva riportato in `app/Services/` i 5 file (`AIService`, `AIChatCompletionClient`,
+`AIServiceJsonDecoder`, `AIServicePromptBuilder`, `AIServicePromptTemplates`) e il `.bak`. Erano ancora codice morto (0 chiamanti):
+eliminati, nessuna nuova Action. Equivalenti vivi: `ClassifyTicketAction`, `SuggestSolutionsAction`, `MakeAIRequestAction`,
+`AiJsonResponseDecoderAction`, `BuildAIPromptAction`. Dettagli: [story](../../stories/2026-10-08-services-to-actions-ai.story.md).
