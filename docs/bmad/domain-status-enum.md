@@ -24,7 +24,7 @@ Le colonne restano `string` (le migration non cambiano): la conversione avviene 
   `lang/<locale>/<snake(NomeEnum)>.php` alla chiave `values.<valore>.{label,color,icon,description}` (nome file = nome classe in snake case, **compreso** il suffisso `_enum`).
 - Filament: `TextColumn::badge()` e `Select::options(Enum::class)` leggono l'enum; non ripetere mappe colore/etichetta nelle tabelle.
 - Codice: `$proposal->status` e' un enum (`canBeConfirmed()`...), non confrontare con stringhe. Per scrivere: `forceFill(['status' => AiActionProposalStatusEnum::CONFIRMED])`.
-- Le costanti di **configurazione** (testi dei prompt `AIPromptTemplates::*_JSON`) restano costanti, tipizzate (`public const string`).
+- Le costanti di **configurazione** (testi dei prompt `ROUTING_JSON`, `PATTERN_JSON`, `IMPROVEMENTS_JSON`) restano costanti tipizzate, ora `private const string` in `Actions/Prompt/BuildAIPromptAction` (le tre copie di `AIPromptTemplates` sono state eliminate il 2026-10-08).
 - Non esistono piu' `AiActionProposal::STATUS_*`, `AiToolLog::STATUS_*`, `AiMessage::ROLE_*` (nessun consumatore fuori dal modulo AI).
 
 ## Note

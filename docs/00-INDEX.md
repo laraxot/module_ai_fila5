@@ -32,6 +32,11 @@ discussions: []
 | [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
 | [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
 
+### Stories
+| File | Scopo |
+|---|---|
+| [2026-10-08-services-to-actions-ai.story.md](./stories/2026-10-08-services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
+
 ## Riferimenti canonici esterni al modulo
 
 - [Ralph + GSD + BMAD orchestration](../../../../bashscripts/ai/.agents/docs/architecture/ralph-gsd-bmad-orchestration.md)
