@@ -1,3 +1,14 @@
+---
+title: "00 INDEX"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "00 INDEX"
+issues: []
+discussions: []
+---
+
 # AI Module - Documentation Index
 
 **Path**: `laravel/Modules/AI/docs/`
@@ -20,6 +31,11 @@
 | [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
 | [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
 | [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
+
+### Stories
+| File | Scopo |
+|---|---|
+| [2026-10-08-services-to-actions-ai.story.md](./stories/2026-10-08-services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
 
 ## Riferimenti canonici esterni al modulo
 

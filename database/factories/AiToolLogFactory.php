@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\AI\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\AI\Enums\AiToolLogStatusEnum;
 use Modules\AI\Models\AiToolLog;
 
 /**
@@ -27,7 +28,7 @@ class AiToolLogFactory extends Factory
             'tool_name' => $this->faker->randomElement(['list_work_orders', 'get_work_order', 'search_customers']),
             'arguments' => ['query' => $this->faker->word()],
             'response' => ['ok' => true],
-            'status' => AiToolLog::STATUS_OK,
+            'status' => AiToolLogStatusEnum::OK,
             'error' => null,
         ];
     }

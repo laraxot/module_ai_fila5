@@ -1,6 +1,15 @@
-# 🐄⚡ ANALISI METODI DUPLICATI - SUPER MUCCA EDITION
+---
+title: "metodi duplicati analisi"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "metodi duplicati analisi"
+issues: []
+discussions: []
+---
 
-> Scope: 18 moduli + 2 temi dell'intero framework Laraxot (non solo `AI`). Per un'analisi scoped al solo modulo `AI` vedi [duplicate-methods-analysis.md](./duplicate-methods-analysis.md) — non e' un duplicato di questo file, copre un perimetro diverso e piu' ristretto.
+# 🐄⚡ ANALISI METODI DUPLICATI - SUPER MUCCA EDITION
 
 **Powered by**: Super Mucca AI 🐄✨  
 **Data**: 15 Ottobre 2025  
@@ -9,6 +18,14 @@
 
 ---
 
+title: "metodi duplicati analisi"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "metodi duplicati analisi"
+issues: []
+discussions: []
 ## 🎯 Executive Summary
 
 Analisi **REALE e APPROFONDITA** di **18 moduli** + **2 temi** del framework Laraxot/Filament.
