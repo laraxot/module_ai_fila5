@@ -1,4 +1,9 @@
 ---
+tags: [documentation]
+updated: 2026-09-26
+qmd: "ai quality gate 2026 09 04.story"
+issues: []
+discussions: []
 title: "Quality gate closure - AI module (PHPMD + Pest + coverage + git)"
 status: done
 type: story

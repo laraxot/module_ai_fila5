@@ -1,4 +1,7 @@
 ---
+qmd: "README"
+issues: []
+discussions: []
 title: "AI Module Documentation"
 type: documentation
 tags: [module, documentation]

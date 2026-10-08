@@ -1,4 +1,6 @@
 ---
+issues: []
+discussions: []
 title: "AI — mai Filament\*, sempre XotBase*"
 type: concept
 module: AI

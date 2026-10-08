@@ -1,3 +1,14 @@
+---
+title: "llm wiki"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "llm wiki"
+issues: []
+discussions: []
+---
+
 # AI Module LLM Wiki
 
 This module is the best first adopter of the Karpathy pattern because it already contains MCP, Ollama, agent, and workflow documentation that is repeatedly queried and extended.

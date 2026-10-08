@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Modules\Xot\Actions\Cast\SafeStringCastAction;
 use Spatie\QueueableAction\QueueableAction;
-use Webmozart\Assert\Assert;
 
 class MakeAIRequestAction
 {
@@ -25,15 +24,10 @@ class MakeAIRequestAction
     {
         $prompt = $prompt ?? $this->prompt ?? '';
         $type = $type ?? $this->type ?? '';
-        $apiKey = config('ai.openai_api_key', '');
-        $baseUrl = config('ai.openai_base_url', 'https://api.openai.com/v1');
-        $timeout = config('ai.timeout', 30);
-        $retryAttempts = config('ai.retry_attempts', 3);
-
-        Assert::string($apiKey, 'API key must be a string');
-        Assert::string($baseUrl, 'Base URL must be a string');
-        Assert::integer($timeout, 'Timeout must be an integer');
-        Assert::integer($retryAttempts, 'Retry attempts must be an integer');
+        $apiKey = $this->configString('ai.openai_api_key', 'services.openai.api_key', '');
+        $baseUrl = $this->configString('ai.openai_base_url', 'services.openai.base_url', 'https://api.openai.com/v1');
+        $timeout = $this->configInt('ai.timeout', 'services.openai.timeout', 30);
+        $retryAttempts = $this->configInt('ai.retry_attempts', 'services.openai.retry_attempts', 3);
 
         return $this->requestChatCompletion($prompt, $type, $apiKey, $baseUrl, $timeout, $retryAttempts);
     }
@@ -128,5 +122,22 @@ class MakeAIRequestAction
         $content = $payload !== null ? Arr::get($payload, 'choices.0.message.content') : null;
 
         return is_string($content) ? $content : '';
+    }
+
+    /**
+     * La chiave API vive in `services.openai.*` (vedi GeneratePredictionsAction): `ai.*` la sovrascrive se presente.
+     */
+    private function configString(string $primaryKey, string $fallbackKey, string $default): string
+    {
+        $value = config($primaryKey, config($fallbackKey, $default));
+
+        return is_string($value) ? $value : $default;
+    }
+
+    private function configInt(string $primaryKey, string $fallbackKey, int $default): int
+    {
+        $value = config($primaryKey, config($fallbackKey, $default));
+
+        return is_numeric($value) ? (int) $value : $default;
     }
 }

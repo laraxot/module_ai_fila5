@@ -1,3 +1,8 @@
+---
+title: MODULE ROOT HYGIENE
+module: AI
+---
+
 # Module Root Hygiene — Why the AI Module Root Stays Clean
 
 Extends the canonical rule: [`docs/wiki/rules/module-theme-root-cleanup.md`](../../../../docs/wiki/rules/module-theme-root-cleanup.md).
