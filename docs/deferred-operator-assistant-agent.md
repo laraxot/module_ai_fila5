@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "deferred operator assistant agent"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Deferred: OperatorAssistantAgent domain tool-calling

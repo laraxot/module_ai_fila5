@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "next steps"
 issues: []
 discussions: []
+status: draft
 ---
 
 # 🎯 Ollama MCP Integration - Stato Attuale e Prossimi Passi
@@ -17,15 +18,6 @@ discussions: []
 **Next**: Fase 2 (Implementazione Core)
 
 ---
-
-title: "next steps"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "next steps"
-issues: []
-discussions: []
 ## ✅ Cosa è Stato Completato
 
 ### 1. Infrastructure Setup

@@ -11,6 +11,7 @@ qmd: "AI module Services and Support banned use app Actions QueueableAction poli
 related:
   - no-app-support-queueable-actions.md
   - ../../../Xot/docs/wiki/concepts/queueable-action-trait-mandatory.md
+status: draft
 ---
 
 # AI — Services/Support vietati: solo Actions
