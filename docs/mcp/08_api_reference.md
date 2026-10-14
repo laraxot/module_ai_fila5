@@ -10,6 +10,7 @@ discussions: []
 module: theme
 topic: 08_api_reference
 canonical: ../../../../Themes/docs/shared-components/08-api-reference.md
+status: stub
 ---
 
 See canonical documentation: ../../../../Themes/docs/shared-components/08-api-reference.md

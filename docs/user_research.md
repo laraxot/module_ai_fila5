@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "user research"
 issues: []
 discussions: []
+status: draft
 ---
 
 # AI Module - User Research
@@ -16,15 +17,6 @@ discussions: []
 **Owner:** Product Team
 
 ---
-
-title: "user research"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "user research"
-issues: []
-discussions: []
 ## Research Goals
 
 1. Understand user comfort with AI-generated content

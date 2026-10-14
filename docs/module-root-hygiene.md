@@ -1,6 +1,11 @@
 ---
 title: MODULE ROOT HYGIENE
 module: AI
+type: note
+status: draft
+updated: 2026-10-08
+tags: [docs, ai]
+qmd: "module root hygiene   why the ai module root stays clean ai"
 ---
 
 # Module Root Hygiene — Why the AI Module Root Stays Clean
