@@ -1,6 +1,11 @@
 ---
 title: SCOPO
 module: AI
+type: note
+status: draft
+updated: 2026-10-08
+tags: [docs, ai, wiki]
+qmd: "ai   scopo (bmad) ai"
 ---
 
 # AI — Scopo (BMAD)

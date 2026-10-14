@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "errors"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Errori Comuni e Soluzioni
