@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "ai methodologies"
 issues: []
 discussions: []
+status: draft
 ---
 
 # AI Methodologies Handbook

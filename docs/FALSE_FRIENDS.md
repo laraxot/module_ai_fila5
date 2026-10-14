@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "FALSE FRIENDS"
 issues: []
 discussions: []
+status: draft
 ---
 
 # False Friends – AI

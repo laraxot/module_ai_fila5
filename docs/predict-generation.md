@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "predict generation"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Predict Generation

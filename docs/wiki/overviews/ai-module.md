@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "ai module"
 issues: []
 discussions: []
+status: draft
 ---
 
 # AI Module Overview
