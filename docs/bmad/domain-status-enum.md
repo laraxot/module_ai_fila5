@@ -5,6 +5,8 @@ type: decision
 tags: [ai, enum, filament, phpstan]
 created: 2026-10-06
 updated: 2026-10-06
+status: draft
+qmd: "ai domain enums ai"
 ---
 
 # AI domain enums

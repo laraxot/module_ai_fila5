@@ -10,6 +10,7 @@ type: ux-design
 module: AI
 related:
   - ./livewire-inventory.md
+status: draft
 ---
 
 # UX AI
