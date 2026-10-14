@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "PRD"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Product Requirements Document (PRD) - AI Module
@@ -17,15 +18,6 @@ discussions: []
 **Author**: Product Team
 
 ---
-
-title: "PRD"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "PRD"
-issues: []
-discussions: []
 ## Document Control
 
 | Version | Date | Author | Changes |
@@ -594,9 +586,9 @@ AI::getUsage(date_from, date_to, module);
 
 ### 12.3 Related PRDs
 - [Predict Module PRD](../Predict/docs/PRD.md)
-- [Blog Module PRD](../Blog/docs/PRD.md)
-- [Cms Module PRD](../Cms/docs/PRD.md)
-- [Lang Module PRD](../Lang/docs/PRD.md)
+- [Blog Module PRD](../../Blog/docs/PRD.md)
+- [Cms Module PRD](../../Cms/docs/PRD.md)
+- [Lang Module PRD](../../Lang/docs/PRD.md)
 
 ---
 
