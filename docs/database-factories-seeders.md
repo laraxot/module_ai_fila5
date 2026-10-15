@@ -35,8 +35,11 @@ Nessuno skip. Tutti i modelli in `app/Models/` sono concreti, senza pivot/STI/ta
 - I factory usano il pattern del repo (`Factory::new()->createOne()->id` per le relazioni), coerente con `WorkOrder`/`Bom`.
 - `created_by_user_id` / `user_id` / `proposed_by_user_id` sono generati come interi fittizi: le migration NON dichiarano FK verso `users` (connessione diversa `user` vs `xot`, no FK cross-database), quindi non serve creare utenti reali.
 - `XotBaseModel` è la base astratta (modulo `Xot`), non è un modello concreto e non rientra nel conteggio.
+<<<<<<< .merge_file_rNmjdG
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_4I0DnI

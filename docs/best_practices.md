@@ -28,8 +28,11 @@ status: draft
 ## Documentazione
 - Aggiorna `docs/INDEX.md` quando aggiungi nuove funzioni.
 - Inserisci link a OpenAI/Anthropic SDK docs.
+<<<<<<< .merge_file_y0RfKJ
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_Klgb0a

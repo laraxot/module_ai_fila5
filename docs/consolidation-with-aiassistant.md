@@ -189,8 +189,11 @@ Remove `openai-php/laravel` from AiAssistant, declare AI as dependency:
 - `../../AiAssistant/ARCHITECTURE.md` — AiAssistant's current design
 - `handler-registry.md` — implementing custom handlers
 - `../../../bmad-output/module-philosophy-audit.story.md` — full module audit
+<<<<<<< .merge_file_tYrUuu
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_51ud0H
