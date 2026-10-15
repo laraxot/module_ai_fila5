@@ -286,7 +286,7 @@ Cinque file condividono lo stesso template generico (`**Module:** AI`, `**Versio
 
 - [structure.md](./structure.md) - versione del 2025-04-23, superata da [project-structure.md](./project-structure.md) (2026-05-11).
 - [metodi_duplicati_analisi.md](./metodi_duplicati_analisi.md) - stessa analisi di [duplicate-methods-analysis.md](./duplicate-methods-analysis.md), stessa data (2025-10-15), rigenerata con formato diverso ("Super Mucca Edition").
-- [phpstan-remediation-2025-12-23.md](./phpstan-remediation-2025-12-23.md) - identico byte per byte a [phpstan-remediation.md](./phpstan-remediation.md) (diff vuoto).
+- [phpstan-remediation-2025-12-23.md](./phpstan-remediation.md) - identico byte per byte a [phpstan-remediation.md](./phpstan-remediation.md) (diff vuoto).
 - [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
 - [merge-conflict-files-list.md](./merge-conflict-files-list.md) e [merge-conflicts-list.md](./merge-conflicts-list.md) - due elenchi di file con marker di conflitto da una sessione di merge passata (vedi memoria `project_notify-conflict-remediation-2026-09-03`); presumibilmente risolti, da verificare prima di rimuovere.
 - [wiki/agents.md](./wiki/agents.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](./llm-wiki/agents.md).
