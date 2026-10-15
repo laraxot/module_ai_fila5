@@ -786,8 +786,11 @@ All proposals are human-reviewed before execution. Logs are exhaustive. Fallback
 ---
 
 **Module**: AI · **Version**: 0.1.0 · **Maintainer**: Marco Sottana · **License**: MIT
+<<<<<<< .merge_file_wzH97L
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_ChpfRR

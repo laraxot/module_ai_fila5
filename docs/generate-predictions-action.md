@@ -455,8 +455,11 @@ Log::info('AI Prediction generated', [
 **Ultimo aggiornamento**: 2026-03-12  
 **Versione**: 1.0  
 **Stato**: In sviluppo
+<<<<<<< .merge_file_XI38WR
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_9oLQs8
