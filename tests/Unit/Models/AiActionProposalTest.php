@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Unit\Models;
+namespace Tests\Modules\AI\Unit\Models;
 
 use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;

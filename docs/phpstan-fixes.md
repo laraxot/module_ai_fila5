@@ -56,3 +56,8 @@ Pest DSL is fully compatible with PHPStan when:
 
 - [PHPStan Sacred Configuration](../../docs/wiki/rules/phpstan-neon-sacred.md)
 - [Pest DSL with PHPStan](../../docs/wiki/skills/pest-phpstan-compatibility.md)
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

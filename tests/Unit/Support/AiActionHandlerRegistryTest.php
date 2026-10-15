@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Unit\Support;
+namespace Tests\Modules\AI\Unit\Support;
 
 use Modules\AI\Contracts\AiActionHandlerContract;
 use Modules\AI\Models\AiActionProposal;
