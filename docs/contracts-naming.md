@@ -35,8 +35,11 @@ bash bashscripts/tools/check-module-contracts-naming.sh
 ```
 
 See the project rule for full rationale: `docs/wiki/rules/module-contracts-naming-placement.md`.
+<<<<<<< .merge_file_1rozbn
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_PSXWoB
