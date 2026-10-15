@@ -20,8 +20,11 @@ Sposta i messaggi in `lang/` o in file di configurazione.
 
 ## ❌ Non gestire errori API
 Implementa fallback e logging di eccezioni.
+<<<<<<< .merge_file_bR25B0
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_U4saBk
