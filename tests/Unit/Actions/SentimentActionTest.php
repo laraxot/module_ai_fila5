@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Unit\Actions;
+namespace Tests\Modules\AI\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\SentimentAction;
 use Modules\AI\Datas\SentimentData;
-use Modules\AI\Tests\TestCase;
+use Tests\Modules\AI\TestCase;
 use PHPUnit\Framework\Assert;
 
 beforeEach(function (): void {

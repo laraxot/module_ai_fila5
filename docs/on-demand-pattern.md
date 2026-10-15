@@ -1,5 +1,5 @@
 ---
-qmd: "on demand pattern"
+qmd: "ON DEMAND PATTERN"
 issues: []
 discussions: []
 title: "On-Demand Pattern — Module AI"
@@ -13,7 +13,7 @@ related:
 status: draft
 ---
 
-# On-Demand Pattern — Module **AI**
+# Alias: on-demand pattern AI
 
 **Fonte canonica**: [../../docs/wiki/rules/on-demand-pattern.md](../../../../docs/wiki/rules/on-demand-pattern.md)
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Support;
+namespace Tests\Modules\AI\Support;
 
 use Illuminate\Support\Facades\Http;
 use OpenAI\Laravel\Facades\OpenAI;

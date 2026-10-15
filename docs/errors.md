@@ -136,3 +136,8 @@ php artisan config:clear
 - Questo errore è comune durante la migrazione da versioni precedenti di Laravel Modules
 - Assicurati di avere la versione corretta di `nwidart/laravel-modules` nel tuo `composer.json`
 - Se stai usando un attivatore personalizzato, verifica che la classe sia correttamente definita e implementi l'interfaccia `ActivatorInterface` 
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

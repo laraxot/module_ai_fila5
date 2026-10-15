@@ -124,3 +124,7 @@ Per aggiornare o avviare un server MCP, segui la documentazione centrale in `/va
 **Questa guida è pensata per essere seguita anche da chi lavora su altri PC o ambienti.**
 
 Per domande o aggiornamenti, fare riferimento alla documentazione centrale e ai README dei progetti coinvolti. 
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

@@ -1,50 +1,19 @@
 ---
-title: "create an assistant"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "create an assistant"
-issues: []
-discussions: []
-status: draft
+id: laraxot-ai-create-an-assistant-alias
+slug: create_an_assistant
+title: "Alias: create an assistant"
+qmd: "create an assistant alias"
+document_type: alias
+source_of_truth: false
+canonical: ../../../Themes/Barthelemy/docs/shared-components/create-an-assistant.md
+module: theme
+topic: create_an_assistant
+status: stub
 ---
 
-# Creazione di un Assistant
+Vedi il canonico: [../../../Themes/Barthelemy/docs/shared-components/create-an-assistant.md](../../../Themes/Barthelemy/docs/shared-components/create-an-assistant.md). Path corretto il 2026-10-15: prima puntava a `Themes/docs/shared-components/` che non esiste.
 
-## Introduzione
-Guida alla creazione di un assistant AI personalizzato.
-
-### Caratteristiche
-- Personalizzazione
-- Integrazione
-- Scalabilità
-- Manutenibilità
-
-## Configurazione
-Setup dell'assistant.
-
-### Requisiti
-- API key
-- Modello base
-- Sistema di storage
-- Logging
-
-## Implementazione
-Passi per l'implementazione.
-
-### Steps
-1. Definizione obiettivi
-2. Scelta del modello
-3. Configurazione
-4. Testing
-5. Deployment
-
-## Best Practices
-Linee guida per un assistant efficace.
-
-### Suggerimenti
-- Prompt design
-- Error handling
-- Rate limiting
-- Monitoring
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

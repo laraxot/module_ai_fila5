@@ -60,3 +60,8 @@ L'action AI non deve restituire prose libera. Deve restituire una struttura JSON
 ## Nota
 
 Se in futuro il backend AI cambia da provider remoto a modello locale, il contratto di output deve restare stabile per non rompere il pannello admin.
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
