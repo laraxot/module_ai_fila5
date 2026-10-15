@@ -122,3 +122,8 @@ Implementazione corrente:
 - i command file dei client delegano alla logica canonica in `bashscripts/ai/ollama-cmd.sh`
 - la selezione persistente del modello usa `bashscripts/ai/.ollama-config`
 - il default del bridge e' stato riallineato a `qwen2.5-coder:7b`
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

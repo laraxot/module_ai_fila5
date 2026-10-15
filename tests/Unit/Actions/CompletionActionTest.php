@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Unit\Actions;
+namespace Tests\Modules\AI\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\CompletionAction;
 use Modules\AI\Datas\CompletionData;
-use Modules\AI\Tests\TestCase;
+use Tests\Modules\AI\TestCase;
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Completions\CreateResponse;
 use OpenAI\Responses\Completions\CreateResponseChoice;

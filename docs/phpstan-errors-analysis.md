@@ -127,3 +127,7 @@ The sentiment analysis functionality is critical for:
 ---
 *PHPStan Level: 9*
 *Error Count: 8+ critical errors*
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
