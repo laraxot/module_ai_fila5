@@ -413,3 +413,8 @@ Per considerare la Fase 2 completata:
 
 **Last Updated**: 2026-03-11 17:00 CET  
 **Next Update**: Dopo completamento Fase 2
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
