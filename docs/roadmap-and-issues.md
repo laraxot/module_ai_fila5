@@ -25,7 +25,7 @@ status: draft
 - ✅ Rimossa proprietà `navigationIcon` da Dashboard.php
 - ✅ Conformità XotBasePage pattern
 
-Dettagli: [phpstan-fixes-2025-10-01.md](./phpstan-fixes-2025-10-01.md)
+Dettagli: [phpstan-fixes-2025-10-01.md](./phpstan-fixes-session-user.md)
 
 ---
 
@@ -251,7 +251,7 @@ RateLimiter::for('ai-completion', function (Request $request) {
 ## 🔗 Collegamenti
 
 - [← AI Module README](../README.md)
-- [← PHPStan Fixes](./phpstan-fixes-2025-10-01.md)
+- [← PHPStan Fixes](./phpstan-fixes-session-user.md)
 - [← Fixcity Integration](../../Fixcity/docs/roadmap-and-issues.md)
 - [← Root Documentation](../../../../docs/index.md)
 
