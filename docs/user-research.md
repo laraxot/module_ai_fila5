@@ -108,11 +108,11 @@ Users concerned about data used for AI training.
 
 ---
 
-<<<<<<< .merge_file_bccv4M
+<<<<<<< .merge_file_QMpMQQ
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
 =======
->>>>>>> .merge_file_eUZQTM
+>>>>>>> .merge_file_g9vBIF
