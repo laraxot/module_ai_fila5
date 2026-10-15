@@ -8,7 +8,7 @@ module: AI
 tags: [docs, ai, verifica, indici, mcp, ollama, link]
 qmd: "ai docs ingressi readme 00-index verifica codice mcp assente ollama ds4 openai piani roadmap link rotti stale"
 related:
-  - ../../../Fixcity/docs/stories/2026-10-13-dcp-56-organizzazione-docs-moduli-e-temi.story.md
+  - ../../../Fixcity/docs/stories/dcp-56-organizzazione-docs-moduli-e-temi.story.md
 ---
 
 # AI docs: ingressi verificati contro il codice
