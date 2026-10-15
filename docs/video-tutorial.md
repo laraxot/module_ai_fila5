@@ -1,5 +1,4 @@
 ---
-<<<<<<< .merge_file_Q6mMzV
 id: laraxot-ai-video-tutorial-alias
 slug: video_tutorial
 title: "Alias: video tutorial"
@@ -9,19 +8,6 @@ source_of_truth: false
 canonical: ../../../Themes/Barthelemy/docs/shared-components/video-tutorial.md
 module: theme
 topic: video_tutorial
-=======
-title: "video tutorial"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "video tutorial"
-issues: []
-discussions: []
-module: theme
-topic: video_tutorial
-canonical: ../../../Themes/docs/shared-components/video-tutorial.md
->>>>>>> .merge_file_xnccE7
 status: stub
 ---
 
