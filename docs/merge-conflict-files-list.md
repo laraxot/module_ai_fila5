@@ -92,3 +92,7 @@ This file contains a comprehensive list of files with merge conflict markers (`<
 *Generated on: $(date)
 *Total files: 96
 *Status: Pending resolution*
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

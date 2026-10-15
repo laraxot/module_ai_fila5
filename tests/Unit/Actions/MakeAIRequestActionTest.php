@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Unit\Actions;
+namespace Tests\Modules\AI\Unit\Actions;
 
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;

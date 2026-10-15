@@ -26,3 +26,8 @@ Eventuali voci storiche (ActivityLogger, contratti Geo) sono in [docs/audit/pony
 ## Collegamenti
 
 - [wiki/concepts/ponytail-audit.md](./wiki/concepts/ponytail-audit.md)
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

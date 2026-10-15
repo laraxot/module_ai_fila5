@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests;
+namespace Tests\Modules\AI;
 
 use Illuminate\Foundation\Application;
 use Modules\AI\Providers\AIServiceProvider;
-use Modules\Xot\Tests\XotBaseTestCase;
+use Tests\Modules\Xot\XotBaseTestCase;
 
 /**
  * Base test case for AI module.

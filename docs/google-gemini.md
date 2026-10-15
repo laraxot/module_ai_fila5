@@ -1,49 +1,19 @@
 ---
-title: "google gemini"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "google gemini"
-issues: []
-discussions: []
-status: draft
+id: laraxot-ai-google-gemini-alias
+slug: google_gemini
+title: "Alias: google gemini"
+qmd: "google gemini alias"
+document_type: alias
+source_of_truth: false
+canonical: ../../../Themes/Barthelemy/docs/shared-components/google-gemini.md
+module: theme
+topic: google_gemini
+status: stub
 ---
 
-# Google Gemini Integration
+Vedi il canonico: [../../../Themes/Barthelemy/docs/shared-components/google-gemini.md](../../../Themes/Barthelemy/docs/shared-components/google-gemini.md). Path corretto il 2026-10-15: prima puntava a `Themes/docs/shared-components/` che non esiste.
 
-## Introduzione
-Integrazione con il modello Gemini di Google.
-
-### Caratteristiche
-- Multimodalità
-- Generazione testo
-- Analisi immagini
-- Risposte contestuali
-
-## Configurazione
-Setup dell'integrazione.
-
-### Requisiti
-- API key
-- Quota sufficiente
-- Ambiente configurato
-- Dipendenze installate
-
-## Utilizzo
-Esempi di utilizzo.
-
-### Funzionalità
-- Text generation
-- Image analysis
-- Code generation
-- Data analysis
-
-## Best Practices
-Linee guida per l'utilizzo.
-
-### Suggerimenti
-- Prompt design
-- Error handling
-- Rate limiting
-- Caching
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
