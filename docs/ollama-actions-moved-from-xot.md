@@ -53,8 +53,11 @@ See the general rule: [`xot-is-framework-base-not-domain-owner`](../../../../bas
 The `@param array{...}` / `@return array{...}` PHPDoc shapes must be preserved
 verbatim across the move — a manual `mv`/rewrite can easily drop them, which
 triggers PHPStan's `missingType.iterableValue` at `level: max`.
+<<<<<<< .merge_file_kaJHWi
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_me2Gal
