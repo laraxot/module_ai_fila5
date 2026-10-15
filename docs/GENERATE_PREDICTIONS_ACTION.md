@@ -1,3 +1,15 @@
+---
+title: "GENERATE PREDICTIONS ACTION"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "GENERATE PREDICTIONS ACTION"
+issues: []
+discussions: []
+status: draft
+---
+
 # AI Module - Generate Predictions Action
 
 ## Panoramica
@@ -440,7 +452,11 @@ Log::info('AI Prediction generated', [
 - **Laravel Data**: https://spatie.be/docs/laravel-data
 
 ---
-
 **Ultimo aggiornamento**: 2026-03-12  
 **Versione**: 1.0  
 **Stato**: In sviluppo
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

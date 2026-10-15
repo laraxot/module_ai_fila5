@@ -1,3 +1,15 @@
+---
+title: "mcp"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "mcp"
+issues: []
+discussions: []
+status: draft
+---
+
 # Configurazione MCP (Model Context Protocol)
 
 ## Installazione
@@ -156,7 +168,6 @@ Ecco i server MCP consigliati per un ambiente di sviluppo AI/ML moderno e automa
 - **Motivo:** Integrazione con database MySQL, molto diffuso in ambito web e applicazioni legacy.
 
 ---
-
 **Perché questi server:**
 - Sono mantenuti ufficialmente dal progetto Model Context Protocol
 - Coprono le esigenze principali di un ambiente AI/ML moderno (ragionamento, memoria, accesso dati, automazione, storage)
@@ -291,3 +302,8 @@ Esempio da usare in `.vscode/mcp.json`, `.cursor/mcp.json`, `mcp_config.json` di
 ---
 
 **Seguendo questa filosofia, potrai installare e usare i server MCP in modo uniforme, semplice e senza sorprese su qualsiasi PC e progetto.**
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

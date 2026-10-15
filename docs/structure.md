@@ -1,3 +1,15 @@
+---
+title: "structure"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "structure"
+issues: []
+discussions: []
+status: draft
+---
+
 # Modulo AI
 
 Data: 2025-04-23 19:09:55
@@ -100,3 +112,8 @@ Contiene i test automatizzati.
 - [Report PHPStan](/project_docs/phpstan/)
 - [Errori Comuni e Soluzioni](errors.md)
 
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

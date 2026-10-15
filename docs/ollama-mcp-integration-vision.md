@@ -1,3 +1,15 @@
+---
+title: "ollama mcp integration vision"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ollama mcp integration vision"
+issues: []
+discussions: []
+status: draft
+---
+
 # 🧘 Ollama MCP Integration - Visione e Filosofia
 
 **Data Creazione**: 2026-03-11  
@@ -6,7 +18,6 @@
 **Versione**: 1.0.0
 
 ---
-
 ## 📖 Il Perché - The Why
 
 ### Perché Ollama tramite MCP?
@@ -369,3 +380,8 @@ class TrackMCPMetricsAction extends QueueableAction
 > L'integrazione è completa, il flusso è armonioso."*
 
 **OM SHANTI OM** 🙏
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

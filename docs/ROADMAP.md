@@ -1,3 +1,15 @@
+---
+title: "ROADMAP"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ROADMAP"
+issues: []
+discussions: []
+status: draft
+---
+
 # AI Module Roadmap
 
 - **[mission]** Provide AI-powered features (completion, fine-tuning) aligned with Filament v4 and Laravel 12.
@@ -17,3 +29,8 @@
 3. 📋 Aggiungere fine-tuning capabilities
 4. 📋 Sviluppare AI-powered analytics
 5. 📋 Integrare AI per ottimizzazione automatica
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

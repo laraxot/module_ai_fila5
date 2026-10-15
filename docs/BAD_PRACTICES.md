@@ -1,10 +1,18 @@
-# Bad Practices – AI
+---
+id: laraxot-ai-bad-practices-alias
+slug: BAD_PRACTICES
+title: "Alias: bad practices AI"
+qmd: "bad practices ai alias"
+document_type: alias
+source_of_truth: false
+canonical: ./bad-practices.md
+---
 
-## ❌ Usare `file_get_contents` per chiamare API
-Usa `Http::` o Guzzle per timeouts/retries.
+# Alias: bad practices AI
 
-## ❌ Prompt hard‑coded in view
-Sposta i messaggi in `lang/` o in file di configurazione.
+Contenuto canonico: [bad-practices.md](./bad-practices.md). Questo file resta solo per compatibilita dei link; duplicato identico consolidato il 2026-10-15, storia completa nel git history.
 
-## ❌ Non gestire errori API
-Implementa fallback e logging di eccezioni.
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

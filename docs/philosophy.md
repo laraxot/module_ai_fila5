@@ -1,3 +1,15 @@
+---
+title: "philosophy"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "philosophy"
+issues: []
+discussions: []
+status: draft
+---
+
 # AI Module: Philosophy, Purpose, and Design Principles
 
 **Date:** December 23, 2025
@@ -59,3 +71,7 @@ The `AI` module, as the central nervous system for intelligence integration, can
 5.  **Sequential Thinking (MCP)**: Crucial for analyzing complex AI workflows (e.g., multi-turn chatbots, iterative content generation), helping to break down and understand intricate intelligent processes.
 
 By leveraging these MCPs, the `AI` module can ensure its critical role in harnessing artificial cognition is more efficient, verifiable, and transparent, ultimately contributing to a truly intelligent and adaptive application.
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

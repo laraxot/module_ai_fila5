@@ -1,3 +1,15 @@
+---
+title: "ollama mcp usage guide"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ollama mcp usage guide"
+issues: []
+discussions: []
+status: draft
+---
+
 # 📘 Guida Pratica all'Utilizzo di Ollama MCP
 
 **Data Creazione**: 2026-03-11  
@@ -5,7 +17,6 @@
 **Compatibilità**: ollama-mcp v2.1.0+
 
 ---
-
 ## 🚀 Quick Start
 
 ### Prerequisiti
@@ -424,7 +435,7 @@ $prompt = "Che categoria è questo ticket? $ticketText";
 namespace Modules\AI\Actions;
 
 use Spatie\QueueableAction\QueueableAction;
-use Modules\Xot\Actions\AI\Ollama\ChatOllamaAction;
+use Modules\AI\Actions\Ollama\ChatOllamaAction;
 
 class OllamaChatAction extends QueueableAction
 {
@@ -477,3 +488,8 @@ public function register(): void
 ---
 
 **Prossimo passo:** Testare l'integrazione MCP e creare GitHub Issue/Discussion per collaborazione multi-agente.
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

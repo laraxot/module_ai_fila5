@@ -1,3 +1,24 @@
+---
+type: note
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "00 index"
+title: "AI — indice della documentazione"
+description: "Documentazione del modulo AI: integrazione modelli linguistici."
+module: AI
+tags: [ai, documentazione, modulo, laraxot]
+repository: https://github.com/laraxot/module_ai_fila5
+related:
+  - ./00-index.md
+  - ./index.md
+  - ../../../../docs/wiki/audits/docs-redundancy-audit.md
+issues: https://github.com/laraxot/module_ai_fila5/issues
+discussions: https://github.com/laraxot/module_ai_fila5/discussions
+status: stale
+---
+
+> Nota 2026-10-14 (docs-audit): Variante precedente dell'indice (status active ma ferma a prima del 2026-10-14). Indice canonico: 00-INDEX.md (riscritto 2026-10-14). Contenuto non riscritto, verificare prima di usarlo.
+
 # AI Module - Documentation Index
 
 **Path**: `laravel/Modules/AI/docs/`

@@ -1,10 +1,21 @@
+---
+title: "installazione mcp servers"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "installazione mcp servers"
+issues: []
+discussions: []
+status: draft
+---
+
 # Installazione e Gestione Centralizzata MCP Servers
 
 ## Obiettivo
 Centralizzare l'installazione dei server MCP in `/var/www/html/_bases/mcp-servers` per consentire l'uso condiviso tra più progetti Laravel/PHP, evitando duplicazioni e facilitando aggiornamenti e manutenzione.
 
 ---
-
 ## 1. Struttura consigliata
 
 ```
@@ -113,3 +124,7 @@ Per aggiornare o avviare un server MCP, segui la documentazione centrale in `/va
 **Questa guida è pensata per essere seguita anche da chi lavora su altri PC o ambienti.**
 
 Per domande o aggiornamenti, fare riferimento alla documentazione centrale e ai README dei progetti coinvolti. 
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

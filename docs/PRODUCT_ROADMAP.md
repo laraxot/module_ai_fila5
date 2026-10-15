@@ -1,3 +1,15 @@
+---
+title: "PRODUCT ROADMAP"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "PRODUCT ROADMAP"
+issues: []
+discussions: []
+status: draft
+---
+
 # AI Module - Product Roadmap
 
 **Module:** AI  
@@ -6,7 +18,6 @@
 **Status:** In Development
 
 ---
-
 ## Vision Statement
 
 To integrate **intelligent automation and AI-powered insights** throughout the platform, enhancing user experience, improving operational efficiency, and enabling capabilities that would be impossible with traditional software alone.
@@ -123,3 +134,8 @@ To integrate **intelligent automation and AI-powered insights** throughout the p
 
 ---
 
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

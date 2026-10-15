@@ -1,3 +1,15 @@
+---
+title: "llm wiki"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "llm wiki"
+issues: []
+discussions: []
+status: draft
+---
+
 # AI Module LLM Wiki
 
 This module is the best first adopter of the Karpathy pattern because it already contains MCP, Ollama, agent, and workflow documentation that is repeatedly queried and extended.
@@ -37,3 +49,8 @@ bashscripts/docs/llm-wiki-qmd.sh collection add laravel/Modules/AI/docs --name m
 bashscripts/docs/llm-wiki-qmd.sh search "mcp integration"
 bashscripts/docs/llm-wiki-qmd.sh query "how should AI docs distinguish source notes from compiled guidance" --no-rerank
 ```
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

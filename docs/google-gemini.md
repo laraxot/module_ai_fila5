@@ -1,3 +1,15 @@
+---
+title: "google gemini"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "google gemini"
+issues: []
+discussions: []
+status: draft
+---
+
 # Google Gemini Integration
 
 ## Introduzione
@@ -35,3 +47,8 @@ Linee guida per l'utilizzo.
 - Error handling
 - Rate limiting
 - Caching
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
