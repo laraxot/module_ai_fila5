@@ -39,11 +39,8 @@ direttamente i moduli di dominio — è il registry a fare da punto di disaccopp
 
 Non riprodurre `OperatorAssistantAgent` finché questo lavoro propedeutico non è pianificato in una
 issue/story dedicata.
-<<<<<<< .merge_file_X08cE0
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
-=======
->>>>>>> .merge_file_cZiKv2

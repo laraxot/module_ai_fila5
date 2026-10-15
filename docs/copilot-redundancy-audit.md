@@ -20,11 +20,8 @@ Raccomandazioni
 - Usare metadati per versionare esperimenti e collegare risultati alla knowledge base (second brain).
 
 Autore: Copilot CLI
-<<<<<<< .merge_file_0RITrS
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
-=======
->>>>>>> .merge_file_vET5lB
