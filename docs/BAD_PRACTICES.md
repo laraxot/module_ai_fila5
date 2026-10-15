@@ -1,4 +1,5 @@
 ---
+<<<<<<< .merge_file_Wxh9ie
 id: laraxot-ai-bad-practices-alias
 slug: BAD_PRACTICES
 title: "Alias: bad practices AI"
@@ -7,6 +8,20 @@ document_type: alias
 source_of_truth: false
 canonical: ./bad-practices.md
 ---
+=======
+title: "BAD PRACTICES"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "BAD PRACTICES"
+issues: []
+discussions: []
+status: draft
+---
+
+# Bad Practices – AI
+>>>>>>> .merge_file_xL1DI1
 
 # Alias: bad practices AI
 

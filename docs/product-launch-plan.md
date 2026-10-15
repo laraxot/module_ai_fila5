@@ -99,8 +99,11 @@ status: draft
 
 ---
 
+<<<<<<< .merge_file_EK3H2f
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_Wf02up

@@ -97,8 +97,11 @@ qmd search "<topic>"
 
 ---
 *Ultimo aggiornamento: 2026-05-11 | Pattern: on-demand via QMD*
+<<<<<<< .merge_file_Y97T4u
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_BiHS7m

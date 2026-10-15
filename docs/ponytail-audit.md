@@ -91,8 +91,11 @@ Override via `AI_SENTIMENT_DRIVER` env var.
   unaffected by this change (default driver is still `'basic'`).
 - Puppeteer/Playwright browser verification was skipped: this is
   backend-only PHP logic with no UI surface to drive.
+<<<<<<< .merge_file_x6N9M6
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
+>>>>>>> .merge_file_OwTW0k
