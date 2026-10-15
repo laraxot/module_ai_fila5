@@ -1,15 +1,42 @@
 <?php
-namespace Modules\AI\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+declare(strict_types=1);
 
-abstract class TestCase extends BaseTestCase
+namespace Tests\Modules\AI;
+
+use Illuminate\Foundation\Application;
+use Modules\AI\Providers\AIServiceProvider;
+use Tests\Modules\Xot\XotBaseTestCase;
+
+/**
+ * Base test case for AI module.
+ *
+ * Unit tests here do not require database migrations.
+ * Vietato RefreshDatabase / DatabaseMigrations (dati sacri).
+ */
+abstract class TestCase extends XotBaseTestCase
 {
-    protected function getPackageProviders($app): array
+    /**
+     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     */
+    protected function getPackageProviders(Application $app): array
     {
-        return array_merge(parent::getPackageProviders($app), [
-            \Nwidart\Modules\LaravelModulesServiceProvider::class,
-            \Modules\AI\Providers\AIServiceProvider::class,
+        return [
+            ...parent::getPackageProviders($app),
+            AIServiceProvider::class,
+        ];
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config([
+            'services.openai.api_key' => 'test-openai-key',
+            'services.openai.model' => 'gpt-3.5-turbo-instruct',
+            'ai.model' => 'gpt-3.5-turbo-instruct',
+            'ai.temperature' => 0.7,
+            'ai.max_tokens' => 1500,
         ]);
     }
 }
