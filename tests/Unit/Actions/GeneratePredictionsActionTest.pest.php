@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Tests\Unit\Actions;
+namespace Tests\Modules\AI\Unit\Actions;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\GeneratePredictionsAction;
 use Modules\AI\Datas\PredictionData;
-use Modules\AI\Tests\Support\OpenAiHttpFake;
+use Tests\Modules\AI\Support\OpenAiHttpFake;
 use PHPUnit\Framework\Assert;
 
-uses(\Modules\AI\Tests\TestCase::class);
+uses(\Tests\Modules\AI\TestCase::class);
 
 describe('Generate Predictions Action', function (): void {
     test('generates a single prediction with AI', function (): void {

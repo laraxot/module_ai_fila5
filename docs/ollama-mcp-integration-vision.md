@@ -380,3 +380,8 @@ class TrackMCPMetricsAction extends QueueableAction
 > L'integrazione è completa, il flusso è armonioso."*
 
 **OM SHANTI OM** 🙏
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
