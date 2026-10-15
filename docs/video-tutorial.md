@@ -1,4 +1,15 @@
 ---
+<<<<<<< .merge_file_Q6mMzV
+id: laraxot-ai-video-tutorial-alias
+slug: video_tutorial
+title: "Alias: video tutorial"
+qmd: "video tutorial alias"
+document_type: alias
+source_of_truth: false
+canonical: ../../../Themes/Barthelemy/docs/shared-components/video-tutorial.md
+module: theme
+topic: video_tutorial
+=======
 title: "video tutorial"
 type: note
 tags: [documentation]
@@ -7,14 +18,14 @@ updated: 2026-09-26
 qmd: "video tutorial"
 issues: []
 discussions: []
-status: draft
+module: theme
+topic: video_tutorial
+canonical: ../../../Themes/docs/shared-components/video-tutorial.md
+>>>>>>> .merge_file_xnccE7
+status: stub
 ---
 
-
-Setting up Ollama with Llama 3 using Laravel on your local machine
-https://www.youtube.com/watch?v=icrqqsHgr9Y
------------
-
+Vedi il canonico: [../../../Themes/Barthelemy/docs/shared-components/video-tutorial.md](../../../Themes/Barthelemy/docs/shared-components/video-tutorial.md). Path corretto il 2026-10-15: prima puntava a `Themes/docs/shared-components/` che non esiste.
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.

@@ -1,5 +1,14 @@
 ---
-qmd: "on demand pattern"
+<<<<<<< .merge_file_4Bb9EJ
+id: laraxot-ai-on-demand-pattern-alias
+slug: ON-DEMAND-PATTERN
+title: "Alias: on-demand pattern AI"
+qmd: "on demand pattern ai alias"
+document_type: alias
+source_of_truth: false
+canonical: ./on-demand-pattern.md
+=======
+qmd: "ON DEMAND PATTERN"
 issues: []
 discussions: []
 title: "On-Demand Pattern — Module AI"
@@ -11,10 +20,19 @@ related:
   - ../../../../docs/wiki/rules/on-demand-pattern.md
   - ../../../../docs/wiki/concepts/llm-wiki-operational-discipline.md
 status: draft
+>>>>>>> .merge_file_hPCzCE
 ---
 
-# On-Demand Pattern — Module **AI**
+# Alias: on-demand pattern AI
 
+<<<<<<< .merge_file_4Bb9EJ
+Contenuto canonico: [on-demand-pattern.md](./on-demand-pattern.md). Questo file resta solo per compatibilita dei link; duplicato identico consolidato il 2026-10-15, storia completa nel git history.
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
+=======
 **Fonte canonica**: [../../docs/wiki/rules/on-demand-pattern.md](../../../../docs/wiki/rules/on-demand-pattern.md)
 
 ## Principio
@@ -97,11 +115,4 @@ qmd search "<topic>"
 
 ---
 *Ultimo aggiornamento: 2026-05-11 | Pattern: on-demand via QMD*
-<<<<<<< .merge_file_Y97T4u
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
-=======
->>>>>>> .merge_file_BiHS7m
+>>>>>>> .merge_file_hPCzCE
