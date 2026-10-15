@@ -1,7 +1,14 @@
 ---
+id: laraxot-ai-laravel-helper-tools-for-mcp-alias
+slug: laravel_helper_tools_for_mcp
+title: "Alias: laravel helper tools for mcp"
+qmd: "laravel helper tools mcp alias"
+document_type: alias
+source_of_truth: false
+canonical: ../../../../Themes/Barthelemy/docs/shared-components/laravel-helper-tools-for-mcp.md
 module: theme
 topic: laravel_helper_tools_for_mcp
-canonical: ../../../../Themes/docs/shared-components/laravel-helper-tools-for-mcp.md
+status: stub
 ---
 
-See canonical documentation: ../../../../Themes/docs/shared-components/laravel-helper-tools-for-mcp.md
+Vedi il canonico: [../../../../Themes/Barthelemy/docs/shared-components/laravel-helper-tools-for-mcp.md](../../../../Themes/Barthelemy/docs/shared-components/laravel-helper-tools-for-mcp.md). Path corretto il 2026-10-15: prima puntava a `Themes/docs/shared-components/` che non esiste.

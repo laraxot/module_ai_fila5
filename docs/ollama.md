@@ -1,3 +1,15 @@
+---
+title: "ollama"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ollama"
+issues: []
+discussions: []
+status: draft
+---
+
 link 
 https://ripeseed.io/blog/fine-tuning-open-source-llm-llama-3-mistral-and-gemma
 
@@ -38,3 +50,8 @@ dataset = [
 ]
 ~~~
 
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

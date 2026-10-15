@@ -1,3 +1,15 @@
+---
+title: "08 api reference"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "08 api reference"
+issues: []
+discussions: []
+status: draft
+---
+
 # API Reference dei Server MCP
 
 ## Panoramica

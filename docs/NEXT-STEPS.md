@@ -1,3 +1,15 @@
+---
+title: "NEXT STEPS"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "NEXT STEPS"
+issues: []
+discussions: []
+status: draft
+---
+
 # 🎯 Ollama MCP Integration - Stato Attuale e Prossimi Passi
 
 **Data**: 2026-03-11  
@@ -6,7 +18,6 @@
 **Next**: Fase 2 (Implementazione Core)
 
 ---
-
 ## ✅ Cosa è Stato Completato
 
 ### 1. Infrastructure Setup
@@ -61,7 +72,7 @@
 namespace Modules\AI\Actions;
 
 use Spatie\QueueableAction\QueueableAction;
-use Modules\Xot\Actions\AI\Ollama\ChatOllamaAction;
+use Modules\AI\Actions\Ollama\ChatOllamaAction;
 
 class OllamaMCPAction extends QueueableAction
 {
@@ -402,3 +413,8 @@ Per considerare la Fase 2 completata:
 
 **Last Updated**: 2026-03-11 17:00 CET  
 **Next Update**: Dopo completamento Fase 2
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

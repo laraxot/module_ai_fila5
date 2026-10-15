@@ -1,3 +1,15 @@
+---
+title: "cursor mcp"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "cursor mcp"
+issues: []
+discussions: []
+status: draft
+---
+
 # Configurazione MCP per Cursor
 
 ## Configurazione del File
@@ -122,3 +134,8 @@ Il file di configurazione MCP per Cursor dovrebbe essere posizionato in:
    - Verificare che le porte siano disponibili
    - Controllare le impostazioni di rete
    - Verificare i firewall 
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

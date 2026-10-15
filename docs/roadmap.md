@@ -1,3 +1,15 @@
+---
+title: "roadmap"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "roadmap"
+issues: []
+discussions: []
+status: draft
+---
+
 # 🎯 AI MODULE - ROADMAP 2025
 
 **Modulo**: AI ([Description])  
@@ -7,7 +19,6 @@
 **Filament**: 🚧 4.x Compatibile  
 
 ---
-
 ## 🎯 MODULE OVERVIEW
 
 Il modulo **AI** [descrizione del modulo].
@@ -212,3 +223,8 @@ AI Module
 ---
 
 *Questa roadmap è specifica per il modulo AI e viene aggiornata regolarmente in base ai progressi e alle nuove esigenze.*
+
+--- BMAD + Second Brain ---
+- Scopo: documentazione tecnica del modulo.
+- Utilità: riferimento sviluppatori/audit.
+- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
