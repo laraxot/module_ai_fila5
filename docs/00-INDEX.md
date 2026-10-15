@@ -33,7 +33,7 @@ Identita', contenuto reale del codice e limiti: [README.md](./README.md).
 - [README.md](./README.md): cosa fornisce e cosa no.
 - [decision-log.md](./decision-log.md): vuoto (solo la voce modello).
 - [wiki/log.md](./wiki/log.md): registro datato delle verifiche.
-- [stories/](./stories/): 20 file; l'ultima su codice e': [2026-10-08 da Services ad Actions](./stories/2026-10-08-services-to-actions-ai.story.md).
+- [stories/](./stories/): 20 file; l'ultima su codice e': [2026-10-08 da Services ad Actions](./stories/services-to-actions-ai.story.md).
 - [wiki/concepts/ollama-actions-ownership.md](./wiki/concepts/ollama-actions-ownership.md): dove devono vivere le Actions AI.
 
 ## Piani, strategia e visione (non descrivono il codice)
