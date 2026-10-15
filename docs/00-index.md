@@ -52,23 +52,15 @@ Identita', contenuto reale del codice e limiti: [README.md](./README.md).
 | Percorso | Ruolo |
 |---|---|
 | `README.md`, `00-index.md`, `decision-log.md` | canonico |
-<<<<<<< .merge_file_ZGYzYT
 | `bad-practices.md`, `bad-practices.md`, `on-demand-pattern.md` | alias del kebab-case omonimo (consolidati 2026-10-15) |
-=======
->>>>>>> .merge_file_0Ogvcr
 | `stories/` | cronologia BMAD |
 | `wiki/` (46 file) | regole e concetti locali |
 | `mcp/`, `tutorials/`, `concepts/`, `sources/` | riferimento |
 | `bmad/`, `roadmap/`, `outputs/` | lavoro BMAD e piani |
 | `raw/` | evidence immutabile |
 | `llm-wiki/` | strumenti |
-<<<<<<< .merge_file_ZGYzYT
 | 125 file `.md` nella radice | misto; 3 duplicati identici consolidati in alias il 2026-10-15 (`bad-practices.md`, `bad-practices.md` -> `bad-practices.md`; `on-demand-pattern.md` -> `on-demand-pattern.md`); 9 stub `*_*.md` ripuntati al path reale `Themes/Barthelemy/docs/shared-components/`; restano 32 collisioni da verificare una per una (le coppie MAIUSCOLO/minuscolo NON sono sempre identiche: es. `prd.md` != `prd.md`), consolidamento in DOC-004 e DOC-006 |
 | 27 stub con `canonical: .../Themes/docs/shared-components/...` | path corretto in `Themes/Barthelemy/docs/shared-components/` il 2026-10-15 per i 9 stub in radice e `tutorials/` (verificata esistenza dei target); restano da correggere gli stub in `mcp/` |
-=======
-| 125 file `.md` nella radice | misto, con coppie che differiscono per maiuscole o underscore (32 collisioni); consolidamento in DOC-004 e DOC-006 |
-| 27 stub con `canonical: .../Themes/docs/shared-components/...` | il percorso non esiste: la cartella reale e' `Themes/Barthelemy/docs/shared-components/` |
->>>>>>> .merge_file_0Ogvcr
 
 ## Riferimenti esterni al modulo
 
