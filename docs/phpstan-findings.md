@@ -127,11 +127,8 @@ $string = $mixed;
 5. ⏳ Validare con PHPStan
 
 ---
-<<<<<<< .merge_file_500es8
 
 --- BMAD + Second Brain ---
 - Scopo: documentazione tecnica del modulo.
 - Utilità: riferimento sviluppatori/audit.
 - Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
-=======
->>>>>>> .merge_file_RTejzJ
