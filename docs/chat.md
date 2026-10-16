@@ -15,8 +15,3 @@ https://www.perplexity.ai/
 
 https://huggingface.co/spaces/codellama/codellama-playground
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
