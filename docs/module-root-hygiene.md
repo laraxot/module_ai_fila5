@@ -83,8 +83,3 @@ A module root should read like a table of contents: `app/`, `config/`,
 tools happened to run over it*. The `.gitignore` now blocks every forbidden
 pattern, so the folders cannot silently return. When a tool insists on a scratch
 directory, point it outside the module tree — the answer is never to commit the mess.
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
