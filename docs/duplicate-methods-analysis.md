@@ -186,8 +186,3 @@ Indica quanto è probabile che il refactoring sia vantaggioso:
 - **50-69%**: Valutare caso per caso
 - **< 50%**: Richiede analisi dettagliata
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
