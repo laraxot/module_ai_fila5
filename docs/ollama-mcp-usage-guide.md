@@ -488,8 +488,3 @@ public function register(): void
 ---
 
 **Prossimo passo:** Testare l'integrazione MCP e creare GitHub Issue/Discussion per collaborazione multi-agente.
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

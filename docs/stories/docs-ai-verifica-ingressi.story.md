@@ -29,9 +29,9 @@ Studiare il modulo AI (MCP, Ollama), distinguere cio' che e' implementato da cio
 
 ## Modifiche
 - `README.md`: riscritto al posto delle sezioni su MCP (le sezioni finali su LLM wiki e regole sono rimaste); identita', cosa contiene, nessun consumatore, limiti.
-- `00-index.md`: indice canonico con stato verificato, sezione "Piani, strategia e visione" (PRD, prodotto, roadmap, sprint, strategia Ollama, visione MCP), ruolo delle directory.
+- `00-INDEX.md`: indice canonico con stato verificato, sezione "Piani, strategia e visione" (PRD, prodotto, roadmap, sprint, strategia Ollama, visione MCP), ruolo delle directory.
 - `index.md`: nota di canonicita' e data; 6 link a file assenti resi testo "riferimento non presente nel repository".
-- Segnati con nota datata: `ollama-actions-moved-from-xot.md` e `00-index.md` (`stale`), `index.md` (`stub`).
+- Segnati con nota datata: `ollama-actions-moved-from-xot.md` e `00-index.md` (`stale`), `INDEX.md` (`stub`).
 - `wiki/index.md`: 5 riferimenti sistemati (1 ricollegato a `../sources/`, 4 resi testo).
 - Front matter: 35 file corretti con `frontmatter --fix --default-status draft`; rimosse 168 righe spurie (i "22 blocchi spuri residui" misurati prima).
 

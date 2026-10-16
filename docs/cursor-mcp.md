@@ -134,8 +134,3 @@ Il file di configurazione MCP per Cursor dovrebbe essere posizionato in:
    - Verificare che le porte siano disponibili
    - Controllare le impostazioni di rete
    - Verificare i firewall 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
