@@ -91,6 +91,6 @@ status: draft
 
 ## [2026-10-14] docs | verifica degli ingressi contro il codice
 
-- Riscritti `README.md` (non e' un modulo MCP) e `00-index.md` (indice canonico, con sezione Piani). `index.md` aggiornato; `ollama-actions-moved-from-xot.md` e `00-index.md` segnati `stale`, `index.md` `stub`.
+- Riscritti `README.md` (non e' un modulo MCP) e `00-INDEX.md` (indice canonico, con sezione Piani). `index.md` aggiornato; `ollama-actions-moved-from-xot.md` e `00-index.md` segnati `stale`, `INDEX.md` `stub`.
 - Verificato: nessun codice MCP nel modulo, `laravel/routes/ai.php` solo commenti; nessun consumatore fuori da `config/app.php`; copie Ollama ancora in Xot; 11 rotte Filament `ai/admin`; Pest si ferma con `Cannot redeclare class OpenAI`.
 - Link rotti negli indici (criterio audit): 21 -> 0; blocchi spuri: 168 righe rimosse in 35 file. Story: `stories/docs-ai-verifica-ingressi.story.md`.

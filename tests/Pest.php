@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Tests\Modules\AI\TestCase;
+use Modules\AI\Tests\TestCase;
 
 /*
  * Bootstrap Pest — modulo AI.
