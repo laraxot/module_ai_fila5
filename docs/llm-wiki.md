@@ -49,8 +49,3 @@ bashscripts/docs/llm-wiki-qmd.sh collection add laravel/Modules/AI/docs --name m
 bashscripts/docs/llm-wiki-qmd.sh search "mcp integration"
 bashscripts/docs/llm-wiki-qmd.sh query "how should AI docs distinguish source notes from compiled guidance" --no-rerank
 ```
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

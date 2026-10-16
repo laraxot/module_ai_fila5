@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Modules\AI\Unit\Actions;
+namespace Modules\AI\Tests\Unit\Actions;
 
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\ClassifyTicketAction;
-use Modules\AI\Actions\Support\MakeAIRequestAction;
 use Modules\AI\Actions\SuggestSolutionsAction;
+use Modules\AI\Actions\Support\MakeAIRequestAction;
 use PHPUnit\Framework\Assert;
 
 function fakeChatCompletion(string $content): void
