@@ -3,7 +3,7 @@ title: "AI: indice operativo"
 type: index
 status: active
 created: 2026-09-26
-updated: 2026-10-14
+updated: 2026-10-20
 module: AI
 tags: [ai, index, docs, ollama, mcp]
 qmd: "ai indice operativo ollama ds4 openai mcp piani roadmap proposte azione sentiment ticket"
@@ -26,14 +26,14 @@ Identita', contenuto reale del codice e limiti: [README.md](./README.md).
 | Interfaccia di chat | assente | pagine Filament: `Completion`, `FineTuning`, `Dashboard` |
 | Spostamento Ollama da Xot | copia, non spostamento | file ancora in `Modules/Xot/app/Actions/AI/Ollama/` |
 | Suite Pest | si ferma | `Cannot redeclare class OpenAI` (un test collide con `openai-php`) |
-| PHPStan | storico nelle story, non riverificato oggi | story `2026-10-06-phpstan-cleanup-ai`, `2026-10-08-services-to-actions-ai` |
+| PHPStan | 0 errori sui file in baseline il 2026-10-20 | `app/Services/AIService.php` e `tests/Unit/Services/AIServiceTest.php` riapparsi col pull: [phpstan-test-wave-ai.story.md](./stories/phpstan-test-wave-ai.story.md); storico: `phpstan-cleanup-ai`, `services-to-actions-ai` |
 
 ## Da leggere per primi
 
 - [README.md](./README.md): cosa fornisce e cosa no.
 - [decision-log.md](./decision-log.md): vuoto (solo la voce modello).
 - [wiki/log.md](./wiki/log.md): registro datato delle verifiche.
-- [stories/](./stories/): 20 file; l'ultima su codice e': [2026-10-08 da Services ad Actions](./stories/services-to-actions-ai.story.md).
+- [stories/](./stories/): l'ultima su codice e': [2026-10-08 da Services ad Actions](./stories/services-to-actions-ai.story.md); dopo il pull del 2026-10-20 `AIService` e' riapparso: [PHPStan dopo il pull](./stories/phpstan-test-wave-ai.story.md).
 - [wiki/concepts/ollama-actions-ownership.md](./wiki/concepts/ollama-actions-ownership.md): dove devono vivere le Actions AI.
 
 ## Piani, strategia e visione (non descrivono il codice)
