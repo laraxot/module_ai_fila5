@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "redundancy analysis"
 issues: []
 discussions: []
+status: draft
 ---
 
 Redundancy analysis available: docs/analysis/redundancies/summary.md

@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "11 aggiornamenti"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Aggiornamenti dei Server MCP

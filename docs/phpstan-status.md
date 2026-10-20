@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "phpstan status"
 issues: []
 discussions: []
+status: draft
 ---
 
 # phpstan status

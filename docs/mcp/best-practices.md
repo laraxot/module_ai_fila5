@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "best practices"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Best Practices per l'Utilizzo dei Server MCP
@@ -45,15 +46,6 @@ Se hai eseguito accidentalmente un comando di migrazione pericoloso:
 Per ulteriori dettagli, vedi il file `AVVISO_MIGRAZIONI.mdc` nella root del progetto.
 
 ---
-
-title: "best practices"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "best practices"
-issues: []
-discussions: []
 ## Principi Generali
 
 ### 1. Struttura Modulare

@@ -10,6 +10,7 @@ confidence: high
 tags: [queueable-action, spatie, architecture, laraxot, ai]
 related:
   - Modules/Xot/docs/queueable-actions.md
+status: draft
 ---
 
 # Queueable Actions — AI Module Doctrine

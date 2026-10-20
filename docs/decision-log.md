@@ -1,3 +1,11 @@
+---
+title: "Decision Log — AI"
+type: note
+status: draft
+updated: 2026-10-08
+tags: [docs, ai]
+qmd: "decision log   ai ai"
+---
 # Decision Log — AI
 
 A threaded, append-only record of decisions made across BMAD planning workflows.

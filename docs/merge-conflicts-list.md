@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "merge conflicts list"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Merge conflict markers — file list
