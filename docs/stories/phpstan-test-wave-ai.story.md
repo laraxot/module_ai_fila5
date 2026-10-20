@@ -48,3 +48,83 @@ Il commit `0c5e0a4` del repo del modulo (2026-10-20 08:57, sync del pull) ha rip
 ## Decisione aperta
 
 `services-to-actions-ai.story.md` (2026-10-08) aveva eliminato `AIService` perche' senza chiamanti: `rg` su `Modules` e `Themes` non trova oggi nessun uso di produzione, solo il test. La riparazione sul posto, come indicato dal coordinamento, e' stata applicata; la conversione in QueueableAction non e' stata fatta perche' i chiamanti sono zero (sotto la soglia di circa 3). Resta da decidere se `AIService` debba tornare cancellato (`git show dfed680^:app/Services/AIService.php`), con un doppione in meno e la logica dei prompt in `BuildAIPromptAction`.
+
+## Dettaglio della lane AI (phpstan-wave-ai, 2026-10-20)
+
+Fase BMAD: analisi e implementazione. Questa sezione e' della lane che ha scritto le correzioni in `AIService.php` e `AIServiceTest.php`
+(lock `lane-ai` delle 09:48). Le sezioni sopra sono della lane `gdpr-lang-ai` e restano com'erano.
+
+### Scopo di AIService
+
+Facade legacy "FixCity / ticket cittadini" (origine `base_fixcity_fila5`, mai collegato a questa app). Per ogni flusso: costruisce un prompt
+italiano, lo manda a un endpoint OpenAI-compatibile (`POST {base_url}/chat/completions`, `model` fisso `gpt-4`, `temperature` 0.3,
+`max_tokens` 2000, system prompt "rispondi sempre in JSON valido", header `Bearer`, retry con backoff esponenziale `sleep(2^n)`), prende
+`choices.0.message.content`, lo mette in cache come stringa e lo decodifica in array.
+
+### Metodi pubblici, cache e default (contratto per la futura Action)
+
+| Metodo | Parametri | Cache (chiave, TTL s) | Default se la risposta non e' un oggetto JSON |
+|---|---|---|---|
+| `classifyTicket` | `string $title`, `string $description` | `ai:classification:` 3600 | `category` altro, `subcategory` generale, `confidence` 0.5, `tags` [], `urgency_indicators` [] |
+| `suggestSolutions` | `string $title`, `string $description`, `string $category` | `ai:solutions:` 1800 | `solutions` [], `preventive_measures` [], `follow_up_actions` [] |
+| `analyzeSentiment` | `string $text` | `ai:sentiment:` 1800 | `sentiment` neutral, `emotion` neutrale, `confidence` 0.5, `key_phrases` [], `urgency_level` medium, `recommended_response_tone` professionale |
+| `predictPriority` | `string $title`, `string $description`, `array<string, mixed> $context = []` | `ai:priority:` 1800 (la chiave include il JSON del contesto) | `priority` medium, `confidence` 0.5, `reasoning` "Priorità standard", `estimated_resolution_time` "3-5 giorni", `required_escalation` false, `risk_factors` [] |
+| `optimizeRouting` | `list<array<string, mixed>> $tickets`, `list<array<string, mixed>> $agents` | `ai:routing:` 900 | `assignments` [], `unassigned_tickets` [], `overload_warnings` [], `efficiency_score` 0.5 |
+| `generateAutoResponse` | `string $ticketContent`, `string $category`, `string $priority` | `ai:response:` 1800 | nessuno: ritorna `string` (testo libero, non JSON) |
+| `analyzePatterns` | `list<array<string, mixed>> $tickets` | `ai:patterns:` 3600 | `temporal_trends` [], `geographic_hotspots` [], `category_insights` [], `recommendations` [] |
+| `suggestImprovements` | `array<string, mixed> $data` | `ai:improvements:` 3600 | `process_improvements` [], `technology_upgrades` [], `training_recommendations` [] |
+
+Tipi introdotti dalla lane: ritorno `array<string, mixed>` per i sette flussi JSON, `string` per `generateAutoResponse`; ingressi serializzati
+nel prompt come `array<string, mixed>` (contesto, dati) e `list<array<string, mixed>>` (ticket, agenti). `mixed` e' qui il tipo vero: il JSON e'
+output del modello e non e' validato. Per la conversione, ogni flusso JSON diventa una classe Spatie Data (mai DTO) con i campi della colonna
+"Default" come valori di default del costruttore; `Data::from($decoded)` valida alla frontiera e toglie il `mixed` dai chiamanti.
+
+### Chiamanti (rg su Modules, Themes, app, config, routes, bootstrap, bashscripts, esclusi vendor e docs)
+
+Zero. `\bAIService\b` e `Modules\AI\Services` compaiono solo in `AIService.php`, nel suo test e in tre docblock delle Actions
+(`ClassifyTicketAction`, `SuggestSolutionsAction`, `MakeAIRequestAction`: "sostituisce `AIService::...`"). Nessun nome dei suoi otto metodi e'
+invocato altrove. `AIServiceProvider` e' un'altra classe. Equivalenti vivi: `ClassifyTicketAction` (classify), `SuggestSolutionsAction`
+(soluzioni), `SentimentAction` (sentiment, ma con schema diverso: `SentimentData` ha `label` e `score`), `MakeAIRequestAction` (HTTP),
+`AiJsonResponseDecoderAction` (decode). Senza Action: `predictPriority`, `optimizeRouting`, `generateAutoResponse`, `analyzePatterns`,
+`suggestImprovements`.
+
+### Cause corrette (baseline 33 errori, 2 file)
+
+| Causa | Errori | Correzione |
+|---|---|---|
+| I sette `parse*Response()` privati non erano mai chiamati: i flussi mettevano in cache la stringa del modello e poi la ritornavano come `array`. `classifyTicket`, `suggestSolutions`, `optimizeRouting`, `analyzePatterns`, `suggestImprovements` lanciavano sempre `InvalidArgumentException` ("... must be an array"); `analyzeSentiment` e `predictPriority` ritornavano sempre `[]`, anche con risposta valida | 7 `method.unused` + 7 `missingType.iterableValue` sui ritorni | cache sulla stringa (stesse chiavi delle Actions), poi `parse*Response()` |
+| Il default dei parser non scattava mai: `Safe\json_decode` lancia sul JSON invalido | (stessa radice) | `decodeOrDefault()` sopra `AiJsonResponseDecoderAction` (difensivo, `[]` su invalido) e default del flusso |
+| Parametri `array` senza tipo dei valori | 17 `missingType.iterableValue` | array shape nei docblock (tabella sopra) |
+| Test con namespace `Modules\AI\App\Services\AIService` (inesistente), classe PHPUnit e `@phpstan-ignore-next-line` | 2 `class.notFound` | riscritto in Pest con `Http::fake` e cache `array`: classifica, routing, sentiment con risposta non JSON |
+
+Prova di runtime (probe con app bootstrappata, senza DB): sul sorgente di `HEAD` `classifyTicket` lancia `Classification result must be an
+array` e `analyzeSentiment` ritorna `[]` con risposta valida; sul sorgente corretto 8/8 flussi decodificano o ricadono sul default. Il test Pest
+equivalente non parte in questo ambiente: anche `MakeAIRequestActionTest` fallisce con `Target class [config] does not exist` (il `Pest.php` del
+modulo non viene applicato lanciando da `laravel/` ne' dal modulo). Dettaglio da verificare, fuori perimetro.
+
+### Bug latenti annotati, non cambiati
+
+- Il costruttore legge `ai.openai_api_key`, `ai.openai_base_url`, `ai.timeout`, `ai.retry_attempts`, chiavi che `config/ai.php` non definisce (la
+  chiave reale e' `services.openai.api_key`): con la config attuale la chiave API e' vuota. `MakeAIRequestAction` ha il fallback a `services.openai.*`.
+- Modello fisso `gpt-4`, mentre `config/ai.php` espone `chat_model`.
+- Una risposta HTTP 200 senza `choices.0.message.content` ritorna `''`, senza retry, e `Cache::remember` lo conserva da 15 a 60 minuti.
+
+### Stato finale e conflitto di sessione
+
+Misura delle 09:58: 0 errori sui due file, con le correzioni sopra. Alle 10:08 un'altra sessione ha fatto delegare `classifyTicket` e
+`suggestSolutions` alle Actions (lasciando 2 `method.unused`, in corso d'opera) e alle 10:12:36 ha cancellato `AIService.php` e `AIServiceTest.php`
+senza rispettare il lock di questa lane; il commit di sync `e0c8ec4` (12:14) registra la cancellazione. Questa lane non ha ripristinato nulla e non ha
+convertito il Service: la conversione in QueueableAction e' pianificata dal coordinamento come epic. Le correzioni sopra restano come specifica dei
+tipi per quella conversione; il sorgente corretto non e' piu' nel working tree, `AIService.php` di `0c5e0a4` e' recuperabile con
+`git show 0c5e0a4:app/Services/AIService.php`.
+
+Verifica finale: `phpstan analyse Modules/AI --memory-limit=2G --no-progress --error-format=raw` dalle 12:2x, exit 0, nessuna riga di errore.
+In quel momento il repo del modulo era in un merge con `laraxot/dev` (conflitti in `ClassifyTicketAction.php`, `SuggestSolutionsAction.php`,
+`docs/scopo.md`, `docs/stories/phpstan-wave-coord.story.md`; i due PHP senza marker): la misura va ripetuta a merge concluso.
+
+### Da decidere
+
+1. Togliere `AIService.php` anche da `laraxot/dev`: altrimenti il prossimo pull lo riporta (quarta volta).
+2. Per i cinque flussi senza Action: una Action per caso d'uso (prompt, `MakeAIRequestAction`, `AiJsonResponseDecoderAction`, Data con i default sopra) solo se
+   un chiamante reale li richiede; oggi zero.
+3. Ricollegare `MakeAIRequestAction` alle chiavi `services.openai.*` e a `ai.chat_model` (bug latenti sopra), se la Action nuova li eredita.
