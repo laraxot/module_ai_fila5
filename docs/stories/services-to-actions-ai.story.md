@@ -106,3 +106,8 @@ I valori backed sono i literal gia' persistiti (`pending`, `ok`, `user`...): col
 - `RequestChatCompletionAction` (zero chiamanti) duplica `MakeAIRequestAction`.
 - Rischio ricorrente: un nuovo merge da `laraxot/dev` puo' riesumare Services e const. Le modifiche sono nel working tree: vanno
   committate forward-only dal proprietario del repo del modulo.
+
+## Aggiornamento 2026-10-20
+
+`AIService` e il suo test sono riapparsi col sync `0c5e0a4` (terza volta). Scopo, metodi, chiamanti (zero) e contratto dei tipi da
+riusare nella futura Action: [phpstan-test-wave-ai](./phpstan-test-wave-ai.story.md).
