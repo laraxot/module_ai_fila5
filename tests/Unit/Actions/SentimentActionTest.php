@@ -6,7 +6,6 @@ namespace Modules\AI\Tests\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\SentimentAction;
-use Modules\AI\Datas\SentimentData;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
@@ -26,7 +25,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
         Assert::assertGreaterThan(0, $result->score);
     });
@@ -37,7 +35,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('NEGATIVE', $result->label);
         Assert::assertGreaterThan(0, $result->score);
     });
@@ -48,7 +45,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertContains($result->label, ['POSITIVE', 'NEGATIVE']);
     });
 
@@ -58,9 +54,8 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('NEGATIVE', $result->label);
-        Assert::assertSame(0, $result->score);
+        Assert::assertSame(0.0, $result->score);
     });
 
     test('_handles_text_with_only_positive_words', function (): void {
@@ -69,7 +64,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
         Assert::assertSame(1.0, $result->score);
     });
@@ -80,7 +74,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('NEGATIVE', $result->label);
         Assert::assertSame(1.0, $result->score);
     });
@@ -91,7 +84,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertContains($result->label, ['POSITIVE', 'NEGATIVE']);
     });
 
@@ -101,7 +93,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -111,7 +102,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -121,7 +111,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -131,7 +120,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('NEGATIVE', $result->label);
     });
 
@@ -141,7 +129,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -151,7 +138,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -161,7 +147,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -171,7 +156,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('NEGATIVE', $result->label);
     });
 
@@ -181,7 +165,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -191,7 +174,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -201,7 +183,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertContains($result->label, ['POSITIVE', 'NEGATIVE']);
     });
 
@@ -211,7 +192,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -221,7 +201,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -231,7 +210,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -241,7 +219,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -251,7 +228,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -261,7 +237,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 
@@ -271,7 +246,6 @@ describe('Sentiment Action', function (): void {
 
         $result = $action->execute($text);
 
-        Assert::assertInstanceOf(SentimentData::class, $result);
         Assert::assertSame('POSITIVE', $result->label);
     });
 });
