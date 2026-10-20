@@ -10,6 +10,7 @@ type: epics
 module: AI
 related:
   - ./livewire-inventory.md
+status: draft
 ---
 
 # Epics AI
