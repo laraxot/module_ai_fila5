@@ -10,6 +10,7 @@ type: product-brief
 module: AI
 related:
   - ./livewire-inventory.md
+status: draft
 ---
 
 # Brief AI
