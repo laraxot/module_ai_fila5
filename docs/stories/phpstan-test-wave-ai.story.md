@@ -119,8 +119,9 @@ tipi per quella conversione; il sorgente corretto non e' piu' nel working tree, 
 `git show 0c5e0a4:app/Services/AIService.php`.
 
 Verifica finale: `phpstan analyse Modules/AI --memory-limit=2G --no-progress --error-format=raw` dalle 12:2x, exit 0, nessuna riga di errore.
-In quel momento il repo del modulo era in un merge con `laraxot/dev` (conflitti in `ClassifyTicketAction.php`, `SuggestSolutionsAction.php`,
-`docs/scopo.md`, `docs/stories/phpstan-wave-coord.story.md`; i due PHP senza marker): la misura va ripetuta a merge concluso.
+Merge con `laraxot/dev`: conflitti risolti manualmente in `ClassifyTicketAction.php` e `SuggestSolutionsAction.php` (nessun marker; logica
+invariata — cache `ai:*`, `BuildAIPromptAction`, `MakeAIRequestAction`, fallback `DEFAULTS` via `AiJsonResponseDecoderAction::decodeObject`).
+Spot check 2026-10-20 pomeriggio: `./vendor/bin/phpstan analyse Modules/AI/app/Actions/ClassifyTicketAction.php Modules/AI/app/Actions/SuggestSolutionsAction.php --memory-limit=2G --no-progress` → exit 0. Restano da chiudere i marker in `docs/scopo.md` e `docs/stories/phpstan-wave-coord.story.md`.
 
 ### Da decidere
 
