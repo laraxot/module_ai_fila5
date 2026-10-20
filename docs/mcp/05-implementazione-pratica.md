@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "05 implementazione pratica"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Implementazione Pratica dei Server MCP

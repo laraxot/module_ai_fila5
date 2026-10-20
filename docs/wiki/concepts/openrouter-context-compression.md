@@ -7,6 +7,7 @@ issues: []
 discussions: []
 title: OpenRouter Context Compression Plugin
 type: concept
+status: draft
 ---
 
 # OpenRouter — Context Compression Plugin

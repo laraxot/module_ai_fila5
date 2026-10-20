@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "installazione"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Installazione dei Server MCP per Progetti Laravel
@@ -291,13 +292,4 @@ npm install -g @modelcontextprotocol/server-sequential-thinking
 Hai completato con successo l'installazione dei server MCP per il tuo progetto Laravel. Ora puoi procedere con la configurazione seguendo la guida nella sezione successiva.
 
 ---
-
-title: "installazione"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "installazione"
-issues: []
-discussions: []
-Continua con la sezione [Configurazione](./02_CONFIGURAZIONE.md) per configurare i server MCP per il tuo progetto Laravel.
+Continua con la sezione [Configurazione](./02_configurazione.md) per configurare i server MCP per il tuo progetto Laravel.
