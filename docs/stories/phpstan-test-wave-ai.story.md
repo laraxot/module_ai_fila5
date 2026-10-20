@@ -129,3 +129,20 @@ Spot check 2026-10-20 pomeriggio: `./vendor/bin/phpstan analyse Modules/AI/app/A
 2. Per i cinque flussi senza Action: una Action per caso d'uso (prompt, `MakeAIRequestAction`, `AiJsonResponseDecoderAction`, Data con i default sopra) solo se
    un chiamante reale li richiede; oggi zero.
 3. Ricollegare `MakeAIRequestAction` alle chiavi `services.openai.*` e a `ai.chat_model` (bug latenti sopra), se la Action nuova li eredita.
+
+## Esito della lane gdpr-lang-ai
+
+| Momento | Errori sui 2 file del bucket |
+|---|---|
+| Baseline delle 09:00 | 33 (`AIService.php` 31, `AIServiceTest.php` 2) |
+| Misura delle 09:58, con le correzioni di lane-ai | 0 |
+| Stato attuale | i due file non esistono piu': `bdb4dab` (12:29) sostituisce `AIService` con Actions e un builder di prompt |
+
+Ri-misura delle 12:39 sull'intero perimetro del modulo (PHPStan mirato a batch da 8 file: `app/` 64 file, `tests/` 15 file): 0 errori,
+comprese `Actions/Support/MakeAIRequestAction.php` e `Actions/SuggestSolutionsAction.php`, che il run intero delle 10:10 aveva segnalato
+(cast `mixed` a `int` alle righe 29-30, parametro #3 `$context`). Erano file in corso d'opera della conversione dei Service; questa lane non li ha toccati,
+e al momento della misura non avevano `.lock`.
+Per le regole di lane, questa lane non ha riparato ne' convertito `AIService` (ordine del coordinamento: in carico alla conversione Services). Aveva 31 errori
+nel baseline. Il lock residuo su `tests/Unit/Services/AIServiceTest.php` e' stato ripulito da lane-ai (vedi sopra).
+
+Misura ripetuta fra le 12:49 e le 12:59, dietro il gate `flock` condiviso, su `app/` e `tests/` dei tre moduli (Gdpr 83+43 file, AI 64+15, Lang 59+45): 0 errori in tutti i batch, nessun messaggio anomalo (PHPStan lanciato solo su file, mai `analyse Modules`, senza `-c` ne' `--level`).
