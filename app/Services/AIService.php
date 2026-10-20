@@ -7,9 +7,9 @@ namespace Modules\AI\Services;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Modules\AI\Actions\AiJsonResponseDecoderAction;
 use Webmozart\Assert\Assert;
 
-use function Safe\json_decode;
 use function Safe\json_encode;
 
 /**
@@ -21,6 +21,11 @@ use function Safe\json_encode;
  * - Analisi del sentiment
  * - Predizione di priorità
  * - Ottimizzazione del routing
+ *
+ * Ogni flusso costruisce un prompt, chiede la risposta al modello (stringa JSON, messa in cache come stringa
+ * con le stesse chiavi `ai:*` delle Actions `ClassifyTicketAction` e `SuggestSolutionsAction`) e la decodifica
+ * con i metodi `parse*Response()`. Il JSON e' output del modello, non validato: i risultati sono quindi
+ * `array<string, mixed>`, con il valore di default del flusso quando la risposta non e' un oggetto JSON.
  */
 class AIService
 {
@@ -49,6 +54,8 @@ class AIService
 
     /**
      * Classifica automaticamente un ticket
+     *
+     * @return array<string, mixed>
      */
     public function classifyTicket(string $title, string $description): array
     {
@@ -61,12 +68,15 @@ class AIService
             return $response;
         });
         
-        Assert::isArray($result, 'Classification result must be an array');
-        return $result;
+        Assert::string($result, 'Classification result must be a JSON string');
+
+        return $this->parseClassificationResponse($result);
     }
 
     /**
      * Suggerisce soluzioni per un ticket
+     *
+     * @return array<string, mixed>
      */
     public function suggestSolutions(string $title, string $description, string $category): array
     {
@@ -79,12 +89,15 @@ class AIService
             return $response;
         });
         
-        Assert::isArray($result, 'Solutions result must be an array');
-        return $result;
+        Assert::string($result, 'Solutions result must be a JSON string');
+
+        return $this->parseSolutionResponse($result);
     }
 
     /**
      * Analizza il sentiment di un ticket
+     *
+     * @return array<string, mixed>
      */
     public function analyzeSentiment(string $text): array
     {
@@ -97,11 +110,16 @@ class AIService
             return $response;
         });
         
-        return is_array($result) ? $result : [];
+        Assert::string($result, 'Sentiment result must be a JSON string');
+
+        return $this->parseSentimentResponse($result);
     }
 
     /**
      * Predice la priorità di un ticket
+     *
+     * @param  array<string, mixed>  $context  Metadati liberi del ticket, serializzati nel prompt
+     * @return array<string, mixed>
      */
     public function predictPriority(string $title, string $description, array $context = []): array
     {
@@ -115,11 +133,17 @@ class AIService
             return $response;
         });
         
-        return is_array($result) ? $result : [];
+        Assert::string($result, 'Priority result must be a JSON string');
+
+        return $this->parsePriorityResponse($result);
     }
 
     /**
      * Ottimizza il routing dei ticket
+     *
+     * @param  list<array<string, mixed>>  $tickets  Ticket da assegnare, serializzati nel prompt
+     * @param  list<array<string, mixed>>  $agents  Agenti disponibili, serializzati nel prompt
+     * @return array<string, mixed>
      */
     public function optimizeRouting(array $tickets, array $agents): array
     {
@@ -136,8 +160,9 @@ class AIService
             return $response;
         });
         
-        Assert::isArray($result, 'Routing result must be an array');
-        return $result;
+        Assert::string($result, 'Routing result must be a JSON string');
+
+        return $this->parseRoutingResponse($result);
     }
 
     /**
@@ -160,6 +185,9 @@ class AIService
 
     /**
      * Analizza pattern nei ticket per insights
+     *
+     * @param  list<array<string, mixed>>  $tickets  Ticket da analizzare, serializzati nel prompt
+     * @return array<string, mixed>
      */
     public function analyzePatterns(array $tickets): array
     {
@@ -174,12 +202,16 @@ class AIService
             return $response;
         });
         
-        Assert::isArray($result, 'Pattern analysis result must be an array');
-        return $result;
+        Assert::string($result, 'Pattern analysis result must be a JSON string');
+
+        return $this->parsePatternResponse($result);
     }
 
     /**
      * Suggerisce miglioramenti per il servizio
+     *
+     * @param  array<string, mixed>  $data  Metriche del servizio, serializzate nel prompt
+     * @return array<string, mixed>
      */
     public function suggestImprovements(array $data): array
     {
@@ -194,8 +226,9 @@ class AIService
             return $response;
         });
         
-        Assert::isArray($result, 'Improvements result must be an array');
-        return $result;
+        Assert::string($result, 'Improvements result must be a JSON string');
+
+        return $this->parseImprovementResponse($result);
     }
 
     /**
@@ -277,6 +310,8 @@ Rispondi in formato JSON:
 
     /**
      * Costruisci prompt per priorità
+     *
+     * @param  array<string, mixed>  $context
      */
     private function buildPriorityPrompt(string $title, string $description, array $context): string
     {
@@ -308,6 +343,9 @@ Rispondi in formato JSON:
 
     /**
      * Costruisci prompt per routing
+     *
+     * @param  list<array<string, mixed>>  $tickets
+     * @param  list<array<string, mixed>>  $agents
      */
     private function buildRoutingPrompt(array $tickets, array $agents): string
     {
@@ -367,6 +405,8 @@ Rispondi solo con il testo della risposta, senza formattazione aggiuntiva.";
 
     /**
      * Costruisci prompt per analisi pattern
+     *
+     * @param  list<array<string, mixed>>  $tickets
      */
     private function buildPatternAnalysisPrompt(array $tickets): string
     {
@@ -408,6 +448,8 @@ Rispondi in formato JSON:
 
     /**
      * Costruisci prompt per miglioramenti
+     *
+     * @param  array<string, mixed>  $data
      */
     private function buildImprovementPrompt(array $data): string
     {
@@ -523,137 +565,125 @@ Rispondi in formato JSON:
 
     /**
      * Parse risposta classificazione
+     *
+     * @return array<string, mixed>
      */
     private function parseClassificationResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'category' => 'altro',
-                'subcategory' => 'generale',
-                'confidence' => 0.5,
-                'tags' => [],
-                'urgency_indicators' => []
-            ];
-        }
-
-        return $decoded;
+        return $this->decodeOrDefault($response, [
+            'category' => 'altro',
+            'subcategory' => 'generale',
+            'confidence' => 0.5,
+            'tags' => [],
+            'urgency_indicators' => [],
+        ]);
     }
 
     /**
      * Parse risposta soluzioni
+     *
+     * @return array<string, mixed>
      */
     private function parseSolutionResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'solutions' => [],
-                'preventive_measures' => [],
-                'follow_up_actions' => []
-            ];
-        }
-
-        return $decoded;
+        return $this->decodeOrDefault($response, [
+            'solutions' => [],
+            'preventive_measures' => [],
+            'follow_up_actions' => [],
+        ]);
     }
 
     /**
      * Parse risposta sentiment
+     *
+     * @return array<string, mixed>
      */
     private function parseSentimentResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'sentiment' => 'neutral',
-                'emotion' => 'neutrale',
-                'confidence' => 0.5,
-                'key_phrases' => [],
-                'urgency_level' => 'medium',
-                'recommended_response_tone' => 'professionale'
-            ];
-        }
-
-        return $decoded;
+        return $this->decodeOrDefault($response, [
+            'sentiment' => 'neutral',
+            'emotion' => 'neutrale',
+            'confidence' => 0.5,
+            'key_phrases' => [],
+            'urgency_level' => 'medium',
+            'recommended_response_tone' => 'professionale',
+        ]);
     }
 
     /**
      * Parse risposta priorità
+     *
+     * @return array<string, mixed>
      */
     private function parsePriorityResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'priority' => 'medium',
-                'confidence' => 0.5,
-                'reasoning' => 'Priorità standard',
-                'estimated_resolution_time' => '3-5 giorni',
-                'required_escalation' => false,
-                'risk_factors' => []
-            ];
-        }
-
-        return $decoded;
+        return $this->decodeOrDefault($response, [
+            'priority' => 'medium',
+            'confidence' => 0.5,
+            'reasoning' => 'Priorità standard',
+            'estimated_resolution_time' => '3-5 giorni',
+            'required_escalation' => false,
+            'risk_factors' => [],
+        ]);
     }
 
     /**
      * Parse risposta routing
+     *
+     * @return array<string, mixed>
      */
     private function parseRoutingResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'assignments' => [],
-                'unassigned_tickets' => [],
-                'overload_warnings' => [],
-                'efficiency_score' => 0.5
-            ];
-        }
-
-        return $decoded;
+        return $this->decodeOrDefault($response, [
+            'assignments' => [],
+            'unassigned_tickets' => [],
+            'overload_warnings' => [],
+            'efficiency_score' => 0.5,
+        ]);
     }
 
     /**
      * Parse risposta pattern
+     *
+     * @return array<string, mixed>
      */
     private function parsePatternResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'temporal_trends' => [],
-                'geographic_hotspots' => [],
-                'category_insights' => [],
-                'recommendations' => []
-            ];
-        }
-
-        return $decoded;
+        return $this->decodeOrDefault($response, [
+            'temporal_trends' => [],
+            'geographic_hotspots' => [],
+            'category_insights' => [],
+            'recommendations' => [],
+        ]);
     }
 
     /**
      * Parse risposta miglioramenti
+     *
+     * @return array<string, mixed>
      */
     private function parseImprovementResponse(string $response): array
     {
-        $decoded = json_decode($response, true);
-        
-        if (!is_array($decoded)) {
-            return [
-                'process_improvements' => [],
-                'technology_upgrades' => [],
-                'training_recommendations' => []
-            ];
-        }
+        return $this->decodeOrDefault($response, [
+            'process_improvements' => [],
+            'technology_upgrades' => [],
+            'training_recommendations' => [],
+        ]);
+    }
 
-        return $decoded;
+    /**
+     * Decodifica la risposta del modello; se non e' un oggetto JSON non vuoto restituisce il default del flusso.
+     *
+     * `Safe\json_decode` lancia sul JSON invalido, quindi il default non scattava mai: qui il decode e'
+     * difensivo (stesso decoder delle Actions) e il default copre davvero il caso "il modello non ha risposto in JSON".
+     *
+     * @param  array<string, mixed>  $default
+     * @return array<string, mixed>
+     */
+    private function decodeOrDefault(string $response, array $default): array
+    {
+        $decoded = app(AiJsonResponseDecoderAction::class)->execute($response);
+
+        return $decoded === [] ? $default : $decoded;
     }
 }
