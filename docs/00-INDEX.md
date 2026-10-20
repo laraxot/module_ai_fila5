@@ -3,7 +3,7 @@ title: "AI: indice operativo"
 type: index
 status: active
 created: 2026-09-26
-updated: 2026-10-14
+updated: 2026-10-20
 module: AI
 tags: [ai, index, docs, ollama, mcp]
 qmd: "ai indice operativo ollama ds4 openai mcp piani roadmap proposte azione sentiment ticket"
@@ -11,9 +11,9 @@ qmd: "ai indice operativo ollama ds4 openai mcp piani roadmap proposte azione se
 
 # AI: indice operativo canonico
 
-Percorso: `laravel/Modules/AI/docs/`. Questo e' l'indice canonico del contratto docs. `index.md` e' l'elenco esteso per argomento (del 2026-09-03, con 6 link a file oggi assenti); `00-index.md` e `INDEX.md` sono varianti precedenti. Nessun file e' stato rimosso.
+Percorso: `laravel/Modules/AI/docs/`. Questo e' l'indice canonico del contratto docs. `index.md` e' l'elenco esteso per argomento; `00-index.md` e' stub di redirect qui; `INDEX.md` e' variante precedente.
 
-Identita', contenuto reale del codice e limiti: [README.md](./README.md).
+**Perche' esiste:** [scopo.md](./scopo.md). Ground truth wave: `.cursor-scratch/phpstan-wave/AI.tsv` ([phpstan-wave-coord](./stories/phpstan-wave-coord.story.md); lane: [phpstan-ai-swarm-wave](./stories/phpstan-ai-swarm-wave.story.md)). Identita' e limiti: [README.md](./README.md).
 
 ## Stato verificato il 2026-10-14
 
@@ -26,14 +26,15 @@ Identita', contenuto reale del codice e limiti: [README.md](./README.md).
 | Interfaccia di chat | assente | pagine Filament: `Completion`, `FineTuning`, `Dashboard` |
 | Spostamento Ollama da Xot | copia, non spostamento | file ancora in `Modules/Xot/app/Actions/AI/Ollama/` |
 | Suite Pest | si ferma | `Cannot redeclare class OpenAI` (un test collide con `openai-php`) |
-| PHPStan | storico nelle story, non riverificato oggi | story `2026-10-06-phpstan-cleanup-ai`, `2026-10-08-services-to-actions-ai` |
+| PHPStan | 0 errori su `AIService` + test (verify exit 0) | [phpstan-ai-swarm-wave.story.md](./stories/phpstan-ai-swarm-wave.story.md); peer: [phpstan-test-wave-ai.story.md](./stories/phpstan-test-wave-ai.story.md); storico: [phpstan-cleanup-ai](./stories/phpstan-cleanup-ai.story.md), [services-to-actions-ai](./stories/services-to-actions-ai.story.md) |
 
 ## Da leggere per primi
 
+- [scopo.md](./scopo.md): perche' esiste e confini.
 - [README.md](./README.md): cosa fornisce e cosa no.
 - [decision-log.md](./decision-log.md): vuoto (solo la voce modello).
 - [wiki/log.md](./wiki/log.md): registro datato delle verifiche.
-- [stories/](./stories/): 20 file; l'ultima su codice e': [2026-10-08 da Services ad Actions](./stories/services-to-actions-ai.story.md).
+- [stories/](./stories/): PHPStan wave: [phpstan-ai-swarm-wave](./stories/phpstan-ai-swarm-wave.story.md); peer pull: [phpstan-test-wave-ai](./stories/phpstan-test-wave-ai.story.md); Actions: [services-to-actions-ai](./stories/services-to-actions-ai.story.md).
 - [wiki/concepts/ollama-actions-ownership.md](./wiki/concepts/ollama-actions-ownership.md): dove devono vivere le Actions AI.
 
 ## Piani, strategia e visione (non descrivono il codice)

@@ -5,8 +5,6 @@
  *
  * Provides a defensive JSON decode wrapper that returns an empty array on failure
  * and ensures string keys for the resulting array.
- *
- * @package Modules\AI\Actions
  */
 
 namespace Modules\AI\Actions;
@@ -38,7 +36,7 @@ final class AiJsonResponseDecoderAction
     /**
      * Decode a JSON string into an array with string keys.
      *
-     * @param string $result The JSON string to decode
+     * @param  string  $result  The JSON string to decode
      * @return array<string, mixed> The decoded array or empty array on failure
      */
     public function execute(string $result): array
@@ -49,7 +47,7 @@ final class AiJsonResponseDecoderAction
     /**
      * Decode a JSON string into an array with string keys.
      *
-     * @param string $result The JSON string to decode
+     * @param  string  $result  The JSON string to decode
      * @return array<string, mixed> The decoded array or empty array on failure
      */
     public static function decodeObject(string $result): array
@@ -71,7 +69,7 @@ final class AiJsonResponseDecoderAction
     /**
      * Filter array to string keys only.
      *
-     * @param array<mixed, mixed> $decoded
+     * @param  array<mixed, mixed>  $decoded
      * @return array<string, mixed>
      */
     private static function stringKeyArray(array $decoded): array
