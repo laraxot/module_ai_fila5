@@ -64,3 +64,5 @@ cd laravel && nice -n 10 ./vendor/bin/phpstan analyse \
 ## Note
 
 Non eliminare `AIService` in questa wave: decisione di product/dead-code gia' in [ai-services-support-to-actions](../wiki/concepts/ai-services-support-to-actions.md). Qui solo ripristino del contratto tipizzato e wiring dei parser.
+
+Spike fleet ~12:21 (`phpstan.parse`, marker merge cross-modulo): **`parse` ≠ tipo** — hub [Lang phpstan-lang-zero](../../Lang/docs/stories/phpstan-lang-zero.story.md).
