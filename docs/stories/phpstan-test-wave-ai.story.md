@@ -26,6 +26,8 @@ Lane `gdpr-lang-ai` del run PHPStan del 2026-10-20. Coordinamento, regole di lan
 
 Questa lane non ha modificato nessun file di AI. Quando e' arrivata ai due file, `AIService.php` e `AIServiceTest.php` erano gia' sotto lock di un'altra lane (`Agent: lane-ai`, `Task: phpstan-wave-ai`, lock delle 09:48:21 su entrambi). Per la regola del gate (lock attivo, file modificato da meno di due minuti) sono stati lasciati a lei. Le righe seguenti descrivono la causa che questa lane ha letto nel baseline e nel diff gia' presente nel working tree, non una modifica fatta qui. I file `.lock` non sono stati rimossi.
 
+Aggiornamento del 2026-10-20, pomeriggio: il lock di `AIServiceTest.php` era rimasto dopo la fine della lane ed e' finito nei commit, sia della root sia del modulo, perche' `!tests/**` nel `.gitignore` del modulo riammetteva anche i `.lock`. Rilasciato con `bashscripts/lock/unlock.sh`; nel `.gitignore` aggiunto `tests/**/*.lock` dopo `!tests/**`. Verifica con `git check-ignore`: un `.lock` sotto `tests/` e' ignorato, i file di test no.
+
 ## Scopo capito
 
 `AIService` e' il vecchio servizio che per un ticket costruisce un prompt, chiede al modello una risposta JSON (messa in cache con le stesse chiavi `ai:*` di `ClassifyTicketAction` e `SuggestSolutionsAction`) e la decodifica con i metodi `parse*Response()`. Il JSON e' output del modello, non validato: i risultati sono `array<string, mixed>`, con il valore di default del flusso quando la risposta non e' un oggetto JSON.
