@@ -62,6 +62,8 @@ storage/*.key
 !tests/
 !tests/**
 tests/AuditCoverage/
+# Lock degli agenti (bashscripts/lock): !tests/** li riammetterebbe
+tests/**/*.lock
 /.vagrant
 /vendor
 /vendor/
