@@ -111,3 +111,14 @@ I valori backed sono i literal gia' persistiti (`pending`, `ok`, `user`...): col
 
 `AIService` e il suo test sono riapparsi col sync `0c5e0a4` (terza volta). Scopo, metodi, chiamanti (zero) e contratto dei tipi da
 riusare nella futura Action: [phpstan-test-wave-ai](./phpstan-test-wave-ai.story.md).
+
+## Nota di verifica 2026-10-20
+
+Epic: [epic-services-to-queueable-actions](../../../../../bmad-output/epic-services-to-queueable-actions.md). Misura delle 13:00 UTC circa, righe volatili.
+
+- Su disco `AI/app/Services/` non esiste e `AIService.php` e' cancellato (commit `e0c8ec4`, 12:14 UTC). `git -C Modules/AI ls-tree -r --name-only laraxot/dev -- app/Services | wc -l` restituisce 0. Il test `AIServiceTest` e la cartella `tests/Unit/Services` non esistono piu'.
+- Sostituito da `Actions/ClassifyTicketAction`, `SuggestSolutionsAction`, `SentimentAction`, `Support/MakeAIRequestAction` e `AiJsonResponseDecoderAction` (path verificati su disco).
+- Chiamanti del Service: zero. Dei successori solo `SentimentAction` ha un consumatore di produzione (Filament `Completion`); `ClassifyTicketAction` e `SuggestSolutionsAction` ne hanno zero, quindi il flusso ticket non ha ingressi.
+- Parita' da verificare: `MakeAIRequestAction` legge `ai.openai_api_key`, `ai.openai_base_url`, `ai.timeout`, `ai.retry_attempts`, chiavi assenti da `config/ai.php` (controprova: lo stesso file contiene 11 volte `openai`); il modello e' fisso `gpt-4` (riga 49) mentre la config dichiara altri modelli; una risposta 200 senza `choices` ritorna `''` e `Cache::remember` la tiene 3600 s (dopo i tentativi falliti invece lancia, quindi non viene salvata); il log dei tentativi falliti include titolo e descrizione del ticket e il corpo della risposta.
+- Cinque flussi del Service non hanno Action (`predictPriority`, `optimizeRouting`, `generateAutoResponse`, `analyzePatterns`, `suggestImprovements`): nessuna Action con quei nomi in `AI/app/Actions` (controprova: la ricerca "Sentiment" trova 4 file). Non ricrearle senza un chiamante.
+- Nessuna Action nuova in W0; le decisioni sono in W2 e W3 dell'epic.
