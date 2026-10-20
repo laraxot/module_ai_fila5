@@ -1,53 +1,16 @@
 ---
-type: note
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "00 index"
-title: "AI — indice della documentazione"
-description: "Documentazione del modulo AI: integrazione modelli linguistici."
+title: "AI — alias indice"
+type: alias
 module: AI
-tags: [ai, documentazione, modulo, laraxot]
-repository: https://github.com/laraxot/module_ai_fila5
-related:
-  - ./00-index.md
-  - ./index.md
-  - ../../../../docs/wiki/audits/docs-redundancy-audit.md
-issues: https://github.com/laraxot/module_ai_fila5/issues
-discussions: https://github.com/laraxot/module_ai_fila5/discussions
-status: stale
+status: superseded
+superseded_by: 00-INDEX.md
+canonical: ./00-INDEX.md
+updated: 2026-10-20
+qmd: "alias 00-index ai verso 00-INDEX"
 ---
 
-> Nota 2026-10-14 (docs-audit): Variante precedente dell'indice (status active ma ferma a prima del 2026-10-14). Indice canonico: 00-INDEX.md (riscritto 2026-10-14). Contenuto non riscritto, verificare prima di usarlo.
+# Alias — indice AI
 
-# AI Module - Documentation Index
+Canonico: [00-INDEX.md](./00-INDEX.md). Qui non ci sono istruzioni.
 
-**Path**: `laravel/Modules/AI/docs/`
-**Modulo**: `Modules/AI`
-**Last updated**: 2026-03-26
-
-## Documenti canonici del modulo
-
-### Product
-| File | Scopo |
-|---|---|
-| [PRD.md](./PRD.md) | Product requirements |
-| [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md) | Roadmap |
-| [PRODUCT_STRATEGY.md](./PRODUCT_STRATEGY.md) | Strategy |
-| [PRODUCT_LAUNCH_PLAN.md](./PRODUCT_LAUNCH_PLAN.md) | Launch plan |
-
-### Development
-| File | Scopo |
-|---|---|
-| [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
-| [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
-| [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
-
-## Riferimenti canonici esterni al modulo
-
-- [Ralph + GSD + BMAD orchestration](../../../../bashscripts/ai/.agents/docs/architecture/ralph-gsd-bmad-orchestration.md)
-- [AI agents docs index](../../../../bashscripts/ai/.agents/docs/00-INDEX.md)
-- [AGENTS.md](../../../../AGENTS.md)
-
-## Nota anti-ridondanza
-
-La governance di Ralph, BMAD e GSD non va duplicata qui: questo indice deve solo rimandare al documento canonico centrale.
+Il contenuto storico di questo file (piani prodotto in maiuscolo) resta in git; l'ingresso operativo e' `00-INDEX.md`. Scopo del modulo: [scopo.md](./scopo.md).
