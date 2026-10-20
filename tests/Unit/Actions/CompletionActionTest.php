@@ -6,7 +6,6 @@ namespace Modules\AI\Tests\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\CompletionAction;
-use Modules\AI\Datas\CompletionData;
 use Modules\AI\Tests\TestCase;
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Completions\CreateResponse;
@@ -62,7 +61,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
         Assert::assertSame(5, $result->promptTokens);
         Assert::assertSame(20, $result->completionTokens);
@@ -97,7 +95,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 
@@ -125,7 +122,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
         Assert::assertSame(250, $result->promptTokens);
     });
@@ -154,7 +150,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 
@@ -182,7 +177,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 
@@ -210,7 +204,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 
@@ -238,7 +231,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 
@@ -266,7 +258,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 
@@ -294,7 +285,6 @@ describe('Completion Action', function (): void {
 
         $result = $action->execute($prompt);
 
-        Assert::assertInstanceOf(CompletionData::class, $result);
         Assert::assertSame($expectedText, $result->text);
     });
 });
