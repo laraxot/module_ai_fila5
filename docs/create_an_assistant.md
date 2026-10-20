@@ -10,6 +10,7 @@ discussions: []
 module: theme
 topic: create_an_assistant
 canonical: ../../../Themes/docs/shared-components/create-an-assistant.md
+status: stub
 ---
 
 See canonical documentation: ../../../Themes/docs/shared-components/create-an-assistant.md

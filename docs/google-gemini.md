@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "google gemini"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Google Gemini Integration
