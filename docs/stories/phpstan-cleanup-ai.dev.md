@@ -2,7 +2,7 @@
 title: "[DEV] PHPStan cleanup — AI"
 type: dev
 module: AI
-story: "./2026-10-06-phpstan-cleanup-ai.story.md"
+story: "./phpstan-cleanup-ai.story.md"
 status: done
 created: 2026-10-06
 updated: 2026-10-06

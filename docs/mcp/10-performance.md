@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "10 performance"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Ottimizzazione delle Performance dei Server MCP
