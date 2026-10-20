@@ -10,6 +10,7 @@ type: brainstorming
 module: AI
 related:
   - ./livewire-inventory.md
+status: draft
 ---
 
 # Brainstorming AI
