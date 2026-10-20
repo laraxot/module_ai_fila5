@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "codex error fix"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Codex Configuration Error Fixes

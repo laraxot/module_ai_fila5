@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "ollama mcp setup"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Ollama MCP Setup

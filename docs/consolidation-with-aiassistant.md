@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "consolidation with aiassistant"
 issues: []
 discussions: []
+status: draft
 ---
 
 # Consolidation Strategy: AI + AiAssistant

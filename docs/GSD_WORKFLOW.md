@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "GSD WORKFLOW"
 issues: []
 discussions: []
+status: draft
 ---
 
 # GSD Workflow — Modulo AI
