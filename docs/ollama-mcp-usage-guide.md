@@ -7,6 +7,7 @@ updated: 2026-09-26
 qmd: "ollama mcp usage guide"
 issues: []
 discussions: []
+status: draft
 ---
 
 # 📘 Guida Pratica all'Utilizzo di Ollama MCP
@@ -16,15 +17,6 @@ discussions: []
 **Compatibilità**: ollama-mcp v2.1.0+
 
 ---
-
-title: "ollama mcp usage guide"
-type: note
-tags: [documentation]
-created: 2026-09-26
-updated: 2026-09-26
-qmd: "ollama mcp usage guide"
-issues: []
-discussions: []
 ## 🚀 Quick Start
 
 ### Prerequisiti
