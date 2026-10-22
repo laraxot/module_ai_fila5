@@ -28,7 +28,7 @@ Ingresso della documentazione del modulo. Ogni affermazione e' stata confrontata
 | Client LLM | Ollama (`ChatOllamaAction`, `GenerateOllamaAction`), DS4 (`ChatDs4Action`, `GenerateDs4Action`), OpenAI (`CompletionAction`, `ContextCompressorAction`), `MakeAIRequestAction` | `app/Actions/` |
 | Dominio ticket | `ClassifyTicketAction`, `SuggestSolutionsAction`, prompt `BuildTicketClassificationPromptAction` e `BuildTicketSolutionsPromptAction`, `SentimentAction` (driver base o Transformers) | `app/Actions/` |
 | Dominio previsioni | `GeneratePredictionsAction`, `Predict/GeneratePredictionDraftsAction`, template di ripiego, `OpenAiPredictionMapper`: dominio di un altro progetto (il modulo `Predict` non esiste qui) | `app/Actions/`, `app/Datas/` |
-| Proposte di azione | `CreateAiActionProposalAction`, `ConfirmAiActionProposalAction`, `CancelAiActionProposalAction`, registro `AiActionHandlerRegistry`, contratto `AiActionHandlerContract` | `app/Actions/`, `app/Support/`, `app/Contracts/` |
+| Proposte di azione | `CreateAiActionProposalAction`, `ConfirmAiActionProposalAction`, `CancelAiActionProposalAction`, registro `Adapters\AiActionHandlerRegistry`, contratto `AiActionHandlerContract` | `app/Actions/`, `app/Adapters/`, `app/Contracts/` |
 | Dati | modelli `AiThread`, `AiMessage`, `AiActionProposal`, `AiToolLog` e 4 migrazioni del 2026-07-24 | `app/Models/`, `database/migrations/` |
 | Filament | `AiActionProposalResource`, pagine `Completion`, `FineTuning`, `Dashboard` | `app/Filament/` |
 | Fine tuning | script Python `bin/fine_tuning.py` e `bin/test_fine_tuning.py` | `bin/` |
