@@ -2,19 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Support;
+namespace Modules\AI\Adapters;
 
 use Modules\AI\Contracts\AiActionHandlerContract;
 
 /**
- * Singleton registry mapping `AiActionProposal::type` values to their
- * corresponding {@see AiActionHandlerContract} implementation.
- *
- * Registered as a singleton in `AIServiceProvider`. Domain modules
- * (e.g. WorkOrder, Intervention) should register their own handlers
- * against this registry rather than the AI module knowing about them.
+ * Singleton registry mapping AiActionProposal::type → AiActionHandlerContract.
+ * Adapter (ex app/Support / faux Action): multi-metodo di binding, non use-case.
  */
-class AiActionHandlerRegistry
+final class AiActionHandlerRegistry
 {
     /**
      * @var array<string, AiActionHandlerContract>
