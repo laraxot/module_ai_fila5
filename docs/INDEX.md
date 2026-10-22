@@ -36,7 +36,7 @@ Modulo AI (assistenza / LLM integration).
 - [stories/phpstan-ai-fix.md](./stories/phpstan-ai-fix.md) — correggimenti PHPStan
 
 ## Testing
-- [COVERAGE.md / coverage.md / coverage-pest-80.md](./coverage.md) — copertura
+- [COVERAGE.md / coverage.md / coverage-pest.md](./coverage.md) — copertura
 - [DATABASE-FACTORIES-SEEDERS.md](./database-factories-seeders.md) — factory e seeder
 
 ## API / Guide
