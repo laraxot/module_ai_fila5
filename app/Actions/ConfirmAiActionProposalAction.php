@@ -7,7 +7,7 @@ namespace Modules\AI\Actions;
 use Illuminate\Support\Carbon;
 use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;
-use Modules\AI\Support\AiActionHandlerRegistry;
+use Modules\AI\Adapters\AiActionHandlerRegistry;
 use Spatie\QueueableAction\QueueableAction;
 
 /**
