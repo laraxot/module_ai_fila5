@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\AI\Actions\Support;
+namespace Modules\AI\Actions;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
