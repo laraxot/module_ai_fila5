@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "06 troubleshooting"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: troubleshooting.md
 ---
 
 # Risoluzione dei Problemi dei Server MCP

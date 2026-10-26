@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "best practices"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: best-practices.md
 ---
 
 # Best Practices – AI

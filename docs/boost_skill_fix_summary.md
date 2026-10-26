@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "boost skill fix summary"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: boost-skill-fix-summary.md
 ---
 
 # Boost Skill Fix Summary - AI Module
