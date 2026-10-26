@@ -586,8 +586,8 @@ AI::getUsage(date_from, date_to, module);
 
 ### 12.3 Related PRDs
 - [Predict Module PRD](../Predict/docs/PRD.md)
-- [Blog Module PRD](../../Blog/docs/PRD.md)
-- [Cms Module PRD](../../Cms/docs/PRD.md)
+- [Blog Module PRD](../../Blog/docs/prd.md)
+- [Cms Module PRD](../../Cms/docs/prd.md)
 - [Lang Module PRD](../../Lang/docs/PRD.md)
 
 ---
