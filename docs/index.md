@@ -181,7 +181,7 @@ Layer di conoscenza compilata, separato dai doc sorgente sopra. Punti di ingress
 | [wiki/schema.md](./wiki/schema.md) | Schema del wiki |
 | [wiki/log.md](./wiki/log.md) | Log del wiki |
 | [llm-wiki.md](./llm-wiki.md) | Mapping del pattern Karpathy applicato a questo modulo |
-| [llm-wiki/agents.md](./llm-wiki/agents.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
+| [llm-wiki/agents.md](llm-wiki/AGENTS.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
 
 ### Concetti (wiki/concepts/)
 
@@ -289,4 +289,4 @@ Cinque file condividono lo stesso template generico (`**Module:** AI`, `**Versio
 - [phpstan-remediation-2025-12-23.md](./phpstan-remediation.md) - identico byte per byte a [phpstan-remediation.md](./phpstan-remediation.md) (diff vuoto).
 - [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
 - [merge-conflict-files-list.md](./merge-conflict-files-list.md) e [merge-conflicts-list.md](./merge-conflicts-list.md) - due elenchi di file con marker di conflitto da una sessione di merge passata (vedi memoria `project_notify-conflict-remediation-2026-09-03`); presumibilmente risolti, da verificare prima di rimuovere.
-- [wiki/agents.md](./wiki/agents.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](./llm-wiki/agents.md).
+- [wiki/agents.md](wiki/AGENTS.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](llm-wiki/AGENTS.md).
