@@ -1,3 +1,11 @@
+---
+title: "AI MODULE - ROADMAP 2025"
+type: note
+status: draft
+updated: 2026-10-20
+tags: [docs, ai]
+qmd: "ai module - roadmap 2025 ai"
+---
 # 🎯 AI MODULE - ROADMAP 2025
 
 **Modulo**: AI ([Description])  

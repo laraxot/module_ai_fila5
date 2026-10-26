@@ -3,6 +3,8 @@ title: "Sostenibilità e inbound marketing — AI"
 type: bmad-pointer
 status: decision-input
 updated: 2026-10-15
+tags: [docs, ai]
+qmd: "riferimento bmad ai"
 ---
 
 # Riferimento BMAD

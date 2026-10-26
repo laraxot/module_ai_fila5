@@ -7,6 +7,7 @@ updated: 2026-10-22
 qmd: "AI module no Support AiActionHandlerRegistry JsonDecoder ScalarCaster PredictionDraft"
 related:
   - ../../../../../../docs/second-brain/process/no-app-support-queueable-actions.md
+status: draft
 ---
 
 # AI — `app/Support/` eliminato

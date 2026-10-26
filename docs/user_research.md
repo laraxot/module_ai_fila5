@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "user research"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: user-research.md
 ---
 
 # AI Module - User Research
