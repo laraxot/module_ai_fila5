@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "00 introduzione"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: introduzione.md
 ---
 
 # Introduzione ai Server MCP per Progetti Laravel

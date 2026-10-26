@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "00 indice"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: indice.md
 ---
 
 # Documentazione Server MCP
