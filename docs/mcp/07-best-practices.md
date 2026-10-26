@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "07 best practices"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: best-practices.md
 ---
 
 # Best Practices per l'Utilizzo dei Server MCP

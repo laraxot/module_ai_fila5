@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "generate predictions action"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: generate-predictions-action.md
 ---
 
 # AI Module - Generate Predictions Action

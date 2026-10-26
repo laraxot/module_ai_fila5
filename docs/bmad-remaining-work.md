@@ -9,6 +9,8 @@ tags: [bmad, ai, module, stories, remaining-work]
 related:
   - ../../docs/second-brain/project/bmad-architecture.md
   - ../../docs/second-brain/project/bmad-stories.md
+status: draft
+qmd: "ai module   bmad stories & remaining work ai"
 ---
 
 # AI Module — BMAD Stories & Remaining Work

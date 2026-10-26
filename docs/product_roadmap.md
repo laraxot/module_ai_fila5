@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "product roadmap"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: product-roadmap.md
 ---
 
 # AI Module - Product Roadmap

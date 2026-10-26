@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "01 installazione"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: installazione.md
 ---
 
 # Installazione dei Server MCP per Progetti Laravel

@@ -4,6 +4,7 @@ title: "Implementazione Queueable Actions — AI Service Conversion (2026-10-20)
 type: outcome
 updated: 2026-10-20
 status: completed
+tags: [docs, ai]
 ---
 
 # Queueable Actions — AI Service Conversion (2026-10-20)
