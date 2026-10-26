@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "sprint planning"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: sprint-planning.md
 ---
 
 # AI Module - Sprint Planning
