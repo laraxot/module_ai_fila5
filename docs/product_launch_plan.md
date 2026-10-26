@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "product launch plan"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: product-launch-plan.md
 ---
 
 # AI Module - Product Launch Plan

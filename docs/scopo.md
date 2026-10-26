@@ -35,6 +35,6 @@ Ground truth errori della lane: `.cursor-scratch/phpstan-wave/AI.tsv` (coordinat
 
 ## Collegamenti
 
-- [00-INDEX.md](./00-INDEX.md) — indice canonico
+- [00-INDEX.md](./00-index.md) — indice canonico
 - [wiki/scopo.md](./wiki/scopo.md) — nota BMAD breve (rimanda qui)
 - [Lang — scopo](../../Lang/docs/scopo.md) · [User — scopo](../../User/docs/scopo.md)

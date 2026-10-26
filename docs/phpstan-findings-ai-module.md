@@ -1,3 +1,11 @@
+---
+title: "PHPStan Findings - AI Module"
+type: note
+status: draft
+updated: 2026-10-22
+tags: [docs, ai]
+qmd: "phpstan findings - ai module ai"
+---
 # PHPStan Findings - AI Module
 
 **Data**: 2025-10-10  

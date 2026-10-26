@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "10 performance"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: performance.md
 ---
 
 # Ottimizzazione delle Performance dei Server MCP

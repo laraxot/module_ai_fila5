@@ -16,7 +16,7 @@ updated: 2026-10-14
 
 Indice unico e navigabile di `laravel/Modules/AI/docs/`. Organizzato per argomento, non per ordine alfabetico. Nessun file esistente e' stato rinominato o cancellato per produrre questo indice: dove esistono doc duplicati o superati, sono raggruppati nella sezione [Storico / da consolidare](#storico--da-consolidare) invece di essere rimossi.
 
-Indice operativo canonico (aggiornato 2026-10-14): [00-INDEX.md](./00-INDEX.md), con stato verificato e ruolo delle directory. Questo `index.md` resta l'elenco esteso per argomento, scritto il 2026-09-03: 6 dei suoi link puntano a file che non esistono piu' e sono stati resi testo semplice. Gli altri indici (`00-index.md`, `INDEX.md`) sono varianti precedenti, segnate come tali.
+Indice operativo canonico (aggiornato 2026-10-14): [00-INDEX.md](./00-index.md), con stato verificato e ruolo delle directory. Questo `index.md` resta l'elenco esteso per argomento, scritto il 2026-09-03: 6 dei suoi link puntano a file che non esistono piu' e sono stati resi testo semplice. Gli altri indici (`00-index.md`, `INDEX.md`) sono varianti precedenti, segnate come tali.
 
 ## Start here
 
