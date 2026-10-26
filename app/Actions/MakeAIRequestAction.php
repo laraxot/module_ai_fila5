@@ -24,7 +24,7 @@ final class MakeAIRequestAction
      */
     public function execute(string $prompt, string $type, array $context = []): string
     {
-        $apiKey = config('ai.openai_api_key', '');
+        $apiKey = config('ai.openai_api_key') ?: config('services.openai.api_key', '');
         $baseUrl = config('ai.openai_base_url', 'https://api.openai.com/v1');
         $timeoutRaw = config('ai.timeout', 30);
         $retryAttemptsRaw = config('ai.retry_attempts', 3);
