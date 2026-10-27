@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Modules\AI;
+namespace Modules\AI\Tests;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 use Modules\AI\Providers\AIServiceProvider;
-use Tests\Modules\Xot\XotBaseTestCase;
+use Modules\Xot\Tests\XotBaseTestCase;
 
 /**
  * Base test case for AI module.
@@ -17,7 +18,7 @@ use Tests\Modules\Xot\XotBaseTestCase;
 abstract class TestCase extends XotBaseTestCase
 {
     /**
-     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     * @return array<int, class-string<ServiceProvider>>
      */
     protected function getPackageProviders(Application $app): array
     {

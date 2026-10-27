@@ -26,6 +26,11 @@
             "Modules\\AI\\Database\\Seeders\\": "database/seeders/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\AI\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "openai-php/laravel": "^0.20",
         "php": "^8.3"

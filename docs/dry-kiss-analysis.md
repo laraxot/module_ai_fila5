@@ -26,8 +26,3 @@ Models: 0 | Resources: 0 | Services: 1 | Actions: 2 | Docs: 34
 
 **Status:** 🟢 **PERFETTO**
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

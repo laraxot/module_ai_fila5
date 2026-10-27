@@ -72,8 +72,3 @@ Companion commands are registered alongside the main command in the same client-
 ---
 *Created by Gemini CLI Agent - 2026-03-11*
 *Part of the Laraxot/Super Mucca Methodology*
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

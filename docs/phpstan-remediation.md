@@ -37,8 +37,3 @@ status: draft
 - Consolidare le regole di naming dei provider AI riutilizzando i pattern già descritti in `Modules/Xot/docs/service-provider-best-practices.md`.
 - Evitare duplicati tra `docs/README.md` e nuovi documenti: mantenere una singola fonte per roadmap e qualità.
 - Automatizzare il controllo “moduli senza sorgente PHP” nello script `bashscripts/quality/check_modules.php` per prevenire regressioni simili.
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

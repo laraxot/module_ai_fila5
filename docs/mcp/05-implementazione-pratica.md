@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "05 implementazione pratica"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: implementazione-pratica.md
 ---
 
 # Implementazione Pratica dei Server MCP
