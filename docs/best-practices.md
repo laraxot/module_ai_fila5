@@ -13,7 +13,7 @@ status: draft
 # Best Practices – AI
 
 ## Principi DRY/KISS
-- **DRY**: Centralizza logica AI in `AIService`. Usa metodi statici solo per costanti.
+- **DRY**: Centralizza la logica AI in Actions dedicate (`app/Actions/`, `QueueableAction`), non in classi `*Service`: `AIService` e' codice morto, vedi [phpstan-test-wave-ai](stories/phpstan-test-wave-ai.story.md). Usa metodi statici solo per costanti.
 - **KISS**: Mantieni i prompt brevi e parametrizzati; evita prompt concatenati dinamicamente.
 - **Clean Code**: Usa `enum` per i tipi di modello, non stringhe hard‑coded.
 
@@ -28,8 +28,3 @@ status: draft
 ## Documentazione
 - Aggiorna `docs/INDEX.md` quando aggiungi nuove funzioni.
 - Inserisci link a OpenAI/Anthropic SDK docs.
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

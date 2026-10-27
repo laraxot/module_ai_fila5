@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "02 configurazione"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: configurazione.md
 ---
 
 # Configurazione dei Server MCP per Progetti Laravel

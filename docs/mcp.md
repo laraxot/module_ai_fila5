@@ -302,8 +302,3 @@ Esempio da usare in `.vscode/mcp.json`, `.cursor/mcp.json`, `mcp_config.json` di
 ---
 
 **Seguendo questa filosofia, potrai installare e usare i server MCP in modo uniforme, semplice e senza sorprese su qualsiasi PC e progetto.**
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
