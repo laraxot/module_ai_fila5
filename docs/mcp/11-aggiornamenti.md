@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "11 aggiornamenti"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: aggiornamenti.md
 ---
 
 # Aggiornamenti dei Server MCP

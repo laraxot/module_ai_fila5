@@ -109,8 +109,3 @@ The `boost:add-skill jeffallan/claude-skills --skill laravel-specialist` command
 
 See `laravel-specialist-skill-installation.md` for full details.
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

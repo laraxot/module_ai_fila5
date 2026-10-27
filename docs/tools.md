@@ -16,8 +16,3 @@ https://blog.codegpt.co/create-your-own-and-custom-copilot-in-vscode-with-ollama
 https://www.maginative.com/article/how-to-get-started-with-code-llama/
 
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
