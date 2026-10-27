@@ -35,8 +35,3 @@ bash bashscripts/tools/check-module-contracts-naming.sh
 ```
 
 See the project rule for full rationale: `docs/wiki/rules/module-contracts-naming-placement.md`.
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

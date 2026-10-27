@@ -112,8 +112,3 @@ Contiene i test automatizzati.
 - [Report PHPStan](/project_docs/phpstan/)
 - [Errori Comuni e Soluzioni](errors.md)
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

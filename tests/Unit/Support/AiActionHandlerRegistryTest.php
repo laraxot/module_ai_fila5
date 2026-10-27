@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Modules\AI\Unit\Support;
+namespace Modules\AI\Tests\Unit\Support;
 
 use Modules\AI\Contracts\AiActionHandlerContract;
 use Modules\AI\Models\AiActionProposal;
-use Modules\AI\Support\AiActionHandlerRegistry;
+use Modules\AI\Adapters\AiActionHandlerRegistry;
 use PHPUnit\Framework\Assert;
 
 test('registry registers and resolves handlers by type', function (): void {
-    $registry = new AiActionHandlerRegistry();
+    $registry = new AiActionHandlerRegistry;
 
-    $handler = new class() implements AiActionHandlerContract
+    $handler = new class implements AiActionHandlerContract
     {
         public function type(): string
         {

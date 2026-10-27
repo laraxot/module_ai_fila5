@@ -6,7 +6,7 @@ title: "AI Module Documentation"
 type: documentation
 tags: [module, documentation]
 created: 2026-06-05
-updated: 2026-10-15
+updated: 2026-10-14
 status: active
 module: AI
 ---
@@ -28,7 +28,7 @@ Ingresso della documentazione del modulo. Ogni affermazione e' stata confrontata
 | Client LLM | Ollama (`ChatOllamaAction`, `GenerateOllamaAction`), DS4 (`ChatDs4Action`, `GenerateDs4Action`), OpenAI (`CompletionAction`, `ContextCompressorAction`), `MakeAIRequestAction` | `app/Actions/` |
 | Dominio ticket | `ClassifyTicketAction`, `SuggestSolutionsAction`, prompt `BuildTicketClassificationPromptAction` e `BuildTicketSolutionsPromptAction`, `SentimentAction` (driver base o Transformers) | `app/Actions/` |
 | Dominio previsioni | `GeneratePredictionsAction`, `Predict/GeneratePredictionDraftsAction`, template di ripiego, `OpenAiPredictionMapper`: dominio di un altro progetto (il modulo `Predict` non esiste qui) | `app/Actions/`, `app/Datas/` |
-| Proposte di azione | `CreateAiActionProposalAction`, `ConfirmAiActionProposalAction`, `CancelAiActionProposalAction`, registro `AiActionHandlerRegistry`, contratto `AiActionHandlerContract` | `app/Actions/`, `app/Support/`, `app/Contracts/` |
+| Proposte di azione | `CreateAiActionProposalAction`, `ConfirmAiActionProposalAction`, `CancelAiActionProposalAction`, registro `Adapters\AiActionHandlerRegistry`, contratto `AiActionHandlerContract` | `app/Actions/`, `app/Adapters/`, `app/Contracts/` |
 | Dati | modelli `AiThread`, `AiMessage`, `AiActionProposal`, `AiToolLog` e 4 migrazioni del 2026-07-24 | `app/Models/`, `database/migrations/` |
 | Filament | `AiActionProposalResource`, pagine `Completion`, `FineTuning`, `Dashboard` | `app/Filament/` |
 | Fine tuning | script Python `bin/fine_tuning.py` e `bin/test_fine_tuning.py` | `bin/` |
@@ -43,7 +43,7 @@ Nessuno. Un grep di `Modules\AI\` su `Modules/*/app`, `config` e `routes` degli 
 
 1. Nessun codice MCP: `grep -ri mcp` su `app/`, `config/`, `routes/` e `composer.json` del modulo non trova nulla. Il progetto ha il pacchetto `laravel/mcp` e `laravel/config/mcp.php`, ma `laravel/routes/ai.php` ha i server MCP solo come commento: nessun server MCP e' definito. Le guide in [mcp/](./mcp/) sono documentazione di riferimento, non descrizione del modulo.
 2. Rotte: `routes/web.php` e `routes/api.php` sono vuoti; le 11 rotte del modulo (`php artisan route:list --json`) sono del pannello Filament `ai/admin`. Non esiste un'interfaccia di chat: ci sono i modelli `AiThread` e `AiMessage` e le Actions Ollama/DS4, ma nessuna pagina di chat.
-3. Quasi tutta la cartella docs e' pianificazione (PRD, strategia, roadmap, sprint, lancio): vedi la sezione "Piani" di [00-index.md](./00-index.md).
+3. Quasi tutta la cartella docs e' pianificazione (PRD, strategia, roadmap, sprint, lancio): vedi la sezione "Piani" di [00-INDEX.md](./00-index.md).
 4. Suite Pest: il 2026-10-14 su DB usa-e-getta si ferma con `Cannot redeclare class OpenAI` (un test dichiara la classe `OpenAI`, che collide con il client `openai-php`).
 
 ## Quick start
@@ -59,7 +59,7 @@ DB_DATABASE_LIMESURVEY= bash ../bashscripts/tools/pest-scratch-db.sh Modules/AI/
 
 ## Mappa della documentazione
 
-Indice operativo: [00-index.md](./00-index.md). Indice per argomento: [index.md](./index.md). Guide MCP: [mcp/](./mcp/). Decisioni: [decision-log.md](./decision-log.md). Registro: [wiki/log.md](./wiki/log.md). Story: [stories/](./stories/).
+Indice operativo: [00-INDEX.md](./00-index.md). Indice per argomento: [index.md](./index.md). Guide MCP: [mcp/](./mcp/). Decisioni: [decision-log.md](./decision-log.md). Registro: [wiki/log.md](./wiki/log.md). Story: [stories/](./stories/).
 
 ## AI Workflows
 - [AI Methodologies](./ai-methodologies.md)
@@ -83,18 +83,7 @@ Indice operativo: [00-index.md](./00-index.md). Indice per argomento: [index.md]
 
 ## Documentation
 
-- [On-Demand Pattern](./on-demand-pattern.md): Pattern per caricamento efficiente
-- [QMD Setup](./qmd-setup.md): Configurazione ricerca locale
-- [Performance](./performance-optimization.md): Metriche e best practice
-- [Project Structure](./project-structure.md): Directory layout
-
-## Standing order (qualita' + docs)
-
-- **PHPStan a zero** sul codice del modulo: non ignorare errori, non abbassare il livello, non modificare `phpstan.neon` del progetto. Qualita' + docs + BMAD sono standing order, non opzionali.
-- **Cartella test**: solo `tests/` (minuscolo). `Tests/` e' vietato (case-collision su macOS/Windows e confusione PSR-4).
-- **Nomi `.md`**: kebab-case minuscolo, niente date/timestamp nel nome, unica eccezione `README.md`. Se esistono `readme.md` e `README.md`, resta solo `README.md`.
-- **Docs**: solo dentro `docs/` gia' esistente; consolida invece di moltiplicare file; link relativi; focus su scopo/perche'/business logic (DRY + KISS).
-- **Git**: forward-only (patch in avanti); no reset/revert/checkout come scorciatoia.
-- **BMAD + second brain**: indici e decisioni vivono in `docs/` del modulo; aggiornali quando cambia il perche', non solo il come.
-
-Vedi anche: [00-index.md](./00-index.md) · [index.md](./index.md)
+- [On-Demand Pattern](on-demand-pattern.md): Pattern per caricamento efficiente
+- [QMD Setup](qmd-setup.md): Configurazione ricerca locale
+- [Performance](performance-optimization.md): Metriche e best practice
+- [Project Structure](project-structure.md): Directory layout

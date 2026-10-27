@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Modules\AI\Unit\Models;
+namespace Modules\AI\Tests\Unit\Models;
 
 use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;
 use PHPUnit\Framework\Assert;
 
 test('ai action proposal casts attributes', function (): void {
-    $casts = (new AiActionProposal())->getCasts();
+    $casts = (new AiActionProposal)->getCasts();
 
     Assert::assertSame('array', $casts['payload']);
     Assert::assertSame('array', $casts['result']);

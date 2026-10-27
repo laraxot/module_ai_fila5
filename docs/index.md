@@ -16,7 +16,7 @@ updated: 2026-10-14
 
 Indice unico e navigabile di `laravel/Modules/AI/docs/`. Organizzato per argomento, non per ordine alfabetico. Nessun file esistente e' stato rinominato o cancellato per produrre questo indice: dove esistono doc duplicati o superati, sono raggruppati nella sezione [Storico / da consolidare](#storico--da-consolidare) invece di essere rimossi.
 
-Indice operativo canonico (aggiornato 2026-10-14): [00-INDEX.md](./00-index.md), con stato verificato e ruolo delle directory. Questo `index.md` resta l'elenco esteso per argomento, scritto il 2026-09-03: 6 dei suoi link puntano a file che non esistono piu' e sono stati resi testo semplice. Gli altri indici (`00-index.md`, `index.md`) sono varianti precedenti, segnate come tali.
+Indice operativo canonico (aggiornato 2026-10-14): [00-INDEX.md](./00-index.md), con stato verificato e ruolo delle directory. Questo `index.md` resta l'elenco esteso per argomento, scritto il 2026-09-03: 6 dei suoi link puntano a file che non esistono piu' e sono stati resi testo semplice. Gli altri indici (`00-index.md`, `INDEX.md`) sono varianti precedenti, segnate come tali.
 
 ## Start here
 
@@ -59,7 +59,7 @@ Indice operativo canonico (aggiornato 2026-10-14): [00-INDEX.md](./00-index.md),
 |---|---|
 | [predict-generation.md](./predict-generation.md) | Come AI deve generare predizioni realistiche per Predict |
 | [predict-drafts-contract.md](./predict-drafts-contract.md) | Contratto reale di `GeneratePredictionDraftsAction` |
-| [generate_predictions_action.md](./generate-predictions-action.md) | Implementazione di `GeneratePredictionsAction` |
+| [generate_predictions_action.md](./generate_predictions_action.md) | Implementazione di `GeneratePredictionsAction` |
 
 Nota: i tre documenti sopra si sovrappongono parzialmente (stessa famiglia di Actions vista da angolazioni diverse). Non sono duplicati esatti quindi restano tutti attivi, ma un consolidamento futuro in un unico doc "Predict integration" ridurrebbe la ridondanza.
 
@@ -140,9 +140,9 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 
 | Doc | Contenuto |
 |---|---|
-| [best_practices.md](./best-practices.md) | Best practices del modulo |
-| [bad_practices.md](./bad-practices.md) | Pratiche da evitare |
-| [false_friends.md](./false-friends.md) | False friends terminologici |
+| [best_practices.md](./best_practices.md) | Best practices del modulo |
+| [bad_practices.md](./bad_practices.md) | Pratiche da evitare |
+| [false_friends.md](./false_friends.md) | False friends terminologici |
 | [file-naming-rules.md](./file-naming-rules.md) | Regole di naming per i file |
 | [on-demand-pattern.md](./on-demand-pattern.md) | Pattern on-demand del modulo |
 | [qmd-setup.md](./qmd-setup.md) | Setup QMD per il modulo |
@@ -150,7 +150,7 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 | root-file-policy.md _(riferimento non presente nel repository, verificato 2026-10-14)_ | Policy sui file in root |
 | root-files-hygiene.md _(riferimento non presente nel repository, verificato 2026-10-14)_ | Log hygiene dei file root |
 | [no-ai-tool-scaffold-dirs.md](./no-ai-tool-scaffold-dirs.md) | Perche' certe cartelle scaffold non devono esistere qui |
-| [gsd_workflow.md](./gsd-workflow.md) | Workflow GSD locale al modulo |
+| [gsd_workflow.md](./gsd_workflow.md) | Workflow GSD locale al modulo |
 
 ## Troubleshooting e fix
 
@@ -158,7 +158,7 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 |---|---|
 | [errors.md](./errors.md) | Errori comuni e soluzioni |
 | [codex-error-fix.md](./codex-error-fix.md) | Fix errori di configurazione Codex |
-| [boost_skill_fix_summary.md](./boost-skill-fix-summary.md) | Riepilogo fix Boost skill |
+| [boost_skill_fix_summary.md](./boost_skill_fix_summary.md) | Riepilogo fix Boost skill |
 | [laravel-specialist-skill-installation.md](./laravel-specialist-skill-installation.md) | Installazione skill laravel-specialist |
 
 ## Note e link dump
@@ -181,7 +181,7 @@ Layer di conoscenza compilata, separato dai doc sorgente sopra. Punti di ingress
 | [wiki/schema.md](./wiki/schema.md) | Schema del wiki |
 | [wiki/log.md](./wiki/log.md) | Log del wiki |
 | [llm-wiki.md](./llm-wiki.md) | Mapping del pattern Karpathy applicato a questo modulo |
-| [llm-wiki/agents.md](./llm-wiki/agents.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
+| [llm-wiki/agents.md](llm-wiki/AGENTS.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
 
 ### Concetti (wiki/concepts/)
 
@@ -247,19 +247,19 @@ Questi file non sono stati toccati, ma sono duplicati, stub o snapshot superati 
 
 ### Indici precedenti di questa stessa cartella
 
-- [00-index.md](./00-index.md) - indice precedente centrato sui soli doc "prodotto", con link a `prd.md`/`product-roadmap.md` ecc. in maiuscolo che non corrispondono ai file reali (minuscoli). Superato da questo `index.md`.
-- [INDEX.md](./index.md) - puntatore molto breve, non aggiornato. Superato da questo `index.md`.
+- [00-index.md](./00-index.md) - indice precedente centrato sui soli doc "prodotto", con link a `PRD.md`/`PRODUCT_ROADMAP.md` ecc. in maiuscolo che non corrispondono ai file reali (minuscoli). Superato da questo `index.md`.
+- [INDEX.md](./INDEX.md) - puntatore molto breve, non aggiornato. Superato da questo `index.md`.
 
 ### Stub "module: theme" che rimandano a Themes/docs/shared-components
 
 Frontmatter `module: theme` + una riga "See canonical documentation: ...". Non sono contenuto specifico del modulo AI, ma copie stub di documentazione condivisa a livello Theme. Il contenuto reale, specifico di AI, vive nell'omonimo file senza underscore elencato sopra.
 
-- [create_an_assistant.md](./create-an-assistant.md) -> contenuto reale in [create-an-assistant.md](./create-an-assistant.md)
-- [fine_tuning.md](./fine-tuning.md) -> contenuto reale in [fine-tuning.md](./fine-tuning.md)
-- [google_gemini.md](./google-gemini.md) -> contenuto reale in [google-gemini.md](./google-gemini.md)
-- [cursor_mcp.md](./cursor-mcp.md) -> contenuto reale in [cursor-mcp.md](./cursor-mcp.md)
-- [installazione_mcp_servers.md](./installazione-mcp-servers.md) -> contenuto reale in [installazione-mcp-servers.md](./installazione-mcp-servers.md)
-- [video_tutorial.md](./video-tutorial.md) -> contenuto reale in [video-tutorial.md](./video-tutorial.md)
+- [create_an_assistant.md](./create_an_assistant.md) -> contenuto reale in [create-an-assistant.md](./create-an-assistant.md)
+- [fine_tuning.md](./fine_tuning.md) -> contenuto reale in [fine-tuning.md](./fine-tuning.md)
+- [google_gemini.md](./google_gemini.md) -> contenuto reale in [google-gemini.md](./google-gemini.md)
+- [cursor_mcp.md](./cursor_mcp.md) -> contenuto reale in [cursor-mcp.md](./cursor-mcp.md)
+- [installazione_mcp_servers.md](./installazione_mcp_servers.md) -> contenuto reale in [installazione-mcp-servers.md](./installazione-mcp-servers.md)
+- [video_tutorial.md](./video_tutorial.md) -> contenuto reale in [video-tutorial.md](./video-tutorial.md)
 - [tutorials/ai_agents_in_php_with_mcp.md](./tutorials/ai_agents_in_php_with_mcp.md) -> [tutorials/ai-agents-in-php-with-mcp.md](./tutorials/ai-agents-in-php-with-mcp.md)
 - [tutorials/building_laravel_portfolio_api_with_mcp.md](./tutorials/building_laravel_portfolio_api_with_mcp.md) -> [tutorials/building-laravel-portfolio-api-with-mcp.md](./tutorials/building-laravel-portfolio-api-with-mcp.md)
 - [tutorials/laravel_helper_tools_for_mcp.md](./tutorials/laravel_helper_tools_for_mcp.md) -> [tutorials/laravel-helper-tools-for-mcp.md](./tutorials/laravel-helper-tools-for-mcp.md)
@@ -276,17 +276,17 @@ Stub underscore verso Themes: [mcp/00_indice.md](./mcp/00_indice.md), [mcp/00_in
 
 Cinque file condividono lo stesso template generico (`**Module:** AI`, `**Version:** 1.0.0`, `**Owner:** Product Team`) mai riempito con contenuto reale, mentre l'omologo piu' corto elencato sopra contiene note effettive del progetto.
 
-- [product_roadmap.md](./product-roadmap.md) -> vedi [roadmap.md](./roadmap.md)
-- [product_strategy.md](./product-strategy.md) -> vedi [product-strategy.md](./product-strategy.md) e [strategy.md](./strategy.md)
-- [sprint_planning.md](./sprint-planning.md) -> vedi [sprint.md](./sprint.md)
-- [user_research.md](./user-research.md) -> vedi [research.md](./research.md)
-- [product_launch_plan.md](./product-launch-plan.md) -> vedi [launch.md](./launch.md)
+- [product_roadmap.md](./product_roadmap.md) -> vedi [roadmap.md](./roadmap.md)
+- [product_strategy.md](./product_strategy.md) -> vedi [product-strategy.md](./product-strategy.md) e [strategy.md](./strategy.md)
+- [sprint_planning.md](./sprint_planning.md) -> vedi [sprint.md](./sprint.md)
+- [user_research.md](./user_research.md) -> vedi [research.md](./research.md)
+- [product_launch_plan.md](./product_launch_plan.md) -> vedi [launch.md](./launch.md)
 
 ### Altri superati o ridondanti
 
 - [structure.md](./structure.md) - versione del 2025-04-23, superata da [project-structure.md](./project-structure.md) (2026-05-11).
-- [metodi_duplicati_analisi.md](./metodi-duplicati-analisi.md) - stessa analisi di [duplicate-methods-analysis.md](./duplicate-methods-analysis.md), stessa data (2025-10-15), rigenerata con formato diverso ("Super Mucca Edition").
+- [metodi_duplicati_analisi.md](./metodi_duplicati_analisi.md) - stessa analisi di [duplicate-methods-analysis.md](./duplicate-methods-analysis.md), stessa data (2025-10-15), rigenerata con formato diverso ("Super Mucca Edition").
 - [phpstan-remediation-2025-12-23.md](./phpstan-remediation.md) - identico byte per byte a [phpstan-remediation.md](./phpstan-remediation.md) (diff vuoto).
-- [redundancy_analysis.md](./redundancy-analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
+- [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
 - [merge-conflict-files-list.md](./merge-conflict-files-list.md) e [merge-conflicts-list.md](./merge-conflicts-list.md) - due elenchi di file con marker di conflitto da una sessione di merge passata (vedi memoria `project_notify-conflict-remediation-2026-09-03`); presumibilmente risolti, da verificare prima di rimuovere.
-- [wiki/agents.md](./wiki/agents.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](./llm-wiki/agents.md).
+- [wiki/agents.md](wiki/AGENTS.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](llm-wiki/AGENTS.md).

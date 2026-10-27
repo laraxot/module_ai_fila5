@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Modules\AI\Unit\Actions;
+namespace Modules\AI\Tests\Unit\Actions;
 
 use PHPUnit\Framework\Assert;
 use ReflectionClass;
