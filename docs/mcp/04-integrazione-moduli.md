@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "04 integrazione moduli"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: integrazione-moduli.md
 ---
 
 # Integrazione dei Server MCP con i Moduli Laravel

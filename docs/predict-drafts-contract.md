@@ -56,8 +56,3 @@ Se si cambia modello, temperatura o prompt, mantenere stabile il contratto dei c
 
 - questo file
 - `Modules/Predict/docs/admin-ai-predict-generation.md`
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

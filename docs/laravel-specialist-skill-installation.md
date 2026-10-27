@@ -74,8 +74,3 @@ Before the skill could be installed, three blocking errors were resolved:
 3. **Working directory issue** - Command must be run from `laravel/` directory, not project root.
 
 See `Modules/Xot/docs/bootstrap-cache-stale-fix.md` and `Modules/Gdpr/docs/provider-fix-2026-03-02.md` for details.
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).

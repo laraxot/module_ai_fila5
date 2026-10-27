@@ -39,8 +39,3 @@ https://github.com/taishi-i/awesome-ChatGPT-repositories   // !
 https://github.com/RubixML/ML
 
 
-
---- BMAD + Second Brain ---
-- Scopo: documentazione tecnica del modulo.
-- Utilità: riferimento sviluppatori/audit.
-- Funzionalità: struttura, dipendenze, convenzioni (no date .md, git avanti).
