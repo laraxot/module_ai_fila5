@@ -14,8 +14,4 @@ tags: [docs, ai]
 
 Canonico: [00-INDEX.md](./00-INDEX.md). Qui non ci sono istruzioni.
 
-<<<<<<< .merge_file_FPvR8h
 Il contenuto storico di questo file (piani prodotto in maiuscolo) resta in git; l'ingresso operativo e' `00-INDEX.md`. Scopo del modulo: [scopo.md](./scopo.md).
-=======
-Il contenuto storico di questo file (piani prodotto in maiuscolo) resta in git; l'ingresso operativo e' `00-INDEX.md`. Scopo del modulo: [scopo.md](./scopo.md).
->>>>>>> .merge_file_ieEEJU
