@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 created: 2026-09-26
 qmd: "index"
@@ -12,9 +11,6 @@ tags: [ai, documentazione, indice, modulo]
 status: active
 updated: 2026-10-14
 ---
-=======
-# AI Module Documentation
->>>>>>> fa79a29 (.)
 
 Welcome to the documentation for the AI module.
 
@@ -24,7 +20,6 @@ Welcome to the documentation for the AI module.
 - [Ollama Strategy](ollama-strategy.md)
 - [Token Optimization](ollama-token-optimization.md)
 
-<<<<<<< HEAD
 Indice operativo canonico (aggiornato 2026-10-14): [00-INDEX.md](./00-index.md), con stato verificato e ruolo delle directory. Questo `index.md` resta l'elenco esteso per argomento, scritto il 2026-09-03: 6 dei suoi link puntano a file che non esistono piu' e sono stati resi testo semplice. Gli altri indici (`00-index.md`, `INDEX.md`) sono varianti precedenti, segnate come tali.
 
 ## Start here
@@ -299,7 +294,3 @@ Cinque file condividono lo stesso template generico (`**Module:** AI`, `**Versio
 - [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
 - [merge-conflict-files-list.md](./merge-conflict-files-list.md) e [merge-conflicts-list.md](./merge-conflicts-list.md) - due elenchi di file con marker di conflitto da una sessione di merge passata (vedi memoria `project_notify-conflict-remediation-2026-09-03`); presumibilmente risolti, da verificare prima di rimuovere.
 - [wiki/agents.md](wiki/AGENTS.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](llm-wiki/AGENTS.md).
-=======
-## Livewire 4.x
-All components in this module utilize Livewire 4.x standards, including Single-File Components (SFC) where appropriate.
->>>>>>> fa79a29 (.)

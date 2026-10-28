@@ -1,6 +1,4 @@
 
-<<<<<<< HEAD
-=======
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
@@ -60,14 +58,12 @@ docs/legacy/
 
 # Copie residue da merge/rebase o editor (mai committare — es. `.agent~HEAD`, `*.md~head`)
 *~HEAD
->>>>>>> fa79a29 (.)
 *~BASE
 *~head
 *~HEAD
 *~LOCAL
 *~REMOTE
 agentdb.rvf
-<<<<<<< HEAD
 app/storage/
 audit-coverage/
 *.backup
@@ -139,14 +135,6 @@ yarn-error.log
 # graphify-out: generated AST/knowledge graph — never commit (no git-lfs; rebuild with graphify update)
 graphify-out/
 .claude/
-=======
-audit-coverage/
-.cursor/
-.vscode/
-.windsurf/
-.devcontainer/
-.claude-audit/
->>>>>>> fa79a29 (.)
 .claude-audit/
 test-results/
 ai.code-workspace

@@ -12,14 +12,9 @@ discussions:
 related:
   - ../overviews/ai-module.md
   - ../troubleshooting/pest-test-suite-fixes.md
-<<<<<<< HEAD
   - ../../../../Xot/docs/wiki/overviews/platform-completion-roadmap.md
   - ../../../../Xot/docs/wiki/concepts/phpstan-pest-bridge-discipline.md
 status: draft
-=======
-  - ../../../Xot/docs/wiki/overviews/platform-completion-roadmap.md
-  - ../../../Xot/docs/wiki/concepts/phpstan-pest-bridge-discipline.md
->>>>>>> fa79a29 (.)
 ---
 
 # Testing in AI
