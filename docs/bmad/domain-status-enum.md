@@ -35,7 +35,7 @@ Le colonne restano `string` (le migration non cambiano): la conversione avviene 
 - La cartella `Modules/AI/Enums/` (fuori da `app/`, quindi fuori da PSR-4) contiene un `AiActionProposalStatus` orfano e mai referenziato: non e' l'enum in uso.
 
 <<<<<<< .merge_file_uCZuKl
-Storia: [2026-10-06-phpstan-cleanup-ai](../stories/phpstan-cleanup-ai.story.md).
+Storia: [phpstan-cleanup-ai](../stories/phpstan-cleanup-ai.story.md).
 =======
 Storia: [phpstan-cleanup-ai](../stories/phpstan-cleanup-ai.story.md).
 >>>>>>> .merge_file_JLnzYh
