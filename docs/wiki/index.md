@@ -11,7 +11,6 @@ issues:
 discussions:
   - "https://github.com/laraxot/base_fixcity_fila5/discussions/273"
 related:
-<<<<<<< HEAD
   - ../../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md
   - ../../../../../docs/wiki/bmad/architecture.md
   - ../../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md
@@ -19,17 +18,10 @@ related:
   - ./concepts/ollama-actions-ownership.md
   - ./concepts/second-brain-local-discipline.md
 status: draft
-=======
-  - ../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md
-  - ../../../../docs/wiki/bmad/architecture.md
-  - ../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md
-  - ../../docs/wiki/concepts/ai-harness-module-discipline.md
->>>>>>> fa79a29 (.)
 ---
 
 # AI Module LLM Wiki
 
-<<<<<<< HEAD
 ## Ownership Actions (2026-07-24)
 
 - [ollama-actions-ownership](./concepts/ollama-actions-ownership.md) — Ollama/ContextCompressor in **AI**, non Xot
@@ -41,14 +33,6 @@ status: draft
 - [hackernoon-ai-coding-tips-fixcity-map](../../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md)
 - [bmad/architecture](../../../../../docs/wiki/bmad/architecture.md)
 - [frontmatter + GitHub](../../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md)
-=======
-## AI / second brain
-
-- [hackernoon-ai-coding-tips-fixcity-map](../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md)
-- [bmad/architecture](../../../../docs/wiki/bmad/architecture.md)
-- [frontmatter + GitHub](../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md)
-- [ai-harness-module-discipline](../../docs/wiki/concepts/ai-harness-module-discipline.md)
->>>>>>> fa79a29 (.)
 - [second-brain-local-discipline](./concepts/second-brain-local-discipline.md) → canon Xot
 
 

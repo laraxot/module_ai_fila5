@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: "AI — alias indice"
 type: alias
@@ -12,9 +11,6 @@ tags: [docs, ai]
 ---
 
 # Alias — indice AI
-=======
-# AI Module - Documentation Index
->>>>>>> fa79a29 (.)
 
 Canonico: [00-INDEX.md](./00-INDEX.md). Qui non ci sono istruzioni.
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: "CHANGELOG"
 type: note
@@ -60,10 +59,3 @@ discussions: []
 ### Bug Fixes
 
 * **Ollama:** restore array-shape PHPDoc lost when Action moved from Xot ([f32b9e9](https://github.com/laraxot/module_ai_fila5/commit/f32b9e9400c2ff79093ff65fdc23d2340b7f6a0f))
-=======
-# Changelog
-
-Tutte le modifiche rilevanti di questo pacchetto sono documentate in questo file.
-
-Il file viene aggiornato automaticamente da [semantic-release](https://github.com/semantic-release/semantic-release) (Conventional Commits).
->>>>>>> fa79a29 (.)
