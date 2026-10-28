@@ -6,13 +6,18 @@ title: "AI Module Documentation"
 type: documentation
 tags: [module, documentation]
 created: 2026-06-05
+<<<<<<< HEAD
 updated: 2026-10-14
 status: active
 module: AI
+=======
+updated: 2026-06-05
+>>>>>>> fa79a29 (.)
 ---
 
 # AI Module
 
+<<<<<<< HEAD
 Ingresso della documentazione del modulo. Ogni affermazione e' stata confrontata con il codice il 2026-10-14. Le versioni precedenti di questo README presentavano il modulo come "Integrazione MCP": nel codice del modulo non c'e' nulla di MCP (vedi i limiti).
 
 ## Identita' e ownership
@@ -22,6 +27,18 @@ Ingresso della documentazione del modulo. Ogni affermazione e' stata confrontata
 - Le Actions di dominio AI vivono in `app/Actions/` di questo modulo. Regola: [wiki/concepts/ollama-actions-ownership.md](wiki/concepts/ollama-actions-ownership.md). Stato reale: copie quasi identiche di `ChatOllamaAction` e `GenerateOllamaAction` esistono ancora in `Modules/Xot/app/Actions/AI/Ollama/` (ultimo commit 2026-10-09), quindi [ollama-actions-moved-from-xot.md](./ollama-actions-moved-from-xot.md) descrive una copia, non uno spostamento.
 
 ## Cosa contiene davvero
+=======
+## 📋 Quick Reference
+| Categoria | Guida | File |
+|-----------|-------| ---- |
+| **Setup** | MCP Server Setup | [mcp/01_installazione.md](mcp/01_installazione.md) |
+| **Config** | Configurazione | [mcp/02_configurazione.md](mcp/02_configurazione.md) |
+| **Usage** | Utilizzo pratico | [mcp/03_utilizzo.md](mcp/03_utilizzo.md) |
+| **Integration** | Chat System | [chat.md](chat.md) |
+| **Training** | Fine Tuning | [fine_tuning.md](fine_tuning.md) |
+| **Tools** | Ollama, CLI Tools | [ollama.md](ollama.md), [tools.md](tools.md) |
+| **Troubleshooting** | Errori comuni | [mcp/06_troubleshooting.md](mcp/06_troubleshooting.md) |
+>>>>>>> fa79a29 (.)
 
 | Area | Contenuto verificato | Percorso |
 |---|---|---|
@@ -83,7 +100,14 @@ Indice operativo: [00-INDEX.md](./00-index.md). Indice per argomento: [index.md]
 
 ## Documentation
 
+<<<<<<< HEAD
 - [On-Demand Pattern](on-demand-pattern.md): Pattern per caricamento efficiente
 - [QMD Setup](qmd-setup.md): Configurazione ricerca locale
 - [Performance](performance-optimization.md): Metriche e best practice
 - [Project Structure](project-structure.md): Directory layout
+=======
+- [On-Demand Pattern](./ON-DEMAND-PATTERN.md) — Pattern per caricamento efficiente
+- [QMD Setup](./QMD-SETUP.md) — Configurazione ricerca locale
+- [Performance](./PERFORMANCE-OPTIMIZATION.md) — Metriche e best practice
+- [Project Structure](./PROJECT-STRUCTURE.md) — Directory layout
+>>>>>>> fa79a29 (.)
