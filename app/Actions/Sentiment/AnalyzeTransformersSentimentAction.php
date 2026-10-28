@@ -26,7 +26,7 @@ final class AnalyzeTransformersSentimentAction
             error_log('Transformers sentiment pipeline disabled; using basic fallback.');
         }
 
-        return app(AnalyzeBasicSentimentAction::class)->execute($text);
+        return $this->analyzeBasicSentimentAction->execute($text);
     }
 
     private function canUseTransformersPipeline(): bool
