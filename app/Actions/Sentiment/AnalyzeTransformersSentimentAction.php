@@ -13,12 +13,9 @@ final class AnalyzeTransformersSentimentAction
 {
     use QueueableAction;
 
-<<<<<<< HEAD
     public function __construct(
         private readonly AnalyzeBasicSentimentAction $analyzeBasicSentimentAction,
     ) {}
-=======
->>>>>>> fa79a29 (.)
 
     /**
      * @return array<string, mixed>

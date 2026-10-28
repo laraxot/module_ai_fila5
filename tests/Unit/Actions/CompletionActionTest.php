@@ -6,11 +6,7 @@ namespace Modules\AI\Tests\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\CompletionAction;
-<<<<<<< HEAD
 use Modules\AI\Tests\TestCase;
-=======
-use Modules\AI\Datas\CompletionData;
->>>>>>> fa79a29 (.)
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Resources\Completions;
 use OpenAI\Responses\Completions\CreateResponse;
@@ -19,11 +15,7 @@ use PHPUnit\Framework\Assert;
 uses(\Modules\AI\Tests\TestCase::class);
 
 beforeEach(function (): void {
-<<<<<<< HEAD
     /** @var TestCase $this */
-=======
-    /** @var \Modules\AI\Tests\TestCase $this */
->>>>>>> fa79a29 (.)
     $this->action = new CompletionAction;
 });
 
@@ -34,13 +26,8 @@ Mockery::close();
 
 describe('Completion Action', function (): void {
     test('_creates_completion_with_valid_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = 'Explain what PHP is';
         $expectedText = 'PHP is a server-side scripting language designed for web development.';
 
@@ -70,13 +57,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_empty_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = '';
         $expectedText = 'No prompt provided.';
 
@@ -95,13 +77,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_long_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = str_repeat('This is a very long prompt that tests the handling of extended text content. ', 50);
         $expectedText = 'Response to long prompt.';
 
@@ -121,13 +98,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_special_characters_in_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = 'What is the meaning of life? 42! @#$%^&*()';
         $expectedText = 'The meaning of life is a philosophical question.';
 
@@ -146,13 +118,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_multilingual_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = '¿Qué es PHP? Explain in Spanish and English.';
         $expectedText = 'PHP es un lenguaje de programación. PHP is a programming language.';
 
@@ -171,13 +138,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_code_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = 'Write a PHP function to calculate factorial: function factorial($n) {';
         $expectedText = 'return $n <= 1 ? 1 : $n * factorial($n - 1); }';
 
@@ -196,13 +158,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_technical_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = 'Explain the SOLID principles in software development.';
         $expectedText = 'SOLID principles are five design principles for object-oriented programming.';
 
@@ -221,13 +178,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_question_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = 'What are the best practices for Laravel development?';
         $expectedText = 'Laravel best practices include using Eloquent ORM, following PSR standards, and implementing proper validation.';
 
@@ -246,13 +198,8 @@ describe('Completion Action', function (): void {
     });
 
     test('_handles_creative_prompt', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
         $action = new CompletionAction;
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
-        assert($this->action instanceof CompletionAction);
->>>>>>> fa79a29 (.)
         $prompt = 'Write a short story about a developer who discovers a magical bug.';
         $expectedText = 'Once upon a time, there was a developer named Alex who found a bug that glowed with an otherworldly light.';
 

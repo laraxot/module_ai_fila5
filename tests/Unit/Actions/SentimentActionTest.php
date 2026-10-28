@@ -6,13 +6,8 @@ namespace Modules\AI\Tests\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\SentimentAction;
-<<<<<<< HEAD
 use Modules\AI\Tests\TestCase;
-=======
-use Modules\AI\Datas\SentimentData;
->>>>>>> fa79a29 (.)
 use PHPUnit\Framework\Assert;
-use Tests\TestCase;
 
 uses(\Modules\AI\Tests\TestCase::class);
 
@@ -27,11 +22,7 @@ Mockery::close();
 
 describe('Sentiment Action', function (): void {
     test('_analyzes_positive_sentiment_correctly', function (): void {
-<<<<<<< HEAD
         /** @var TestCase $this */
-=======
-        /** @var \Modules\AI\Tests\TestCase $this */
->>>>>>> fa79a29 (.)
         $action = new SentimentAction;
         $text = 'This is a great product with excellent features. I am very happy with it.';
 
