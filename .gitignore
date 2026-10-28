@@ -23,8 +23,9 @@ _docs/
 docs/archive/
 docs/cache/
 docs/phpstan/
--e 
 .env
+.env.*
+!.env.example
 .git-blame-ignore-revs
 *.git-blame-ignore-revs
 .git-rewrite/
