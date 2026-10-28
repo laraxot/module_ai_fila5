@@ -9,12 +9,15 @@ use Modules\AI\Actions\SentimentAction;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
+uses(\Modules\AI\Tests\TestCase::class);
+
 beforeEach(function (): void {
-    /** @var TestCase $this */
+    /** @var \Modules\AI\Tests\TestCase $this */
 });
 
 afterEach(function (): void {
-    Mockery::close();
+Mockery::close();
+
 });
 
 describe('Sentiment Action', function (): void {

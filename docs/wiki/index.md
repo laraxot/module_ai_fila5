@@ -4,11 +4,12 @@ type: index
 module: AI
 tags: [ai, wiki, index, ollama, mcp]
 created: 2026-04-15
-updated: 2026-07-24
-qmd: "ai module wiki index ollama mcp second brain harness ownership actions"
+updated: 2026-06-05
+qmd: "ai module wiki index ollama mcp second brain harness"
 issues:
-  - "https://github.com/laraxot/base_techplanner_fila5/issues/18"
-discussions: []
+  - "https://github.com/laraxot/base_fixcity_fila5/issues/272"
+discussions:
+  - "https://github.com/laraxot/base_fixcity_fila5/discussions/273"
 related:
   - ../../../../../docs/wiki/concepts/hackernoon-ai-coding-tips-fixcity-map.md
   - ../../../../../docs/wiki/bmad/architecture.md
@@ -33,7 +34,6 @@ status: draft
 - [bmad/architecture](../../../../../docs/wiki/bmad/architecture.md)
 - [frontmatter + GitHub](../../../../../docs/wiki/rules/wiki-markdown-frontmatter-mandatory.md)
 - [second-brain-local-discipline](./concepts/second-brain-local-discipline.md) → canon Xot
-- [local-first-ollama-strategy](./concepts/local-first-ollama-strategy.md)
 
 
 Indice operativo del wiki AI.
