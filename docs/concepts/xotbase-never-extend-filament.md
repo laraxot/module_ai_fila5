@@ -1,7 +1,7 @@
 ---
 issues: []
 discussions: []
-title: "AI — mai Filament\*, sempre XotBase*"
+title: "AI — mai Filament*, sempre XotBase*"
 type: concept
 module: AI
 tags: [ai, filament, xotbase, architecture]
