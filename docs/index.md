@@ -155,6 +155,7 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 | root-files-hygiene.md _(riferimento non presente nel repository, verificato 2026-10-14)_ | Log hygiene dei file root |
 | [no-ai-tool-scaffold-dirs.md](./no-ai-tool-scaffold-dirs.md) | Perche' certe cartelle scaffold non devono esistere qui |
 | [gsd_workflow.md](./gsd_workflow.md) | Workflow GSD locale al modulo |
+| [stories/blade-i18n-no-hardcoded-text.story.md](./stories/blade-i18n-no-hardcoded-text.story.md) | Niente testi fissi nelle Blade (it, en, de, es) |
 
 ## Troubleshooting e fix
 
