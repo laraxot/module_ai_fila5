@@ -45,3 +45,11 @@ Testi in PHP non toccati: circa 12 chiamate `->label()`, `->placeholder()`, `->t
 ## Riferimenti
 
 Metodo e regola completa: [story del tema Two](../../../../Themes/Two/docs/stories/blade-i18n-no-hardcoded-text.story.md); protocollo a cinque elementi: [regola 008](../../../../../docs/wiki/rules/008-translation-5-level-protocol.md). Il dettaglio per file e' nel repo privato di audit.
+
+### Passata 2026-10-30 (sessione 97f16a39, i18n-small-modules: AI)
+
+Scanner `Modules/AI`: prima 8 occorrenze in 3 file (8 text), dopo 8 in 3 file (invariato).
+
+- Nessuna modifica. `check-blade-keys` su `Modules/AI`: 2 usi, 0 mancanti; compilazione 7 file OK.
+- Residui (8): `admin/dashboard/item` con dati di esempio (5, non richiamato da nulla), stub `index` e `layouts/master` (3).
+- Non verificato: nessuna pagina guardata.
