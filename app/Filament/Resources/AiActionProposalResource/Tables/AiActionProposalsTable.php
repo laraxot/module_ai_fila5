@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\AI\Actions\CancelAiActionProposalAction;
 use Modules\AI\Actions\ConfirmAiActionProposalAction;
 use Modules\AI\Models\AiActionProposal;
+use Modules\UI\Filament\Tables\Columns\IDColumn;
 use Modules\Xot\Filament\Resources\Tables\XotBaseResourceTable;
 
 class AiActionProposalsTable extends XotBaseResourceTable
@@ -56,7 +57,7 @@ class AiActionProposalsTable extends XotBaseResourceTable
     public function getTableColumns(): array
     {
         return [
-            'id' => TextColumn::make('id')->sortable()->searchable(),
+            'id' => IDColumn::make('id')->sortable()->searchable(),
             'thread.public_id' => TextColumn::make('thread.public_id')
                 ->limit(12),
             'type' => TextColumn::make('type')
