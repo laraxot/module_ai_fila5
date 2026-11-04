@@ -17,12 +17,11 @@ use Modules\Xot\Filament\Pages\BaseSettingPage;
 class SettingPage extends BaseSettingPage
 {
     /**
-     * @return array<string, object>
+     * @return array<string, TextInput>
      */
     protected function getFormSchema(): array
     {
         return [
-            ...parent::getFormSchema(),
             'model' => TextInput::make('model')
                 ->required()
                 ->maxLength(100),
