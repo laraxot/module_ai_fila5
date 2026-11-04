@@ -10,10 +10,10 @@ use Modules\Xot\Filament\Pages\BaseSettingPage;
 class SettingPage extends BaseSettingPage
 {
     /**
-     * @return array<string, never>
+     * @return array<string, object>
      */
     protected function getFormSchema(): array
     {
-        return [];
+        return parent::getFormSchema();
     }
 }

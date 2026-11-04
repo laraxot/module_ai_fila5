@@ -11,4 +11,6 @@ use Spatie\LaravelData\Data;
 class AIConfigData extends Data
 {
     use MakesFromTenantConfig;
+
+    public bool $enabled = true;
 }
