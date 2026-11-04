@@ -17,18 +17,12 @@ use Modules\Xot\Filament\Pages\BaseSettingPage;
 class SettingPage extends BaseSettingPage
 {
     /**
-<<<<<<< HEAD
-     * @return array<string, object>
-     */
-    protected function getFormSchema(): array
-    {
-        return parent::getFormSchema();
-=======
      * @return array<string, TextInput>
      */
     protected function getFormSchema(): array
     {
         return [
+            ...parent::getFormSchema(),
             'model' => TextInput::make('model')
                 ->required()
                 ->maxLength(100),
@@ -72,6 +66,5 @@ class SettingPage extends BaseSettingPage
                 ->maxLength(255)
                 ->dehydrateStateUsing(static fn (mixed $state): string => rtrim(is_string($state) ? $state : '', '/')),
         ];
->>>>>>> c7e2068abc1f5d4f3e274c837a9800e1461a3163
     }
 }
