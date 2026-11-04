@@ -27,6 +27,8 @@ class AIConfigData extends Data
 {
     use MakesFromTenantConfig;
 
+    public bool $enabled = true;
+
     /** Modello di completion di GeneratePredictionsAction. */
     public string $model = 'gpt-3.5-turbo-instruct';
 

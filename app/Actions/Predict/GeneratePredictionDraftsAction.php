@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Predict;
 
-use Spatie\QueueableAction\QueueableAction;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
+use Modules\AI\Datas\AIConfigData;
 use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
@@ -44,7 +44,7 @@ final class GeneratePredictionDraftsAction
         Assert::range($count, 1, 100);
 
         /** @var string|null $apiKey */
-        $apiKey = config('openai.api_key');
+        $apiKey = config('openai.api_key') ?: config('services.openai.api_key');
         if (! is_string($apiKey) || trim($apiKey) === '') {
             return $this->fallbackDrafts($count);
         }
