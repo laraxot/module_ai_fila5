@@ -27,9 +27,6 @@ class AIConfigData extends Data
 {
     use MakesFromTenantConfig;
 
-<<<<<<< HEAD
-    public bool $enabled = true;
-=======
     /** Modello di completion di GeneratePredictionsAction. */
     public string $model = 'gpt-3.5-turbo-instruct';
 
@@ -53,5 +50,4 @@ class AIConfigData extends Data
 
     /** Base URL dell'API compatibile OpenAI usata da MakeAIRequestAction. */
     public string $openai_base_url = 'https://api.openai.com/v1';
->>>>>>> c7e2068abc1f5d4f3e274c837a9800e1461a3163
 }
