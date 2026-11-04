@@ -17,7 +17,7 @@ use Modules\Xot\Filament\Pages\BaseSettingPage;
 class SettingPage extends BaseSettingPage
 {
     /**
-     * @return array<string, TextInput>
+     * @return array<string, object>
      */
     protected function getFormSchema(): array
     {
