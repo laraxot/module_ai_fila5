@@ -11,10 +11,6 @@ return [
     ],
     'title' => 'Settings',
     'fields' => [
-        'enabled' => [
-            'label' => 'Module enabled',
-            'helper_text' => 'Enable AI features for this tenant.',
-        ],
         'model' => [
             'label' => 'Completion model',
             'placeholder' => 'gpt-3.5-turbo-instruct',

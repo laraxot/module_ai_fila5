@@ -44,7 +44,7 @@ final class GeneratePredictionDraftsAction
         Assert::range($count, 1, 100);
 
         /** @var string|null $apiKey */
-        $apiKey = config('openai.api_key') ?: config('services.openai.api_key');
+        $apiKey = config('openai.api_key');
         if (! is_string($apiKey) || trim($apiKey) === '') {
             return $this->fallbackDrafts($count);
         }

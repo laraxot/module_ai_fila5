@@ -82,3 +82,29 @@ cambiato in silenzio. Due proprieta': `temperature` per le previsioni, `chat_tem
   `tests/TestCase.php` non imposta piu' `ai.model`, `ai.temperature`, `ai.max_tokens` (nessuno li legge).
 - Pest `tests/Unit/Actions` + `tests/Unit/Datas`: vedi resoconto finale del task. PHPStan livello max: 0 errori sui file
   toccati. Pint: pulito.
+
+## Correzioni dopo la sincronizzazione con laraxot
+
+La sync `merge_remote_repo_2.sh` ha prodotto tre danni, trovati dalla guardia `EveryModuleHasSettingPageTest` (ogni
+proprieta' della Data deve avere un lettore):
+
+1. **Lettori persi.** `1e721ce` ("remove residual merge markers") ha scelto il lato remoto e ha tolto
+   `AIConfigData::make()` da `MakeAIRequestAction` e `GeneratePredictionDraftsAction`: `timeout`, `retry_attempts`,
+   `openai_base_url`, `chat_model`, `chat_temperature` non avevano piu' effetto, e `config('ai.temperature')` (la
+   temperatura del *completion*) finiva anche nelle bozze chat. Ripristinati da `728a1a4`; il remoto ne aveva fatto uno
+   equivalente in parallelo (`4ddc23f`), preso come base del merge.
+2. **Default cambiato.** Nel fix del remoto `MakeAIRequestAction` mandava `chat_model`/`chat_temperature`/`max_tokens`
+   (gpt-4o-mini, 0.6, 1500) al posto di `gpt-4`, `0.3`, `2000` di prima: la classificazione dei ticket cambiava anche senza
+   che nessuno salvasse. Rimessi i valori di prima; un test li fissa
+   (`_keeps_gpt_4_with_temperature_0_3_and_2000_tokens_when_no_setting_is_saved`, rosso prima).
+3. **`enabled` senza lettore.** Il remoto aveva aggiunto alla Data `enabled` (toggle ereditato dalla base con
+   `...parent::getFormSchema()`): nessun codice di AI lo legge. Tolto da pagina, Data e lang; la chiave eventualmente gia'
+   salvata nel file del tenant resta (il merge conserva le chiavi non gestite).
+
+Inoltre il remoto aveva esteso il guard della chiave API di `GeneratePredictionDraftsAction` a
+`services.openai.api_key`, ma `OpenAI::chat()` legge solo `openai.api_key`: con la sola chiave in `services` il guard
+passava e il client lanciava `ApiKeyIsMissing` invece di ripiegare sulle bozze di riserva (rompeva
+`_it_returns_fallback_drafts_when_openai_api_key_is_missing`). Ripristinato il guard su `openai.api_key`.
+
+Rossi gia' presenti e non legati a questa story: `QueueableActionContractTest` (`AIPromptTemplates` non usa
+`QueueableAction`) e `AiActionProposalTest` (`BindingResolutionException`).

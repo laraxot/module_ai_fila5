@@ -33,6 +33,18 @@ describe('MakeAIRequestAction config', function (): void {
             && $request->url() === 'https://api.openai.com/v1/chat/completions');
     });
 
+    test('_keeps_gpt_4_with_temperature_0_3_and_2000_tokens_when_no_setting_is_saved', function (): void {
+        config(['services.openai.api_key' => 'sk-from-services', 'ai.openai_api_key' => null]);
+        FakeTenantAiConfig::bind([]);
+        fakeChatCompletion('{}');
+
+        (new MakeAIRequestAction)->execute('prompt', 'classification');
+
+        Http::assertSent(fn (Request $request): bool => $request['model'] === 'gpt-4'
+            && $request['temperature'] === 0.3
+            && $request['max_tokens'] === 2000);
+    });
+
     test('_ai_keys_override_services_openai_keys', function (): void {
         config([
             'services.openai.api_key' => 'sk-from-services',

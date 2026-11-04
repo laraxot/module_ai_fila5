@@ -11,10 +11,6 @@ return [
     ],
     'title' => 'Impostazioni',
     'fields' => [
-        'enabled' => [
-            'label' => 'Modulo attivo',
-            'helper_text' => 'Abilita le funzionalita AI per questo tenant.',
-        ],
         'model' => [
             'label' => 'Modello di completion',
             'placeholder' => 'gpt-3.5-turbo-instruct',

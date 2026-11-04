@@ -46,7 +46,7 @@ final class MakeAIRequestAction
                         'Content-Type' => 'application/json',
                     ])
                     ->post($baseUrl.'/chat/completions', [
-                        'model' => $settings->chat_model,
+                        'model' => 'gpt-4',
                         'messages' => [
                             [
                                 'role' => 'system',
@@ -57,8 +57,8 @@ final class MakeAIRequestAction
                                 'content' => $prompt,
                             ],
                         ],
-                        'temperature' => $settings->chat_temperature,
-                        'max_tokens' => $settings->max_tokens,
+                        'temperature' => 0.3,
+                        'max_tokens' => 2000,
                     ]);
 
                 if ($response->successful()) {

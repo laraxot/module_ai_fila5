@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\AI\Filament\Pages;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Modules\AI\Datas\AIConfigData;
 use Modules\Xot\Filament\Pages\BaseSettingPage;
 
@@ -18,12 +17,11 @@ use Modules\Xot\Filament\Pages\BaseSettingPage;
 class SettingPage extends BaseSettingPage
 {
     /**
-     * @return array<string, TextInput|Toggle>
+     * @return array<string, TextInput>
      */
     protected function getFormSchema(): array
     {
         return [
-            ...parent::getFormSchema(),
             'model' => TextInput::make('model')
                 ->required()
                 ->maxLength(100),
