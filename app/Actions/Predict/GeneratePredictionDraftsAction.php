@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Predict;
 
-use Spatie\QueueableAction\QueueableAction;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
+use Modules\AI\Datas\AIConfigData;
 use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
@@ -49,9 +49,11 @@ final class GeneratePredictionDraftsAction
             return $this->fallbackDrafts($count);
         }
 
+        $settings = AIConfigData::make();
+
         $response = OpenAI::chat()->create([
-            'model' => $this->resolveModel(),
-            'temperature' => $this->resolveTemperature(),
+            'model' => $settings->chat_model,
+            'temperature' => $settings->chat_temperature,
             'max_tokens' => min(3800, max(1200, $count * 320)),
             'messages' => [
                 [
@@ -201,20 +203,6 @@ PROMPT;
     private function hasRequiredDraftFields(string $title, string $description, string $analysis): bool
     {
         return $title !== '' && $description !== '' && $analysis !== '';
-    }
-
-    private function resolveModel(): string
-    {
-        $rawModel = config('ai.chat_model', 'gpt-4o-mini');
-
-        return is_string($rawModel) && trim($rawModel) !== '' ? $rawModel : 'gpt-4o-mini';
-    }
-
-    private function resolveTemperature(): float
-    {
-        $rawTemperature = config('ai.temperature', 0.6);
-
-        return is_numeric($rawTemperature) ? (float) $rawTemperature : 0.6;
     }
 
     private function toNormalizedString(mixed $value): string

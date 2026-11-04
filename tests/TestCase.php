@@ -35,9 +35,6 @@ abstract class TestCase extends XotBaseTestCase
         config([
             'services.openai.api_key' => 'test-openai-key',
             'services.openai.model' => 'gpt-3.5-turbo-instruct',
-            'ai.model' => 'gpt-3.5-turbo-instruct',
-            'ai.temperature' => 0.7,
-            'ai.max_tokens' => 1500,
         ]);
     }
 }
