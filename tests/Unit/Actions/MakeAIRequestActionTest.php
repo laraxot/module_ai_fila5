@@ -8,13 +8,9 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\ClassifyTicketAction;
-use Modules\AI\Actions\MakeAIRequestAction;
 use Modules\AI\Actions\SuggestSolutionsAction;
-use Modules\AI\Tests\Support\FakeTenantAiConfig;
-use Modules\AI\Tests\TestCase;
+use Modules\AI\Actions\MakeAIRequestAction;
 use PHPUnit\Framework\Assert;
-
-uses(TestCase::class);
 
 function fakeChatCompletion(string $content): void
 {
@@ -37,8 +33,8 @@ describe('MakeAIRequestAction config', function (): void {
         config([
             'services.openai.api_key' => 'sk-from-services',
             'ai.openai_api_key' => 'sk-from-ai',
+            'ai.openai_base_url' => 'https://llm.example.test/v1',
         ]);
-        FakeTenantAiConfig::bind(['openai_base_url' => 'https://llm.example.test/v1']);
         fakeChatCompletion('{}');
 
         (new MakeAIRequestAction)->execute('prompt', 'classification');

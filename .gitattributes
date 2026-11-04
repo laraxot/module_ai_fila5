@@ -10,6 +10,7 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+
 # Binary files remain regular Git blobs.
 *.png binary !filter
 *.jpg binary !filter
