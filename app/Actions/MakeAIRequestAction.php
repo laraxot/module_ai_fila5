@@ -6,10 +6,7 @@ namespace Modules\AI\Actions;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-<<<<<<< .merge_file_dyvMYh
-=======
 use Modules\AI\Datas\AIConfigData;
->>>>>>> .merge_file_nIJy00
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
@@ -29,25 +26,12 @@ final class MakeAIRequestAction
     public function execute(string $prompt, string $type, array $context = []): string
     {
         $apiKey = config('ai.openai_api_key') ?: config('services.openai.api_key', '');
-<<<<<<< .merge_file_dyvMYh
-        $baseUrl = config('ai.openai_base_url', 'https://api.openai.com/v1');
-        $timeoutRaw = config('ai.timeout', 30);
-        $retryAttemptsRaw = config('ai.retry_attempts', 3);
-        $timeout = is_int($timeoutRaw) ? $timeoutRaw : 30;
-        $retryAttempts = is_int($retryAttemptsRaw) ? $retryAttemptsRaw : 3;
-
-        Assert::string($apiKey, 'API key must be a string');
-        Assert::string($baseUrl, 'Base URL must be a string');
-        Assert::integer($timeout, 'Timeout must be an integer');
-        Assert::integer($retryAttempts, 'Retry attempts must be an integer');
-=======
         Assert::string($apiKey, 'API key must be a string');
 
         $settings = AIConfigData::make();
         $baseUrl = $settings->openai_base_url;
         $timeout = $settings->timeout;
         $retryAttempts = $settings->retry_attempts;
->>>>>>> .merge_file_nIJy00
 
         $attempt = 0;
 

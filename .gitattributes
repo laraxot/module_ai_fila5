@@ -10,10 +10,6 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
-<<<<<<< .merge_file_McOEAq
-
-=======
->>>>>>> .merge_file_3kDz4u
 # Binary files remain regular Git blobs.
 *.png binary !filter
 *.jpg binary !filter

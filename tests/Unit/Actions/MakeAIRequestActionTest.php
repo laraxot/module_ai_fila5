@@ -10,12 +10,8 @@ use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\ClassifyTicketAction;
 use Modules\AI\Actions\MakeAIRequestAction;
 use Modules\AI\Actions\SuggestSolutionsAction;
-<<<<<<< .merge_file_YTu2C6
-use Modules\AI\Actions\MakeAIRequestAction;
-=======
 use Modules\AI\Tests\Support\FakeTenantAiConfig;
 use Modules\AI\Tests\TestCase;
->>>>>>> .merge_file_l0vjVV
 use PHPUnit\Framework\Assert;
 
 uses(TestCase::class);
