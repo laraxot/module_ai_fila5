@@ -8,8 +8,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
-use Modules\AI\Datas\AIConfigData;
 use OpenAI\Laravel\Facades\OpenAI;
+use Modules\AI\Datas\AIConfigData;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
