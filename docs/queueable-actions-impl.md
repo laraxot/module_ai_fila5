@@ -4,13 +4,16 @@ title: "Implementazione Queueable Actions — AI Service Conversion (2026-10-20)
 type: outcome
 updated: 2026-10-20
 status: completed
+tags: [docs, ai]
 ---
 
 # Queueable Actions — AI Service Conversion (2026-10-20)
 
 ## Modifica
 
-Conversione dei metodi `classifyTicket()` e `suggestSolutions()` di `AIService` in azioni Spatie Queueable.
+Conversione dei casi d'uso AI in azioni Spatie Queueable. Il precedente riferimento
+ad `AIService` è storico: `Modules/AI/app/Services/AIService.php` non è un percorso
+produttivo corrente.
 
 ## File creati
 
@@ -22,7 +25,7 @@ Conversione dei metodi `classifyTicket()` e `suggestSolutions()` di `AIService` 
 
 ## File modificati (no cancellazione funzionalità)
 
-- `Modules/AI/app/Services/AIService.php` — `classifyTicket()` e `suggestSolutions()` ora delegano alle nuove azioni (`app(...)->execute()`). Altri metodi (`analyzeSentiment`, `predictPriority`, `optimizeRouting`, `generateAutoResponse`, `analyzePatterns`, `suggestImprovements`) e metodi privati (`makeAIRequest`, `buildSentimentPrompt`, etc.) intatti.
+- Nessun `Modules/AI/app/Services/AIService.php`: non reintrodurre un wrapper Service per compatibilità presunta.
 - `Modules/AI/docs/queueable-actions.md` — stato aggiornato da draft; elenco file implementato, note di manutenzione.
 - `CHANGELOG.md` — non modificato (minimo necessario per questa conversione specifica).
 

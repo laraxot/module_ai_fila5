@@ -52,4 +52,4 @@ php -d memory_limit=2048M ./vendor/bin/phpstan analyse Modules/AI
 
 ## Hub piattaforma
 
-[platform-completion-roadmap](../../../../Xot/docs/wiki/overviews/platform-completion-roadmap.md)
+[platform-completion-roadmap](../../../Xot/docs/wiki/overviews/platform-completion-roadmap.md)

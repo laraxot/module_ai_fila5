@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "08 api reference"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: api-reference.md
 ---
 
 # API Reference dei Server MCP

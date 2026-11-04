@@ -7,7 +7,8 @@ updated: 2026-09-26
 qmd: "06 troubleshooting"
 issues: []
 discussions: []
-status: draft
+status: superseded
+superseded_by: troubleshooting.md
 ---
 
 # Risoluzione dei Problemi dei Server MCP
@@ -383,7 +384,6 @@ Per una migliore diagnostica dei problemi, è consigliabile configurare un loggi
 declare(strict_types=1);
 
 namespace Modules\AI\Services\Servers;
-use Modules\User\Models\User;
 
 use Modules\AI\Services\Contracts\SequentialThinkingServerContract;
 use Illuminate\Support\Facades\Http;
