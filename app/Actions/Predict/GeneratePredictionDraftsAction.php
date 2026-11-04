@@ -10,7 +10,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
+<<<<<<< .merge_file_Q3LdHL
 use OpenAI\Laravel\Facades\OpenAI;
+=======
+use Modules\AI\Datas\AIConfigData;
+use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\QueueableAction\QueueableAction;
+>>>>>>> .merge_file_hKN4LT
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
@@ -49,19 +55,35 @@ final class GeneratePredictionDraftsAction
             return $this->fallbackDrafts($count);
         }
 
+<<<<<<< .merge_file_Q3LdHL
         $response = OpenAI::chat()->create([
             'model' => $this->resolveModel(),
             'temperature' => $this->resolveTemperature(),
+=======
+        $settings = AIConfigData::make();
+
+        $response = OpenAI::chat()->create([
+            'model' => $settings->chat_model,
+            'temperature' => $settings->chat_temperature,
+>>>>>>> .merge_file_hKN4LT
             'max_tokens' => min(3800, max(1200, $count * 320)),
             'messages' => [
                 [
                     'role' => 'system',
                     'content' => 'Sei un editor italiano specializzato in prediction market. Produci solo JSON valido, niente markdown e niente testo extra.',
+<<<<<<< .merge_file_Q3LdHL
                 ],
                 [
                     'role' => 'user',
                     'content' => $this->buildPrompt($count),
                 ],
+=======
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $this->buildPrompt($count),
+                ],
+>>>>>>> .merge_file_hKN4LT
             ],
         ]);
 
@@ -170,6 +192,7 @@ PROMPT;
      * }|null
      */
     private function mapDraftFromItem(array $item): ?array
+<<<<<<< .merge_file_Q3LdHL
     {
         $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
         $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
@@ -204,17 +227,39 @@ PROMPT;
     }
 
     private function resolveModel(): string
+=======
+>>>>>>> .merge_file_hKN4LT
     {
-        $rawModel = config('ai.chat_model', 'gpt-4o-mini');
+        $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
+        $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
+        $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
+        if (! $this->hasRequiredDraftFields($title, $description, $analysis)) {
+            return null;
+        }
 
-        return is_string($rawModel) && trim($rawModel) !== '' ? $rawModel : 'gpt-4o-mini';
+        $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
+        $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
+        /** @var array<int, mixed> $tags */
+        $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
+        $rawLiquidity = Arr::get($item, 'liquidity', 5000);
+        $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
+
+        return [
+            'title' => Str::limit($title, 140, ''),
+            'subtitle' => $this->toNormalizedString(Arr::get($item, 'subtitle', '')),
+            'description' => $description,
+            'category' => $category !== '' ? $category : 'Altro',
+            'tags' => $this->normalizeTags($tags),
+            'analysis' => $analysis,
+            'event_end_date' => $this->normalizeDate($eventEndDate),
+            'liquidity' => max(1000, min(50000, $liquidity)),
+            'options' => $this->normalizeOptions(Arr::get($item, 'options', [])),
+        ];
     }
 
-    private function resolveTemperature(): float
+    private function hasRequiredDraftFields(string $title, string $description, string $analysis): bool
     {
-        $rawTemperature = config('ai.temperature', 0.6);
-
-        return is_numeric($rawTemperature) ? (float) $rawTemperature : 0.6;
+        return $title !== '' && $description !== '' && $analysis !== '';
     }
 
     private function toNormalizedString(mixed $value): string
