@@ -44,16 +44,14 @@ final class GeneratePredictionDraftsAction
         Assert::range($count, 1, 100);
 
         /** @var string|null $apiKey */
-        $apiKey = config('openai.api_key');
+        $apiKey = config('openai.api_key') ?: config('services.openai.api_key');
         if (! is_string($apiKey) || trim($apiKey) === '') {
             return $this->fallbackDrafts($count);
         }
 
-        $settings = AIConfigData::make();
-
         $response = OpenAI::chat()->create([
-            'model' => $settings->chat_model,
-            'temperature' => $settings->chat_temperature,
+            'model' => $this->resolveModel(),
+            'temperature' => $this->resolveTemperature(),
             'max_tokens' => min(3800, max(1200, $count * 320)),
             'messages' => [
                 [
@@ -203,6 +201,16 @@ PROMPT;
     private function hasRequiredDraftFields(string $title, string $description, string $analysis): bool
     {
         return $title !== '' && $description !== '' && $analysis !== '';
+    }
+
+    private function resolveModel(): string
+    {
+        return AIConfigData::make()->chat_model;
+    }
+
+    private function resolveTemperature(): float
+    {
+        return AIConfigData::make()->chat_temperature;
     }
 
     private function toNormalizedString(mixed $value): string

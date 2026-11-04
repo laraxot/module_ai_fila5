@@ -26,12 +26,15 @@ final class MakeAIRequestAction
     public function execute(string $prompt, string $type, array $context = []): string
     {
         $apiKey = config('ai.openai_api_key') ?: config('services.openai.api_key', '');
-        Assert::string($apiKey, 'API key must be a string');
-
         $settings = AIConfigData::make();
         $baseUrl = $settings->openai_base_url;
         $timeout = $settings->timeout;
         $retryAttempts = $settings->retry_attempts;
+
+        Assert::string($apiKey, 'API key must be a string');
+        Assert::string($baseUrl, 'Base URL must be a string');
+        Assert::integer($timeout, 'Timeout must be an integer');
+        Assert::integer($retryAttempts, 'Retry attempts must be an integer');
 
         $attempt = 0;
 
@@ -43,7 +46,7 @@ final class MakeAIRequestAction
                         'Content-Type' => 'application/json',
                     ])
                     ->post($baseUrl.'/chat/completions', [
-                        'model' => 'gpt-4',
+                        'model' => $settings->chat_model,
                         'messages' => [
                             [
                                 'role' => 'system',
@@ -54,8 +57,8 @@ final class MakeAIRequestAction
                                 'content' => $prompt,
                             ],
                         ],
-                        'temperature' => 0.3,
-                        'max_tokens' => 2000,
+                        'temperature' => $settings->chat_temperature,
+                        'max_tokens' => $settings->max_tokens,
                     ]);
 
                 if ($response->successful()) {
