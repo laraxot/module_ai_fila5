@@ -22,6 +22,7 @@ class SettingPage extends BaseSettingPage
     protected function getFormSchema(): array
     {
         return [
+            ...parent::getFormSchema(),
             'model' => TextInput::make('model')
                 ->required()
                 ->maxLength(100),
