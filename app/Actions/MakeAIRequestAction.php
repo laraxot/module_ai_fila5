@@ -6,6 +6,7 @@ namespace Modules\AI\Actions;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Modules\AI\Datas\AIConfigData;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 
@@ -25,11 +26,10 @@ final class MakeAIRequestAction
     public function execute(string $prompt, string $type, array $context = []): string
     {
         $apiKey = config('ai.openai_api_key') ?: config('services.openai.api_key', '');
-        $baseUrl = config('ai.openai_base_url', 'https://api.openai.com/v1');
-        $timeoutRaw = config('ai.timeout', 30);
-        $retryAttemptsRaw = config('ai.retry_attempts', 3);
-        $timeout = is_int($timeoutRaw) ? $timeoutRaw : 30;
-        $retryAttempts = is_int($retryAttemptsRaw) ? $retryAttemptsRaw : 3;
+        $settings = AIConfigData::make();
+        $baseUrl = $settings->openai_base_url;
+        $timeout = $settings->timeout;
+        $retryAttempts = $settings->retry_attempts;
 
         Assert::string($apiKey, 'API key must be a string');
         Assert::string($baseUrl, 'Base URL must be a string');
@@ -46,7 +46,7 @@ final class MakeAIRequestAction
                         'Content-Type' => 'application/json',
                     ])
                     ->post($baseUrl.'/chat/completions', [
-                        'model' => 'gpt-4',
+                        'model' => $settings->chat_model,
                         'messages' => [
                             [
                                 'role' => 'system',
@@ -57,8 +57,8 @@ final class MakeAIRequestAction
                                 'content' => $prompt,
                             ],
                         ],
-                        'temperature' => 0.3,
-                        'max_tokens' => 2000,
+                        'temperature' => $settings->chat_temperature,
+                        'max_tokens' => $settings->max_tokens,
                     ]);
 
                 if ($response->successful()) {

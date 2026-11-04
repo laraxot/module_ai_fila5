@@ -205,16 +205,12 @@ PROMPT;
 
     private function resolveModel(): string
     {
-        $rawModel = config('ai.chat_model', 'gpt-4o-mini');
-
-        return is_string($rawModel) && trim($rawModel) !== '' ? $rawModel : 'gpt-4o-mini';
+        return AIConfigData::make()->chat_model;
     }
 
     private function resolveTemperature(): float
     {
-        $rawTemperature = config('ai.temperature', 0.6);
-
-        return is_numeric($rawTemperature) ? (float) $rawTemperature : 0.6;
+        return AIConfigData::make()->chat_temperature;
     }
 
     private function toNormalizedString(mixed $value): string
