@@ -83,7 +83,7 @@ describe('AIConfigData defaults', function (): void {
     test('_a_missing_tenant_file_gives_the_defaults', function (): void {
         $path = app(GetTenantFilePathAction::class)->execute('ai.php');
         if (is_file($path)) {
-            test()->markTestSkipped('Il tenant corrente ha un file ai.php: i default non sono osservabili.');
+            Assert::markTestSkipped('Il tenant corrente ha un file ai.php: i default non sono osservabili.');
         }
 
         $data = AIConfigData::make();
