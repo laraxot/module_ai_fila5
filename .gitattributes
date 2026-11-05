@@ -1,13 +1,23 @@
+<<<<<<< .merge_file_SZgEn1
+# Git LFS vietato: tutti i binari restano blob Git normali.
+# Canon: docs/wiki/rules/no-git-lfs.md
+
+=======
 # Git LFS is forbidden in this repository. Binary files remain normal Git blobs.
 # This file is the canonical root policy for modules and themes.
+>>>>>>> .merge_file_0vuPR9
 * text=auto
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
 
+<<<<<<< .merge_file_SZgEn1
+# Binary files: binary disables text normalization; !filter blocks inherited LFS.
+=======
 # `binary` implies no text normalization, diff, or merge driver.
 # `!filter` disables any inherited Git LFS filter.
+>>>>>>> .merge_file_0vuPR9
 *.png binary !filter
 *.jpg binary !filter
 *.jpeg binary !filter
