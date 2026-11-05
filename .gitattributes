@@ -10,10 +10,14 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+<<<<<<< HEAD
 <<<<<<< .merge_file_Ck3jCG
 =======
 
 >>>>>>> .merge_file_YtYChh
+=======
+
+>>>>>>> laraxot/dev
 # Binary files remain regular Git blobs.
 *.png binary !filter
 *.jpg binary !filter
