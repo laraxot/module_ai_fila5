@@ -8,10 +8,21 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\ClassifyTicketAction;
+<<<<<<< .merge_file_h7JkKj
 use Modules\AI\Actions\SuggestSolutionsAction;
 use Modules\AI\Actions\MakeAIRequestAction;
 use PHPUnit\Framework\Assert;
 
+=======
+use Modules\AI\Actions\MakeAIRequestAction;
+use Modules\AI\Actions\SuggestSolutionsAction;
+use Modules\AI\Tests\Support\FakeTenantAiConfig;
+use Modules\AI\Tests\TestCase;
+use PHPUnit\Framework\Assert;
+
+uses(TestCase::class);
+
+>>>>>>> .merge_file_ajNdq5
 function fakeChatCompletion(string $content): void
 {
     Http::fake(['*' => Http::response(['choices' => [['message' => ['content' => $content]]]])]);
@@ -29,12 +40,32 @@ describe('MakeAIRequestAction config', function (): void {
             && $request->url() === 'https://api.openai.com/v1/chat/completions');
     });
 
+<<<<<<< .merge_file_h7JkKj
+=======
+    test('_keeps_gpt_4_with_temperature_0_3_and_2000_tokens_when_no_setting_is_saved', function (): void {
+        config(['services.openai.api_key' => 'sk-from-services', 'ai.openai_api_key' => null]);
+        FakeTenantAiConfig::bind([]);
+        fakeChatCompletion('{}');
+
+        (new MakeAIRequestAction)->execute('prompt', 'classification');
+
+        Http::assertSent(fn (Request $request): bool => $request['model'] === 'gpt-4'
+            && $request['temperature'] === 0.3
+            && $request['max_tokens'] === 2000);
+    });
+
+>>>>>>> .merge_file_ajNdq5
     test('_ai_keys_override_services_openai_keys', function (): void {
         config([
             'services.openai.api_key' => 'sk-from-services',
             'ai.openai_api_key' => 'sk-from-ai',
+<<<<<<< .merge_file_h7JkKj
             'ai.openai_base_url' => 'https://llm.example.test/v1',
         ]);
+=======
+        ]);
+        FakeTenantAiConfig::bind(['openai_base_url' => 'https://llm.example.test/v1']);
+>>>>>>> .merge_file_ajNdq5
         fakeChatCompletion('{}');
 
         (new MakeAIRequestAction)->execute('prompt', 'classification');
