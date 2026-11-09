@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Predict;
 
-use Spatie\QueueableAction\QueueableAction;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AI\Actions\Cast\ScalarCasterAction;
 use Modules\AI\Actions\Prediction\GetPredictionFallbackTemplatesAction;
-<<<<<<< .merge_file_44dSbW
-use OpenAI\Laravel\Facades\OpenAI;
-=======
 use Modules\AI\Datas\AIConfigData;
 use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\QueueableAction\QueueableAction;
->>>>>>> .merge_file_myYxij
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
@@ -176,43 +170,6 @@ PROMPT;
      * }|null
      */
     private function mapDraftFromItem(array $item): ?array
-<<<<<<< .merge_file_44dSbW
-    {
-        $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
-        $description = $this->toNormalizedString(Arr::get($item, 'description', ''));
-        $analysis = $this->toNormalizedString(Arr::get($item, 'analysis', ''));
-        if (! $this->hasRequiredDraftFields($title, $description, $analysis)) {
-            return null;
-        }
-
-        $category = $this->toNormalizedString(Arr::get($item, 'category', 'Altro'));
-        $eventEndDate = $this->toNormalizedString(Arr::get($item, 'event_end_date', ''));
-        /** @var array<int, mixed> $tags */
-        $tags = array_values(Arr::wrap(Arr::get($item, 'tags', [])));
-        $rawLiquidity = Arr::get($item, 'liquidity', 5000);
-        $liquidity = is_numeric($rawLiquidity) ? (int) $rawLiquidity : 5000;
-
-        return [
-            'title' => Str::limit($title, 140, ''),
-            'subtitle' => $this->toNormalizedString(Arr::get($item, 'subtitle', '')),
-            'description' => $description,
-            'category' => $category !== '' ? $category : 'Altro',
-            'tags' => $this->normalizeTags($tags),
-            'analysis' => $analysis,
-            'event_end_date' => $this->normalizeDate($eventEndDate),
-            'liquidity' => max(1000, min(50000, $liquidity)),
-            'options' => $this->normalizeOptions(Arr::get($item, 'options', [])),
-        ];
-    }
-
-    private function hasRequiredDraftFields(string $title, string $description, string $analysis): bool
-    {
-        return $title !== '' && $description !== '' && $analysis !== '';
-    }
-
-    private function resolveModel(): string
-=======
->>>>>>> .merge_file_myYxij
     {
         $title = $this->toNormalizedString(Arr::get($item, 'title', ''));
         $description = $this->toNormalizedString(Arr::get($item, 'description', ''));

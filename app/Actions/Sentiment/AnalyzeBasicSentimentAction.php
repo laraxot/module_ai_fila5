@@ -6,11 +6,7 @@ namespace Modules\AI\Actions\Sentiment;
 
 use function Safe\preg_match_all;
 
-<<<<<<< .merge_file_ibdePs
-use function Safe\preg_match_all;
-=======
 use Spatie\QueueableAction\QueueableAction;
->>>>>>> .merge_file_OoE29D
 
 final class AnalyzeBasicSentimentAction
 {
@@ -57,17 +53,6 @@ final class AnalyzeBasicSentimentAction
     private function countPolarity(string $text, array $positiveWords, array $negativeWords): array
     {
         $negations = ['not', 'no', 'never', 'nor', "isn't", "aren't", "wasn't", "don't", "doesn't", "didn't", "can't", "won't"];
-<<<<<<< .merge_file_ibdePs
-        preg_match_all("/[a-z']+/", mb_strtolower($text), $matches);
-        $tokens = $matches[0];
-        $positive = 0;
-        $negative = 0;
-
-        foreach ($tokens as $index => $token) {
-            $polarity = in_array($token, $positiveWords, true) ? 1 : (in_array($token, $negativeWords, true) ? -1 : 0);
-            if ($polarity === 0) {
-                continue;
-=======
         $matches = [];
         preg_match_all("/[a-z']+/", mb_strtolower($text), $matches);
         if (! isset($matches[0]) || ! is_array($matches[0])) {
@@ -78,14 +63,7 @@ final class AnalyzeBasicSentimentAction
         foreach ($matches[0] as $token) {
             if (is_string($token)) {
                 $tokens[] = $token;
->>>>>>> .merge_file_OoE29D
             }
-
-            if (array_intersect(array_slice($tokens, max(0, $index - 3), min(3, $index)), $negations) !== []) {
-                $polarity = -$polarity;
-            }
-
-            $polarity > 0 ? $positive++ : $negative++;
         }
         $positive = 0;
         $negative = 0;

@@ -65,17 +65,12 @@ final class ClassifyTicketAction
             ]);
         });
 
-<<<<<<< .merge_file_JCNFn7
-        $decoded = AiJsonResponseDecoderAction::decodeObject($result);
-
-=======
         if (! is_string($result)) {
             return self::DEFAULTS;
         }
 
         $decoded = AiJsonResponseDecoderAction::decodeObject($result);
 
->>>>>>> .merge_file_ALOvNN
         return $decoded === [] ? self::DEFAULTS : $decoded;
     }
 }

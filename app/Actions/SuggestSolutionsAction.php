@@ -65,17 +65,12 @@ final class SuggestSolutionsAction
             ]);
         });
 
-<<<<<<< .merge_file_UlNuOf
-        $decoded = AiJsonResponseDecoderAction::decodeObject($result);
-
-=======
         if (! is_string($result)) {
             return self::DEFAULTS;
         }
 
         $decoded = AiJsonResponseDecoderAction::decodeObject($result);
 
->>>>>>> .merge_file_F6m32F
         return $decoded === [] ? self::DEFAULTS : $decoded;
     }
 }
