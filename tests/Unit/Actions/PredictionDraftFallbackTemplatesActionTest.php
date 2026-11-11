@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Modules\AI\Tests\Unit\Actions;
 
 use Modules\AI\Actions\PredictionDraftFallbackTemplatesAction;
+use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
+
+uses(TestCase::class);
 
 describe('PredictionDraftFallbackTemplates Action', function (): void {
     test('_returns_expected_template_categories', function (): void {
@@ -14,7 +17,10 @@ describe('PredictionDraftFallbackTemplates Action', function (): void {
 
         Assert::assertNotEmpty($result);
 
-        Assert::assertEqualsCanonicalizing(['category', 'title', 'subtitle', 'description', 'analysis', 'tags', 'options'], array_keys($result[0]));
+        Assert::assertEqualsCanonicalizing(
+            ['category', 'title', 'subtitle', 'description', 'analysis', 'tags', 'options'],
+            array_keys($result[0]),
+        );
 
         // Verify that we have multiple categories
         $categories = array_unique(array_column($result, 'category'));
