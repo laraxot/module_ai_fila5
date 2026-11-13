@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_pjvE2p
 ---
 title: "PRODUCT STRATEGY"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_VIoa81
 # AI Module - Product Strategy
 
 **Module:** AI  
@@ -17,6 +20,7 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_pjvE2p
 title: "PRODUCT STRATEGY"
 type: note
 tags: [documentation]
@@ -25,6 +29,8 @@ updated: 2026-09-26
 qmd: "PRODUCT STRATEGY"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_VIoa81
 ## Executive Summary
 
 The AI module provides intelligent capabilities across the platform, from content generation to fraud detection. This strategy outlines our approach to building AI features that deliver measurable value while managing costs and risks.

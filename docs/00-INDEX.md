@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_QQZuVJ
 ---
 title: "00 INDEX"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_Ef6qMv
 # AI Module - Documentation Index
 
 **Path**: `laravel/Modules/AI/docs/`
@@ -32,11 +35,14 @@ discussions: []
 | [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
 | [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
 
+<<<<<<< .merge_file_QQZuVJ
 ### Stories
 | File | Scopo |
 |---|---|
 | [2026-10-08-services-to-actions-ai.story.md](./stories/2026-10-08-services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
 
+=======
+>>>>>>> .merge_file_Ef6qMv
 ## Riferimenti canonici esterni al modulo
 
 - [Ralph + GSD + BMAD orchestration](../../../../bashscripts/ai/.agents/docs/architecture/ralph-gsd-bmad-orchestration.md)

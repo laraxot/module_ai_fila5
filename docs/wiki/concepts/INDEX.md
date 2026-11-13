@@ -1,7 +1,10 @@
 ---
+<<<<<<< .merge_file_bTcRMb
 qmd: "INDEX"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_XjSz3S
 title: "concepts index — AI"
 type: index
 tags: [concepts, AI]

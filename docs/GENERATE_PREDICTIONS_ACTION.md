@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_b7AaZV
 ---
 title: "GENERATE PREDICTIONS ACTION"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_Y8F4Yk
 # AI Module - Generate Predictions Action
 
 ## Panoramica
@@ -452,6 +455,7 @@ Log::info('AI Prediction generated', [
 
 ---
 
+<<<<<<< .merge_file_b7AaZV
 title: "GENERATE PREDICTIONS ACTION"
 type: note
 tags: [documentation]
@@ -460,6 +464,8 @@ updated: 2026-09-26
 qmd: "GENERATE PREDICTIONS ACTION"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_Y8F4Yk
 **Ultimo aggiornamento**: 2026-03-12  
 **Versione**: 1.0  
 **Stato**: In sviluppo

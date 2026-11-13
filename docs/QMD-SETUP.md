@@ -1,7 +1,10 @@
 ---
+<<<<<<< .merge_file_sq2EF4
 qmd: "QMD SETUP"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_yJzHWQ
 title: "QMD Setup — Module AI"
 type: documentation
 created: 2026-05-11

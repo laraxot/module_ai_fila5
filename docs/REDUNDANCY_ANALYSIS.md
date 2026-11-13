@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_W5BJDl
 ---
 title: "REDUNDANCY ANALYSIS"
 type: note
@@ -9,4 +10,6 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_QMp9hd
 Redundancy analysis available: docs/analysis/redundancies/summary.md

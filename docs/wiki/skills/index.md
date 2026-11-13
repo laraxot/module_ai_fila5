@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_w5M2z7
 ---
 title: "index"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_G5RFrD
 # AI Module - skills Index
 
 ## Purpose

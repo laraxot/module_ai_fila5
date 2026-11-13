@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_eNJUQZ
 ---
 title: "INDEX"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_hGPFRg
 # AI Module - memories Index
 
 ## Purpose
@@ -25,6 +28,7 @@ qmd search "AI memories" --limit 5
 - [Root Wiki](../../../docs/wiki/)
 
 ---
+<<<<<<< .merge_file_eNJUQZ
 title: "INDEX"
 type: note
 tags: [documentation]
@@ -33,4 +37,6 @@ updated: 2026-09-26
 qmd: "INDEX"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_hGPFRg
 *Updated: 2026-05-11*

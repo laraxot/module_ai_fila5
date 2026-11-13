@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_gVSxNp
 ---
 title: "PRODUCT ROADMAP"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_kSk90Y
 # AI Module - Product Roadmap
 
 **Module:** AI  
@@ -18,6 +21,7 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_gVSxNp
 title: "PRODUCT ROADMAP"
 type: note
 tags: [documentation]
@@ -26,6 +30,8 @@ updated: 2026-09-26
 qmd: "PRODUCT ROADMAP"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_kSk90Y
 ## Vision Statement
 
 To integrate **intelligent automation and AI-powered insights** throughout the platform, enhancing user experience, improving operational efficiency, and enabling capabilities that would be impossible with traditional software alone.

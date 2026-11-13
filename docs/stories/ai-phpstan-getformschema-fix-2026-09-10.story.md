@@ -1,9 +1,12 @@
 ---
+<<<<<<< .merge_file_c18Die
 tags: [documentation]
 updated: 2026-09-26
 qmd: "ai phpstan getformschema fix 2026 09 10.story"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_ArT0Gv
 title: "PHPStan fix - AiActionProposal getFormSchema/getInfolistSchema override illegale + typo TestCase"
 status: done
 type: story

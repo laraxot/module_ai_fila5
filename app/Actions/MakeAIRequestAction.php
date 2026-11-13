@@ -6,6 +6,7 @@ namespace Modules\AI\Actions;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Sleep;
 use Modules\AI\Datas\AIConfigData;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
@@ -93,9 +94,11 @@ final class MakeAIRequestAction
             }
 
             $attempt++;
-            // Exponential backoff (2, 4, 8, ... secondi)
+            // Exponential backoff (2, 4, 8, ... secondi).
+            // Sleep:: e non sleep(): nei test e' falsificabile, mentre un
+            // sleep() nudo fa aspettare davvero la suite a ogni tentativo.
             if ($attempt < $retryAttempts) {
-                sleep((int) pow(2, $attempt));
+                Sleep::sleep((int) pow(2, $attempt));
             }
         }
 

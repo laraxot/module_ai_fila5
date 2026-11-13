@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_Qxb6dK
 ---
 title: "BAD PRACTICES"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_NMbRCR
 # Bad Practices – AI
 
 ## ❌ Usare `file_get_contents` per chiamare API

@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_X2wHX2
 ---
 title: "PRD"
 type: note
@@ -9,6 +10,8 @@ issues: []
 discussions: []
 ---
 
+=======
+>>>>>>> .merge_file_WeHCkZ
 # Product Requirements Document (PRD) - AI Module
 
 **Module**: AI
@@ -18,6 +21,7 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_X2wHX2
 title: "PRD"
 type: note
 tags: [documentation]
@@ -26,6 +30,8 @@ updated: 2026-09-26
 qmd: "PRD"
 issues: []
 discussions: []
+=======
+>>>>>>> .merge_file_WeHCkZ
 ## Document Control
 
 | Version | Date | Author | Changes |
