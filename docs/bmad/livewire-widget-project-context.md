@@ -11,7 +11,6 @@ module: AI
 related:
   - ./livewire-inventory.md
   - ../../Xot/docs/bmad/livewire-widget-project-context.md
-status: draft
 ---
 
 # Context AI

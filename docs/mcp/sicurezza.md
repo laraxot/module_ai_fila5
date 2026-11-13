@@ -7,7 +7,6 @@ updated: 2026-09-26
 qmd: "sicurezza"
 issues: []
 discussions: []
-status: draft
 ---
 
 # Sicurezza dei Server MCP
