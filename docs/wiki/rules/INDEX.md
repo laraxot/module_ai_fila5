@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_hMba9V
 ---
 title: "INDEX"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_YmaL1E
 # AI Module - rules Index
 
 ## Purpose
@@ -28,7 +25,6 @@ qmd search "AI rules" --limit 5
 - [Root Wiki](../../../docs/wiki/)
 
 ---
-<<<<<<< .merge_file_hMba9V
 title: "INDEX"
 type: note
 tags: [documentation]
@@ -37,6 +33,4 @@ updated: 2026-09-26
 qmd: "INDEX"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_YmaL1E
 *Updated: 2026-05-11*

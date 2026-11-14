@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_5AFhgl
 ---
 title: "GSD WORKFLOW"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_rBOIKj
 # GSD Workflow — Modulo AI
 
 > Workflow spec-driven per lo sviluppo del modulo AI usando GSD e BMAD.

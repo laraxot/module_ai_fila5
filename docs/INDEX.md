@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_cBirwN
 ---
 title: "INDEX"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_fC4A1Z
 # Documentation Index
 
 Modulo: AI

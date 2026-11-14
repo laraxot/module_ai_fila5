@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_JlOx18
 ---
 title: "phpstan remediation 2025 12 23"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_qJcKcQ
 # PHPStan Remediation Plan – 2025-12-23
 
 ## Contesto attuale

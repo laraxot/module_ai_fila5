@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_goSrJM
 ---
 title: "SPRINT PLANNING"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_HIsHjP
 # AI Module - Sprint Planning
 
 **Module:** AI  
@@ -20,7 +17,6 @@ discussions: []
 
 ---
 
-<<<<<<< .merge_file_goSrJM
 title: "SPRINT PLANNING"
 type: note
 tags: [documentation]
@@ -29,8 +25,6 @@ updated: 2026-09-26
 qmd: "SPRINT PLANNING"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_HIsHjP
 ## Sprint Goal
 
 Establish AI infrastructure and launch content generation for prediction markets.

@@ -1,10 +1,7 @@
 ---
-<<<<<<< .merge_file_cK14WE
 qmd: "PERFORMANCE OPTIMIZATION"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_TOZp6o
 title: "Performance Optimization — Module AI"
 type: documentation
 created: 2026-05-11

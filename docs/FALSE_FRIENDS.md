@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_t4j1h9
 ---
 title: "FALSE FRIENDS"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_a10FBx
 # False Friends – AI
 
 | Falso Amico | Perché fuorviante | Soluzione |

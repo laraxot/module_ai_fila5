@@ -1,10 +1,7 @@
 ---
-<<<<<<< .merge_file_5vtLVG
 qmd: "ON DEMAND PATTERN"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_edtf0K
 title: "On-Demand Pattern — Module AI"
 type: documentation
 created: 2026-05-11

@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_9Ca4zu
 ---
 title: "BEST PRACTICES"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_bSEQXn
 # Best Practices – AI
 
 ## Principi DRY/KISS

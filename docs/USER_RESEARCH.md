@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_zdXEno
 ---
 title: "USER RESEARCH"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_AmdAGy
 # AI Module - User Research
 
 **Module:** AI  
@@ -20,7 +17,6 @@ discussions: []
 
 ---
 
-<<<<<<< .merge_file_zdXEno
 title: "USER RESEARCH"
 type: note
 tags: [documentation]
@@ -29,8 +25,6 @@ updated: 2026-09-26
 qmd: "USER RESEARCH"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_AmdAGy
 ## Research Goals
 
 1. Understand user comfort with AI-generated content

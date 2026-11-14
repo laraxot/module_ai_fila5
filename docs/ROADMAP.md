@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_4TOXNa
 ---
 title: "ROADMAP"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_PNmZhJ
 # AI Module Roadmap
 
 - **[mission]** Provide AI-powered features (completion, fine-tuning) aligned with Filament v4 and Laravel 12.

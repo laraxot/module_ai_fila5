@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_mrFb0T
 ---
 title: "NEXT STEPS"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_99Bf7f
 # 🎯 Ollama MCP Integration - Stato Attuale e Prossimi Passi
 
 **Data**: 2026-03-11  
@@ -21,7 +18,6 @@ discussions: []
 
 ---
 
-<<<<<<< .merge_file_mrFb0T
 title: "NEXT STEPS"
 type: note
 tags: [documentation]
@@ -30,8 +26,6 @@ updated: 2026-09-26
 qmd: "NEXT STEPS"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_99Bf7f
 ## ✅ Cosa è Stato Completato
 
 ### 1. Infrastructure Setup

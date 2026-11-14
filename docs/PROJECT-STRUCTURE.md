@@ -1,10 +1,7 @@
 ---
-<<<<<<< .merge_file_1YqqDb
 qmd: "PROJECT STRUCTURE"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_rJZTz5
 title: "Project Structure — Module AI"
 type: documentation
 created: 2026-05-11

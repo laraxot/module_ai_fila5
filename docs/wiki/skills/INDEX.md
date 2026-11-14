@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_CpRjhN
 ---
 title: "INDEX"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_umox0w
 # AI Module - skills Index
 
 ## Purpose
@@ -28,7 +25,6 @@ qmd search "AI skills" --limit 5
 - [Root Wiki](../../../docs/wiki/)
 
 ---
-<<<<<<< .merge_file_CpRjhN
 title: "INDEX"
 type: note
 tags: [documentation]
@@ -37,6 +33,4 @@ updated: 2026-09-26
 qmd: "INDEX"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_umox0w
 *Updated: 2026-05-11*

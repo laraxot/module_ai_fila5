@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_EyICju
 ---
 title: "PRODUCT LAUNCH PLAN"
 type: note
@@ -10,8 +9,6 @@ issues: []
 discussions: []
 ---
 
-=======
->>>>>>> .merge_file_8ESlkh
 # AI Module - Product Launch Plan
 
 **Module:** AI  
@@ -20,7 +17,6 @@ discussions: []
 
 ---
 
-<<<<<<< .merge_file_EyICju
 title: "PRODUCT LAUNCH PLAN"
 type: note
 tags: [documentation]
@@ -29,8 +25,6 @@ updated: 2026-09-26
 qmd: "PRODUCT LAUNCH PLAN"
 issues: []
 discussions: []
-=======
->>>>>>> .merge_file_8ESlkh
 ## Launch Objectives
 
 1. **Product:** Deploy AI content generation for markets
