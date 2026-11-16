@@ -10,7 +10,7 @@ created: 2026-11-16
 updated: 2026-11-16
 depends_on: []
 qmd: "assistant knowledge base story"
-issues: []
+issues: [25, 26]
 discussions: []
 related:
   - ../assistant.md

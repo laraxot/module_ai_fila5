@@ -6,7 +6,7 @@ tags: [ai, assistant, knowledge-base, handoff, report]
 created: 2026-11-16
 updated: 2026-11-16
 qmd: "assistant knowledge base handoff report"
-issues: []
+issues: [25, 26]
 discussions: []
 related:
   - ./stories/assistant-knowledge-base.story.md
