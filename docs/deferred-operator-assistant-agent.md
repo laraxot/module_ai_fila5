@@ -27,7 +27,7 @@ Quello che è stato portato in questa sessione è solo l'infrastruttura di persi
 "AI propone, umano conferma, sistema esegue":
 
 - Modelli `AiThread`, `AiMessage`, `AiActionProposal`, `AiToolLog`
-- `Contracts\AiActionHandlerContract` + `Support\AiActionHandlerRegistry` (singleton)
+- `Contracts\AiActionHandlerContract` + `Adapters\AiActionHandlerRegistry` (singleton)
 - Actions `CreateAiActionProposalAction`, `ConfirmAiActionProposalAction`, `CancelAiActionProposalAction`
 - Filament `AiActionProposalResource` con azioni Confirm/Cancel
 
