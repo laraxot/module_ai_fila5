@@ -7,6 +7,8 @@ namespace Modules\AI\Actions\Assistant;
 use Illuminate\Support\Str;
 use Spatie\QueueableAction\QueueableAction;
 
+use function Safe\preg_split;
+
 /**
  * Riduce un testo a parole confrontabili: minuscolo, senza accenti, solo lettere/cifre,
  * almeno 3 caratteri ("Rimborsò!" -> "rimborso"). Base comune di ricerca e guardrail.
@@ -21,11 +23,13 @@ final class TokenizeTextAction
     public function execute(string $text): array
     {
         $normalized = Str::lower(Str::ascii($text));
-        $words = preg_split('/[^a-z0-9]+/', $normalized) ?: [];
+        $tokens = [];
+        foreach (preg_split('/[^a-z0-9]+/', $normalized) as $word) {
+            if (is_string($word) && strlen($word) >= self::MIN_LENGTH) {
+                $tokens[] = $word;
+            }
+        }
 
-        return array_values(array_unique(array_filter(
-            $words,
-            static fn (string $word): bool => strlen($word) >= self::MIN_LENGTH,
-        )));
+        return array_values(array_unique($tokens));
     }
 }

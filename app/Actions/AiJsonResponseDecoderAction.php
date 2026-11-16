@@ -15,6 +15,8 @@ use Safe;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
 
+use function Safe\preg_match;
+
 /**
  * Safely decode AI JSON responses.
  *
@@ -57,7 +59,7 @@ final class AiJsonResponseDecoderAction
         $normalized = trim($result);
         // I modelli spesso racchiudono il JSON in un blocco markdown ```json ... ```.
         if (preg_match('/^```[a-zA-Z]*\s*(.*?)\s*```$/s', $normalized, $matches) === 1) {
-            $normalized = trim($matches[1]);
+            $normalized = trim($matches[1] ?? '');
         }
         if ($normalized === '') {
             return [];

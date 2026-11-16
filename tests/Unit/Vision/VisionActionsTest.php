@@ -10,6 +10,10 @@ use Modules\AI\Exceptions\AiRequestException;
 use Modules\AI\Tests\Support\FakeTenantAiConfig;
 use Modules\AI\Tests\TestCase;
 
+use function Safe\base64_decode;
+use function Safe\file_put_contents;
+use function Safe\tempnam;
+
 uses(TestCase::class);
 
 /** PNG 1x1 valido, scritto in un file temporaneo. */
@@ -41,14 +45,35 @@ it('sends text first, images as data URIs and a strict json schema, and returns 
     expect($result)->toBe(['items' => [['name' => 'Tiramisù', 'price' => 6.5]]]);
 
     Http::assertSent(function (Request $request): bool {
-        $content = $request['messages'][1]['content'];
+        $data = $request->data();
+
+        $messages = $data['messages'] ?? null;
+        $secondMessage = is_array($messages) ? ($messages[1] ?? null) : null;
+        $secondMessage = is_array($secondMessage) ? $secondMessage : [];
+        $contentParts = $secondMessage['content'] ?? null;
+        $contentParts = is_array($contentParts) ? array_values($contentParts) : [];
+
+        $textPart = $contentParts[0] ?? null;
+        $imagePart = $contentParts[1] ?? null;
+        $imageUrl = null;
+        if (is_array($imagePart) && is_array($imagePart['image_url'] ?? null)) {
+            $imageUrl = $imagePart['image_url']['url'] ?? null;
+        }
+
+        $responseFormat = $data['response_format'] ?? null;
+        $responseFormat = is_array($responseFormat) ? $responseFormat : [];
+        $jsonSchema = $responseFormat['json_schema'] ?? null;
+        $jsonSchema = is_array($jsonSchema) ? $jsonSchema : [];
+        $provider = $data['provider'] ?? null;
+        $provider = is_array($provider) ? $provider : [];
 
         return $request->hasHeader('Authorization', 'Bearer test-key')
-            && $request['model'] === 'vendor/vision-model'
-            && $content[0] === ['type' => 'text', 'text' => 'Leggi le voci.']
-            && str_starts_with($content[1]['image_url']['url'], 'data:image/png;base64,')
-            && $request['response_format']['json_schema']['strict'] === true
-            && $request['provider']['require_parameters'] === true;
+            && ($data['model'] ?? null) === 'vendor/vision-model'
+            && $textPart === ['type' => 'text', 'text' => 'Leggi le voci.']
+            && is_string($imageUrl)
+            && str_starts_with($imageUrl, 'data:image/png;base64,')
+            && ($jsonSchema['strict'] ?? null) === true
+            && ($provider['require_parameters'] ?? null) === true;
     });
 });
 
@@ -86,7 +111,15 @@ it('edits an image through the images endpoint and returns the decoded bytes', f
     $result = app(EditImageAction::class)->execute(tinyPng(), 'Pulisci il logo.');
 
     expect($result)->toBe(['mime' => 'image/png', 'bytes' => 'PNGDATA']);
-    Http::assertSent(fn (Request $request): bool => $request['model'] === 'vendor/image-model'
-        && str_starts_with($request['input_references'][0], 'data:image/png;base64,')
-        && $request['prompt'] === 'Pulisci il logo.');
+    Http::assertSent(function (Request $request): bool {
+        $data = $request->data();
+        $references = $data['input_references'] ?? null;
+        $references = is_array($references) ? array_values($references) : [];
+        $firstReference = $references[0] ?? null;
+
+        return ($data['model'] ?? null) === 'vendor/image-model'
+            && is_string($firstReference)
+            && str_starts_with($firstReference, 'data:image/png;base64,')
+            && ($data['prompt'] ?? null) === 'Pulisci il logo.';
+    });
 });
