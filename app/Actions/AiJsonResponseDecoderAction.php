@@ -55,6 +55,10 @@ final class AiJsonResponseDecoderAction
     public static function decodeObject(string $result): array
     {
         $normalized = trim($result);
+        // I modelli spesso racchiudono il JSON in un blocco markdown ```json ... ```.
+        if (preg_match('/^```[a-zA-Z]*\s*(.*?)\s*```$/s', $normalized, $matches) === 1) {
+            $normalized = trim($matches[1]);
+        }
         if ($normalized === '') {
             return [];
         }

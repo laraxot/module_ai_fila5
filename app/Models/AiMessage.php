@@ -15,7 +15,12 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * A single message (user|assistant|tool|system) within an AiThread.
  *
+ * @property int $id
+ * @property int $ai_thread_id
+ * @property int|null $user_id
  * @property AiMessageRoleEnum $role
+ * @property string|null $content
+ * @property array<string, mixed>|null $payload
  * @property-read ProfileContract|null $creator
  * @property-read AiThread|null $thread
  * @property-read ProfileContract|null $updater

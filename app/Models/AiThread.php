@@ -13,6 +13,12 @@ use Modules\Xot\Models\XotBaseModel;
 /**
  * Persisted conversation thread owned by the AI module.
  *
+ * @property int $id
+ * @property string $public_id
+ * @property int $created_by_user_id
+ * @property string $panel_id
+ * @property \Illuminate\Support\Carbon|null $last_message_at
+ * @property array<string, mixed>|null $meta
  * @property-read ProfileContract|null $creator
  * @property-read Collection<int, AiMessage> $messages
  * @property-read Collection<int, AiActionProposal> $proposals

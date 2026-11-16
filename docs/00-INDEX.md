@@ -25,6 +25,11 @@ discussions: []
 | [PRODUCT_STRATEGY.md](./PRODUCT_STRATEGY.md) | Strategy |
 | [PRODUCT_LAUNCH_PLAN.md](./PRODUCT_LAUNCH_PLAN.md) | Launch plan |
 
+### Funzionalità
+| File | Scopo |
+|---|---|
+| [assistant.md](./assistant.md) | Assistente clienti: base di conoscenza, passaggio a una persona, report |
+
 ### Development
 | File | Scopo |
 |---|---|
@@ -36,6 +41,7 @@ discussions: []
 | File | Scopo |
 |---|---|
 | [2026-10-08-services-to-actions-ai.story.md](./stories/2026-10-08-services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
+| [assistant-knowledge-base.story.md](./stories/assistant-knowledge-base.story.md) | Assistente clienti agnostico (2026-11-16) |
 
 ## Riferimenti canonici esterni al modulo
 
