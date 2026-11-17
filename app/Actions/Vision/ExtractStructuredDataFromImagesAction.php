@@ -132,10 +132,12 @@ class ExtractStructuredDataFromImagesAction
     private function stripFence(string $text): string
     {
         $text = trim($text);
-        if (str_starts_with($text, '```')) {
-            $text = preg_replace('/^```[a-z]*\s*|\s*```$/i', '', $text);
+        if (! str_starts_with($text, '```')) {
+            return $text;
         }
 
-        return $text;
+        $stripped = preg_replace('/^```[a-z]*\s*|\s*```$/i', '', $text);
+
+        return is_string($stripped) ? $stripped : $text;
     }
 }

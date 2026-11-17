@@ -18,9 +18,28 @@ beforeEach(function (): void {
     config(['services.groq.key' => 'gsk-test', 'services.openrouter.key' => 'sk-or-test', 'services.openai.api_key' => 'sk-openai-test']);
 });
 
+/**
+ * @return array{choices: list<array{message: array{content: string}}>}
+ */
 function chatReply(string $content): array
 {
     return ['choices' => [['message' => ['content' => $content]]]];
+}
+
+/**
+ * @return array<string, mixed>
+ */
+function requestPayload(Request $request): array
+{
+    $out = [];
+    foreach ($request->data() as $key => $value) {
+        if (! is_string($key)) {
+            continue;
+        }
+        $out[$key] = $value;
+    }
+
+    return $out;
 }
 
 test('_uses_groq_first_with_the_production_text_model_and_json_mode', function (): void {
@@ -29,11 +48,17 @@ test('_uses_groq_first_with_the_production_text_model_and_json_mode', function (
     $content = app(RequestAssistantCompletionAction::class)->execute('Reply in JSON', 'prompt');
 
     Assert::assertSame('{"answer":"Si"}', $content);
-    Http::assertSent(fn (Request $request): bool => str_starts_with($request->url(), 'https://api.groq.com/openai/v1/chat/completions')
-        && $request['model'] === 'openai/gpt-oss-120b'
-        && $request['response_format'] === ['type' => 'json_object']
-        && $request['messages'][0] === ['role' => 'system', 'content' => 'Reply in JSON']
-        && $request->hasHeader('Authorization', 'Bearer gsk-test'));
+    Http::assertSent(function (Request $request): bool {
+        $data = requestPayload($request);
+        $messages = $data['messages'] ?? null;
+        $firstMessage = is_array($messages) ? ($messages[0] ?? null) : null;
+
+        return str_starts_with($request->url(), 'https://api.groq.com/openai/v1/chat/completions')
+            && ($data['model'] ?? null) === 'openai/gpt-oss-120b'
+            && ($data['response_format'] ?? null) === ['type' => 'json_object']
+            && $firstMessage === ['role' => 'system', 'content' => 'Reply in JSON']
+            && $request->hasHeader('Authorization', 'Bearer gsk-test');
+    });
 });
 
 test('_falls_back_to_openrouter_when_groq_fails', function (): void {
@@ -60,5 +85,12 @@ test('_adds_the_json_instruction_when_no_message_mentions_json', function (): vo
 
     app(RequestAssistantCompletionAction::class)->execute('Rispondi in una frase.', 'Che cos e una segnalazione?');
 
-    Http::assertSent(fn (Request $request): bool => $request['messages'][0]['content'] === "Rispondi in una frase.\n\n".RequestAssistantCompletionAction::JSON_INSTRUCTION);
+    Http::assertSent(function (Request $request): bool {
+        $data = requestPayload($request);
+        $messages = $data['messages'] ?? null;
+        $firstMessage = is_array($messages) ? ($messages[0] ?? null) : null;
+        $content = is_array($firstMessage) ? ($firstMessage['content'] ?? null) : null;
+
+        return $content === "Rispondi in una frase.\n\n".RequestAssistantCompletionAction::JSON_INSTRUCTION;
+    });
 });

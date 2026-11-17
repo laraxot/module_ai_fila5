@@ -25,10 +25,9 @@ use Modules\Xot\Models\XotBaseModel;
  * @property-read AiThread|null $thread
  * @property-read ProfileContract|null $updater
  *
- * @method static Builder<static>|AiMessage newModelQuery()
- * @method static Builder<static>|AiMessage newQuery()
- * @method static Builder<static>|AiMessage query()
- *
+ * @method static Builder<static> newModelQuery()
+ * @method static Builder<static> newQuery()
+ * @method static Builder<static> query()
  */
 class AiMessage extends XotBaseModel
 {
