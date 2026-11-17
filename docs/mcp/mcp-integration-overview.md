@@ -7,7 +7,6 @@ updated: 2026-09-26
 qmd: "mcp integration overview"
 issues: []
 discussions: []
-status: draft
 ---
 
 # Panoramica dell'Integrazione dei Server MCP nei Moduli Laravel

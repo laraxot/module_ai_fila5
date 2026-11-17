@@ -50,4 +50,20 @@ class AIConfigData extends Data
 
     /** Base URL dell'API compatibile OpenAI usata da MakeAIRequestAction. */
     public string $openai_base_url = 'https://api.openai.com/v1';
+
+    /**
+     * Base URL dell'API compatibile OpenAI per immagini (lettura e modifica): OpenRouter di default,
+     * cosi' si sceglie il modello senza cambiare codice. La chiave resta in `.env`
+     * (`services.openrouter.key`, variabile `OPENROUTER_API_KEY`).
+     */
+    public string $vision_base_url = 'https://openrouter.ai/api/v1';
+
+    /** Modello che legge immagini e rispetta `response_format` json_schema (ExtractStructuredDataFromImagesAction). */
+    public string $vision_model = 'google/gemini-2.5-flash';
+
+    /** Modello che modifica o genera immagini (EditImageAction). */
+    public string $image_model = 'google/gemini-2.5-flash-image';
+
+    /** Timeout in secondi delle richieste con immagini: piu' lunghe di una chat di solo testo. */
+    public int $vision_timeout = 120;
 }

@@ -7,7 +7,6 @@ updated: 2026-09-26
 qmd: "api reference"
 issues: []
 discussions: []
-status: draft
 ---
 
 # API Reference dei Server MCP
