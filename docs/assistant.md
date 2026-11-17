@@ -62,7 +62,7 @@ $answer = app(AnswerQuestionAction::class)->execute(
 <<<<<<< .merge_file_XaIMye
     userId: auth()->id(),            // null per visitatori anonimi
 =======
-    userId: auth()->id(),            // null per visitatori anonimi (thread e proposte senza utente)
+    userId: auth()->id(),            // null per visitatori anonimi; intero o UUID (salvato come stringa)
     handoffKeywords: ['allerg'],     // opzionale: parole sensibili di questa chiamata (es. per attività); null = config
 >>>>>>> .merge_file_jE91Pa
 );

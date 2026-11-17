@@ -42,14 +42,14 @@ final class AnswerQuestionAction
     ) {}
 
     /**
-     * @param  int|null  $userId  null = visitatore anonimo
+     * @param  int|string|null  $userId  null = visitatore anonimo; intero o UUID
      * @param  list<string>|null  $handoffKeywords  parole che passano subito a una persona; null = config
      */
     public function execute(
         AiThread $thread,
         string $collection,
         string $question,
-        ?int $userId = null,
+        int|string|null $userId = null,
         ?array $handoffKeywords = null,
     ): AssistantAnswerData {
         $this->appendMessage->execute($thread, AiMessageRoleEnum::USER, $question, $userId);

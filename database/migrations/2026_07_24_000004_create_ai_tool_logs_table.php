@@ -24,7 +24,7 @@ return new class() extends XotBaseMigration
 
             $table->foreignId('ai_action_proposal_id')->nullable()->constrained('ai_action_proposals')->nullOnDelete();
 
-            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('user_id', 36)->nullable()->index();
 
             $table->string('tool_name');
 
@@ -37,6 +37,13 @@ return new class() extends XotBaseMigration
             $table->longText('error')->nullable();
 
             $this->updateTimestamps($table);
+        });
+
+        // Id utente come stringa: gli utenti Laraxot hanno UUID; vale anche per id numerici. Nullable: utenti anonimi.
+        $this->tableUpdate(function (Blueprint $table): void {
+            if ($this->hasColumn('user_id')) {
+                $table->string('user_id', 36)->nullable()->change();
+            }
         });
     }
 };

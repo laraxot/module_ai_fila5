@@ -43,6 +43,7 @@ discussions: []
 | [2026-10-08-services-to-actions-ai.story.md](./stories/2026-10-08-services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
 | [assistant-knowledge-base.story.md](./stories/assistant-knowledge-base.story.md) | Assistente clienti agnostico (2026-11-16) |
 | [assistant-anonymous-and-per-call-keywords.story.md](./stories/assistant-anonymous-and-per-call-keywords.story.md) | Visitatori anonimi e parole sensibili per chiamata (2026-11-17) |
+| [user-ids-as-strings.story.md](./stories/user-ids-as-strings.story.md) | Id utente come stringa (UUID) (2026-11-17) |
 | [assistant-widget-support.story.md](./stories/assistant-widget-support.story.md) | CreateAiThreadAction e AppendAiMessageAction (2026-11-17) |
 | [assistant-quality-audit.story.md](./stories/assistant-quality-audit.story.md) | Report filtrato nel database, duplicato rimosso (2026-11-17) |
 
