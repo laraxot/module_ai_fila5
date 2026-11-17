@@ -119,9 +119,11 @@ o la richiesta è complessa, risponde nella lingua della domanda, risponde solo 
 | `Actions\Assistant\DetectHandoffTriggerAction` | Guardrail deterministico sulle parole sensibili del progetto |
 | `Actions\Assistant\BuildAssistantPromptAction` | Prompt di sistema e prompt con fonti |
 | `Actions\Assistant\AnswerQuestionAction` | Flusso completo, salva i messaggi, crea la proposta di passaggio |
-| `Actions\Assistant\BuildAssistantReportAction` | Report del periodo per una `collection` |
+| `Actions\Assistant\BuildAssistantReportAction` | Report del periodo per una `collection`; filtra nel database sui percorsi JSON `payload->kind` e `payload->collection` |
 | `Datas\AssistantAnswerData` / `Datas\AssistantReportData` | Risultati tipizzati |
 | `Adapters\AssistantHandoffHandler` | Handler di default di `assistant_handoff` |
+| `Actions\CreateAiThreadAction` | Crea un thread (anche anonimo) con `panel_id` scelto dal chiamante |
+| `Actions\AppendAiMessageAction` | Aggiunge un messaggio senza chiamare il modello (es. risposta di un operatore) |
 | `Filament\Resources\AiKnowledgeEntryResource` | Gestione della base di conoscenza |
 
 ## Limiti noti ed evoluzioni
