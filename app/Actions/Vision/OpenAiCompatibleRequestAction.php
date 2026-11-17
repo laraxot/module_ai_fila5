@@ -45,7 +45,7 @@ class OpenAiCompatibleRequestAction
 
         if (! $response->successful()) {
             $message = data_get($response->json(), 'error.message');
-            throw new AiRequestException($provider->value.': errore HTTP '.$response->status().(is_string($message) ? ' ('.$message.')' : ''));
+            throw new AiRequestException($provider->value.': errore HTTP '.$response->status().(is_string($message) ? ' ('.$message.')' : ''), $response->status());
         }
 
         $json = $response->json();

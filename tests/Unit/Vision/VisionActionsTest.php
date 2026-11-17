@@ -154,3 +154,15 @@ it('skips Groq when there are more images than it accepts and reports every reas
 
     Http::assertSentCount(1);
 });
+
+it('marks the failure as rate limited when a provider answered 429', function (): void {
+    config(['services.groq.key' => null]);
+    Http::fake(['*' => Http::response(['error' => ['message' => 'Rate limit reached']], 429)]);
+
+    try {
+        app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
+        $this->fail('nessuna eccezione');
+    } catch (AiRequestException $e) {
+        expect($e->isRateLimited())->toBeTrue();
+    }
+});

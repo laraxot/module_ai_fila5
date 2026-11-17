@@ -59,6 +59,7 @@ class ExtractStructuredDataFromImagesAction
         }
 
         $errors = [];
+        $rateLimited = false;
         foreach ($providers as $provider) {
             $max = $provider->maxImages();
             if ($max !== null && \count($imagePaths) > $max) {
@@ -71,10 +72,12 @@ class ExtractStructuredDataFromImagesAction
                 return $this->request($provider, $config, $content, $schemaName, $schema);
             } catch (AiRequestException $e) {
                 $errors[] = $e->getMessage();
+                $rateLimited = $rateLimited || $e->isRateLimited();
             }
         }
 
-        throw new AiRequestException('Lettura delle immagini non riuscita. '.implode('; ', $errors));
+        // 429 se almeno un fornitore ha solo chiesto di aspettare: chi chiama puo' riprovare piu' tardi.
+        throw new AiRequestException('Lettura delle immagini non riuscita. '.implode('; ', $errors), $rateLimited ? 429 : 0);
     }
 
     /**
