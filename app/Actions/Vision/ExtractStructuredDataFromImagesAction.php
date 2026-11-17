@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\AI\Actions\Vision;
 
 use Modules\AI\Datas\AIConfigData;
+use Modules\AI\Enums\AiProviderEnum;
 use Modules\AI\Exceptions\AiRequestException;
 use Safe\Exceptions\JsonException;
 use Safe\Exceptions\PcreException;
@@ -19,9 +20,10 @@ use function Safe\preg_replace;
  * Agnostica: non sa cosa c'e' nelle immagini. Il modulo che la usa passa istruzioni e schema
  * (es. Restaurant: le pagine di un menu cartaceo -> sezioni e piatti).
  *
- * Endpoint compatibile OpenAI (`/chat/completions`), di default OpenRouter: immagini come
- * `image_url` con data URI, testo prima delle immagini, `response_format` json_schema strict e
- * `provider.require_parameters` perche' OpenRouter instradi solo verso chi rispetta lo schema.
+ * Endpoint compatibile OpenAI (`/chat/completions`) di OpenRouter o Groq, provati in ordine
+ * (`ai.vision_providers`): se uno fallisce si passa al successivo. Immagini come `image_url` con
+ * data URI, testo prima delle immagini, `response_format` json_schema strict; su OpenRouter anche
+ * `provider.require_parameters`, perche' instradi solo verso chi rispetta lo schema.
  */
 class ExtractStructuredDataFromImagesAction
 {
@@ -31,25 +33,64 @@ class ExtractStructuredDataFromImagesAction
 
     /**
      * @param  list<string>  $imagePaths  file su disco (png, jpeg, webp, gif)
-     * @param  array<string, mixed>  $schema  JSON Schema dell'oggetto atteso
+     * @param  array<string, mixed>  $schema  JSON Schema dell'oggetto atteso (strict: tutti i campi in
+     *                                        `required`, `additionalProperties: false`, null per i facoltativi)
+     * @param  list<AiProviderEnum>|null  $providers  ordine dei fornitori; null = `ai.vision_providers`
      * @return array<string, mixed>
      *
-     * @throws AiRequestException
+     * @throws AiRequestException se tutti i fornitori falliscono (messaggio con il motivo di ciascuno)
      */
-    public function execute(array $imagePaths, string $instructions, string $schemaName, array $schema, ?string $model = null): array
+    public function execute(array $imagePaths, string $instructions, string $schemaName, array $schema, ?array $providers = null): array
     {
         if ($imagePaths === []) {
             throw new AiRequestException('Nessuna immagine da leggere.');
         }
 
         $config = AIConfigData::make();
+        $providers ??= array_values(array_filter(array_map(AiProviderEnum::tryFrom(...), $config->vision_providers)));
+        if ($providers === []) {
+            throw new AiRequestException('Nessun fornitore AI configurato per le immagini (ai.vision_providers).');
+        }
+
+        // Le immagini si codificano una volta sola, prima di qualunque chiamata.
         $content = [['type' => 'text', 'text' => $instructions]];
         foreach ($imagePaths as $path) {
             $content[] = ['type' => 'image_url', 'image_url' => ['url' => $this->dataUri->execute($path)]];
         }
 
+        $errors = [];
+        foreach ($providers as $provider) {
+            $max = $provider->maxImages();
+            if ($max !== null && \count($imagePaths) > $max) {
+                $errors[] = $provider->value.': massimo '.$max.' immagini per richiesta';
+
+                continue;
+            }
+
+            try {
+                return $this->request($provider, $config, $content, $schemaName, $schema);
+            } catch (AiRequestException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        throw new AiRequestException('Lettura delle immagini non riuscita. '.implode('; ', $errors));
+    }
+
+    /**
+     * @param  list<array<string, mixed>>  $content
+     * @param  array<string, mixed>  $schema
+     * @return array<string, mixed>
+     */
+    private function request(AiProviderEnum $provider, AIConfigData $config, array $content, string $schemaName, array $schema): array
+    {
+        $model = $config->vision_models[$provider->value] ?? null;
+        if (! is_string($model) || $model === '') {
+            throw new AiRequestException($provider->value.': nessun modello in ai.vision_models.');
+        }
+
         $payload = [
-            'model' => $model ?? $config->vision_model,
+            'model' => $model,
             'messages' => [
                 ['role' => 'system', 'content' => 'Rispondi solo con JSON conforme allo schema. Non inventare dati che non leggi nelle immagini: lascia vuoto o null.'],
                 ['role' => 'user', 'content' => $content],
@@ -59,23 +100,23 @@ class ExtractStructuredDataFromImagesAction
                 'type' => 'json_schema',
                 'json_schema' => ['name' => $schemaName, 'strict' => true, 'schema' => $schema],
             ],
-            'provider' => ['require_parameters' => true],
+            ...$provider->extraPayload(),
         ];
 
-        $json = app(OpenAiCompatibleRequestAction::class)->execute($config->vision_base_url.'/chat/completions', $payload, $config->vision_timeout);
+        $json = app(OpenAiCompatibleRequestAction::class)->execute($provider, '/chat/completions', $payload, $config->vision_timeout);
 
         $text = data_get($json, 'choices.0.message.content');
         if (! is_string($text) || trim($text) === '') {
-            throw new AiRequestException('Risposta AI senza contenuto.');
+            throw new AiRequestException($provider->value.': risposta senza contenuto.');
         }
 
         try {
             $decoded = json_decode($this->stripFence($text), true);
         } catch (JsonException|PcreException $e) {
-            throw new AiRequestException('Risposta AI non in formato JSON.', previous: $e);
+            throw new AiRequestException($provider->value.': risposta non in formato JSON.', previous: $e);
         }
         if (! is_array($decoded)) {
-            throw new AiRequestException('Risposta AI non in formato JSON.');
+            throw new AiRequestException($provider->value.': risposta non in formato JSON.');
         }
 
         /** @var array<string, mixed> $decoded */

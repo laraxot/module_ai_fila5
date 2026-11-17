@@ -77,11 +77,8 @@ vendor/bin/pint Modules/AI/app/Actions
 |------|-------|
 | `Actions/Prompt/BuildAIPromptAction` | Dispatcher prompt per tipo (`classification`, `solutions`, …) |
 | `Actions/Prompt/AIPromptTemplates` | Costanti JSON schema (routing, pattern, improvements) |
-<<<<<<< .merge_file_wa9WgR
-| `Actions/Support/MakeAIRequestAction` | HTTP chat/completions OpenAI + retry |
-=======
-| `Actions/MakeAIRequestAction` | HTTP chat/completions OpenAI + retry, prompt di sistema opzionale |
->>>>>>> .merge_file_9H6Z3K
+| `Actions/MakeAIRequestAction` | HTTP chat/completions OpenAI + retry, prompt di sistema opzionale (`Actions/Support/MakeAIRequestAction` e' la variante interna) |
+| `Actions/Vision/*` | Immagini via OpenRouter o Groq: estrazione JSON strutturata, modifica (vedi [vision-openrouter.md](vision-openrouter.md)) |
 | `Actions/AiJsonResponseDecoderAction` | Decode JSON risposta AI (sostituisce `AIServiceJsonDecoder`) |
 | `Actions/ClassifyTicketAction` | Classificazione ticket (cache + prompt + request + decode) |
 | `Actions/SuggestSolutionsAction` | Suggerimenti soluzioni ticket |

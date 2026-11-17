@@ -26,8 +26,12 @@ function tinyPng(): string
 }
 
 beforeEach(function (): void {
-    config(['services.openrouter.key' => 'test-key', 'app.name' => 'Test']);
-    FakeTenantAiConfig::bind(['vision_model' => 'vendor/vision-model', 'image_model' => 'vendor/image-model']);
+    config(['services.openrouter.key' => 'test-key', 'services.groq.key' => 'groq-key', 'app.name' => 'Test']);
+    FakeTenantAiConfig::bind([
+        'vision_providers' => ['openrouter', 'groq'],
+        'vision_models' => ['openrouter' => 'vendor/vision-model', 'groq' => 'qwen/qwen3.8-27b'],
+        'image_model' => 'vendor/image-model',
+    ]);
 });
 
 it('sends text first, images as data URIs and a strict json schema, and returns the decoded object', function (): void {
@@ -77,8 +81,8 @@ it('sends text first, images as data URIs and a strict json schema, and returns 
     });
 });
 
-it('fails clearly without an API key, without calling the provider', function (): void {
-    config(['services.openrouter.key' => null]);
+it('fails clearly without any API key, without calling the providers', function (): void {
+    config(['services.openrouter.key' => null, 'services.groq.key' => '']);
     Http::fake();
 
     expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']))
@@ -88,6 +92,7 @@ it('fails clearly without an API key, without calling the provider', function ()
 });
 
 it('turns an HTTP error into an AiRequestException with the provider message', function (): void {
+    config(['services.groq.key' => null]);
     Http::fake(['*' => Http::response(['error' => ['message' => 'No endpoints found']], 404)]);
 
     expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']))
@@ -122,4 +127,30 @@ it('edits an image through the images endpoint and returns the decoded bytes', f
             && str_starts_with($firstReference, 'data:image/png;base64,')
             && ($data['prompt'] ?? null) === 'Pulisci il logo.';
     });
+});
+
+it('falls back to Groq when OpenRouter fails, without the OpenRouter-only provider field', function (): void {
+    Http::fake([
+        'openrouter.ai/*' => Http::response(['error' => ['message' => 'Rate limit']], 429),
+        'api.groq.com/openai/v1/chat/completions' => Http::response(['choices' => [['message' => ['content' => '{"ok":true}']]]]),
+    ]);
+
+    $result = app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
+
+    expect($result)->toBe(['ok' => true]);
+    Http::assertSent(fn (Request $request): bool => str_contains($request->url(), 'api.groq.com')
+        && $request->hasHeader('Authorization', 'Bearer groq-key')
+        && $request['model'] === 'qwen/qwen3.8-27b'
+        && ! isset($request['provider'])
+        && ! $request->hasHeader('X-Title'));
+});
+
+it('skips Groq when there are more images than it accepts and reports every reason', function (): void {
+    Http::fake(['openrouter.ai/*' => Http::response(['error' => ['message' => 'Overloaded']], 503)]);
+    $images = [tinyPng(), tinyPng(), tinyPng(), tinyPng()];
+
+    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute($images, 'x', 's', ['type' => 'object']))
+        ->toThrow(AiRequestException::class, 'groq: massimo 3 immagini');
+
+    Http::assertSentCount(1);
 });

@@ -1,5 +1,5 @@
 ---
-title: "Immagini con OpenRouter: estrazione strutturata e modifica"
+title: "Immagini con OpenRouter e Groq: estrazione strutturata e modifica"
 type: guide
 status: active
 created: 2026-11-16
@@ -8,7 +8,7 @@ module: AI
 qmd: "openrouter vision immagini json schema structured outputs edit image logo agnostico"
 ---
 
-# Immagini con OpenRouter
+# Immagini con OpenRouter e Groq
 
 Due azioni **agnostiche**: non sanno cosa c'è nelle immagini. Le istruzioni e lo schema li passa il
 modulo che le usa (es. Restaurant: foto del menu cartaceo → sezioni e piatti; foto del logo → logo
@@ -16,8 +16,8 @@ pulito). Il modulo AI non conosce menu, ristoranti o piatti.
 
 | Azione | Endpoint | Restituisce |
 |---|---|---|
-| `Actions\Vision\ExtractStructuredDataFromImagesAction` | `{vision_base_url}/chat/completions` | array conforme allo schema JSON passato |
-| `Actions\Vision\EditImageAction` | `{vision_base_url}/images` | `['mime' => ..., 'bytes' => ...]` |
+| `Actions\Vision\ExtractStructuredDataFromImagesAction` | `/chat/completions` di OpenRouter o Groq, in ordine | array conforme allo schema JSON passato |
+| `Actions\Vision\EditImageAction` | `/images` di OpenRouter (Groq non genera immagini) | `['mime' => ..., 'bytes' => ...]` |
 
 ```php
 $data = app(ExtractStructuredDataFromImagesAction::class)->execute(
@@ -32,12 +32,28 @@ $data = app(ExtractStructuredDataFromImagesAction::class)->execute(
 
 ## Configurazione
 
-- Chiave: `.env` `OPENROUTER_API_KEY`, letta da `config('services.openrouter.key')`. Senza chiave le
-  azioni lanciano `AiRequestException` **prima** di chiamare il servizio.
-- `config/{tenant}/ai.php` (`AIConfigData`): `vision_base_url` (default `https://openrouter.ai/api/v1`),
-  `vision_model`, `image_model`, `vision_timeout` (120 s). I modelli di default sono un punto di
-  partenza: verificare sul catalogo OpenRouter che il modello di lettura supporti immagini **e**
-  structured outputs, e che quello immagini compaia con `output_modalities=image`.
+- Chiavi in `.env`, mai nel repository: `OPENROUTER_API_KEY` (`services.openrouter.key`) e
+  `GROQ_API_KEY` (`services.groq.key`). Senza nessuna chiave l'azione fallisce **prima** di chiamare.
+- `config/{tenant}/ai.php` (`AIConfigData`):
+  - `vision_providers`: ordine dei fornitori, default `['openrouter', 'groq']`. Se il primo fallisce
+    (errore HTTP, chiave mancante, risposta non JSON, troppe immagini) si prova il secondo; il
+    messaggio finale elenca il motivo di ciascuno.
+  - `vision_models`: modello per fornitore. Default OpenRouter `google/gemini-2.5-flash`, Groq
+    `qwen/qwen3.8-27b`.
+  - `image_model` (solo OpenRouter), `vision_timeout` (120 s).
+- Le differenze di protocollo sono in `Enums\AiProviderEnum`: base URL, chiave, limite immagini,
+  campi extra (`provider.require_parameters` solo per OpenRouter), intestazioni dell'app.
+
+### Groq (verificato sulla documentazione, 2026-11-17)
+
+- Base URL `https://api.groq.com/openai/v1`, compatibile OpenAI.
+- Un solo modello di produzione/anteprima legge immagini: `qwen/qwen3.8-27b`, **preview** ("può essere
+  ritirato con breve preavviso"): per questo è il secondo della lista e non il primo.
+- Massimo **3 immagini** per richiesta, richiesta con immagini fino a 20 MB, ogni immagine conta
+  2048 token: l'azione salta Groq se le immagini sono di più.
+- Structured outputs `json_schema` con `strict: true` supportati da `qwen/qwen3.8-27b` e dai GPT-OSS:
+  tutti i campi in `required`, `additionalProperties: false`, null per i facoltativi; niente streaming.
+- Groq non genera immagini: il logo passa sempre da OpenRouter.
 
 ## Scelte, con le fonti
 
@@ -61,3 +77,9 @@ mancante, file non immagine, decodifica dell'immagine modificata.
 
 `Services/AIChatCompletionClient` ha ancora modello (`gpt-4`) e system prompt (ticket della PA)
 scritti nel codice: non è agnostico. Le nuove azioni non lo usano; va riallineato.
+
+## Verifica dal vivo
+
+La rete dell'ambiente di sviluppo cloud blocca openrouter.ai e api.groq.com: la prova reale va
+fatta sul server con le chiavi in `.env`, ad esempio con una pagina di menu fotografata.
+

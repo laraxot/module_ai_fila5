@@ -52,16 +52,26 @@ class AIConfigData extends Data
     public string $openai_base_url = 'https://api.openai.com/v1';
 
     /**
-     * Base URL dell'API compatibile OpenAI per immagini (lettura e modifica): OpenRouter di default,
-     * cosi' si sceglie il modello senza cambiare codice. La chiave resta in `.env`
-     * (`services.openrouter.key`, variabile `OPENROUTER_API_KEY`).
+     * Fornitori per la lettura di immagini, in ordine: si prova il primo, se fallisce (errore, chiave
+     * mancante, troppe immagini per quel fornitore) il successivo. Valori di AiProviderEnum.
+     * Le chiavi restano in `.env`: OPENROUTER_API_KEY, GROQ_API_KEY.
+     *
+     * @var list<string>
      */
-    public string $vision_base_url = 'https://openrouter.ai/api/v1';
+    public array $vision_providers = ['openrouter', 'groq'];
 
-    /** Modello che legge immagini e rispetta `response_format` json_schema (ExtractStructuredDataFromImagesAction). */
-    public string $vision_model = 'google/gemini-2.5-flash';
+    /**
+     * Modello di lettura immagini per fornitore: deve accettare immagini e `response_format`
+     * json_schema strict. Groq: `qwen/qwen3.8-27b` (preview, max 3 immagini per richiesta).
+     *
+     * @var array<string, string>
+     */
+    public array $vision_models = [
+        'openrouter' => 'google/gemini-2.5-flash',
+        'groq' => 'qwen/qwen3.8-27b',
+    ];
 
-    /** Modello che modifica o genera immagini (EditImageAction). */
+    /** Modello che modifica o genera immagini (EditImageAction, solo OpenRouter). */
     public string $image_model = 'google/gemini-2.5-flash-image';
 
     /** Timeout in secondi delle richieste con immagini: piu' lunghe di una chat di solo testo. */
