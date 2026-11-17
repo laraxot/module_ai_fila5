@@ -23,7 +23,7 @@ use Modules\Xot\Models\XotBaseModel;
  * @property int $id
  * @property string $public_id
  * @property int $ai_thread_id
- * @property int $proposed_by_user_id
+ * @property int|null $proposed_by_user_id
  * @property string $type
  * @property array<string, mixed> $payload
  * @property string|null $preview

@@ -41,11 +41,28 @@ final class AnswerQuestionAction
         private readonly CreateAiActionProposalAction $createProposal,
     ) {}
 
+<<<<<<< .merge_file_iYwk03
     public function execute(AiThread $thread, string $collection, string $question, ?int $userId = null): AssistantAnswerData
     {
         $this->storeMessage($thread, AiMessageRoleEnum::USER, $question, $userId, null);
 
         $answer = $this->answer($collection, $question);
+=======
+    /**
+     * @param  int|null  $userId  null = visitatore anonimo
+     * @param  list<string>|null  $handoffKeywords  parole che passano subito a una persona; null = config
+     */
+    public function execute(
+        AiThread $thread,
+        string $collection,
+        string $question,
+        ?int $userId = null,
+        ?array $handoffKeywords = null,
+    ): AssistantAnswerData {
+        $this->storeMessage($thread, AiMessageRoleEnum::USER, $question, $userId, null);
+
+        $answer = $this->answer($collection, $question, $handoffKeywords);
+>>>>>>> .merge_file_h5vUpO
 
         $this->storeMessage($thread, AiMessageRoleEnum::ASSISTANT, $answer->answer, null, [
             'kind' => self::PAYLOAD_KIND,
@@ -75,9 +92,16 @@ final class AnswerQuestionAction
         return $answer;
     }
 
+<<<<<<< .merge_file_iYwk03
     private function answer(string $collection, string $question): AssistantAnswerData
     {
         $trigger = $this->detectHandoff->execute($question);
+=======
+    /** @param  list<string>|null  $handoffKeywords */
+    private function answer(string $collection, string $question, ?array $handoffKeywords): AssistantAnswerData
+    {
+        $trigger = $this->detectHandoff->execute($question, $handoffKeywords);
+>>>>>>> .merge_file_h5vUpO
         if ($trigger !== null) {
             return AssistantAnswerData::handoff('sensitive_topic:'.$trigger);
         }

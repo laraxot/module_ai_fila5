@@ -4,7 +4,11 @@ type: guide
 module: AI
 tags: [ai, assistant, knowledge-base, handoff, report]
 created: 2026-11-16
+<<<<<<< .merge_file_XaIMye
 updated: 2026-11-16
+=======
+updated: 2026-11-17
+>>>>>>> .merge_file_jE91Pa
 qmd: "assistant knowledge base handoff report"
 issues: [25, 26]
 discussions: []
@@ -55,7 +59,12 @@ $answer = app(AnswerQuestionAction::class)->execute(
     thread: $thread,                 // Modules\AI\Models\AiThread
     collection: 'fixcity-faq',       // base di conoscenza del progetto
     question: $request->string('question')->toString(),
+<<<<<<< .merge_file_XaIMye
     userId: auth()->id(),            // null per visitatori anonimi
+=======
+    userId: auth()->id(),            // null per visitatori anonimi (thread e proposte senza utente)
+    handoffKeywords: ['allerg'],     // opzionale: parole sensibili di questa chiamata (es. per attività); null = config
+>>>>>>> .merge_file_jE91Pa
 );
 
 $answer->answer;        // testo da mostrare
@@ -70,7 +79,12 @@ $report = app(BuildAssistantReportAction::class)->execute('fixcity-faq', now()->
 ### Parole sensibili (opzionale)
 
 Di default la lista è **vuota**: il modulo AI non decide cosa è sensibile per un progetto.
+<<<<<<< .merge_file_XaIMye
 Il progetto la imposta nella propria configurazione:
+=======
+Si possono passare per singola chiamata (`handoffKeywords`, es. diverse per ogni attività) oppure
+impostarle per tutto il progetto nella configurazione:
+>>>>>>> .merge_file_jE91Pa
 
 ```php
 config(['ai.assistant.handoff_keywords' => ['rimbors', 'reclam', 'avvocat', 'denunc']]);

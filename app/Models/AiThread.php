@@ -15,7 +15,11 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @property int $id
  * @property string $public_id
+<<<<<<< .merge_file_bv84R1
  * @property int $created_by_user_id
+=======
+ * @property int|null $created_by_user_id
+>>>>>>> .merge_file_dJLovI
  * @property string $panel_id
  * @property \Illuminate\Support\Carbon|null $last_message_at
  * @property array<string, mixed>|null $meta

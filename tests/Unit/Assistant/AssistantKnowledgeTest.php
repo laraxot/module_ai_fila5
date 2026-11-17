@@ -74,6 +74,18 @@ describe('DetectHandoffTriggerAction', function (): void {
         Assert::assertSame('avvocato', $detect->execute('Chiamo il mio avvocato'));
         Assert::assertNull($detect->execute('Quanto costa la spedizione?'));
     });
+<<<<<<< .merge_file_ijKLNr
+=======
+
+    test('_keywords_passed_by_the_caller_replace_the_config_ones', function (): void {
+        config(['ai.assistant.handoff_keywords' => ['avvocato']]);
+        $detect = app(DetectHandoffTriggerAction::class);
+
+        Assert::assertSame('allerg', $detect->execute('Il piatto contiene ALLERGENI?', ['allerg']));
+        Assert::assertNull($detect->execute('Chiamo il mio avvocato', ['allerg']));
+        Assert::assertNull($detect->execute('Chiamo il mio avvocato', []));
+    });
+>>>>>>> .merge_file_BS1DAg
 });
 
 describe('BuildAssistantPromptAction', function (): void {

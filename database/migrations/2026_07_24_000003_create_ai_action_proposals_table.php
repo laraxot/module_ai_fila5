@@ -27,7 +27,11 @@ return new class() extends XotBaseMigration
 
             $table->foreignId('ai_thread_id')->constrained('ai_threads')->cascadeOnDelete();
 
+<<<<<<< .merge_file_Ibm6GJ
             $table->unsignedBigInteger('proposed_by_user_id')->index();
+=======
+            $table->unsignedBigInteger('proposed_by_user_id')->nullable()->index();
+>>>>>>> .merge_file_a0f09V
 
             $table->string('type');
 
@@ -49,5 +53,15 @@ return new class() extends XotBaseMigration
 
             $this->updateTimestamps($table);
         });
+<<<<<<< .merge_file_Ibm6GJ
+=======
+
+        // Nullable: una proposta puo' nascere da una conversazione anonima.
+        $this->tableUpdate(function (Blueprint $table): void {
+            if ($this->hasColumn('proposed_by_user_id')) {
+                $table->unsignedBigInteger('proposed_by_user_id')->nullable()->change();
+            }
+        });
+>>>>>>> .merge_file_a0f09V
     }
 };
