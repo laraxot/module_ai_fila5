@@ -8,6 +8,7 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Modules\AI\Enums\AiProviderEnum;
 use Modules\AI\Exceptions\AiRequestException;
+use Spatie\QueueableAction\QueueableAction;
 
 /**
  * POST JSON verso un fornitore compatibile OpenAI (OpenRouter, Groq) con la sua chiave da `.env`.
@@ -15,6 +16,8 @@ use Modules\AI\Exceptions\AiRequestException;
  */
 class OpenAiCompatibleRequestAction
 {
+    use QueueableAction;
+
     /**
      * @param  string  $path  percorso dopo la base URL, es. `/chat/completions`
      * @param  array<string, mixed>  $payload

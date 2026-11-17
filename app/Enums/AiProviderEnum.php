@@ -67,6 +67,18 @@ enum AiProviderEnum: string
         };
     }
 
+    /**
+     * Il modello e' gratuito? OpenRouter: suffisso `:free` o il router `openrouter/free`.
+     * Groq: si paga solo con un piano a consumo attivato sull'account, non per modello: true.
+     */
+    public function isFreeModel(string $model): bool
+    {
+        return match ($this) {
+            self::OpenRouter => str_ends_with($model, ':free') || $model === 'openrouter/free',
+            self::Groq => true,
+        };
+    }
+
     /** Intestazioni aggiuntive: OpenRouter riconosce l'app da HTTP-Referer e X-Title. */
     public function sendsAppHeaders(): bool
     {

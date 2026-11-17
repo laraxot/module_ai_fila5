@@ -55,6 +55,23 @@ $data = app(ExtractStructuredDataFromImagesAction::class)->execute(
   tutti i campi in `required`, `additionalProperties: false`, null per i facoltativi; niente streaming.
 - Groq non genera immagini: il logo passa sempre da OpenRouter.
 
+## Solo modelli gratuiti (decisione di Marco, 2026-11-17)
+
+- `free_models_only = true` (default): `ResolveModelsAction` scarta prima di ogni chiamata i modelli
+  OpenRouter senza `:free` (ammesso il router `openrouter/free`); l'assistente fa lo stesso; Groq e'
+  gratuito nel piano free per tutti i modelli.
+- Ordine: **Groq** `qwen/qwen3.8-27b` (provato dal vivo) poi **OpenRouter** con la catena
+  `nvidia/nemotron-3.5-super-vl:free, inclusionai/ling-3.2-flash:free, openrouter/free`, mandata come
+  `models` perche' OpenRouter passi da solo al successivo.
+- Modelli gratuiti con immagini **e** structured outputs sul catalogo OpenRouter al 2026-11-17:
+  `nvidia/nemotron-3.5-super-vl:free`, `inclusionai/ling-3.2-flash:free`, `particle-ai/particle-1:free`,
+  `dots-studio/dots-3-note-preview:free`, `openrouter/free`. Il catalogo cambia: ricontrollare.
+- **Nessun modello gratuito genera immagini**: `EditImageAction` rifiuta la chiamata con
+  `free_models_only`. Chi deve "pulire" un'immagine usa la lettura (es. trovare dove sta il logo) e
+  fa il resto nel codice.
+- Limiti: i modelli `:free` di OpenRouter hanno un tetto di richieste al giorno; Groq free ha 8000
+  token/minuto per qwen. Per questo una pagina per richiesta e fornitore di riserva.
+
 ## Scelte, con le fonti
 
 - Testo prima delle immagini nello stesso messaggio utente; immagini private come data URI base64;

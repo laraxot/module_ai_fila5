@@ -87,13 +87,15 @@ class ExtractStructuredDataFromImagesAction
      */
     private function request(AiProviderEnum $provider, AIConfigData $config, array $content, string $schemaName, array $schema): array
     {
-        $model = $config->vision_models[$provider->value] ?? null;
-        if (! is_string($model) || $model === '') {
-            throw new AiRequestException($provider->value.': nessun modello in ai.vision_models.');
+        $models = app(ResolveModelsAction::class)->execute($provider, $config->vision_models[$provider->value] ?? null, $config->free_models_only);
+        if ($models === []) {
+            throw new AiRequestException($provider->value.': nessun modello utilizzabile in ai.vision_models (solo gratuiti: '.($config->free_models_only ? 'si' : 'no').').');
         }
 
         $payload = [
-            'model' => $model,
+            'model' => $models[0],
+            // OpenRouter: elenco di riserva, si passa al successivo se il primo non e' disponibile.
+            ...($provider === AiProviderEnum::OpenRouter && \count($models) > 1 ? ['models' => $models] : []),
             'messages' => [
                 ['role' => 'system', 'content' => 'Rispondi solo con JSON conforme allo schema. Non inventare dati che non leggi nelle immagini: lascia vuoto o null.'],
                 ['role' => 'user', 'content' => $content],

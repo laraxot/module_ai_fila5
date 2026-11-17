@@ -31,6 +31,7 @@ beforeEach(function (): void {
         'vision_providers' => ['openrouter', 'groq'],
         'vision_models' => ['openrouter' => 'vendor/vision-model', 'groq' => 'qwen/qwen3.8-27b'],
         'image_model' => 'vendor/image-model',
+        'free_models_only' => false,
     ]);
 });
 
@@ -164,5 +165,46 @@ it('marks the failure as rate limited when a provider answered 429', function ()
         $this->fail('nessuna eccezione');
     } catch (AiRequestException $e) {
         expect($e->isRateLimited())->toBeTrue();
+    }
+});
+
+it('with free models only, sends OpenRouter only free models, as a fallback list', function (): void {
+    FakeTenantAiConfig::bind([
+        'vision_providers' => ['openrouter'],
+        'vision_models' => ['openrouter' => ['vendor/paid-model', 'nvidia/nemotron-3.5-super-vl:free', 'openrouter/free']],
+        'free_models_only' => true,
+    ]);
+    Http::fake(['openrouter.ai/*' => Http::response(['choices' => [['message' => ['content' => '{"ok":true}']]]])]);
+
+    app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
+
+    Http::assertSent(fn (Request $request): bool => $request['model'] === 'nvidia/nemotron-3.5-super-vl:free'
+        && $request['models'] === ['nvidia/nemotron-3.5-super-vl:free', 'openrouter/free']);
+});
+
+it('with free models only, never calls a paid model and refuses image generation', function (): void {
+    FakeTenantAiConfig::bind([
+        'vision_providers' => ['openrouter'],
+        'vision_models' => ['openrouter' => 'vendor/paid-model'],
+        'image_model' => 'vendor/paid-image',
+        'free_models_only' => true,
+    ]);
+    Http::fake();
+
+    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']))
+        ->toThrow(AiRequestException::class, 'nessun modello utilizzabile')
+        ->and(fn () => app(EditImageAction::class)->execute(tinyPng(), 'x'))
+        ->toThrow(AiRequestException::class, 'Nessun modello gratuito');
+    Http::assertNothingSent();
+});
+
+it('defaults to free models: Groq first, then OpenRouter free models', function (): void {
+    FakeTenantAiConfig::bind([]);
+    $config = \Modules\AI\Datas\AIConfigData::make();
+
+    expect($config->free_models_only)->toBeTrue()
+        ->and($config->vision_providers)->toBe(['groq', 'openrouter']);
+    foreach (explode(',', $config->vision_models['openrouter']) as $model) {
+        expect(\Modules\AI\Enums\AiProviderEnum::OpenRouter->isFreeModel($model))->toBeTrue();
     }
 });

@@ -33,9 +33,13 @@ class EditImageAction
     public function execute(string $imagePath, string $instructions, ?string $model = null, string $aspectRatio = '1:1'): array
     {
         $config = AIConfigData::make();
+        $model ??= $config->image_model;
+        if ($config->free_models_only && ! AiProviderEnum::OpenRouter->isFreeModel($model)) {
+            throw new AiRequestException('Nessun modello gratuito genera immagini: modifica non disponibile con ai.free_models_only.');
+        }
         // Solo OpenRouter modifica immagini: Groq non ha modelli con output di immagini.
         $json = app(OpenAiCompatibleRequestAction::class)->execute(AiProviderEnum::OpenRouter, '/images', [
-            'model' => $model ?? $config->image_model,
+            'model' => $model,
             'prompt' => $instructions,
             'input_references' => [$this->dataUri->execute($imagePath)],
             'aspect_ratio' => $aspectRatio,

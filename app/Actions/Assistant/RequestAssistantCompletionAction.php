@@ -39,6 +39,10 @@ final class RequestAssistantCompletionAction
             if ($provider === null || $model === null) {
                 continue;
             }
+            // Solo modelli gratuiti (ai.free_models_only): un modello a pagamento configurato per errore si salta.
+            if ($settings->free_models_only && ! $provider->isFreeModel($model)) {
+                continue;
+            }
 
             try {
                 $json = $this->request->execute($provider, '/chat/completions', [

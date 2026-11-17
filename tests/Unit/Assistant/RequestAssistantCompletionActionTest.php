@@ -43,7 +43,7 @@ test('_falls_back_to_openrouter_when_groq_fails', function (): void {
     ]);
 
     Assert::assertSame('{"answer":"Da OpenRouter"}', app(RequestAssistantCompletionAction::class)->execute('system', 'prompt'));
-    Http::assertSent(fn (Request $request): bool => str_starts_with($request->url(), 'https://openrouter.ai/api/v1/') && $request['model'] === 'google/gemini-2.5-flash');
+    Http::assertSent(fn (Request $request): bool => str_starts_with($request->url(), 'https://openrouter.ai/api/v1/') && $request['model'] === 'openrouter/free');
 });
 
 test('_skips_providers_without_key_and_ends_on_openai', function (): void {

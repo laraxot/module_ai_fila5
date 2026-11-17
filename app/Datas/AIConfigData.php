@@ -58,18 +58,30 @@ class AIConfigData extends Data
      *
      * @var list<string>
      */
-    public array $vision_providers = ['openrouter', 'groq'];
+    public array $vision_providers = ['groq', 'openrouter'];
 
     /**
-     * Modello di lettura immagini per fornitore: deve accettare immagini e `response_format`
-     * json_schema strict. Groq: `qwen/qwen3.8-27b` (preview, max 3 immagini per richiesta).
+     * Modelli di lettura immagini per fornitore: devono accettare immagini e `response_format` json_schema.
+     * Piu' modelli per un fornitore separati da virgola (la pagina impostazioni modifica stringhe): su
+     * OpenRouter si mandano come `models` e OpenRouter passa da solo al successivo se il primo e' esaurito.
+     *
+     * Solo modelli gratuiti (scelta di Marco, 2026-11-17), verificati sul catalogo OpenRouter il 2026-11-17:
+     * - Groq `qwen/qwen3.8-27b`: piano gratuito, provato dal vivo (10/10 piatti); preview, max 3 immagini.
+     * - OpenRouter: modelli `:free` con immagini e structured outputs, poi `openrouter/free` (sceglie da
+     *   solo un modello gratuito adatto). I modelli gratuiti hanno limiti di richieste al giorno.
      *
      * @var array<string, string>
      */
     public array $vision_models = [
-        'openrouter' => 'google/gemini-2.5-flash',
         'groq' => 'qwen/qwen3.8-27b',
+        'openrouter' => 'nvidia/nemotron-3.5-super-vl:free,inclusionai/ling-3.2-flash:free,openrouter/free',
     ];
+
+    /**
+     * Solo modelli gratuiti: un modello OpenRouter senza `:free` (o diverso da `openrouter/free`) viene
+     * scartato prima della chiamata, cosi' una configurazione sbagliata non genera costi.
+     */
+    public bool $free_models_only = true;
 
     /**
      * Fornitori dell'assistente clienti (Assistant\AnswerQuestionAction), in ordine: se il primo fallisce
@@ -82,19 +94,23 @@ class AIConfigData extends Data
 
     /**
      * Modello di testo per fornitore. Groq: `openai/gpt-oss-120b` e' il modello di testo di produzione
-     * (i Llama sono stati ritirati nel 2026); OpenRouter: Gemini 2.5 Flash, come per le immagini.
+     * (i Llama sono stati ritirati nel 2026), gratuito nel piano free; OpenRouter: `openrouter/free`.
      *
      * @var array<string, string>
      */
     public array $assistant_models = [
         'groq' => 'openai/gpt-oss-120b',
-        'openrouter' => 'google/gemini-2.5-flash',
+        // Router dei modelli gratuiti di OpenRouter (vedi free_models_only).
+        'openrouter' => 'openrouter/free',
     ];
 
     /** Timeout in secondi di una risposta dell'assistente: il visitatore aspetta in chat. */
     public int $assistant_timeout = 30;
 
-    /** Modello che modifica o genera immagini (EditImageAction, solo OpenRouter). */
+    /**
+     * Modello che modifica o genera immagini (EditImageAction, solo OpenRouter). Nessun modello gratuito
+     * genera immagini: con `free_models_only` EditImageAction rifiuta la chiamata.
+     */
     public string $image_model = 'google/gemini-2.5-flash-image';
 
     /** Timeout in secondi delle richieste con immagini: piu' lunghe di una chat di solo testo. */

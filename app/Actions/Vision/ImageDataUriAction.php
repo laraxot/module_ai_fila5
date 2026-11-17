@@ -7,6 +7,7 @@ namespace Modules\AI\Actions\Vision;
 use Modules\AI\Exceptions\AiRequestException;
 use Safe\Exceptions\FileinfoException;
 use Safe\Exceptions\FilesystemException;
+use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\file_get_contents;
 use function Safe\mime_content_type;
@@ -17,6 +18,8 @@ use function Safe\mime_content_type;
  */
 class ImageDataUriAction
 {
+    use QueueableAction;
+
     public const array MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
 
     public function execute(string $path): string
