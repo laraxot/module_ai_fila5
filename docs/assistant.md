@@ -108,13 +108,18 @@ L'assistente chiede la risposta in cascata (`Assistant\RequestAssistantCompletio
 | Ordine | Fornitore | Modello predefinito | Chiave in `.env` |
 |---|---|---|---|
 | 1 | Groq | `openai/gpt-oss-120b` (modello di testo di produzione; i Llama sono stati ritirati nel 2026) | `GROQ_API_KEY` |
-| 2 | OpenRouter | `google/gemini-2.5-flash` | `OPENROUTER_API_KEY` |
+| 2 | OpenRouter | `openrouter/free` (router dei modelli gratuiti; `free_models_only` scarta i modelli a pagamento) | `OPENROUTER_API_KEY` |
 | 3 | OpenAI (`MakeAIRequestAction`) | impostazione esistente | `OPENAI_API_KEY` |
 
 Un fornitore senza chiave o che risponde con un errore passa la mano al successivo. Se nessuno risponde,
 la domanda passa a una persona (`ai_unavailable`). Ordine, modelli e timeout si cambiano in `AIConfigData`
 (`assistant_providers`, `assistant_models`, `assistant_timeout`). Le chiavi si leggono da `config/services.php`
 del progetto (`services.groq.key`, `services.openrouter.key`).
+
+Il progetto dichiara le due chiavi in `config/services.php` (`'groq' => ['key' => env('GROQ_API_KEY')]`, idem `openrouter`)
+e le valorizza solo in `.env`, mai in git. La risposta e' chiesta con `response_format: json_object`: Groq e OpenAI
+rispondono 400 se nessun messaggio contiene la parola «json», quindi l'Action aggiunge `JSON_INSTRUCTION` al prompt di
+sistema quando manca.
 
 ## Regole fisse dell'assistente
 

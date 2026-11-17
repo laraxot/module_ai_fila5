@@ -29,9 +29,13 @@ final class RequestAssistantCompletionAction
         private readonly MakeAIRequestAction $fallback,
     ) {}
 
+    /** Aggiunta al prompt di sistema quando nessun messaggio nomina JSON (vedi withJsonInstruction()). */
+    public const string JSON_INSTRUCTION = 'Reply with a single valid JSON object.';
+
     public function execute(string $systemPrompt, string $prompt): string
     {
         $settings = AIConfigData::make();
+        $systemPrompt = $this->withJsonInstruction($systemPrompt, $prompt);
 
         foreach ($settings->assistant_providers as $name) {
             $provider = AiProviderEnum::tryFrom($name);
@@ -70,5 +74,19 @@ final class RequestAssistantCompletionAction
         }
 
         return $this->fallback->execute($prompt, 'assistant', [], $systemPrompt);
+    }
+
+    /**
+     * Con `response_format: json_object` Groq (come OpenAI) risponde HTTP 400 se nessun messaggio contiene la parola
+     * «json»: il fornitore verrebbe saltato a ogni chiamata. Il prompt dell'assistente la contiene gia'; quello di un
+     * modulo chiamante potrebbe non contenerla.
+     */
+    private function withJsonInstruction(string $systemPrompt, string $prompt): string
+    {
+        if (stripos($systemPrompt.' '.$prompt, 'json') !== false) {
+            return $systemPrompt;
+        }
+
+        return trim($systemPrompt."\n\n".self::JSON_INSTRUCTION);
     }
 }

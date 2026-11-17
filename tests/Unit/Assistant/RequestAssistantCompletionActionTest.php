@@ -26,13 +26,13 @@ function chatReply(string $content): array
 test('_uses_groq_first_with_the_production_text_model_and_json_mode', function (): void {
     Http::fake(['api.groq.com/*' => Http::response(chatReply('{"answer":"Si"}'))]);
 
-    $content = app(RequestAssistantCompletionAction::class)->execute('system', 'prompt');
+    $content = app(RequestAssistantCompletionAction::class)->execute('Reply in JSON', 'prompt');
 
     Assert::assertSame('{"answer":"Si"}', $content);
     Http::assertSent(fn (Request $request): bool => str_starts_with($request->url(), 'https://api.groq.com/openai/v1/chat/completions')
         && $request['model'] === 'openai/gpt-oss-120b'
         && $request['response_format'] === ['type' => 'json_object']
-        && $request['messages'][0] === ['role' => 'system', 'content' => 'system']
+        && $request['messages'][0] === ['role' => 'system', 'content' => 'Reply in JSON']
         && $request->hasHeader('Authorization', 'Bearer gsk-test'));
 });
 
@@ -52,4 +52,13 @@ test('_skips_providers_without_key_and_ends_on_openai', function (): void {
 
     Assert::assertSame('{"answer":"Da OpenAI"}', app(RequestAssistantCompletionAction::class)->execute('system', 'prompt'));
     Http::assertNotSent(fn (Request $request): bool => str_contains($request->url(), 'groq.com') || str_contains($request->url(), 'openrouter.ai'));
+});
+
+test('_adds_the_json_instruction_when_no_message_mentions_json', function (): void {
+    // Groq e OpenAI rispondono 400 a json_object se nessun messaggio contiene «json» (visto dal vivo il 2026-11-17).
+    Http::fake(['api.groq.com/*' => Http::response(chatReply('{"answer":"Si"}'))]);
+
+    app(RequestAssistantCompletionAction::class)->execute('Rispondi in una frase.', 'Che cos e una segnalazione?');
+
+    Http::assertSent(fn (Request $request): bool => $request['messages'][0]['content'] === "Rispondi in una frase.\n\n".RequestAssistantCompletionAction::JSON_INSTRUCTION);
 });
