@@ -20,15 +20,16 @@ final class BuildAssistantReportAction
 
     public function execute(string $collection, CarbonInterface $from, CarbonInterface $to): AssistantReportData
     {
+        // Filtro nel database (percorsi JSON: MySQL, MariaDB, PostgreSQL, SQLite), non in PHP:
+        // il report di una attivita' non deve leggere i messaggi di tutte le altre.
         $payloads = AiMessage::query()
             ->where('role', AiMessageRoleEnum::ASSISTANT->value)
             ->whereBetween('created_at', [$from, $to])
-            ->whereNotNull('payload')
+            ->where('payload->kind', AnswerQuestionAction::PAYLOAD_KIND)
+            ->where('payload->collection', $collection)
             ->lazyById()
             ->map(static fn (AiMessage $message): mixed => $message->payload)
-            ->filter(static fn (mixed $payload): bool => is_array($payload)
-                && ($payload['kind'] ?? null) === AnswerQuestionAction::PAYLOAD_KIND
-                && ($payload['collection'] ?? null) === $collection);
+            ->filter(static fn (mixed $payload): bool => is_array($payload));
 
         /** @var iterable<array<string, mixed>> $payloads */
         return AssistantReportData::fromAnswerPayloads($payloads);
