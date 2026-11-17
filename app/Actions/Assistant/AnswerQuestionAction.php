@@ -7,7 +7,6 @@ namespace Modules\AI\Actions\Assistant;
 use Illuminate\Support\Facades\Log;
 use Modules\AI\Actions\AppendAiMessageAction;
 use Modules\AI\Actions\CreateAiActionProposalAction;
-use Modules\AI\Actions\MakeAIRequestAction;
 use Modules\AI\Adapters\AssistantHandoffHandler;
 use Modules\AI\Datas\AssistantAnswerData;
 use Modules\AI\Enums\AiMessageRoleEnum;
@@ -36,7 +35,7 @@ final class AnswerQuestionAction
         private readonly DetectHandoffTriggerAction $detectHandoff,
         private readonly SearchKnowledgeEntriesAction $search,
         private readonly BuildAssistantPromptAction $buildPrompt,
-        private readonly MakeAIRequestAction $request,
+        private readonly RequestAssistantCompletionAction $request,
         private readonly CreateAiActionProposalAction $createProposal,
         private readonly AppendAiMessageAction $appendMessage,
     ) {}
@@ -98,10 +97,8 @@ final class AnswerQuestionAction
 
         try {
             $raw = $this->request->execute(
-                prompt: $this->buildPrompt->execute($question, $entries),
-                type: 'assistant',
-                context: ['collection' => $collection],
-                systemPrompt: BuildAssistantPromptAction::SYSTEM_PROMPT,
+                BuildAssistantPromptAction::SYSTEM_PROMPT,
+                $this->buildPrompt->execute($question, $entries),
             );
         } catch (Throwable $throwable) {
             // Il supporto non deve mai rompersi: se il modello non risponde, passa a una persona.

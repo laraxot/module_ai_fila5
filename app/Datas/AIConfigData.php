@@ -71,6 +71,29 @@ class AIConfigData extends Data
         'groq' => 'qwen/qwen3.8-27b',
     ];
 
+    /**
+     * Fornitori dell'assistente clienti (Assistant\AnswerQuestionAction), in ordine: se il primo fallisce
+     * o non ha la chiave si prova il successivo; se nessuno risponde si usa MakeAIRequestAction (OpenAI).
+     * Groq per primo: e' il piu' veloce, e la risposta all'utente in chat deve arrivare subito.
+     *
+     * @var list<string>
+     */
+    public array $assistant_providers = ['groq', 'openrouter'];
+
+    /**
+     * Modello di testo per fornitore. Groq: `openai/gpt-oss-120b` e' il modello di testo di produzione
+     * (i Llama sono stati ritirati nel 2026); OpenRouter: Gemini 2.5 Flash, come per le immagini.
+     *
+     * @var array<string, string>
+     */
+    public array $assistant_models = [
+        'groq' => 'openai/gpt-oss-120b',
+        'openrouter' => 'google/gemini-2.5-flash',
+    ];
+
+    /** Timeout in secondi di una risposta dell'assistente: il visitatore aspetta in chat. */
+    public int $assistant_timeout = 30;
+
     /** Modello che modifica o genera immagini (EditImageAction, solo OpenRouter). */
     public string $image_model = 'google/gemini-2.5-flash-image';
 

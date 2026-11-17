@@ -101,6 +101,21 @@ sostituirlo registrando un proprio handler con lo stesso tipo, per esempio per a
 app(\Modules\AI\Adapters\AiActionHandlerRegistry::class)->register(new MyTicketHandoffHandler);
 ```
 
+## Fornitori del modello
+
+L'assistente chiede la risposta in cascata (`Assistant\RequestAssistantCompletionAction`):
+
+| Ordine | Fornitore | Modello predefinito | Chiave in `.env` |
+|---|---|---|---|
+| 1 | Groq | `openai/gpt-oss-120b` (modello di testo di produzione; i Llama sono stati ritirati nel 2026) | `GROQ_API_KEY` |
+| 2 | OpenRouter | `google/gemini-2.5-flash` | `OPENROUTER_API_KEY` |
+| 3 | OpenAI (`MakeAIRequestAction`) | impostazione esistente | `OPENAI_API_KEY` |
+
+Un fornitore senza chiave o che risponde con un errore passa la mano al successivo. Se nessuno risponde,
+la domanda passa a una persona (`ai_unavailable`). Ordine, modelli e timeout si cambiano in `AIConfigData`
+(`assistant_providers`, `assistant_models`, `assistant_timeout`). Le chiavi si leggono da `config/services.php`
+del progetto (`services.groq.key`, `services.openrouter.key`).
+
 ## Regole fisse dell'assistente
 
 Valgono per tutti i progetti (`BuildAssistantPromptAction::SYSTEM_PROMPT`):
@@ -118,6 +133,7 @@ o la richiesta è complessa, risponde nella lingua della domanda, risponde solo 
 | `Actions\Assistant\SearchKnowledgeEntriesAction` | Carica le voci attive della `collection` e le ordina |
 | `Actions\Assistant\DetectHandoffTriggerAction` | Guardrail deterministico sulle parole sensibili del progetto |
 | `Actions\Assistant\BuildAssistantPromptAction` | Prompt di sistema e prompt con fonti |
+| `Actions\Assistant\RequestAssistantCompletionAction` | Risposta del modello in cascata: Groq, OpenRouter, OpenAI |
 | `Actions\Assistant\AnswerQuestionAction` | Flusso completo, salva i messaggi, crea la proposta di passaggio |
 | `Actions\Assistant\BuildAssistantReportAction` | Report del periodo per una `collection`; filtra nel database sui percorsi JSON `payload->kind` e `payload->collection` |
 | `Datas\AssistantAnswerData` / `Datas\AssistantReportData` | Risultati tipizzati |
