@@ -25,7 +25,7 @@ return new class() extends XotBaseMigration
 
             $table->uuid('public_id')->unique();
 
-            $table->unsignedBigInteger('created_by_user_id')->index();
+            $table->unsignedBigInteger('created_by_user_id')->nullable()->index();
 
             $table->string('panel_id')->default('operator');
 
@@ -34,6 +34,13 @@ return new class() extends XotBaseMigration
             $table->json('meta')->nullable();
 
             $this->updateTimestamps($table);
+        });
+
+        // Nullable: un thread puo' appartenere a un visitatore anonimo (es. widget pubblico).
+        $this->tableUpdate(function (Blueprint $table): void {
+            if ($this->hasColumn('created_by_user_id')) {
+                $table->unsignedBigInteger('created_by_user_id')->nullable()->change();
+            }
         });
     }
 };

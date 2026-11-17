@@ -22,7 +22,7 @@ class CreateAiActionProposalAction
      */
     public function execute(
         AiThread $thread,
-        int $proposedByUserId,
+        ?int $proposedByUserId,
         string $type,
         array $payload,
         ?string $preview = null,

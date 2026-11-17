@@ -27,7 +27,7 @@ return new class() extends XotBaseMigration
 
             $table->foreignId('ai_thread_id')->constrained('ai_threads')->cascadeOnDelete();
 
-            $table->unsignedBigInteger('proposed_by_user_id')->index();
+            $table->unsignedBigInteger('proposed_by_user_id')->nullable()->index();
 
             $table->string('type');
 
@@ -48,6 +48,13 @@ return new class() extends XotBaseMigration
             $table->longText('error')->nullable();
 
             $this->updateTimestamps($table);
+        });
+
+        // Nullable: una proposta puo' nascere da una conversazione anonima.
+        $this->tableUpdate(function (Blueprint $table): void {
+            if ($this->hasColumn('proposed_by_user_id')) {
+                $table->unsignedBigInteger('proposed_by_user_id')->nullable()->change();
+            }
         });
     }
 };

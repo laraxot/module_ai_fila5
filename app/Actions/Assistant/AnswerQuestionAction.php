@@ -41,11 +41,20 @@ final class AnswerQuestionAction
         private readonly CreateAiActionProposalAction $createProposal,
     ) {}
 
-    public function execute(AiThread $thread, string $collection, string $question, ?int $userId = null): AssistantAnswerData
-    {
+    /**
+     * @param  int|null  $userId  null = visitatore anonimo
+     * @param  list<string>|null  $handoffKeywords  parole che passano subito a una persona; null = config
+     */
+    public function execute(
+        AiThread $thread,
+        string $collection,
+        string $question,
+        ?int $userId = null,
+        ?array $handoffKeywords = null,
+    ): AssistantAnswerData {
         $this->storeMessage($thread, AiMessageRoleEnum::USER, $question, $userId, null);
 
-        $answer = $this->answer($collection, $question);
+        $answer = $this->answer($collection, $question, $handoffKeywords);
 
         $this->storeMessage($thread, AiMessageRoleEnum::ASSISTANT, $answer->answer, null, [
             'kind' => self::PAYLOAD_KIND,
@@ -75,9 +84,10 @@ final class AnswerQuestionAction
         return $answer;
     }
 
-    private function answer(string $collection, string $question): AssistantAnswerData
+    /** @param  list<string>|null  $handoffKeywords */
+    private function answer(string $collection, string $question, ?array $handoffKeywords): AssistantAnswerData
     {
-        $trigger = $this->detectHandoff->execute($question);
+        $trigger = $this->detectHandoff->execute($question, $handoffKeywords);
         if ($trigger !== null) {
             return AssistantAnswerData::handoff('sensitive_topic:'.$trigger);
         }
