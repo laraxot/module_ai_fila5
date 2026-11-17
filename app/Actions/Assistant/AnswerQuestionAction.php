@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Assistant;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Modules\AI\Actions\AppendAiMessageAction;
 use Modules\AI\Actions\CreateAiActionProposalAction;
 use Modules\AI\Actions\MakeAIRequestAction;
 use Modules\AI\Adapters\AssistantHandoffHandler;
 use Modules\AI\Datas\AssistantAnswerData;
 use Modules\AI\Enums\AiMessageRoleEnum;
 use Modules\AI\Models\AiKnowledgeEntry;
-use Modules\AI\Models\AiMessage;
 use Modules\AI\Models\AiThread;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
@@ -39,6 +38,7 @@ final class AnswerQuestionAction
         private readonly BuildAssistantPromptAction $buildPrompt,
         private readonly MakeAIRequestAction $request,
         private readonly CreateAiActionProposalAction $createProposal,
+        private readonly AppendAiMessageAction $appendMessage,
     ) {}
 
     /**
@@ -52,11 +52,11 @@ final class AnswerQuestionAction
         ?int $userId = null,
         ?array $handoffKeywords = null,
     ): AssistantAnswerData {
-        $this->storeMessage($thread, AiMessageRoleEnum::USER, $question, $userId, null);
+        $this->appendMessage->execute($thread, AiMessageRoleEnum::USER, $question, $userId);
 
         $answer = $this->answer($collection, $question, $handoffKeywords);
 
-        $this->storeMessage($thread, AiMessageRoleEnum::ASSISTANT, $answer->answer, null, [
+        $this->appendMessage->execute($thread, AiMessageRoleEnum::ASSISTANT, $answer->answer, null, [
             'kind' => self::PAYLOAD_KIND,
             'collection' => $collection,
             'question' => $question,
@@ -78,8 +78,6 @@ final class AnswerQuestionAction
                 preview: $question,
             );
         }
-
-        $thread->forceFill(['last_message_at' => Carbon::now()])->save();
 
         return $answer;
     }
@@ -116,19 +114,5 @@ final class AnswerQuestionAction
             $raw,
             array_map(static fn (AiKnowledgeEntry $entry): int => $entry->id, $entries),
         );
-    }
-
-    /** @param  array<string, mixed>|null  $payload */
-    private function storeMessage(AiThread $thread, AiMessageRoleEnum $role, string $content, ?int $userId, ?array $payload): void
-    {
-        $message = new AiMessage;
-        $message->fill([
-            'ai_thread_id' => $thread->getKey(),
-            'user_id' => $userId,
-            'role' => $role,
-            'content' => $content,
-            'payload' => $payload,
-        ]);
-        $message->save();
     }
 }
