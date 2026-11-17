@@ -78,8 +78,25 @@ mancante, file non immagine, decodifica dell'immagine modificata.
 `Services/AIChatCompletionClient` ha ancora modello (`gpt-4`) e system prompt (ticket della PA)
 scritti nel codice: non è agnostico. Le nuove azioni non lo usano; va riallineato.
 
-## Verifica dal vivo
+## Prove dal vivo (2026-11-17)
 
-La rete dell'ambiente di sviluppo cloud blocca openrouter.ai e api.groq.com: la prova reale va
-fatta sul server con le chiavi in `.env`, ad esempio con una pagina di menu fotografata.
+Groq, `qwen/qwen3.8-27b`, foto simulata di una pagina di menu (jpg 1029x1400, leggermente sfocata e
+ruotata, 10 piatti in 4 sezioni, allergeni con i numeri 1-14 e legenda in fondo):
+
+- **Nomi, sezioni, prezzi, note** ("min. 2 persone", coperto): tutti corretti, in **2,4 secondi**.
+- **Allergeni chiesti già convertiti** (enum `milk`, `lupin`...): **sbagliati**, in modo sistematico
+  (il 7 "latte" diventava "lupini"). Non affidabile.
+- **Allergeni chiesti come trascrizione** (codici stampati accanto al piatto + legenda trascritta,
+  conversione fatta dal codice): **10 piatti su 10 corretti**.
+
+Regola che ne segue, per chiunque usi queste azioni su dati sensibili: **il modello trascrive, il
+codice interpreta**. Chiedere solo quello che è stampato (codici, parole, legenda) e fare le
+conversioni con una tabella deterministica e testata.
+
+Limiti incontrati: piano gratuito di Groq, **8000 token al minuto** per `qwen/qwen3.8-27b`; una pagina
+con immagine ne usa circa 2400, quindi la seconda richiesta ravvicinata ha avuto HTTP 429 ("try again
+in 8.8s"). In produzione: una pagina per richiesta, in coda, con attesa e nuovo tentativo, e
+OpenRouter come fornitore di riserva.
+
+OpenRouter non ancora provato: il dominio non risulta consentito nella rete dell'ambiente di sviluppo.
 
