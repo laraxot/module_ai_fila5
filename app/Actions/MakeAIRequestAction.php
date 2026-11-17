@@ -21,11 +21,15 @@ final class MakeAIRequestAction
 {
     use QueueableAction;
 
+    public const string DEFAULT_SYSTEM_PROMPT = 'Sei un assistente AI specializzato nella gestione di ticket per amministrazioni pubbliche italiane. Rispondi sempre in formato JSON valido.';
+
     /**
-     * @param  array{title?: string, description?: string, category?: string}  $context  Metadati di log contestuali
+     * @param  array<string, string>  $context  Metadati di log contestuali
+     * @param  string|null  $systemPrompt  null = prompt di sistema storico (ticket PA), invariato per compatibilita'
      */
-    public function execute(string $prompt, string $type, array $context = []): string
+    public function execute(string $prompt, string $type, array $context = [], ?string $systemPrompt = null): string
     {
+        $systemPrompt ??= self::DEFAULT_SYSTEM_PROMPT;
         $apiKey = config('ai.openai_api_key') ?: config('services.openai.api_key', '');
         $settings = AIConfigData::make();
         $baseUrl = $settings->openai_base_url;
@@ -51,7 +55,7 @@ final class MakeAIRequestAction
                         'messages' => [
                             [
                                 'role' => 'system',
-                                'content' => 'Sei un assistente AI specializzato nella gestione di ticket per amministrazioni pubbliche italiane. Rispondi sempre in formato JSON valido.',
+                                'content' => $systemPrompt,
                             ],
                             [
                                 'role' => 'user',

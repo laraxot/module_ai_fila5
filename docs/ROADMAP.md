@@ -1,3 +1,14 @@
+---
+title: "ROADMAP"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "ROADMAP"
+issues: []
+discussions: []
+---
+
 # AI Module Roadmap
 
 - **[mission]** Provide AI-powered features (completion, fine-tuning) aligned with Filament v4 and Laravel 12.

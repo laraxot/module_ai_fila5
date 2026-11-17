@@ -1,3 +1,14 @@
+---
+title: "phpstan remediation 2025 12 23"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "phpstan remediation 2025 12 23"
+issues: []
+discussions: []
+---
+
 # PHPStan Remediation Plan – 2025-12-23
 
 ## Contesto attuale
