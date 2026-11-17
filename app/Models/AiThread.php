@@ -7,6 +7,7 @@ namespace Modules\AI\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Models\XotBaseModel;
 
@@ -15,18 +16,15 @@ use Modules\Xot\Models\XotBaseModel;
  *
  * @property int $id
  * @property string $public_id
-<<<<<<< .merge_file_bv84R1
- * @property int $created_by_user_id
-=======
  * @property int|null $created_by_user_id
->>>>>>> .merge_file_dJLovI
  * @property string $panel_id
- * @property \Illuminate\Support\Carbon|null $last_message_at
+ * @property Carbon|null $last_message_at
  * @property array<string, mixed>|null $meta
  * @property-read ProfileContract|null $creator
  * @property-read Collection<int, AiMessage> $messages
  * @property-read Collection<int, AiActionProposal> $proposals
  * @property-read Collection<int, AiToolLog> $toolLogs
+ *
  * @method static Builder<static> query()
  */
 class AiThread extends XotBaseModel

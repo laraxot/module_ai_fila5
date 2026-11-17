@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Xot\Database\Migrations\XotBaseMigration;
 
-return new class() extends XotBaseMigration
+return new class extends XotBaseMigration
 {
     /**
      * Table name following Laraxot philosophy.
@@ -25,11 +25,7 @@ return new class() extends XotBaseMigration
 
             $table->uuid('public_id')->unique();
 
-<<<<<<< .merge_file_KKefsY
-            $table->unsignedBigInteger('created_by_user_id')->index();
-=======
             $table->unsignedBigInteger('created_by_user_id')->nullable()->index();
->>>>>>> .merge_file_F3y1g4
 
             $table->string('panel_id')->default('operator');
 
@@ -39,8 +35,6 @@ return new class() extends XotBaseMigration
 
             $this->updateTimestamps($table);
         });
-<<<<<<< .merge_file_KKefsY
-=======
 
         // Nullable: un thread puo' appartenere a un visitatore anonimo (es. widget pubblico).
         $this->tableUpdate(function (Blueprint $table): void {
@@ -48,6 +42,5 @@ return new class() extends XotBaseMigration
                 $table->unsignedBigInteger('created_by_user_id')->nullable()->change();
             }
         });
->>>>>>> .merge_file_F3y1g4
     }
 };
