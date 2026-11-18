@@ -19,6 +19,18 @@ use Spatie\QueueableAction\QueueableAction;
  * poi OpenRouter. Un fornitore senza chiave o che fallisce passa la mano al successivo; se nessuno
  * risponde si usa MakeAIRequestAction (OpenAI), come prima di questa Action.
  * La risposta e' chiesta in JSON (`response_format: json_object`), come vuole il prompt dell'assistente.
+ *
+ * Contratto di comportamento (Modules/Xot/docs/rules/action-behavioral-contract.md):
+ * - Input: prompt di sistema e prompt dell'utente.
+ * - Output: il testo della risposta (JSON, come chiede il prompt) del primo fornitore che risponde.
+ * - Invarianti: con `free_models_only` mai un modello a pagamento; ogni richiesta chiede `response_format: json_object` e
+ *   almeno un messaggio nomina JSON (JSON_INSTRUCTION), altrimenti Groq e OpenAI rispondono 400.
+ * - Effetti collaterali: richieste HTTP ai fornitori in ordine (`assistant_providers`); un avviso nel log per ogni fornitore
+ *   saltato o in errore.
+ * - Errori: un fornitore senza chiave, in errore o senza contenuto passa la mano al successivo; alla fine prova OpenAI
+ *   (MakeAIRequestAction), le cui eccezioni arrivano al chiamante.
+ * - Non fa: non costruisce il prompt (BuildAssistantPromptAction); non interpreta il JSON della risposta; non salva la
+ *   conversazione.
  */
 final class RequestAssistantCompletionAction
 {
