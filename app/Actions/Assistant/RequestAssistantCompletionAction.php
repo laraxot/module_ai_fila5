@@ -60,7 +60,7 @@ final class RequestAssistantCompletionAction
                     ],
                     'temperature' => 0.2,
                     'max_tokens' => 1000,
-                    'response_format' => ['type' => 'json_object'],
+                    ...($provider->jsonMode() === 'none' ? [] : ['response_format' => ['type' => 'json_object']]),
                 ], $settings->assistant_timeout);
             } catch (AiRequestException $exception) {
                 Log::warning('AI assistant provider failed', ['provider' => $name, 'error' => $exception->getMessage()]);
