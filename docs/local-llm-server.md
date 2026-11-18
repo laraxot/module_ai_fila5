@@ -44,10 +44,13 @@ colibri compilato dal sorgente (`make qwen36`, 34 s), LFM3-VL-2B Q4_K_M, contain
 7 GB di RAM, senza GPU**. Lettura della foto di prova del menu (1029×1400) con la stessa azione del modulo
 Restaurant (`ReadMenuPhotoAction` → `ExtractStructuredDataFromImagesAction`, fornitore `local`):
 
-- funziona end-to-end: JSON valido con sezioni, piatti, prezzi e legenda allergeni completa (14 voci);
-- **470 secondi** (Groq: 2,4–4,4 s). Su 2 vCPU senza GPU è il caso peggiore;
-- il modello da 2B lascia i numeri degli allergeni nel nome ("Tiramisù della casa (1, 3, 7)") invece di
-  metterli in `allergen_codes`: per l'uso vero serve un modello più grande (Qwen3.8-27B).
+- funziona end-to-end, due prove: **10 piatti su 10** con categorie e prezzi giusti, legenda allergeni
+  completa (14 voci), JSON valido senza `response_format`;
+- **470 e 482 secondi** (Groq: 2,4–4,4 s). Su 2 vCPU senza GPU è il caso peggiore;
+- il modello da 2B lascia i numeri degli allergeni e "vegano" nel nome ("Tiramisù della casa (1, 3, 7)")
+  invece di metterli in `allergen_codes`/`diets`. Il modulo Restaurant ora li recupera dal nome
+  (`BuildMenuImportResultAction::codesFromName()` / `dietsFromName()`), per qualunque modello. Per la
+  qualità migliore resta consigliato Qwen3.8-27B.
 
 Su una workstation con 12+ core, 64+ GB di RAM e GPU integrata Vulkan i tempi scendono di molto (il README
 di colibri riporta per LFM3-VL-2B 34,5 token/s su CPU desktop e 214 con Vulkan su GPU dedicata).
