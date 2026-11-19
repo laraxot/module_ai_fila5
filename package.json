@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "private": true,
     "scripts": {
         "dev": "vite",
@@ -19,4 +20,18 @@
         "tippy.js": "^6.3.7",
         "vite": "^6.4.2"
     }
+=======
+  "name": "@laraxot/module-ai-assets",
+  "private": true,
+  "type": "module",
+  "description": "Sorgenti JS agnostici del modulo AI (renderer A2UI del pannello). Non si compilano qui: li importa il bundle del modulo che li usa (es. Passaparola).",
+  "dependencies": {
+    "@a2ui/lit": "^0.15.0",
+    "@a2ui/markdown-it": "^0.2.2",
+    "@a2ui/web_core": "^0.15.0",
+    "chart.js": "^4.5.1",
+    "lit": "^3.3.3",
+    "zod": "^3.25.76"
+  }
+>>>>>>> laraxot/dev
 }

@@ -13,7 +13,11 @@ discussions: []
 
 ## Panoramica
 
+<<<<<<< HEAD
 Questa guida fornisce informazioni dettagliate sulle procedure di aggiornamento, changelog e compatibilità con versioni precedenti dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
+=======
+Questa guida fornisce informazioni dettagliate sulle procedure di aggiornamento, changelog e compatibilità con versioni precedenti dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
+>>>>>>> laraxot/dev
 
 ## Procedura di Aggiornamento
 
@@ -45,7 +49,11 @@ Dopo l'aggiornamento dei pacchetti, potrebbe essere necessario aggiornare gli sc
 # Script: update-mcp-scripts.sh
 
 # Percorso del progetto
+<<<<<<< HEAD
 PROJECT_DIR="/var/www/html/_bases/base_predict_fila5_mono"
+=======
+PROJECT_DIR="/var/www/html/_bases/base_predict_fila5"
+>>>>>>> laraxot/dev
 
 # Backup dei file esistenti
 echo "Creazione backup degli script esistenti..."
@@ -63,7 +71,11 @@ cat > "$PROJECT_DIR/bashscripts/mcp/mcp-manager-v2.sh" << 'EOF'
 # Versione: 2.1.0
 
 # Percorso del progetto
+<<<<<<< HEAD
 PROJECT_DIR="/var/www/html/_bases/base_predict_fila5_mono"
+=======
+PROJECT_DIR="/var/www/html/_bases/base_predict_fila5"
+>>>>>>> laraxot/dev
 
 # Percorso dei log
 LOGS_DIR="$PROJECT_DIR/logs/mcp"
@@ -77,9 +89,15 @@ mkdir -p "$LOGS_DIR"
 # Funzione per avviare un server MCP
 start_server() {
     local server_name="$1"
+<<<<<<< HEAD
     
     echo "🚀 Avvio del server MCP $server_name..."
     
+=======
+
+    echo "🚀 Avvio del server MCP $server_name..."
+
+>>>>>>> laraxot/dev
     if [ "$server_name" = "mysql" ]; then
         echo "🚀 Avvio del server MCP MySQL personalizzato..."
         cd "$PROJECT_DIR" && node "$MYSQL_CONNECTOR" > "$LOGS_DIR/mysql.log" 2>&1 &
@@ -101,7 +119,11 @@ start_server() {
         echo "❌ Server MCP $server_name non riconosciuto."
         return 1
     fi
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     echo "✅ Server MCP $server_name avviato."
     return 0
 }
@@ -109,9 +131,15 @@ start_server() {
 # Funzione per fermare un server MCP
 stop_server() {
     local server_name="$1"
+<<<<<<< HEAD
     
     echo "🛑 Arresto del server MCP $server_name..."
     
+=======
+
+    echo "🛑 Arresto del server MCP $server_name..."
+
+>>>>>>> laraxot/dev
     if [ "$server_name" = "mysql" ]; then
         pkill -f "node.*mysql-db-connector.js"
     elif [ "$server_name" = "sequential-thinking" ]; then
@@ -132,7 +160,11 @@ stop_server() {
         echo "❌ Server MCP $server_name non riconosciuto."
         return 1
     fi
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     echo "✅ Server MCP $server_name arrestato."
     return 0
 }
@@ -140,9 +172,15 @@ stop_server() {
 # Funzione per verificare lo stato di un server MCP
 check_server_status() {
     local server_name="$1"
+<<<<<<< HEAD
     
     echo "🔍 Verifica dello stato del server MCP $server_name..."
     
+=======
+
+    echo "🔍 Verifica dello stato del server MCP $server_name..."
+
+>>>>>>> laraxot/dev
     if [ "$server_name" = "mysql" ]; then
         if pgrep -f "node.*mysql-db-connector.js" > /dev/null; then
             echo "✅ Server MCP $server_name in esecuzione."
@@ -216,25 +254,41 @@ check_server_status() {
 # Funzione per visualizzare i log di un server MCP
 show_logs() {
     local server_name="$1"
+<<<<<<< HEAD
     
     echo "📋 Log del server MCP $server_name:"
     
+=======
+
+    echo "📋 Log del server MCP $server_name:"
+
+>>>>>>> laraxot/dev
     if [ -f "$LOGS_DIR/$server_name.log" ]; then
         tail -n 50 "$LOGS_DIR/$server_name.log"
     else
         echo "❌ File di log per il server MCP $server_name non trovato."
         return 1
     fi
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     return 0
 }
 
 # Funzione per installare un server MCP
 install_server() {
     local server_name="$1"
+<<<<<<< HEAD
     
     echo "📦 Installazione del server MCP $server_name..."
     
+=======
+
+    echo "📦 Installazione del server MCP $server_name..."
+
+>>>>>>> laraxot/dev
     if [ "$server_name" = "mysql" ]; then
         echo "📦 Installazione delle dipendenze per il server MCP MySQL personalizzato..."
         npm install --save mysql2 dotenv
@@ -266,7 +320,11 @@ install_server() {
         echo "❌ Server MCP $server_name non riconosciuto."
         return 1
     fi
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     echo "✅ Server MCP $server_name installato."
     return 0
 }
@@ -275,7 +333,11 @@ install_server() {
 main() {
     local command="$1"
     local server_name="${2:-all}"
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     case "$command" in
         start)
             if [ "$server_name" = "all" ]; then
@@ -415,14 +477,22 @@ class UpdateMCPConfigCommand extends Command
     public function handle(): int
     {
         $this->info('Aggiornamento dei file di configurazione MCP...');
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         $configFiles = [
             base_path('mcp_config.json'),
             base_path('.cursor/mcp_config.json'),
             base_path('.windsurf/mcp_config.json'),
             base_path('.vscode/mcp.json')
         ];
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         foreach ($configFiles as $file) {
             if (File::exists($file)) {
                 $this->updateConfigFile($file);
@@ -430,12 +500,21 @@ class UpdateMCPConfigCommand extends Command
                 $this->warn("File non trovato: {$file}");
             }
         }
+<<<<<<< HEAD
         
         $this->info('Aggiornamento completato con successo.');
         
         return 0;
     }
     
+=======
+
+        $this->info('Aggiornamento completato con successo.');
+
+        return 0;
+    }
+
+>>>>>>> laraxot/dev
     /**
      * Aggiorna un file di configurazione MCP.
      *
@@ -446,6 +525,7 @@ class UpdateMCPConfigCommand extends Command
     private function updateConfigFile(string $file): void
     {
         $this->info("Aggiornamento del file: {$file}");
+<<<<<<< HEAD
         
         // Crea un backup del file
         $backupFile = $file . '.bak';
@@ -456,11 +536,27 @@ class UpdateMCPConfigCommand extends Command
         // Leggi il contenuto del file
         $config = json_decode(File::get($file), true);
         
+=======
+
+        // Crea un backup del file
+        $backupFile = $file . '.bak';
+        File::copy($file, $backupFile);
+
+        $this->info("Backup creato: {$backupFile}");
+
+        // Leggi il contenuto del file
+        $config = json_decode(File::get($file), true);
+
+>>>>>>> laraxot/dev
         if (json_last_error() !== JSON_ERROR_NONE) {
             $this->error("Errore nella decodifica del file JSON: {$file}");
             return;
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         // Aggiorna la configurazione
         if (isset($config['mcpServers'])) {
             // Aggiorna la configurazione dei server
@@ -480,10 +576,17 @@ class UpdateMCPConfigCommand extends Command
                 }
             }
         }
+<<<<<<< HEAD
         
         // Scrivi la nuova configurazione
         File::put($file, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         
+=======
+
+        // Scrivi la nuova configurazione
+        File::put($file, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+>>>>>>> laraxot/dev
         $this->info("File aggiornato: {$file}");
     }
 }

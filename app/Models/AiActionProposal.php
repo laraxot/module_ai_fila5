@@ -39,10 +39,16 @@ use Modules\Xot\Models\XotBaseModel;
  * @property-read AiThread|null $thread
  * @property-read ProfileContract|null $updater
  *
+<<<<<<< HEAD
  * @method static Builder<static>|AiActionProposal newModelQuery()
  * @method static Builder<static>|AiActionProposal newQuery()
  * @method static Builder<static>|AiActionProposal query()
  *
+=======
+ * @method static Builder<static> newModelQuery()
+ * @method static Builder<static> newQuery()
+ * @method static Builder<static> query()
+>>>>>>> laraxot/dev
  */
 class AiActionProposal extends XotBaseModel
 {

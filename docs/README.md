@@ -96,9 +96,15 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 ---
 
+<<<<<<< HEAD
 > ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [INSTALLAZIONE_MCP_SERVERS.md](./INSTALLAZIONE_MCP_SERVERS.md).**
 
 🔗 **Guida installazione MCP servers:** [INSTALLAZIONE_MCP_SERVERS.md](./INSTALLAZIONE_MCP_SERVERS.md)
+=======
+> ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [INSTALLAZIONE_MCP_SERVERS.md](installazione_mcp_servers.md).**
+
+🔗 **Guida installazione MCP servers:** [INSTALLAZIONE_MCP_SERVERS.md](installazione_mcp_servers.md)
+>>>>>>> laraxot/dev
 
 ---
 

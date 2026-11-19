@@ -6,12 +6,20 @@ namespace Modules\AI\Tests\Unit\Actions;
 
 use Mockery;
 use Modules\AI\Actions\CompletionAction;
+<<<<<<< HEAD
+=======
+use Modules\AI\Tests\TestCase;
+>>>>>>> laraxot/dev
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Resources\Completions;
 use OpenAI\Responses\Completions\CreateResponse;
 use PHPUnit\Framework\Assert;
 
+<<<<<<< HEAD
 uses(\Modules\AI\Tests\TestCase::class);
+=======
+uses(TestCase::class);
+>>>>>>> laraxot/dev
 
 afterEach(function (): void {
     Mockery::close();

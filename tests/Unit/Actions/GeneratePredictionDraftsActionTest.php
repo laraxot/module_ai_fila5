@@ -8,11 +8,19 @@ use Modules\AI\Actions\Predict\GeneratePredictionDraftsAction;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
+<<<<<<< HEAD
 uses(\Modules\AI\Tests\TestCase::class);
 
 describe('Generate Prediction Drafts Action', function (): void {
     test('_it_returns_fallback_drafts_when_openai_api_key_is_missing', function (): void {
 config()->set('openai.api_key', null);
+=======
+uses(TestCase::class);
+
+describe('Generate Prediction Drafts Action', function (): void {
+    test('_it_returns_fallback_drafts_when_openai_api_key_is_missing', function (): void {
+        config()->set('openai.api_key', null);
+>>>>>>> laraxot/dev
 
         $drafts = (new GeneratePredictionDraftsAction)->execute(3);
 

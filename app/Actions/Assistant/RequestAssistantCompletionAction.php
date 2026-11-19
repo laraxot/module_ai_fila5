@@ -60,7 +60,11 @@ final class RequestAssistantCompletionAction
                     ],
                     'temperature' => 0.2,
                     'max_tokens' => 1000,
+<<<<<<< HEAD
                     'response_format' => ['type' => 'json_object'],
+=======
+                    ...($provider->jsonMode() === 'none' ? [] : ['response_format' => ['type' => 'json_object']]),
+>>>>>>> laraxot/dev
                 ], $settings->assistant_timeout);
             } catch (AiRequestException $exception) {
                 Log::warning('AI assistant provider failed', ['provider' => $name, 'error' => $exception->getMessage()]);

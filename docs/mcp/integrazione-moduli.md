@@ -13,7 +13,11 @@ discussions: []
 
 ## Panoramica
 
+<<<<<<< HEAD
 Questa guida fornisce istruzioni dettagliate per l'integrazione dei server MCP (Model Context Protocol) con i moduli Laravel nel progetto base_predict_fila5_mono, seguendo le regole di sviluppo e le convenzioni di codice stabilite.
+=======
+Questa guida fornisce istruzioni dettagliate per l'integrazione dei server MCP (Model Context Protocol) con i moduli Laravel nel progetto base_predict_fila5, seguendo le regole di sviluppo e le convenzioni di codice stabilite.
+>>>>>>> laraxot/dev
 
 ## Principi di Integrazione
 
@@ -27,7 +31,11 @@ L'integrazione dei server MCP con i moduli Laravel segue questi principi fondame
 
 ## Struttura dei Moduli
 
+<<<<<<< HEAD
 Prima di procedere con l'integrazione, è importante comprendere la struttura dei moduli nel progetto base_predict_fila5_mono:
+=======
+Prima di procedere con l'integrazione, è importante comprendere la struttura dei moduli nel progetto base_predict_fila5:
+>>>>>>> laraxot/dev
 
 ```
 /path/to/your/project/laravel/Modules/
@@ -80,7 +88,11 @@ class MCPServiceProvider extends XotBaseServiceProvider
                 config('ai.mcp.servers')
             );
         });
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         $this->app->alias(MCPServiceContract::class, 'mcp');
     }
 
@@ -247,7 +259,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
      * @var array<string, mixed>
      */
     private array $config;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * @param array<string, mixed> $config
      */
@@ -255,7 +271,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
     {
         $this->config = $config;
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -267,7 +287,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
     ): array {
         // Implementazione della generazione del pensiero
         // ...
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return [
             'thought' => $thought,
             'thoughtNumber' => $thoughtNumber,
@@ -275,14 +299,22 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
             'nextThoughtNeeded' => $nextThoughtNeeded
         ];
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
     public function analyze(string $text, array $aspects): array {
         // Implementazione dell'analisi
         // ...
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return [
             'readability' => [
                 'score' => 85,
@@ -317,7 +349,11 @@ class MemoryServer implements MemoryServerContract
      * @var array<string, mixed>
      */
     private array $config;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * @param array<string, mixed> $config
      */
@@ -325,38 +361,61 @@ class MemoryServer implements MemoryServerContract
     {
         $this->config = $config;
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
     public function store(string $key, mixed $value): bool {
         // Implementazione della memorizzazione
         // ...
+<<<<<<< HEAD
         
         return true;
     }
     
+=======
+
+        return true;
+    }
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
     public function retrieve(string $key): mixed {
         // Implementazione del recupero
         // ...
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return [
             'theme' => 'dark',
             'language' => 'it',
             'notifications' => true
         ];
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
     public function delete(string $key): bool {
         // Implementazione dell'eliminazione
         // ...
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return true;
     }
 }
@@ -438,9 +497,15 @@ class VerifyUserEmailAction
         $response = $this->mcpService->fetch()->get(
             "https://api.email-validator.net/api/verify?EmailAddress={$user->email}"
         );
+<<<<<<< HEAD
         
         $data = json_decode($response, true);
         
+=======
+
+        $data = json_decode($response, true);
+
+>>>>>>> laraxot/dev
         return $data['status'] === 'valid';
     }
 }
@@ -491,13 +556,21 @@ class AnalyzePostContentAction
                 'keywords'
             ]
         );
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         // Memorizza l'analisi per riferimento futuro
         $this->mcpService->memory()->store(
             "post_analysis_{$post->id}",
             $analysis
         );
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return new ContentAnalysisData(
             readabilityScore: $analysis['readability']['score'],
             seoScore: $analysis['seo']['score'],
@@ -573,16 +646,27 @@ class GenerateUIScreenshotsAction
     public function execute(array $routes, string $outputDir): array
     {
         $results = [];
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         foreach ($routes as $route) {
             $screenshotPath = $this->mcpService->puppeteer()->captureScreenshot(
                 route($route),
                 $outputDir . '/' . str_replace('.', '_', $route) . '.png'
             );
+<<<<<<< HEAD
             
             $results[$route] = $screenshotPath;
         }
         
+=======
+
+            $results[$route] = $screenshotPath;
+        }
+
+>>>>>>> laraxot/dev
         return $results;
     }
 }
@@ -624,7 +708,11 @@ class OptimizeDatabaseQueryAction
     public function execute(string $query): QueryAnalysisData
     {
         $analysis = $this->mcpService->postgres()->analyzeQuery($query);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return new QueryAnalysisData(
             originalQuery: $query,
             optimizedQuery: $analysis['optimized_query'],
@@ -746,9 +834,15 @@ use Modules\AI\Services\Contracts\MCPServiceContract;
 class AnalysisResource extends Resource
 {
     protected static ?string $model = Analysis::class;
+<<<<<<< HEAD
     
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     
+=======
+
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+>>>>>>> laraxot/dev
     public static function form(Form $form): Form
     {
         return $form
@@ -768,7 +862,11 @@ class AnalysisResource extends Resource
                     ->required(),
             ]);
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     public static function table(Table $table): Table
     {
         return $table
@@ -788,7 +886,11 @@ class AnalysisResource extends Resource
                             $record->content,
                             $record->aspects
                         );
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> laraxot/dev
                         $record->update([
                             'results' => $analysis,
                         ]);
@@ -798,14 +900,22 @@ class AnalysisResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     public static function getPages(): array
     {
         return [
@@ -836,20 +946,32 @@ class ContentAnalyzer extends Component
     public string $content = '';
     public array $aspects = ['readability', 'seo', 'sentiment', 'keywords'];
     public ?array $analysis = null;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     public function analyze(MCPServiceContract $mcpService): void
     {
         $this->validate([
             'content' => 'required|min:10',
             'aspects' => 'required|array|min:1',
         ]);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         $this->analysis = $mcpService->sequentialThinking()->analyze(
             $this->content,
             $this->aspects
         );
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     public function render(): \Illuminate\View\View
     {
         return view('ai::livewire.content-analyzer');
@@ -891,7 +1013,11 @@ $analyze = function (MCPServiceContract $mcpService) {
         <textarea id="content" wire:model="content" rows="5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
         @error('content') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
     </div>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Aspects</label>
         <div class="mt-2 space-y-2">
@@ -904,11 +1030,19 @@ $analyze = function (MCPServiceContract $mcpService) {
         </div>
         @error('aspects') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
     </div>
+<<<<<<< HEAD
     
     <button wire:click="analyze" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
         Analyze
     </button>
     
+=======
+
+    <button wire:click="analyze" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        Analyze
+    </button>
+
+>>>>>>> laraxot/dev
     @if($analysis)
         <div class="mt-4">
             <h3 class="text-lg font-medium text-gray-900">Analysis Results</h3>
@@ -920,7 +1054,11 @@ $analyze = function (MCPServiceContract $mcpService) {
                         <p class="text-sm text-gray-500">Level: {{ $analysis['readability']['level'] }}</p>
                     </div>
                 @endif
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> laraxot/dev
                 @if(isset($analysis['seo']))
                     <div class="mb-2">
                         <h4 class="text-sm font-medium text-gray-700">SEO</h4>
@@ -934,14 +1072,22 @@ $analyze = function (MCPServiceContract $mcpService) {
                         @endif
                     </div>
                 @endif
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> laraxot/dev
                 @if(isset($analysis['sentiment']))
                     <div class="mb-2">
                         <h4 class="text-sm font-medium text-gray-700">Sentiment</h4>
                         <p class="text-sm text-gray-500">{{ $analysis['sentiment']['value'] }}</p>
                     </div>
                 @endif
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> laraxot/dev
                 @if(isset($analysis['keywords']))
                     <div class="mb-2">
                         <h4 class="text-sm font-medium text-gray-700">Keywords</h4>
@@ -981,7 +1127,11 @@ parameters:
 
 ## Conclusione
 
+<<<<<<< HEAD
 Hai imparato come integrare i server MCP con i moduli Laravel nel progetto base_predict_fila5_mono. Questa integrazione consente di estendere le capacità dei moduli con funzionalità avanzate come l'analisi del contenuto, la memorizzazione di informazioni e l'interazione con sistemi esterni.
+=======
+Hai imparato come integrare i server MCP con i moduli Laravel nel progetto base_predict_fila5. Questa integrazione consente di estendere le capacità dei moduli con funzionalità avanzate come l'analisi del contenuto, la memorizzazione di informazioni e l'interazione con sistemi esterni.
+>>>>>>> laraxot/dev
 
 Seguendo le regole di sviluppo e le convenzioni di codice stabilite, è possibile creare integrazioni robuste e tipizzate che migliorano significativamente le funzionalità del sistema.
 
@@ -995,4 +1145,8 @@ updated: 2026-09-26
 qmd: "integrazione moduli"
 issues: []
 discussions: []
+<<<<<<< HEAD
 Continua con la sezione [Implementazione Pratica](./05_IMPLEMENTAZIONE_PRATICA.md) per vedere esempi concreti di implementazione dei server MCP in progetti Laravel.
+=======
+Continua con la sezione [Implementazione Pratica](05_implementazione_pratica.md) per vedere esempi concreti di implementazione dei server MCP in progetti Laravel.
+>>>>>>> laraxot/dev

@@ -13,7 +13,11 @@ discussions: []
 
 ## Panoramica
 
+<<<<<<< HEAD
 Questa guida fornisce istruzioni dettagliate per la configurazione dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
+=======
+Questa guida fornisce istruzioni dettagliate per la configurazione dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
+>>>>>>> laraxot/dev
 
 ## Struttura delle Directory
 
@@ -349,9 +353,15 @@ SCRIPTS_DIR="$PROJECT_DIR/bashscripts/mcp"
 LOGS_DIR="$PROJECT_DIR/storage/logs/mcp"
 
 # Aggiorna i percorsi negli script
+<<<<<<< HEAD
 sed -i "s|/var/www/html/_bases/base_predict_fila5_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/mcp-manager-v2.sh"
 sed -i "s|/var/www/html/_bases/base_predict_fila5_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/start-mysql-mcp.sh"
 sed -i "s|/var/www/html/_bases/base_predict_fila5_mono|$PROJECT_DIR|g" "$SCRIPTS_DIR/mysql-db-connector.js"
+=======
+sed -i "s|/var/www/html/_bases/base_predict_fila5|$PROJECT_DIR|g" "$SCRIPTS_DIR/mcp-manager-v2.sh"
+sed -i "s|/var/www/html/_bases/base_predict_fila5|$PROJECT_DIR|g" "$SCRIPTS_DIR/start-mysql-mcp.sh"
+sed -i "s|/var/www/html/_bases/base_predict_fila5|$PROJECT_DIR|g" "$SCRIPTS_DIR/mysql-db-connector.js"
+>>>>>>> laraxot/dev
 
 # Crea i file di configurazione
 echo '{
@@ -521,4 +531,8 @@ updated: 2026-09-26
 qmd: "02 configurazione"
 issues: []
 discussions: []
+<<<<<<< HEAD
 Continua con la sezione [Utilizzo](./03_UTILIZZO.md) per imparare come utilizzare i server MCP nel tuo progetto Laravel.
+=======
+Continua con la sezione [Utilizzo](03_utilizzo.md) per imparare come utilizzare i server MCP nel tuo progetto Laravel.
+>>>>>>> laraxot/dev

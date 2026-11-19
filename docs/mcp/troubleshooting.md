@@ -13,7 +13,11 @@ discussions: []
 
 ## Panoramica
 
+<<<<<<< HEAD
 Questa guida fornisce informazioni dettagliate per la risoluzione dei problemi comuni che possono verificarsi durante l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
+=======
+Questa guida fornisce informazioni dettagliate per la risoluzione dei problemi comuni che possono verificarsi durante l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
+>>>>>>> laraxot/dev
 
 ## ⚠️ ATTENZIONE: PROBLEMI DI MIGRAZIONE DATABASE
 
@@ -101,7 +105,11 @@ discussions: []
        $result = $mcpService->sequentialThinking()->generateThought(...);
    } catch (\Exception $e) {
        Log::error('Server MCP non disponibile: ' . $e->getMessage());
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> laraxot/dev
        // Fallback
        $result = [
            'thought' => 'Pensiero generato localmente',
@@ -139,7 +147,11 @@ discussions: []
    $maxRetries = 3;
    $retryCount = 0;
    $delay = 1;
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> laraxot/dev
    while ($retryCount < $maxRetries) {
        try {
            $response = $mcpService->fetch()->get('https://api.example.com/data');
@@ -148,7 +160,11 @@ discussions: []
            $retryCount++;
            $delay *= 2; // Backoff esponenziale
            Log::warning("Retry {$retryCount}/{$maxRetries}: " . $e->getMessage());
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> laraxot/dev
            if ($retryCount < $maxRetries) {
                sleep($delay);
            } else {
@@ -221,7 +237,11 @@ discussions: []
        $results = $mcpService->mysql()->executeQuery('SELECT * FROM users');
    } catch (\Exception $e) {
        Log::error('Errore MySQL: ' . $e->getMessage());
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> laraxot/dev
        // Fallback: utilizza Eloquent
        $results = \App\Models\User::all()->toArray();
    }
@@ -327,18 +347,27 @@ discussions: []
    class MCPRateLimiter
    {
        private RateLimiter $limiter;
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> laraxot/dev
        public function __construct(RateLimiter $limiter)
        {
            $this->limiter = $limiter;
        }
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> laraxot/dev
        public function attempt(string $key, int $maxAttempts, \Closure $callback, int $decaySeconds = 60)
        {
            if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
                $seconds = $this->limiter->availableIn($key);
                throw new \Exception("Troppe richieste. Riprova tra {$seconds} secondi.");
            }
+<<<<<<< HEAD
            
            $result = $callback();
            
@@ -351,6 +380,20 @@ discussions: []
    // Utilizzo
    $rateLimiter = app(MCPRateLimiter::class);
    
+=======
+
+           $result = $callback();
+
+           $this->limiter->hit($key, $decaySeconds);
+
+           return $result;
+       }
+   }
+
+   // Utilizzo
+   $rateLimiter = app(MCPRateLimiter::class);
+
+>>>>>>> laraxot/dev
    try {
        $result = $rateLimiter->attempt(
            'mcp_sequential_thinking',
@@ -401,7 +444,11 @@ use Illuminate\Http\Client\RequestException;
 class SequentialThinkingServer implements SequentialThinkingServerContract
 {
     // ...
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -417,10 +464,17 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
             'totalThoughts' => $totalThoughts,
             'nextThoughtNeeded' => $nextThoughtNeeded
         ]);
+<<<<<<< HEAD
         
         try {
             $startTime = microtime(true);
             
+=======
+
+        try {
+            $startTime = microtime(true);
+
+>>>>>>> laraxot/dev
             $response = Http::timeout($this->config['timeout'] ?? 30)
                 ->post('http://localhost:3000/api/v1/sequential-thinking', [
                     'thought' => $thought,
@@ -428,24 +482,42 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                     'totalThoughts' => $totalThoughts,
                     'nextThoughtNeeded' => $nextThoughtNeeded
                 ]);
+<<<<<<< HEAD
             
             $duration = microtime(true) - $startTime;
             
+=======
+
+            $duration = microtime(true) - $startTime;
+
+>>>>>>> laraxot/dev
             Log::debug('Thought generated', [
                 'duration' => $duration,
                 'status' => $response->status()
             ]);
+<<<<<<< HEAD
             
             if ($response->successful()) {
                 return $response->json();
             }
             
+=======
+
+            if ($response->successful()) {
+                return $response->json();
+            }
+
+>>>>>>> laraxot/dev
             Log::error('Sequential Thinking Server Error', [
                 'status' => $response->status(),
                 'body' => $response->body(),
                 'duration' => $duration
             ]);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> laraxot/dev
             return [
                 'thought' => $thought,
                 'thoughtNumber' => $thoughtNumber,
@@ -459,7 +531,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'response' => $e->response?->body(),
                 'status' => $e->response?->status()
             ]);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> laraxot/dev
             return [
                 'thought' => $thought,
                 'thoughtNumber' => $thoughtNumber,
@@ -472,7 +548,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> laraxot/dev
             return [
                 'thought' => $thought,
                 'thoughtNumber' => $thoughtNumber,
@@ -482,7 +562,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
             ];
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     // ...
 }
 ```
@@ -515,11 +599,19 @@ class MCPTelemetryMiddleware
     public function handle(Request $request, Closure $next): mixed
     {
         $startTime = microtime(true);
+<<<<<<< HEAD
         
         $response = $next($request);
         
         $duration = microtime(true) - $startTime;
         
+=======
+
+        $response = $next($request);
+
+        $duration = microtime(true) - $startTime;
+
+>>>>>>> laraxot/dev
         // Registra la telemetria solo per le richieste MCP
         if (strpos($request->path(), 'api/mcp') === 0) {
             Log::channel('telemetry')->info('MCP Request', [
@@ -530,7 +622,11 @@ class MCPTelemetryMiddleware
                 'server' => $request->route('server') ?? 'unknown'
             ]);
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return $response;
     }
 }
@@ -562,7 +658,11 @@ class MCPHealthController extends Controller
         private readonly MCPServiceContract $mcpService
     ) {
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * Verifica lo stato di tutti i server MCP.
      *
@@ -582,6 +682,7 @@ class MCPHealthController extends Controller
             'puppeteer' => 'http://localhost:3006/api/v1/health',
             'mysql' => 'http://localhost:3007/api/v1/health'
         ];
+<<<<<<< HEAD
         
         $results = [];
         
@@ -589,6 +690,15 @@ class MCPHealthController extends Controller
             try {
                 $response = Http::timeout(5)->get($url);
                 
+=======
+
+        $results = [];
+
+        foreach ($servers as $name => $url) {
+            try {
+                $response = Http::timeout(5)->get($url);
+
+>>>>>>> laraxot/dev
                 $results[$name] = [
                     'status' => $response->successful() ? 'up' : 'down',
                     'code' => $response->status(),
@@ -602,9 +712,15 @@ class MCPHealthController extends Controller
                 ];
             }
         }
+<<<<<<< HEAD
         
         $allUp = count(array_filter($results, fn($r) => $r['status'] === 'up')) === count($servers);
         
+=======
+
+        $allUp = count(array_filter($results, fn($r) => $r['status'] === 'up')) === count($servers);
+
+>>>>>>> laraxot/dev
         return response()->json([
             'status' => $allUp ? 'healthy' : 'degraded',
             'timestamp' => now()->toIso8601String(),
@@ -657,6 +773,7 @@ class CheckMCPServersCommand extends Command
             'puppeteer' => 'http://localhost:3006/api/v1/health',
             'mysql' => 'http://localhost:3007/api/v1/health'
         ];
+<<<<<<< HEAD
         
         $results = [];
         $hasErrors = false;
@@ -670,25 +787,52 @@ class CheckMCPServersCommand extends Command
                 if ($response->successful()) {
                     $this->output->writeln('<info>OK</info>');
                     
+=======
+
+        $results = [];
+        $hasErrors = false;
+
+        foreach ($servers as $name => $url) {
+            $this->output->write("Checking {$name}... ");
+
+            try {
+                $response = Http::timeout(5)->get($url);
+
+                if ($response->successful()) {
+                    $this->output->writeln('<info>OK</info>');
+
+>>>>>>> laraxot/dev
                     $results[$name] = [
                         'status' => 'up',
                         'code' => $response->status(),
                         'message' => 'OK'
                     ];
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> laraxot/dev
                     if ($this->option('detailed')) {
                         $this->output->writeln("  Response: " . $response->body());
                     }
                 } else {
                     $this->output->writeln('<error>FAIL</error>');
                     $hasErrors = true;
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> laraxot/dev
                     $results[$name] = [
                         'status' => 'down',
                         'code' => $response->status(),
                         'message' => $response->body()
                     ];
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> laraxot/dev
                     if ($this->option('detailed')) {
                         $this->output->writeln("  Error: " . $response->body());
                     }
@@ -696,21 +840,35 @@ class CheckMCPServersCommand extends Command
             } catch (\Exception $e) {
                 $this->output->writeln('<error>ERROR</error>');
                 $hasErrors = true;
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> laraxot/dev
                 $results[$name] = [
                     'status' => 'down',
                     'code' => 500,
                     'message' => $e->getMessage()
                 ];
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> laraxot/dev
                 if ($this->option('detailed')) {
                     $this->output->writeln("  Exception: " . $e->getMessage());
                 }
             }
         }
+<<<<<<< HEAD
         
         $this->newLine();
         
+=======
+
+        $this->newLine();
+
+>>>>>>> laraxot/dev
         $tableData = [];
         foreach ($results as $name => $result) {
             $tableData[] = [
@@ -720,9 +878,15 @@ class CheckMCPServersCommand extends Command
                 $result['message']
             ];
         }
+<<<<<<< HEAD
         
         $this->table(['Server', 'Status', 'Code', 'Message'], $tableData);
         
+=======
+
+        $this->table(['Server', 'Status', 'Code', 'Message'], $tableData);
+
+>>>>>>> laraxot/dev
         return $hasErrors ? 1 : 0;
     }
 }

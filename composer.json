@@ -16,9 +16,13 @@
                 "Modules\\AI\\Providers\\AIServiceProvider",
                 "Modules\\AI\\Providers\\Filament\\AdminPanelProvider"
             ],
+<<<<<<< HEAD
             "aliases": {
 
             }
+=======
+            "aliases": {}
+>>>>>>> laraxot/dev
         }
     },
     "autoload": {
@@ -34,7 +38,13 @@
         }
     },
     "require": {
+<<<<<<< HEAD
         "openai-php/laravel": "*"
+=======
+        "openai-php/laravel": "*",
+        "neuron-core/neuron-ai": "^4.1",
+        "laravel/mcp": "^1.1"
+>>>>>>> laraxot/dev
     },
     "require-dev_comment": {
         "codewithkyrian/transformers": "^0.5.2",

@@ -10,7 +10,11 @@ use PHPUnit\Framework\Assert;
 
 beforeEach(function (): void {
     /** @var TestCase $this */
+<<<<<<< HEAD
     $this->action = new CompletionAction();
+=======
+    $this->action = new CompletionAction;
+>>>>>>> laraxot/dev
 });
 
 describe('CompletionAction', function (): void {

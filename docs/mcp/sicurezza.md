@@ -13,7 +13,11 @@ discussions: []
 
 ## Panoramica
 
+<<<<<<< HEAD
 Questa guida fornisce le migliori pratiche di sicurezza per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
+=======
+Questa guida fornisce le migliori pratiche di sicurezza per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
+>>>>>>> laraxot/dev
 
 ## Gestione delle Credenziali
 
@@ -99,7 +103,11 @@ class SequentialThinkingController extends Controller
         private readonly MCPServiceContract $mcpService
     ) {
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * Analizza un testo utilizzando il server MCP sequential-thinking.
      *
@@ -114,12 +122,20 @@ class SequentialThinkingController extends Controller
             'aspects' => 'required|array|min:1',
             'aspects.*' => 'string|in:readability,seo,sentiment,keywords'
         ]);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         $result = $this->mcpService->sequentialThinking()->analyze(
             $validated['text'],
             $validated['aspects']
         );
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return response()->json([
             'success' => true,
             'data' => $result
@@ -172,6 +188,7 @@ class AnalyzePostContentAction
                 'keywords'
             ]
         );
+<<<<<<< HEAD
         
         // Sanitizzazione dell'output
         $readabilityScore = isset($analysis['readability']['score']) ? 
@@ -186,6 +203,22 @@ class AnalyzePostContentAction
         $keywords = isset($analysis['keywords']) && is_array($analysis['keywords']) ? 
             array_map(fn($k) => Str::lower(trim($k)), $analysis['keywords']) : [];
         
+=======
+
+        // Sanitizzazione dell'output
+        $readabilityScore = isset($analysis['readability']['score']) ?
+            max(0, min(100, (int) $analysis['readability']['score'])) : 0;
+
+        $seoScore = isset($analysis['seo']['score']) ?
+            max(0, min(100, (int) $analysis['seo']['score'])) : 0;
+
+        $sentiment = isset($analysis['sentiment']['value']) ?
+            Str::lower(trim($analysis['sentiment']['value'])) : 'neutral';
+
+        $keywords = isset($analysis['keywords']) && is_array($analysis['keywords']) ?
+            array_map(fn($k) => Str::lower(trim($k)), $analysis['keywords']) : [];
+
+>>>>>>> laraxot/dev
         return new ContentAnalysisData(
             readabilityScore: $readabilityScore,
             seoScore: $seoScore,
@@ -242,7 +275,11 @@ class MCPServicePolicy
         // Verifica se l'utente ha il ruolo o il permesso necessario
         return $user->hasRole('admin') || $user->hasPermission('use-mcp-services');
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * Determina se l'utente può utilizzare il server sequential-thinking.
      *
@@ -254,7 +291,11 @@ class MCPServicePolicy
     {
         return $user->hasRole('admin') || $user->hasPermission('use-sequential-thinking');
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     // Altri metodi per gli altri server...
 }
 ```
@@ -351,7 +392,11 @@ use Illuminate\Support\Facades\Log;
 class SequentialThinkingServer implements SequentialThinkingServerContract
 {
     // ...
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -367,7 +412,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
             'thought_number' => $thoughtNumber,
             'total_thoughts' => $totalThoughts
         ]);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         try {
             $response = Http::timeout($this->config['timeout'] ?? 30)
                 ->post('http://localhost:3000/api/v1/sequential-thinking', [
@@ -376,24 +425,39 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                     'totalThoughts' => $totalThoughts,
                     'nextThoughtNeeded' => $nextThoughtNeeded
                 ]);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> laraxot/dev
             if ($response->successful()) {
                 Log::info('Thought generated successfully', [
                     'server' => 'sequential-thinking',
                     'user_id' => auth()->id(),
                     'thought_number' => $thoughtNumber
                 ]);
+<<<<<<< HEAD
                 
                 return $response->json();
             }
             
+=======
+
+                return $response->json();
+            }
+
+>>>>>>> laraxot/dev
             Log::error('Sequential Thinking Server Error', [
                 'server' => 'sequential-thinking',
                 'user_id' => auth()->id(),
                 'status' => $response->status(),
                 'body' => $response->body()
             ]);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> laraxot/dev
             return [
                 'thought' => $thought,
                 'thoughtNumber' => $thoughtNumber,
@@ -408,7 +472,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> laraxot/dev
             return [
                 'thought' => $thought,
                 'thoughtNumber' => $thoughtNumber,
@@ -418,7 +486,11 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
             ];
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> laraxot/dev
     // ...
 }
 ```
@@ -451,11 +523,19 @@ class MCPMonitoringMiddleware
     public function handle(Request $request, Closure $next): mixed
     {
         $startTime = microtime(true);
+<<<<<<< HEAD
         
         $response = $next($request);
         
         $duration = microtime(true) - $startTime;
         
+=======
+
+        $response = $next($request);
+
+        $duration = microtime(true) - $startTime;
+
+>>>>>>> laraxot/dev
         // Registra le metriche di prestazione
         Log::channel('performance')->info('MCP Request', [
             'path' => $request->path(),
@@ -465,7 +545,11 @@ class MCPMonitoringMiddleware
             'user_id' => auth()->id(),
             'server' => $request->route('server') ?? 'unknown'
         ]);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> laraxot/dev
         return $response;
     }
 }
@@ -506,11 +590,19 @@ $validated = $request->validate([
             if (preg_match('/\b(?:\d[ -]*?){13,16}\b/', $value)) {
                 $fail('Il testo non deve contenere numeri di carte di credito.');
             }
+<<<<<<< HEAD
             
             if (preg_match('/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/', $value)) {
                 $fail('Il testo non deve contenere indirizzi email.');
             }
             
+=======
+
+            if (preg_match('/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/', $value)) {
+                $fail('Il testo non deve contenere indirizzi email.');
+            }
+
+>>>>>>> laraxot/dev
             if (preg_match('/\b(?:\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\b/', $value)) {
                 $fail('Il testo non deve contenere numeri di telefono.');
             }
@@ -577,6 +669,10 @@ protected $middlewareAliases = [
 
 ## Conclusione
 
+<<<<<<< HEAD
 Questa guida ha fornito le migliori pratiche di sicurezza per l'utilizzo dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano sicure e conformi alle regole di sviluppo stabilite per i progetti base_predict_fila5_mono.
+=======
+Questa guida ha fornito le migliori pratiche di sicurezza per l'utilizzo dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano sicure e conformi alle regole di sviluppo stabilite per i progetti base_predict_fila5.
+>>>>>>> laraxot/dev
 
 Per ulteriori informazioni e supporto, consultare la documentazione ufficiale dei server MCP o contattare il team di sviluppo.
