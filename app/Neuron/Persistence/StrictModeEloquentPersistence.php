@@ -16,11 +16,14 @@ use NeuronAI\Workflow\Persistence\EloquentPersistence;
  * del tenant hanno `strict => false` per il resto dell'applicazione, quindi qui lo strict
  * mode si accende per la durata della scrittura e poi si rimette la modalita' di prima:
  * la garanzia di neuron vale davvero, e le altre query della richiesta non cambiano.
+ *
+ * @see Modules/AI/docs/agents.md#binding-e-strict-mode-mysql
  */
 final class StrictModeEloquentPersistence extends EloquentPersistence
 {
     private const string STRICT_MODE = 'STRICT_TRANS_TABLES';
 
+    /** @see Modules/AI/docs/agents.md#binding-e-strict-mode-mysql */
     protected function atomically(Closure $operation): bool
     {
         $connection = (new $this->modelClass)->getConnection();

@@ -15,10 +15,12 @@ use NeuronAI\Chat\History\EloquentMessageStore;
 use NeuronAI\Chat\History\MessageStoreInterface;
 use NeuronAI\Workflow\Persistence\PersistenceInterface;
 
+/** @see Modules/AI/docs/agents.md#binding-e-strict-mode-mysql */
 class AIServiceProvider extends XotBaseServiceProvider
 {
     public string $name = 'AI'; // lower del nome
 
+    /** @see Modules/AI/docs/agents.md#binding-e-strict-mode-mysql */
     public function register(): void
     {
         parent::register();

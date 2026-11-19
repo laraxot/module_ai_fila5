@@ -14,6 +14,7 @@ use function Safe\json_encode;
  * Il risultato del tool e' JSON con la chiave `a2ui`: il client lo disegna invece di mostrarlo come testo.
  *
  * @see https://a2ui.org/specification/v1_0/
+ * @see Modules/AI/docs/agents.md#interfacce-generate-a2ui
  */
 final class BuildA2uiSurfaceAction
 {
@@ -27,6 +28,8 @@ final class BuildA2uiSurfaceAction
     /**
      * @param  list<array<string, mixed>>  $components  albero gia' controllato da ValidateA2uiComponentsAction
      * @return list<array<string, mixed>>
+     *
+     * @see Modules/AI/docs/agents.md#interfacce-generate-a2ui
      */
     public function execute(array $components, string $prefix = 'generated'): array
     {

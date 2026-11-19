@@ -18,6 +18,8 @@ use function Safe\json_decode;
  * Il modello compone un'interfaccia A2UI (KPI, grafici, tabelle) e il browser la disegna.
  * Un albero non valido torna al modello come errore con l'elenco dei problemi, e il modello riprova.
  * Non cambia dati: non serve approvazione. Aggiungere GUIDE alle istruzioni dell'agente.
+ *
+ * @see Modules/AI/docs/agents.md#interfacce-generate-a2ui
  */
 final class RenderSurfaceTool extends Tool
 {
@@ -59,6 +61,7 @@ final class RenderSurfaceTool extends Tool
         ];
     }
 
+    /** @see Modules/AI/docs/agents.md#interfacce-generate-a2ui */
     public function __invoke(string $components): ToolOutput
     {
         try {

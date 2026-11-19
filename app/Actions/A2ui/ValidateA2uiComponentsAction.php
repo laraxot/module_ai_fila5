@@ -16,6 +16,8 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * Componenti ammessi: layout e testo del catalogo base, piu' Stat, Chart e DataTable del catalogo
  * del pannello (`resources/js/a2ui/panel-catalog.js`). Pattern da datomatic/laravelday-2026 (MIT).
+ *
+ * @see Modules/AI/docs/agents.md#interfacce-generate-a2ui
  */
 final class ValidateA2uiComponentsAction
 {
@@ -35,6 +37,8 @@ final class ValidateA2uiComponentsAction
     /**
      * @param  array<int|string, mixed>  $components
      * @return list<string> vuota se l'albero e' valido
+     *
+     * @see Modules/AI/docs/agents.md#interfacce-generate-a2ui
      */
     public function execute(array $components): array
     {
