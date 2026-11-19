@@ -8,6 +8,7 @@ use Modules\AI\Actions\Agent\ResolveAgentProviderAction;
 use Modules\AI\Exceptions\AiRequestException;
 use Modules\AI\Tests\Support\FakeTenantAiConfig;
 use Modules\AI\Tests\TestCase;
+use NeuronAI\Providers\AIProviderInterface;
 use NeuronAI\Providers\OpenAILike;
 use ReflectionProperty;
 
@@ -18,9 +19,15 @@ beforeEach(function (): void {
     config(['services.groq.key' => null, 'services.openrouter.key' => null]);
 });
 
-function providerBaseUri(OpenAILike $provider): string
+function providerBaseUri(AIProviderInterface $provider): string
 {
-    return (string) (new ReflectionProperty(OpenAILike::class, 'baseUri'))->getValue($provider);
+    if (! $provider instanceof OpenAILike) {
+        return '';
+    }
+
+    $baseUri = (new ReflectionProperty(OpenAILike::class, 'baseUri'))->getValue($provider);
+
+    return is_string($baseUri) ? $baseUri : '';
 }
 
 it('sceglie Groq quando ha la chiave', function (): void {

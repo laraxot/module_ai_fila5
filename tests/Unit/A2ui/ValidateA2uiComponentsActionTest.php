@@ -9,7 +9,10 @@ use Modules\AI\Tests\TestCase;
 
 uses(TestCase::class);
 
-/** @param  array<int, mixed>  $components */
+/**
+ * @param  array<int, mixed>  $components
+ * @return list<string>
+ */
 function a2uiErrors(array $components): array
 {
     return app(ValidateA2uiComponentsAction::class)->execute($components);

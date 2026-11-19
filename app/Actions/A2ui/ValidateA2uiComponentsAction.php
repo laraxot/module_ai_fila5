@@ -68,7 +68,8 @@ final class ValidateA2uiComponentsAction
      */
     private function componentErrors(string $id, array $component): array
     {
-        $type = (string) $component['component'];
+        // Gia' controllato da Rule::in(self::COMPONENTS) nella validazione della lista.
+        $type = is_string($component['component'] ?? null) ? $component['component'] : '';
         $custom = self::CUSTOM_PROPERTIES[$type] ?? null;
 
         if ($custom !== null) {

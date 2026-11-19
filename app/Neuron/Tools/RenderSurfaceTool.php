@@ -10,6 +10,9 @@ use NeuronAI\Tools\PropertyType;
 use NeuronAI\Tools\Tool;
 use NeuronAI\Tools\ToolOutput;
 use NeuronAI\Tools\ToolProperty;
+use Safe\Exceptions\JsonException;
+
+use function Safe\json_decode;
 
 /**
  * Il modello compone un'interfaccia A2UI (KPI, grafici, tabelle) e il browser la disegna.
@@ -58,10 +61,15 @@ final class RenderSurfaceTool extends Tool
 
     public function __invoke(string $components): ToolOutput
     {
-        $decoded = json_decode($components, true);
+        try {
+            $decoded = json_decode($components, true);
+            $problem = is_array($decoded) ? 'è un oggetto, serve un array' : 'non è un array';
+        } catch (JsonException $exception) {
+            $decoded = null;
+            $problem = $exception->getMessage();
+        }
 
         if (! is_array($decoded) || ! array_is_list($decoded)) {
-            $problem = is_array($decoded) ? 'è un oggetto, serve un array' : json_last_error_msg();
 
             return ToolOutput::error(sprintf(
                 "components non è un array JSON valido (%s). Passa solo l'array, da [ a ], senza testo intorno e senza virgole finali. Correggilo e richiama render_surface.",

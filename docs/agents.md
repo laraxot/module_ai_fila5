@@ -17,7 +17,7 @@ Il pattern viene dalla demo [datomatic/laravelday-2026](https://github.com/datom
 | Endpoint AG-UI | `Actions\Agent\StreamAgentRunAction` | valida il RunAgentInput, controlla il thread, risponde in SSE |
 | Tool MCP come tool dell'agente | `Neuron\Tools\McpToolAdapter` | avvolge un `Laravel\Mcp\Server\Tool`: stessa logica e stessi permessi del server MCP |
 | Conversazioni | `Models\AiAgentMessage` (`ai_agent_messages`) | cronologia per thread, letta da `EloquentMessageStore` |
-| Run in pausa | `Models\AiAgentRun` (`ai_agent_runs`) | stato del run in attesa di approvazione, letto da `EloquentPersistence` |
+| Run in pausa | `Models\AiAgentRun` (`ai_agent_runs`) | stato del run in attesa di approvazione, letto da `Neuron\Persistence\StrictModeEloquentPersistence` |
 | Interfacce generate | `Neuron\Tools\RenderSurfaceTool` | il modello compone KPI, grafici e tabelle A2UI; errori restituiti al modello |
 | Controllo A2UI | `Actions\A2ui\ValidateA2uiComponentsAction` | componenti ammessi, proprietà, figli, cicli |
 | Superficie A2UI | `Actions\A2ui\BuildA2uiSurfaceAction` | `createSurface` A2UI 1.0 sul catalogo `urn:laraxot:a2ui:panel` |
@@ -29,6 +29,18 @@ Il pattern viene dalla demo [datomatic/laravelday-2026](https://github.com/datom
 (utente, pannello, proposte). neuron-ai salva messaggi completi (tool call, risultati, metadati) e
 riprende i run dopo un'approvazione: servono le colonne che si aspetta, con le sue regole
 (`ai_agent_runs` senza cast, chiave `partition`+`key` univoca, cancellazioni fisiche).
+
+## Binding e strict mode MySQL
+
+`AIServiceProvider::register()` lega `MessageStoreInterface` a `EloquentMessageStore(AiAgentMessage)`
+e `PersistenceInterface` a `StrictModeEloquentPersistence(AiAgentRun)`. Senza questi binding
+`XotBaseAgent` non si costruisce (`Target [MessageStoreInterface] is not instantiable`).
+
+`EloquentPersistence` di neuron rifiuta di scrivere se la sessione MySQL non è in strict mode
+(`Workflow persistence requires MySQL strict SQL mode`): un valore base64 troncato in silenzio
+renderebbe il run irrecuperabile. Le connessioni del tenant hanno `strict => false`, quindi
+`StrictModeEloquentPersistence` aggiunge `STRICT_TRANS_TABLES` alla sessione solo durante le
+scritture dei run e poi rimette la modalità di prima. Le altre query della richiesta non cambiano.
 
 ## Come si usa in un progetto
 
@@ -87,5 +99,6 @@ Il modulo AI non compila JS: il bundle lo fa il modulo che usa il renderer (in P
 
 ## Test
 
-`tests/Unit/Agent`: scelta del fornitore, thread di altri utenti, turni vuoti, validazione.
+`tests/Unit/Agent`: scelta del fornitore, thread di altri utenti, turni vuoti, validazione, turno
+completo con `FakeAIProvider` (passa dalla persistenza del run: copre binding e strict mode).
 `tests/Unit/A2ui`: alberi validi e non validi, risultato e messaggi di `render_surface`.

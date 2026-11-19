@@ -7,6 +7,8 @@ namespace Modules\AI\Actions\A2ui;
 use Illuminate\Support\Str;
 use Spatie\QueueableAction\QueueableAction;
 
+use function Safe\json_encode;
+
 /**
  * Messaggi A2UI 1.0 per il browser: una `createSurface` con i componenti inline, sul catalogo del pannello.
  * Il risultato del tool e' JSON con la chiave `a2ui`: il client lo disegna invece di mostrarlo come testo.
@@ -40,6 +42,6 @@ final class BuildA2uiSurfaceAction
     /** @param  list<array<string, mixed>>  $messages */
     public static function toToolResult(array $messages): string
     {
-        return (string) json_encode(['a2ui' => $messages], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return json_encode(['a2ui' => $messages], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }
