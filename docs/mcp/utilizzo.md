@@ -13,7 +13,7 @@ discussions: []
 
 ## Panoramica
 
-Questa guida fornisce istruzioni dettagliate per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
+Questa guida fornisce istruzioni dettagliate per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
 
 ## Avvio e Gestione dei Server MCP
 
@@ -113,16 +113,16 @@ class StartMcpServersCommand extends Command
     {
         $server = $this->argument('server') ?? 'all';
         $scriptPath = base_path('bashscripts/mcp/mcp-manager-v2.sh');
-        
+
         $this->info("Starting MCP server(s): {$server}");
-        
+
         $process = new Process([$scriptPath, 'start', $server]);
         $process->setTimeout(null);
         $process->setTty(true);
         $process->run(function ($type, $buffer) {
             $this->output->write($buffer);
         });
-        
+
         return 0;
     }
 }
@@ -160,7 +160,7 @@ class MCPServiceProvider extends XotBaseServiceProvider
                 config('ai.mcp.servers')
             );
         });
-        
+
         $this->app->alias(MCPServiceContract::class, 'mcp');
     }
 
@@ -193,49 +193,49 @@ interface MCPServiceContract
      * @return SequentialThinkingServerContract
      */
     public function sequentialThinking(): SequentialThinkingServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP memory.
      *
      * @return MemoryServerContract
      */
     public function memory(): MemoryServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP fetch.
      *
      * @return FetchServerContract
      */
     public function fetch(): FetchServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP filesystem.
      *
      * @return FilesystemServerContract
      */
     public function filesystem(): FilesystemServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP postgres.
      *
      * @return PostgresServerContract
      */
     public function postgres(): PostgresServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP redis.
      *
      * @return RedisServerContract
      */
     public function redis(): RedisServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP puppeteer.
      *
      * @return PuppeteerServerContract
      */
     public function puppeteer(): PuppeteerServerContract;
-    
+
     /**
      * Ottiene l'istanza del server MCP mysql.
      *
@@ -278,12 +278,12 @@ class MCPService implements MCPServiceContract
      * @var array<string, mixed>
      */
     private array $config;
-    
+
     /**
      * @var array<string, object>
      */
     private array $instances = [];
-    
+
     /**
      * @param array<string, mixed> $config
      */
@@ -291,7 +291,7 @@ class MCPService implements MCPServiceContract
     {
         $this->config = $config;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -302,10 +302,10 @@ class MCPService implements MCPServiceContract
                 $this->config['sequential-thinking'] ?? []
             );
         }
-        
+
         return $this->instances['sequential-thinking'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -316,10 +316,10 @@ class MCPService implements MCPServiceContract
                 $this->config['memory'] ?? []
             );
         }
-        
+
         return $this->instances['memory'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -330,10 +330,10 @@ class MCPService implements MCPServiceContract
                 $this->config['fetch'] ?? []
             );
         }
-        
+
         return $this->instances['fetch'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -344,10 +344,10 @@ class MCPService implements MCPServiceContract
                 $this->config['filesystem'] ?? []
             );
         }
-        
+
         return $this->instances['filesystem'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -358,10 +358,10 @@ class MCPService implements MCPServiceContract
                 $this->config['postgres'] ?? []
             );
         }
-        
+
         return $this->instances['postgres'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -372,10 +372,10 @@ class MCPService implements MCPServiceContract
                 $this->config['redis'] ?? []
             );
         }
-        
+
         return $this->instances['redis'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -386,10 +386,10 @@ class MCPService implements MCPServiceContract
                 $this->config['puppeteer'] ?? []
             );
         }
-        
+
         return $this->instances['puppeteer'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -400,7 +400,7 @@ class MCPService implements MCPServiceContract
                 $this->config['mysql'] ?? []
             );
         }
-        
+
         return $this->instances['mysql'];
     }
 }
@@ -430,7 +430,7 @@ class MCPController extends Controller
         private readonly MCPServiceContract $mcpService
     ) {
     }
-    
+
     /**
      * Analizza un testo utilizzando il server MCP sequential-thinking.
      *
@@ -441,12 +441,12 @@ class MCPController extends Controller
     public function analyzeText(AnalyzeTextRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        
+
         $analysis = $this->mcpService->sequentialThinking()->analyze(
             $validated['text'],
             $validated['aspects'] ?? ['readability', 'seo', 'sentiment']
         );
-        
+
         return response()->json([
             'success' => true,
             'data' => $analysis,
@@ -496,13 +496,13 @@ class AnalyzePostContentAction
                 'keywords'
             ]
         );
-        
+
         // Memorizza l'analisi per riferimento futuro
         $this->mcpService->memory()->store(
             "post_analysis_{$post->id}",
             $analysis
         );
-        
+
         return new ContentAnalysisData(
             readabilityScore: $analysis['readability']['score'],
             seoScore: $analysis['seo']['score'],
@@ -547,19 +547,19 @@ class AnalyzeDatabaseCommand extends Command
     public function handle(MCPServiceContract $mcpService): int
     {
         $table = $this->argument('table');
-        
+
         $this->info("Analyzing table: {$table}");
-        
+
         $analysis = $mcpService->postgres()->analyzeTable($table);
-        
+
         $this->table(
             ['Column', 'Type', 'Nullable', 'Default', 'Index'],
             $analysis['columns']
         );
-        
+
         $this->info("Table size: {$analysis['size']}");
         $this->info("Row count: {$analysis['rowCount']}");
-        
+
         return 0;
     }
 }
@@ -710,7 +710,7 @@ try {
     $result = $mcpService->sequentialThinking()->generateThought(...);
 } catch (\Exception $e) {
     Log::error('Server MCP non disponibile: ' . $e->getMessage());
-    
+
     // Fallback
     $result = [
         'thought' => 'Pensiero generato localmente',
@@ -730,12 +730,12 @@ try {
     $response = $mcpService->fetch()->get('https://api.example.com/data');
 } catch (\Exception $e) {
     Log::error('Errore nella richiesta: ' . $e->getMessage());
-    
+
     // Retry con backoff esponenziale
     $maxRetries = 3;
     $retryCount = 0;
     $delay = 1;
-    
+
     while ($retryCount < $maxRetries) {
         try {
             sleep($delay);
@@ -779,4 +779,4 @@ updated: 2026-09-26
 qmd: "utilizzo"
 issues: []
 discussions: []
-Continua con la sezione [Integrazione con i Moduli](./04_INTEGRAZIONE_MODULI.md) per imparare come integrare i server MCP con i moduli Laravel.
+Continua con la sezione [Integrazione con i Moduli](04_integrazione_moduli.md) per imparare come integrare i server MCP con i moduli Laravel.

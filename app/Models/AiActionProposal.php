@@ -39,10 +39,9 @@ use Modules\Xot\Models\XotBaseModel;
  * @property-read AiThread|null $thread
  * @property-read ProfileContract|null $updater
  *
- * @method static Builder<static>|AiActionProposal newModelQuery()
- * @method static Builder<static>|AiActionProposal newQuery()
- * @method static Builder<static>|AiActionProposal query()
- *
+ * @method static Builder<static> newModelQuery()
+ * @method static Builder<static> newQuery()
+ * @method static Builder<static> query()
  */
 class AiActionProposal extends XotBaseModel
 {

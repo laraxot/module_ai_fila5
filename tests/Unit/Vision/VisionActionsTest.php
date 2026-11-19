@@ -6,9 +6,12 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\Vision\EditImageAction;
 use Modules\AI\Actions\Vision\ExtractStructuredDataFromImagesAction;
+use Modules\AI\Datas\AIConfigData;
+use Modules\AI\Enums\AiProviderEnum;
 use Modules\AI\Exceptions\AiRequestException;
 use Modules\AI\Tests\Support\FakeTenantAiConfig;
 use Modules\AI\Tests\TestCase;
+use PHPUnit\Framework\Assert;
 
 use function Safe\base64_decode;
 use function Safe\file_put_contents;
@@ -47,7 +50,7 @@ it('sends text first, images as data URIs and a strict json schema, and returns 
         ['type' => 'object', 'properties' => ['items' => ['type' => 'array']], 'required' => ['items'], 'additionalProperties' => false],
     );
 
-    expect($result)->toBe(['items' => [['name' => 'Tiramisù', 'price' => 6.5]]]);
+    Assert::assertSame(['items' => [['name' => 'Tiramisù', 'price' => 6.5]]], $result);
 
     Http::assertSent(function (Request $request): bool {
         $data = $request->data();
@@ -86,8 +89,12 @@ it('fails clearly without any API key, without calling the providers', function 
     config(['services.openrouter.key' => null, 'services.groq.key' => '']);
     Http::fake();
 
-    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']))
-        ->toThrow(AiRequestException::class, 'OPENROUTER_API_KEY');
+    try {
+        app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
+        Assert::fail('nessuna eccezione');
+    } catch (AiRequestException $e) {
+        Assert::assertStringContainsString('OPENROUTER_API_KEY', $e->getMessage());
+    }
 
     Http::assertNothingSent();
 });
@@ -96,8 +103,12 @@ it('turns an HTTP error into an AiRequestException with the provider message', f
     config(['services.groq.key' => null]);
     Http::fake(['*' => Http::response(['error' => ['message' => 'No endpoints found']], 404)]);
 
-    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']))
-        ->toThrow(AiRequestException::class, 'No endpoints found');
+    try {
+        app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
+        Assert::fail('nessuna eccezione');
+    } catch (AiRequestException $e) {
+        Assert::assertStringContainsString('No endpoints found', $e->getMessage());
+    }
 });
 
 it('rejects non-image files before any request', function (): void {
@@ -105,8 +116,12 @@ it('rejects non-image files before any request', function (): void {
     file_put_contents($path, 'solo testo');
     Http::fake();
 
-    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([$path], 'x', 's', ['type' => 'object']))
-        ->toThrow(AiRequestException::class, 'non supportato');
+    try {
+        app(ExtractStructuredDataFromImagesAction::class)->execute([$path], 'x', 's', ['type' => 'object']);
+        Assert::fail('nessuna eccezione');
+    } catch (AiRequestException $e) {
+        Assert::assertStringContainsString('non supportato', $e->getMessage());
+    }
 
     Http::assertNothingSent();
 });
@@ -116,7 +131,7 @@ it('edits an image through the images endpoint and returns the decoded bytes', f
 
     $result = app(EditImageAction::class)->execute(tinyPng(), 'Pulisci il logo.');
 
-    expect($result)->toBe(['mime' => 'image/png', 'bytes' => 'PNGDATA']);
+    Assert::assertSame(['mime' => 'image/png', 'bytes' => 'PNGDATA'], $result);
     Http::assertSent(function (Request $request): bool {
         $data = $request->data();
         $references = $data['input_references'] ?? null;
@@ -138,7 +153,7 @@ it('falls back to Groq when OpenRouter fails, without the OpenRouter-only provid
 
     $result = app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
 
-    expect($result)->toBe(['ok' => true]);
+    Assert::assertSame(['ok' => true], $result);
     Http::assertSent(fn (Request $request): bool => str_contains($request->url(), 'api.groq.com')
         && $request->hasHeader('Authorization', 'Bearer groq-key')
         && $request['model'] === 'qwen/qwen3.8-27b'
@@ -150,8 +165,12 @@ it('skips Groq when there are more images than it accepts and reports every reas
     Http::fake(['openrouter.ai/*' => Http::response(['error' => ['message' => 'Overloaded']], 503)]);
     $images = [tinyPng(), tinyPng(), tinyPng(), tinyPng()];
 
-    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute($images, 'x', 's', ['type' => 'object']))
-        ->toThrow(AiRequestException::class, 'groq: massimo 3 immagini');
+    try {
+        app(ExtractStructuredDataFromImagesAction::class)->execute($images, 'x', 's', ['type' => 'object']);
+        Assert::fail('nessuna eccezione');
+    } catch (AiRequestException $e) {
+        Assert::assertStringContainsString('groq: massimo 3 immagini', $e->getMessage());
+    }
 
     Http::assertSentCount(1);
 });
@@ -162,9 +181,9 @@ it('marks the failure as rate limited when a provider answered 429', function ()
 
     try {
         app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
-        $this->fail('nessuna eccezione');
+        Assert::fail('nessuna eccezione');
     } catch (AiRequestException $e) {
-        expect($e->isRateLimited())->toBeTrue();
+        Assert::assertTrue($e->isRateLimited());
     }
 });
 
@@ -191,20 +210,77 @@ it('with free models only, never calls a paid model and refuses image generation
     ]);
     Http::fake();
 
-    expect(fn () => app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']))
-        ->toThrow(AiRequestException::class, 'nessun modello utilizzabile')
-        ->and(fn () => app(EditImageAction::class)->execute(tinyPng(), 'x'))
-        ->toThrow(AiRequestException::class, 'Nessun modello gratuito');
+    try {
+        app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'x', 's', ['type' => 'object']);
+        Assert::fail('nessuna eccezione vision');
+    } catch (AiRequestException $e) {
+        Assert::assertStringContainsString('nessun modello utilizzabile', $e->getMessage());
+    }
+
+    try {
+        app(EditImageAction::class)->execute(tinyPng(), 'x');
+        Assert::fail('nessuna eccezione edit');
+    } catch (AiRequestException $e) {
+        Assert::assertStringContainsString('Nessun modello gratuito', $e->getMessage());
+    }
+
     Http::assertNothingSent();
 });
 
 it('defaults to free models: Groq first, then OpenRouter free models', function (): void {
     FakeTenantAiConfig::bind([]);
-    $config = \Modules\AI\Datas\AIConfigData::make();
+    $config = AIConfigData::make();
 
-    expect($config->free_models_only)->toBeTrue()
-        ->and($config->vision_providers)->toBe(['groq', 'openrouter']);
+    Assert::assertTrue($config->free_models_only);
+    Assert::assertSame(['groq', 'openrouter'], $config->vision_providers);
     foreach (explode(',', $config->vision_models['openrouter']) as $model) {
-        expect(\Modules\AI\Enums\AiProviderEnum::OpenRouter->isFreeModel($model))->toBeTrue();
+        Assert::assertTrue(AiProviderEnum::OpenRouter->isFreeModel($model));
     }
+});
+
+// Server locale (colibri, Ollama, llama.cpp): nessuna chiave, indirizzo da config, schema nel prompt.
+it('reads images through a local OpenAI-compatible server without an API key', function (): void {
+    config([
+        'services.local_ai' => ['url' => 'http://192.168.1.50:8000/v1/', 'key' => null, 'timeout' => 900, 'response_format' => 'json_object'],
+    ]);
+    FakeTenantAiConfig::bind([
+        'vision_providers' => ['local'],
+        'vision_models' => ['local' => 'qwen3.8-27b'],
+        'free_models_only' => true,
+    ]);
+    Http::fake(['192.168.1.50:8000/v1/chat/completions' => Http::response([
+        'choices' => [['message' => ['content' => '{"items":[]}']]],
+    ])]);
+
+    $schema = ['type' => 'object', 'properties' => ['items' => ['type' => 'array']], 'required' => ['items'], 'additionalProperties' => false];
+    $result = app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'Leggi.', 'items', $schema);
+
+    Assert::assertSame(['items' => []], $result);
+    Http::assertSent(function (Request $request): bool {
+        $data = $request->data();
+        $system = data_get($data, 'messages.0.content');
+
+        return $request->url() === 'http://192.168.1.50:8000/v1/chat/completions'
+            && $request->hasHeader('Authorization', 'Bearer local')
+            && data_get($data, 'response_format') === ['type' => 'json_object']
+            && is_string($system) && str_contains($system, '"additionalProperties":false')
+            && data_get($data, 'model') === 'qwen3.8-27b';
+    });
+});
+
+it('describes the local provider: no key needed, json mode and timeout from config', function (): void {
+    config(['services.local_ai' => ['response_format' => 'none', 'timeout' => 30]]);
+
+    expect(AiProviderEnum::Local->requiresKey())->toBeFalse()
+        ->and(AiProviderEnum::Groq->requiresKey())->toBeTrue()
+        ->and(AiProviderEnum::Local->baseUrl())->toBe('http://127.0.0.1:8000/v1')
+        ->and(AiProviderEnum::Local->jsonMode())->toBe('none')
+        ->and(AiProviderEnum::Groq->jsonMode())->toBe('json_schema')
+        ->and(AiProviderEnum::Local->timeout(120))->toBe(120)
+        ->and(AiProviderEnum::Groq->timeout(120))->toBe(120)
+        ->and(AiProviderEnum::Local->isFreeModel('anything'))->toBeTrue();
+
+    config(['services.local_ai' => ['response_format' => 'weird']]);
+    expect(AiProviderEnum::Local->jsonMode())->toBe('none')
+        ->and(AiProviderEnum::Local->timeout(120))->toBe(600);
 });
