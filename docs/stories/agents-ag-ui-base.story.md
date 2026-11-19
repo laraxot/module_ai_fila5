@@ -54,3 +54,11 @@ un'implementazione di `Contracts\SentimentAnalyzer` spostata in `app/Actions` da
 un'Action: va decisa la collocazione. Il sync 3a87af7 ha perso anche altro contenuto `laraxot/dev`
 (provider `Local` di `AiProviderEnum`, prompt di Vision, test di Vision, docs MCP): va fatto un
 recupero a parte.
+
+Recupero fatto: i 48 file toccati dal sync 3a87af7 (`.gitignore`, `module.json`, `vite.config.js`,
+Vision con `systemPrompt`/`jsonMode`, modelli, `docs/mcp/*`, test di Assistant e Vision) e
+`testbench.yaml` (cancellato dal sync 5b0bd7c) sono tornati alla versione di f079210, l'ultimo commit
+buono prima dei sync. In ogni file f079210 era la versione più recente. Restano diversi da f079210
+solo il binding strict mode in `AIServiceProvider`, il guard `runningInConsole` di
+`StreamAgentRunAction` (6d2b8c9) e le correzioni PHPStan di questa story. `BasicSentimentAnalyzer`
+c'era già in f079210: non è una perdita del sync.
