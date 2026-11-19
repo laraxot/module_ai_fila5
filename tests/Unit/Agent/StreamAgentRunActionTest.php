@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 use Modules\AI\Actions\Agent\StreamAgentRunAction;
 use Modules\AI\Neuron\Agents\XotBaseAgent;
 use Modules\AI\Tests\TestCase;
+use NeuronAI\Chat\Messages\AssistantMessage;
+use NeuronAI\Testing\FakeAIProvider;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -43,6 +45,18 @@ it('rifiuta un turno senza messaggio e senza decisione', function (): void {
         'operator-1-',
     );
 })->throws(HttpException::class);
+
+it('accetta un turno con il messaggio dell\'utente (role e content non vanno persi nella validazione)', function (): void {
+    $agent = testAgent()->setAiProvider(new FakeAIProvider(new AssistantMessage('ok')));
+
+    $response = app(StreamAgentRunAction::class)->execute(
+        agUiRequest(['threadId' => 'operator-1-abc', 'runId' => 'r1', 'messages' => [['id' => 'm1', 'role' => 'user', 'content' => 'ciao']]]),
+        $agent,
+        'operator-1-',
+    );
+
+    expect($response->getStatusCode())->toBe(200);
+});
 
 it('valida il RunAgentInput', function (): void {
     app(StreamAgentRunAction::class)->execute(agUiRequest(['runId' => 'r1']), testAgent(), 'operator-1-');

@@ -10,14 +10,18 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Modules\AI\Neuron\Agents\XotBaseAgent;
 use NeuronAI\Agent\Adapters\AGUIAdapter;
+use NeuronAI\Agent\AgentState;
 use NeuronAI\Agent\Frontend\AGUIInputTranslator;
 use NeuronAI\Chat\Messages\UserMessage;
+use NeuronAI\Workflow\Streaming\ProtocolEvent;
 use NeuronAI\Workflow\Streaming\SSEEncoder;
 use Spatie\QueueableAction\QueueableAction;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+
+use function Safe\set_time_limit;
 
 /**
  * Endpoint AG-UI agnostico: legge un RunAgentInput, fa girare l'agente e risponde in streaming (SSE).
@@ -42,8 +46,14 @@ final class StreamAgentRunAction
             'runId' => ['required', 'string', 'max:255'],
             'messages' => ['present', 'array'],
             'messages.*.id' => ['required', 'string'],
+            'messages.*.role' => ['required', 'string'],
             'resume' => ['nullable', 'array'],
         ]);
+        // validate() restituisce solo i campi con una regola: i messaggi vanno presi interi dalla richiesta, altrimenti
+        // contenuto e chiamate ai tool spariscono e ogni turno risponde 422 "Nessun messaggio".
+        /** @var list<array<string, mixed>> $messages */
+        $messages = array_values(array_filter((array) $request->input('messages', []), 'is_array'));
+        $input['messages'] = $messages;
 
         if (! str_starts_with($input['threadId'], $threadPrefix)) {
             throw new AccessDeniedHttpException('Conversazione di un altro utente.');
@@ -58,6 +68,8 @@ final class StreamAgentRunAction
         $adapter = new AGUIAdapter($input['threadId'], $input['runId'], $input['messages']);
         $agent = $agent->for($input['threadId'])->setStreamAdapter(static fn (): AGUIAdapter => $adapter);
 
+        // Con lo stream adapter AG-UI gli eventi sono ProtocolEvent: neuron li tipizza solo come object.
+        /** @var Generator<int, ProtocolEvent, mixed, AgentState> $events */
         $events = $isResume
             ? $agent->submitInputs($request->all(), new AGUIInputTranslator)->events()
             : $agent->stream(new UserMessage((string) $prompt));

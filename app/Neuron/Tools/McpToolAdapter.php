@@ -14,6 +14,9 @@ use NeuronAI\Tools\Tool;
 use NeuronAI\Tools\ToolOutput;
 use NeuronAI\Tools\ToolPropertyFactory;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
+
 /**
  * Espone a un agente neuron-ai un tool di un server laravel/mcp, eseguito nel processo (senza HTTP):
  * stesso nome, descrizione, schema e handle(). I tool si scrivono una volta sola e servono sia ai client
@@ -26,7 +29,7 @@ class McpToolAdapter extends Tool
     public function __construct(private readonly McpServerTool $tool)
     {
         /** @var array{name: string, description: string, inputSchema: array<string, mixed>} $definition */
-        $definition = json_decode((string) json_encode($tool->toArray()), true);
+        $definition = json_decode(json_encode($tool->toArray()), true);
 
         $this->name = $definition['name'];
         $this->description = $definition['description'];
@@ -36,10 +39,21 @@ class McpToolAdapter extends Tool
     public function __invoke(mixed ...$arguments): ToolOutput
     {
         // handle() riceve gli argomenti dal Request che il container inietta.
-        app()->instance(Request::class, new Request(array_filter($arguments, static fn (mixed $value): bool => $value !== null)));
+        // Solo argomenti con nome (quelli dello schema); i null sono "non indicato".
+        $named = [];
+        foreach ($arguments as $key => $value) {
+            if (is_string($key) && $value !== null) {
+                $named[$key] = $value;
+            }
+        }
+        app()->instance(Request::class, new Request($named));
 
         try {
-            $response = app()->call([$this->tool, 'handle']);
+            $handle = [$this->tool, 'handle'];
+            if (! is_callable($handle)) {
+                return ToolOutput::error('Il tool '.$this->name.' non ha un metodo handle()');
+            }
+            $response = app()->call($handle);
         } catch (ValidationException|AuthorizationException $exception) {
             return ToolOutput::error($exception->getMessage());
         } finally {
@@ -47,7 +61,7 @@ class McpToolAdapter extends Tool
         }
 
         if ($response instanceof ResponseFactory) {
-            return ToolOutput::text((string) json_encode($response->getStructuredContent(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+            return ToolOutput::text(json_encode($response->getStructuredContent(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         }
 
         if (! $response instanceof Response) {
