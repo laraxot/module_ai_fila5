@@ -123,6 +123,7 @@ o la richiesta è complessa, risponde nella lingua della domanda, risponde solo 
 | `Models\AiKnowledgeEntry` | Voce della base di conoscenza (`collection`, `question`, `answer`, `tags`, `is_active`) |
 | `Actions\Assistant\TokenizeTextAction` | Normalizza il testo (minuscolo, senza accenti, parole ≥ 3 caratteri) |
 | `Actions\Assistant\RankKnowledgeEntriesAction` | Ordina le voci per pertinenza (sovrapposizione di parole) |
+| `Actions\Assistant\SaveKnowledgeEntryAction` | Crea o corregge una voce di una `collection` (mai di un'altra; stessa domanda = aggiornamento, non duplicato) |
 | `Actions\Assistant\SearchKnowledgeEntriesAction` | Carica le voci attive della `collection` e le ordina |
 | `Actions\Assistant\DetectHandoffTriggerAction` | Guardrail deterministico sulle parole sensibili del progetto |
 | `Actions\Assistant\BuildAssistantPromptAction` | Prompt di sistema e prompt con fonti |
