@@ -40,23 +40,12 @@ describe('AssistantAnswerData::fromModelResponse', function (): void {
         Assert::assertSame('angry_customer', $data->handoffReason);
     });
 
-<<<<<<< HEAD
     test('_hands_off_on_invalid_or_empty_responses', function (string $raw): void {
         $data = AssistantAnswerData::fromModelResponse($raw, [1]);
 
         Assert::assertTrue($data->needsHuman);
         Assert::assertSame('invalid_model_response', $data->handoffReason);
     })->with(['not json', '', '{"answer":"   "}', '{"handoff":false}']);
-=======
-    test('_hands_off_on_invalid_or_empty_responses', function (): void {
-        foreach (['not json', '', '{"answer":"   "}', '{"handoff":false}'] as $raw) {
-            $data = AssistantAnswerData::fromModelResponse($raw, [1]);
-
-            Assert::assertTrue($data->needsHuman, 'raw='.$raw);
-            Assert::assertSame('invalid_model_response', $data->handoffReason, 'raw='.$raw);
-        }
-    });
->>>>>>> laraxot/dev
 });
 
 describe('AssistantReportData::fromAnswerPayloads', function (): void {

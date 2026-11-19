@@ -9,16 +9,9 @@ use Illuminate\Support\Facades\Http;
 use Modules\AI\Actions\GeneratePredictionsAction;
 use Modules\AI\Datas\PredictionData;
 use Modules\AI\Tests\Support\OpenAiHttpFake;
-<<<<<<< HEAD
 use PHPUnit\Framework\Assert;
 
 uses(\Modules\AI\Tests\TestCase::class);
-=======
-use Modules\AI\Tests\TestCase;
-use PHPUnit\Framework\Assert;
-
-uses(TestCase::class);
->>>>>>> laraxot/dev
 
 describe('Generate Predictions Action', function (): void {
     test('generates a single prediction with AI', function (): void {

@@ -13,11 +13,7 @@ discussions: []
 
 ## Panoramica
 
-<<<<<<< HEAD
 Questa guida fornisce istruzioni dettagliate per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
-=======
-Questa guida fornisce istruzioni dettagliate per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev
 
 ## Avvio e Gestione dei Server MCP
 
@@ -117,26 +113,16 @@ class StartMcpServersCommand extends Command
     {
         $server = $this->argument('server') ?? 'all';
         $scriptPath = base_path('bashscripts/mcp/mcp-manager-v2.sh');
-<<<<<<< HEAD
         
         $this->info("Starting MCP server(s): {$server}");
         
-=======
-
-        $this->info("Starting MCP server(s): {$server}");
-
->>>>>>> laraxot/dev
         $process = new Process([$scriptPath, 'start', $server]);
         $process->setTimeout(null);
         $process->setTty(true);
         $process->run(function ($type, $buffer) {
             $this->output->write($buffer);
         });
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return 0;
     }
 }
@@ -174,11 +160,7 @@ class MCPServiceProvider extends XotBaseServiceProvider
                 config('ai.mcp.servers')
             );
         });
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         $this->app->alias(MCPServiceContract::class, 'mcp');
     }
 
@@ -211,77 +193,49 @@ interface MCPServiceContract
      * @return SequentialThinkingServerContract
      */
     public function sequentialThinking(): SequentialThinkingServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP memory.
      *
      * @return MemoryServerContract
      */
     public function memory(): MemoryServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP fetch.
      *
      * @return FetchServerContract
      */
     public function fetch(): FetchServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP filesystem.
      *
      * @return FilesystemServerContract
      */
     public function filesystem(): FilesystemServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP postgres.
      *
      * @return PostgresServerContract
      */
     public function postgres(): PostgresServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP redis.
      *
      * @return RedisServerContract
      */
     public function redis(): RedisServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP puppeteer.
      *
      * @return PuppeteerServerContract
      */
     public function puppeteer(): PuppeteerServerContract;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene l'istanza del server MCP mysql.
      *
@@ -324,20 +278,12 @@ class MCPService implements MCPServiceContract
      * @var array<string, mixed>
      */
     private array $config;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @var array<string, object>
      */
     private array $instances = [];
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @param array<string, mixed> $config
      */
@@ -345,11 +291,7 @@ class MCPService implements MCPServiceContract
     {
         $this->config = $config;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -360,17 +302,10 @@ class MCPService implements MCPServiceContract
                 $this->config['sequential-thinking'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['sequential-thinking'];
     }
     
-=======
-
-        return $this->instances['sequential-thinking'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -381,17 +316,10 @@ class MCPService implements MCPServiceContract
                 $this->config['memory'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['memory'];
     }
     
-=======
-
-        return $this->instances['memory'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -402,17 +330,10 @@ class MCPService implements MCPServiceContract
                 $this->config['fetch'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['fetch'];
     }
     
-=======
-
-        return $this->instances['fetch'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -423,17 +344,10 @@ class MCPService implements MCPServiceContract
                 $this->config['filesystem'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['filesystem'];
     }
     
-=======
-
-        return $this->instances['filesystem'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -444,17 +358,10 @@ class MCPService implements MCPServiceContract
                 $this->config['postgres'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['postgres'];
     }
     
-=======
-
-        return $this->instances['postgres'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -465,17 +372,10 @@ class MCPService implements MCPServiceContract
                 $this->config['redis'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['redis'];
     }
     
-=======
-
-        return $this->instances['redis'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -486,17 +386,10 @@ class MCPService implements MCPServiceContract
                 $this->config['puppeteer'] ?? []
             );
         }
-<<<<<<< HEAD
         
         return $this->instances['puppeteer'];
     }
     
-=======
-
-        return $this->instances['puppeteer'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -507,11 +400,7 @@ class MCPService implements MCPServiceContract
                 $this->config['mysql'] ?? []
             );
         }
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return $this->instances['mysql'];
     }
 }
@@ -541,11 +430,7 @@ class MCPController extends Controller
         private readonly MCPServiceContract $mcpService
     ) {
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Analizza un testo utilizzando il server MCP sequential-thinking.
      *
@@ -556,20 +441,12 @@ class MCPController extends Controller
     public function analyzeText(AnalyzeTextRequest $request): JsonResponse
     {
         $validated = $request->validated();
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         $analysis = $this->mcpService->sequentialThinking()->analyze(
             $validated['text'],
             $validated['aspects'] ?? ['readability', 'seo', 'sentiment']
         );
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return response()->json([
             'success' => true,
             'data' => $analysis,
@@ -619,21 +496,13 @@ class AnalyzePostContentAction
                 'keywords'
             ]
         );
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         // Memorizza l'analisi per riferimento futuro
         $this->mcpService->memory()->store(
             "post_analysis_{$post->id}",
             $analysis
         );
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return new ContentAnalysisData(
             readabilityScore: $analysis['readability']['score'],
             seoScore: $analysis['seo']['score'],
@@ -678,34 +547,19 @@ class AnalyzeDatabaseCommand extends Command
     public function handle(MCPServiceContract $mcpService): int
     {
         $table = $this->argument('table');
-<<<<<<< HEAD
         
         $this->info("Analyzing table: {$table}");
         
         $analysis = $mcpService->postgres()->analyzeTable($table);
         
-=======
-
-        $this->info("Analyzing table: {$table}");
-
-        $analysis = $mcpService->postgres()->analyzeTable($table);
-
->>>>>>> laraxot/dev
         $this->table(
             ['Column', 'Type', 'Nullable', 'Default', 'Index'],
             $analysis['columns']
         );
-<<<<<<< HEAD
         
         $this->info("Table size: {$analysis['size']}");
         $this->info("Row count: {$analysis['rowCount']}");
         
-=======
-
-        $this->info("Table size: {$analysis['size']}");
-        $this->info("Row count: {$analysis['rowCount']}");
-
->>>>>>> laraxot/dev
         return 0;
     }
 }
@@ -856,11 +710,7 @@ try {
     $result = $mcpService->sequentialThinking()->generateThought(...);
 } catch (\Exception $e) {
     Log::error('Server MCP non disponibile: ' . $e->getMessage());
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Fallback
     $result = [
         'thought' => 'Pensiero generato localmente',
@@ -880,20 +730,12 @@ try {
     $response = $mcpService->fetch()->get('https://api.example.com/data');
 } catch (\Exception $e) {
     Log::error('Errore nella richiesta: ' . $e->getMessage());
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Retry con backoff esponenziale
     $maxRetries = 3;
     $retryCount = 0;
     $delay = 1;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     while ($retryCount < $maxRetries) {
         try {
             sleep($delay);
@@ -937,8 +779,4 @@ updated: 2026-09-26
 qmd: "03 utilizzo"
 issues: []
 discussions: []
-<<<<<<< HEAD
 Continua con la sezione [Integrazione con i Moduli](./04_INTEGRAZIONE_MODULI.md) per imparare come integrare i server MCP con i moduli Laravel.
-=======
-Continua con la sezione [Integrazione con i Moduli](04_integrazione_moduli.md) per imparare come integrare i server MCP con i moduli Laravel.
->>>>>>> laraxot/dev

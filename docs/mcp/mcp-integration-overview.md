@@ -13,19 +13,11 @@ discussions: []
 
 ## Introduzione
 
-<<<<<<< HEAD
 Questo documento fornisce una panoramica completa dell'integrazione dei server MCP (Model Context Protocol) nei vari moduli del progetto base_predict_fila5_mono, seguendo le regole di sviluppo e le convenzioni di codice stabilite.
 
 ## Server MCP Disponibili
 
 Il progetto base_predict_fila5_mono supporta i seguenti server MCP:
-=======
-Questo documento fornisce una panoramica completa dell'integrazione dei server MCP (Model Context Protocol) nei vari moduli del progetto base_predict_fila5, seguendo le regole di sviluppo e le convenzioni di codice stabilite.
-
-## Server MCP Disponibili
-
-Il progetto base_predict_fila5 supporta i seguenti server MCP:
->>>>>>> laraxot/dev
 
 1. **Sequential Thinking**: Per l'analisi e la risoluzione di problemi complessi
 2. **Memory**: Per la memorizzazione di informazioni durante le conversazioni
@@ -58,13 +50,8 @@ Il modulo Blog utilizza i server MCP per l'analisi dei contenuti, la memorizzazi
 - Memory: Per la memorizzazione di analisi e metadati
 - MySQL: Per operazioni complesse sui post
 
-<<<<<<< HEAD
 **Documentazione dettagliata**: [Modulo Blog](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/Blog/project_docs/MCP_INTEGRATION.md)
 **Documentazione dettagliata**: [Modulo Blog](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/Blog/docs/MCP_INTEGRATION.md)
-=======
-**Documentazione dettagliata**: [Modulo Blog](/var/www/html/_bases/base_predict_fila5/laravel/Modules/Blog/project_docs/MCP_INTEGRATION.md)
-**Documentazione dettagliata**: [Modulo Blog](/var/www/html/_bases/base_predict_fila5/laravel/Modules/Blog/docs/MCP_INTEGRATION.md)
->>>>>>> laraxot/dev
 
 ### Modulo User
 
@@ -76,13 +63,8 @@ Il modulo User utilizza i server MCP per la gestione delle preferenze degli uten
 - MySQL: Per operazioni complesse sugli utenti
 - Redis: Per la gestione della cache e delle sessioni
 
-<<<<<<< HEAD
 **Documentazione dettagliata**: [Modulo User](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/User/project_docs/MCP_INTEGRATION.md)
 **Documentazione dettagliata**: [Modulo User](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/User/docs/MCP_INTEGRATION.md)
-=======
-**Documentazione dettagliata**: [Modulo User](/var/www/html/_bases/base_predict_fila5/laravel/Modules/User/project_docs/MCP_INTEGRATION.md)
-**Documentazione dettagliata**: [Modulo User](/var/www/html/_bases/base_predict_fila5/laravel/Modules/User/docs/MCP_INTEGRATION.md)
->>>>>>> laraxot/dev
 
 ### Modulo UI
 
@@ -94,13 +76,8 @@ Il modulo UI utilizza i server MCP per l'automazione del browser, la gestione de
 - Redis: Per il caching dei componenti UI
 - Sequential Thinking: Per l'analisi dell'accessibilità dell'interfaccia utente
 
-<<<<<<< HEAD
 **Documentazione dettagliata**: [Modulo UI](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/UI/project_docs/MCP_INTEGRATION.md)
 **Documentazione dettagliata**: [Modulo UI](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/UI/docs/MCP_INTEGRATION.md)
-=======
-**Documentazione dettagliata**: [Modulo UI](/var/www/html/_bases/base_predict_fila5/laravel/Modules/UI/project_docs/MCP_INTEGRATION.md)
-**Documentazione dettagliata**: [Modulo UI](/var/www/html/_bases/base_predict_fila5/laravel/Modules/UI/docs/MCP_INTEGRATION.md)
->>>>>>> laraxot/dev
 
 ### Modulo Xot
 
@@ -113,13 +90,8 @@ Il modulo Xot, che funge da modulo base per molti altri moduli, utilizza i serve
 - Sequential Thinking: Per l'analisi e l'ottimizzazione del codice
 - Postgres: Per l'interazione con database PostgreSQL
 
-<<<<<<< HEAD
 **Documentazione dettagliata**: [Modulo Xot](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/Xot/project_docs/MCP_INTEGRATION.md)
 **Documentazione dettagliata**: [Modulo Xot](/var/www/html/_bases/base_predict_fila5_mono/laravel/Modules/Xot/docs/MCP_INTEGRATION.md)
-=======
-**Documentazione dettagliata**: [Modulo Xot](/var/www/html/_bases/base_predict_fila5/laravel/Modules/Xot/project_docs/MCP_INTEGRATION.md)
-**Documentazione dettagliata**: [Modulo Xot](/var/www/html/_bases/base_predict_fila5/laravel/Modules/Xot/docs/MCP_INTEGRATION.md)
->>>>>>> laraxot/dev
 
 ## Linee Guida Generali per l'Integrazione
 
@@ -136,11 +108,7 @@ class MyService
         private readonly MCPServiceContract $mcpService
     ) {
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     public function doSomething(): void
     {
         $result = $this->mcpService->sequentialThinking()->analyze(...);
@@ -160,11 +128,7 @@ try {
         'message' => $e->getMessage(),
         'trace' => $e->getTraceAsString()
     ]);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Fallback
     $result = $this->fallbackAnalysis(...);
 }
@@ -223,20 +187,12 @@ public function test_analyze_post_content_action()
     // Mock del servizio MCP
     $mcpService = $this->mock(MCPServiceContract::class);
     $sequentialThinkingServer = $this->mock(SequentialThinkingServerContract::class);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Configurazione dei mock
     $mcpService->shouldReceive('sequentialThinking')
         ->once()
         ->andReturn($sequentialThinkingServer);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     $sequentialThinkingServer->shouldReceive('analyze')
         ->once()
         ->with('Test content', ['readability', 'seo', 'sentiment', 'keywords'])
@@ -246,19 +202,11 @@ public function test_analyze_post_content_action()
             'sentiment' => ['value' => 'positive'],
             'keywords' => ['test', 'content']
         ]);
-<<<<<<< HEAD
     
     // Esecuzione dell'action
     $action = new AnalyzePostContentAction($mcpService);
     $result = $action->execute($post);
     
-=======
-
-    // Esecuzione dell'action
-    $action = new AnalyzePostContentAction($mcpService);
-    $result = $action->execute($post);
-
->>>>>>> laraxot/dev
     // Asserzioni
     $this->assertEquals(85, $result->readabilityScore);
     $this->assertEquals(78, $result->seoScore);
@@ -269,8 +217,4 @@ public function test_analyze_post_content_action()
 
 ## Conclusione
 
-<<<<<<< HEAD
 L'integrazione dei server MCP nei vari moduli del progetto base_predict_fila5_mono consente di migliorare significativamente le funzionalità dell'applicazione, fornendo capacità avanzate di analisi, memorizzazione e interazione con sistemi esterni. Seguendo le linee guida e gli esempi forniti in questo documento e nella documentazione dettagliata di ciascun modulo, è possibile implementare queste funzionalità in modo conforme alle regole di sviluppo stabilite per i progetti base_predict_fila5_mono.
-=======
-L'integrazione dei server MCP nei vari moduli del progetto base_predict_fila5 consente di migliorare significativamente le funzionalità dell'applicazione, fornendo capacità avanzate di analisi, memorizzazione e interazione con sistemi esterni. Seguendo le linee guida e gli esempi forniti in questo documento e nella documentazione dettagliata di ciascun modulo, è possibile implementare queste funzionalità in modo conforme alle regole di sviluppo stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev

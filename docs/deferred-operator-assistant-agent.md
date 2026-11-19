@@ -11,12 +11,6 @@ discussions: []
 
 # Deferred: OperatorAssistantAgent domain tool-calling
 
-<<<<<<< HEAD
-=======
-> **Realizzato** (2026-11-19): base agnostica in [agents.md](agents.md); l'agente operatore di Passaparola
-> è `Modules\Passaparola\Neuron\Agents\OperatorAssistant` (story 2.3 di Passaparola).
-
->>>>>>> laraxot/dev
 Il modulo `AiAssistant` di `gestionale_commesse` include `Application/Neuron/OperatorAssistantAgent.php`
 (~1575 righe), un agente `NeuronAI\Agent\Agent` con tool-calling hardcoded verso i moduli di dominio
 `Bom`, `Product`, `Customer`, `CustomerSite`, `EnergyBrokerDocument`, `Intervention`,

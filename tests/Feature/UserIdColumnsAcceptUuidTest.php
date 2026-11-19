@@ -3,10 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schema;
-<<<<<<< HEAD
-=======
-use PHPUnit\Framework\Assert;
->>>>>>> laraxot/dev
 
 /*
  * In questa base l'id utente e' un UUID di 36 caratteri. Una colonna intera lo
@@ -31,23 +27,12 @@ it('stores user ids as strings, not integers', function (): void {
 
     $numeric = [];
     foreach ($columns as [$table, $column]) {
-<<<<<<< HEAD
         expect(Schema::hasColumn($table, $column))->toBeTrue("La colonna {$table}.{$column} non esiste");
-=======
-        Assert::assertTrue(
-            Schema::hasColumn($table, $column),
-            "La colonna {$table}.{$column} non esiste",
-        );
->>>>>>> laraxot/dev
 
         if (! in_array(Schema::getColumnType($table, $column), ['string', 'varchar', 'text'], true)) {
             $numeric[] = $table.'.'.$column;
         }
     }
 
-<<<<<<< HEAD
     expect($numeric)->toBe([], 'Colonne numeriche: un id UUID viene troncato');
-=======
-    Assert::assertSame([], $numeric, 'Colonne numeriche: un id UUID viene troncato');
->>>>>>> laraxot/dev
 });

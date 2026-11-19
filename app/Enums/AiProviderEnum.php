@@ -9,13 +9,6 @@ namespace Modules\AI\Enums;
  *
  * La chiave di ciascuno sta in `.env` e si legge da `config/services.php`; qui ci sono solo le
  * differenze di protocollo che il codice deve conoscere.
-<<<<<<< HEAD
-=======
- *
- * `Local` e' un server sul proprio computer o in sede (colibri, Ollama, llama.cpp, LM Studio...):
- * gratis, nessun limite di richieste, le foto non escono dal locale; in cambio e' piu' lento.
- * Indirizzo e opzioni in `services.local_ai` (docs/local-llm-server.md).
->>>>>>> laraxot/dev
  */
 enum AiProviderEnum: string
 {
@@ -25,21 +18,11 @@ enum AiProviderEnum: string
     /** Inferenza veloce su modelli aperti; per le immagini un solo modello, in preview. */
     case Groq = 'groq';
 
-<<<<<<< HEAD
-=======
-    /** Server locale con API compatibile OpenAI (colibri, Ollama, llama.cpp, LM Studio). */
-    case Local = 'local';
-
->>>>>>> laraxot/dev
     public function baseUrl(): string
     {
         return match ($this) {
             self::OpenRouter => 'https://openrouter.ai/api/v1',
             self::Groq => 'https://api.groq.com/openai/v1',
-<<<<<<< HEAD
-=======
-            self::Local => rtrim(self::configString('services.local_ai.url', 'http://127.0.0.1:8000/v1'), '/'),
->>>>>>> laraxot/dev
         };
     }
 
@@ -49,10 +32,6 @@ enum AiProviderEnum: string
         return match ($this) {
             self::OpenRouter => 'services.openrouter.key',
             self::Groq => 'services.groq.key',
-<<<<<<< HEAD
-=======
-            self::Local => 'services.local_ai.key',
->>>>>>> laraxot/dev
         };
     }
 
@@ -62,32 +41,15 @@ enum AiProviderEnum: string
         return match ($this) {
             self::OpenRouter => 'OPENROUTER_API_KEY',
             self::Groq => 'GROQ_API_KEY',
-<<<<<<< HEAD
         };
     }
 
-=======
-            self::Local => 'LOCAL_AI_KEY',
-        };
-    }
-
-    /** Senza chiave non si parte; il server locale di solito non ne ha (se ne ha una, si manda). */
-    public function requiresKey(): bool
-    {
-        return $this !== self::Local;
-    }
-
->>>>>>> laraxot/dev
     /** Immagini massime in una richiesta (Groq: 3 per il modello qwen); null = nessun limite noto. */
     public function maxImages(): ?int
     {
         return match ($this) {
             self::OpenRouter => null,
             self::Groq => 3,
-<<<<<<< HEAD
-=======
-            self::Local => null,
->>>>>>> laraxot/dev
         };
     }
 
@@ -101,11 +63,7 @@ enum AiProviderEnum: string
     {
         return match ($this) {
             self::OpenRouter => ['provider' => ['require_parameters' => true]],
-<<<<<<< HEAD
             self::Groq => [],
-=======
-            self::Groq, self::Local => [],
->>>>>>> laraxot/dev
         };
     }
 
@@ -117,51 +75,10 @@ enum AiProviderEnum: string
     {
         return match ($this) {
             self::OpenRouter => str_ends_with($model, ':free') || $model === 'openrouter/free',
-<<<<<<< HEAD
             self::Groq => true,
         };
     }
 
-=======
-            self::Groq, self::Local => true,
-        };
-    }
-
-    /**
-     * Come chiedere una risposta JSON: `json_schema` (schema rispettato dal server), `json_object`
-     * (solo JSON valido: lo schema va nel prompt) o `none` (nessun response_format, lo schema nel prompt).
-     * I server locali non supportano tutti response_format (colibri risponde 400 con qualunque grammatica):
-     * `services.local_ai.response_format`, default `none` (schema nel prompt, funziona ovunque).
-     */
-    public function jsonMode(): string
-    {
-        if ($this !== self::Local) {
-            return 'json_schema';
-        }
-        $mode = self::configString('services.local_ai.response_format', 'none');
-
-        return \in_array($mode, ['json_schema', 'json_object', 'none'], true) ? $mode : 'none';
-    }
-
-    /** Timeout della richiesta: un modello locale su CPU legge una pagina in minuti, non secondi. */
-    public function timeout(int $default): int
-    {
-        if ($this !== self::Local) {
-            return $default;
-        }
-        $local = config('services.local_ai.timeout');
-
-        return max($default, is_numeric($local) ? (int) $local : 600);
-    }
-
-    private static function configString(string $key, string $default): string
-    {
-        $value = config($key);
-
-        return \is_string($value) && trim($value) !== '' ? trim($value) : $default;
-    }
-
->>>>>>> laraxot/dev
     /** Intestazioni aggiuntive: OpenRouter riconosce l'app da HTTP-Referer e X-Title. */
     public function sendsAppHeaders(): bool
     {

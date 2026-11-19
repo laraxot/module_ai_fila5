@@ -13,11 +13,7 @@ discussions: []
 
 ## Panoramica
 
-<<<<<<< HEAD
 Questa guida fornisce le migliori pratiche per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
-=======
-Questa guida fornisce le migliori pratiche per l'utilizzo dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev
 
 ## ⚠️ SICUREZZA DEL DATABASE
 
@@ -147,11 +143,7 @@ try {
         'message' => $e->getMessage(),
         'trace' => $e->getTraceAsString()
     ]);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Fallback
     $result = $this->generateLocalThought(...);
 }
@@ -194,28 +186,16 @@ public function test_analyze_post_content_action()
     $mcpService = $this->mock(MCPServiceContract::class);
     $sequentialThinkingServer = $this->mock(SequentialThinkingServerContract::class);
     $memoryServer = $this->mock(MemoryServerContract::class);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Configurazione dei mock
     $mcpService->shouldReceive('sequentialThinking')
         ->once()
         ->andReturn($sequentialThinkingServer);
-<<<<<<< HEAD
     
     $mcpService->shouldReceive('memory')
         ->once()
         ->andReturn($memoryServer);
     
-=======
-
-    $mcpService->shouldReceive('memory')
-        ->once()
-        ->andReturn($memoryServer);
-
->>>>>>> laraxot/dev
     $sequentialThinkingServer->shouldReceive('analyze')
         ->once()
         ->with('Test content', ['readability', 'seo', 'sentiment', 'keywords'])
@@ -225,36 +205,20 @@ public function test_analyze_post_content_action()
             'sentiment' => ['value' => 'positive'],
             'keywords' => ['test', 'content']
         ]);
-<<<<<<< HEAD
     
     $memoryServer->shouldReceive('store')
         ->once()
         ->andReturn(true);
     
-=======
-
-    $memoryServer->shouldReceive('store')
-        ->once()
-        ->andReturn(true);
-
->>>>>>> laraxot/dev
     // Creazione del post di test
     $post = Post::factory()->create([
         'content' => 'Test content'
     ]);
-<<<<<<< HEAD
     
     // Esecuzione dell'action
     $action = new AnalyzePostContentAction($mcpService);
     $result = $action->execute($post);
     
-=======
-
-    // Esecuzione dell'action
-    $action = new AnalyzePostContentAction($mcpService);
-    $result = $action->execute($post);
-
->>>>>>> laraxot/dev
     // Asserzioni
     $this->assertEquals(85, $result->readabilityScore);
     $this->assertEquals(78, $result->seoScore);
@@ -279,20 +243,12 @@ public function analyze(Request $request): JsonResponse
         'aspects' => 'required|array|min:1',
         'aspects.*' => 'string|in:readability,seo,sentiment,keywords'
     ]);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     $result = $this->mcpService->sequentialThinking()->analyze(
         $validated['text'],
         $validated['aspects']
     );
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     return response()->json([
         'success' => true,
         'data' => $result
@@ -414,20 +370,12 @@ class MCPService implements MCPServiceContract
      * @var array<string, mixed>
      */
     private array $config;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @var array<string, object>
      */
     private array $instances = [];
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @param array<string, mixed> $config
      */
@@ -436,11 +384,7 @@ class MCPService implements MCPServiceContract
         $this->config = $config;
         Log::debug('MCPService initialized', ['servers' => array_keys($config)]);
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -452,17 +396,10 @@ class MCPService implements MCPServiceContract
             );
             Log::debug('SequentialThinkingServer initialized');
         }
-<<<<<<< HEAD
         
         return $this->instances['sequential-thinking'];
     }
     
-=======
-
-        return $this->instances['sequential-thinking'];
-    }
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -474,17 +411,10 @@ class MCPService implements MCPServiceContract
             );
             Log::debug('MemoryServer initialized');
         }
-<<<<<<< HEAD
         
         return $this->instances['memory'];
     }
     
-=======
-
-        return $this->instances['memory'];
-    }
-
->>>>>>> laraxot/dev
     // Altri metodi per gli altri server...
 }
 ```
@@ -515,11 +445,7 @@ class ContentAnalysisData extends Data
         public readonly array $keywords
     ) {
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Crea un'istanza da un array di analisi.
      *
@@ -574,33 +500,21 @@ class AnalyzePostContentAction
     public function execute(Post $post): ContentAnalysisData
     {
         $cacheKey = "post_analysis_{$post->id}";
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         // Verifica se l'analisi è già in cache
         $cachedAnalysis = Cache::get($cacheKey);
         if ($cachedAnalysis !== null) {
             Log::info('Using cached analysis', ['post_id' => $post->id]);
             return ContentAnalysisData::from($cachedAnalysis);
         }
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         try {
             Log::info('Analyzing post content', [
                 'post_id' => $post->id,
                 'title' => $post->title,
                 'content_length' => strlen($post->content)
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             $analysis = $this->mcpService->sequentialThinking()->analyze(
                 $post->content,
                 [
@@ -610,37 +524,22 @@ class AnalyzePostContentAction
                     'keywords'
                 ]
             );
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             // Memorizza l'analisi per riferimento futuro
             $this->mcpService->memory()->store(
                 "post_analysis_{$post->id}",
                 $analysis
             );
-<<<<<<< HEAD
             
             // Memorizza l'analisi in cache
             Cache::put($cacheKey, $analysis, now()->addDay());
             
-=======
-
-            // Memorizza l'analisi in cache
-            Cache::put($cacheKey, $analysis, now()->addDay());
-
->>>>>>> laraxot/dev
             Log::info('Post analysis completed', [
                 'post_id' => $post->id,
                 'readability_score' => $analysis['readability']['score'] ?? 0,
                 'seo_score' => $analysis['seo']['score'] ?? 0
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return ContentAnalysisData::fromAnalysis($analysis);
         } catch (\Exception $e) {
             Log::error('Error analyzing post content', [
@@ -648,11 +547,7 @@ class AnalyzePostContentAction
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             // Fallback: analisi locale semplice
             return new ContentAnalysisData(
                 readabilityScore: $this->calculateReadabilityScore($post->content),
@@ -662,11 +557,7 @@ class AnalyzePostContentAction
             );
         }
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Calcola un punteggio di leggibilità semplice.
      *
@@ -679,11 +570,7 @@ class AnalyzePostContentAction
         // Implementazione semplice...
         return 70;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Calcola un punteggio SEO semplice.
      *
@@ -697,11 +584,7 @@ class AnalyzePostContentAction
         // Implementazione semplice...
         return 65;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Analizza il sentimento del testo.
      *
@@ -714,11 +597,7 @@ class AnalyzePostContentAction
         // Implementazione semplice...
         return 'neutral';
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Estrae le parole chiave dal testo.
      *
@@ -736,10 +615,6 @@ class AnalyzePostContentAction
 
 ## Conclusione
 
-<<<<<<< HEAD
 Seguendo queste best practices, è possibile creare integrazioni robuste e manutenibili con i server MCP nei progetti Laravel. Queste pratiche garantiscono che il codice sia tipizzato, testabile e conforme alle regole di sviluppo stabilite per i progetti base_predict_fila5_mono.
-=======
-Seguendo queste best practices, è possibile creare integrazioni robuste e manutenibili con i server MCP nei progetti Laravel. Queste pratiche garantiscono che il codice sia tipizzato, testabile e conforme alle regole di sviluppo stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev
 
 Per ulteriori informazioni e supporto, consultare la documentazione ufficiale dei server MCP o contattare il team di sviluppo.

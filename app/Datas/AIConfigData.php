@@ -75,12 +75,6 @@ class AIConfigData extends Data
     public array $vision_models = [
         'groq' => 'qwen/qwen3.8-27b',
         'openrouter' => 'nvidia/nemotron-3.5-super-vl:free,inclusionai/ling-3.2-flash:free,openrouter/free',
-<<<<<<< HEAD
-=======
-        // Server locale (si attiva aggiungendo 'local' a vision_providers): nome del modello come lo
-        // conosce il server. colibri serve un modello alla volta; Ollama per esempio 'qwen2.5vl:7b'.
-        'local' => 'qwen3.8-27b',
->>>>>>> laraxot/dev
     ];
 
     /**

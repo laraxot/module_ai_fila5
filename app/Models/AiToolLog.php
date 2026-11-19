@@ -21,16 +21,10 @@ use Modules\Xot\Models\XotBaseModel;
  * @property-read AiThread|null $thread
  * @property-read ProfileContract|null $updater
  *
-<<<<<<< HEAD
  * @method static Builder<static>|AiToolLog newModelQuery()
  * @method static Builder<static>|AiToolLog newQuery()
  * @method static Builder<static>|AiToolLog query()
  *
-=======
- * @method static Builder<static> newModelQuery()
- * @method static Builder<static> newQuery()
- * @method static Builder<static> query()
->>>>>>> laraxot/dev
  */
 class AiToolLog extends XotBaseModel
 {

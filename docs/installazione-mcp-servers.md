@@ -29,11 +29,7 @@ discussions: []
 ```
 /var/www/html/_bases/
     ├── mcp-servers/         # Qui risiedono tutti i server MCP (clonati e gestiti una sola volta)
-<<<<<<< HEAD
     ├── base_predict_fila5_mono/
-=======
-    ├── base_predict_fila5/
->>>>>>> laraxot/dev
     ├── altro_progetto/
     └── ...
 ```
@@ -99,13 +95,8 @@ node dist/everything.js
 Se hai già cartelle `mcp-server` o `mcp-servers` in altre posizioni:
 ```bash
 # (da eseguire solo dopo aver verificato che non ci siano file personalizzati da salvare)
-<<<<<<< HEAD
 rm -rf /var/www/html/_bases/base_predict_fila5_mono/mcp-server
 rm -rf /var/www/html/_bases/base_predict_fila5_mono/mcp-servers
-=======
-rm -rf /var/www/html/_bases/base_predict_fila5/mcp-server
-rm -rf /var/www/html/_bases/base_predict_fila5/mcp-servers
->>>>>>> laraxot/dev
 ```
 
 ---
@@ -140,8 +131,4 @@ Per aggiornare o avviare un server MCP, segui la documentazione centrale in `/va
 
 **Questa guida è pensata per essere seguita anche da chi lavora su altri PC o ambienti.**
 
-<<<<<<< HEAD
 Per domande o aggiornamenti, fare riferimento alla documentazione centrale e ai README dei progetti coinvolti. 
-=======
-Per domande o aggiornamenti, fare riferimento alla documentazione centrale e ai README dei progetti coinvolti.
->>>>>>> laraxot/dev

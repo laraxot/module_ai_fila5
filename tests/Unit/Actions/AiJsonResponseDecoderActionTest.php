@@ -6,11 +6,7 @@ use Modules\AI\Actions\AiJsonResponseDecoderAction;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
-<<<<<<< HEAD
 uses(\Modules\AI\Tests\TestCase::class);
-=======
-uses(TestCase::class);
->>>>>>> laraxot/dev
 
 describe('AiJsonResponseDecoder Action', function (): void {
     test('_decodes_valid_json_object', function (): void {
@@ -117,11 +113,7 @@ describe('AiJsonResponseDecoder Action', function (): void {
     test('_handles_very_long_json', function (): void {
         $action = new AiJsonResponseDecoderAction;
         $longValue = str_repeat('x', 1000);
-<<<<<<< HEAD
         $json = '{"longField": "' . $longValue . '"}';
-=======
-        $json = '{"longField": "'.$longValue.'"}';
->>>>>>> laraxot/dev
         $result = $action->execute($json);
 
         Assert::assertArrayHasKey('longField', $result);

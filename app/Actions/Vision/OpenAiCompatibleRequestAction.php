@@ -29,21 +29,10 @@ class OpenAiCompatibleRequestAction
     {
         $key = config($provider->keyConfig());
         if (! is_string($key) || $key === '') {
-<<<<<<< HEAD
             throw new AiRequestException('Chiave API mancante: imposta '.$provider->envName().' ('.$provider->keyConfig().').');
         }
 
         $request = Http::timeout($timeout)->withToken($key)->acceptJson();
-=======
-            if ($provider->requiresKey()) {
-                throw new AiRequestException('Chiave API mancante: imposta '.$provider->envName().' ('.$provider->keyConfig().').');
-            }
-            // Server locale senza chiave: molti client (e colibri) vogliono comunque un Bearer non vuoto.
-            $key = 'local';
-        }
-
-        $request = Http::timeout($provider->timeout($timeout))->withToken($key)->acceptJson();
->>>>>>> laraxot/dev
         if ($provider->sendsAppHeaders()) {
             $request = $request->withHeaders([
                 'HTTP-Referer' => $this->configString('app.url'),

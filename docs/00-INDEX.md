@@ -29,10 +29,6 @@ discussions: []
 | File | Scopo |
 |---|---|
 | [assistant.md](./assistant.md) | Assistente clienti: base di conoscenza, passaggio a una persona, report |
-<<<<<<< HEAD
-=======
-| [agents.md](./agents.md) | Agenti neuron-ai con tool, endpoint AG-UI, approvazioni, interfacce A2UI |
->>>>>>> laraxot/dev
 
 ### Development
 | File | Scopo |

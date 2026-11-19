@@ -11,15 +11,9 @@ discussions: []
 
 # 🎯 Ollama MCP Integration - Stato Attuale e Prossimi Passi
 
-<<<<<<< HEAD
 **Data**: 2026-03-11  
 **Status**: ✅ Setup Infrastructure COMPLETATO  
 **Fase**: 1/4 (Setup Infrastructure)  
-=======
-**Data**: 2026-03-11
-**Status**: ✅ Setup Infrastructure COMPLETATO
-**Fase**: 1/4 (Setup Infrastructure)
->>>>>>> laraxot/dev
 **Next**: Fase 2 (Implementazione Core)
 
 ---
@@ -100,7 +94,6 @@ class OllamaMCPAction extends QueueableAction
     {
         // 1. Select model based on task type
         $model = $this->selectModel();
-<<<<<<< HEAD
         
         // 2. Optimize parameters
         $params = $this->optimizeParameters();
@@ -114,21 +107,6 @@ class OllamaMCPAction extends QueueableAction
         // 5. Log metrics
         $this->logMetrics($response);
         
-=======
-
-        // 2. Optimize parameters
-        $params = $this->optimizeParameters();
-
-        // 3. Check cache
-        $cacheKey = $this->getCacheKey();
-
-        // 4. Execute via MCP
-        $response = $this->executeViaMCP($model, $params);
-
-        // 5. Log metrics
-        $this->logMetrics($response);
-
->>>>>>> laraxot/dev
         return $response;
     }
 
@@ -193,11 +171,7 @@ class IntelligentRoutingAction extends QueueableAction
     public function handle(): string
     {
         $complexity = $this->analyzeComplexity();
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         if ($complexity === 'low' || $complexity === 'medium') {
             return app(OllamaMCPAction::class, [
                 'prompt' => $this->prompt,
@@ -212,11 +186,7 @@ class IntelligentRoutingAction extends QueueableAction
     private function analyzeComplexity(): string
     {
         $tokenCount = str_word_count($this->prompt);
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         if ($tokenCount < 100) return 'low';
         if ($tokenCount < 500) return 'medium';
         return 'high';
@@ -305,15 +275,9 @@ it('executes chat with correct model', function () {
         prompt: 'Test prompt',
         taskType: 'code'
     );
-<<<<<<< HEAD
     
     $result = $action->handle();
     
-=======
-
-    $result = $action->handle();
-
->>>>>>> laraxot/dev
     expect($result)->toBeString();
 });
 
@@ -322,15 +286,9 @@ it('selects correct model based on task type', function () {
         prompt: 'Test',
         taskType: 'code'
     );
-<<<<<<< HEAD
     
     $model = $action->selectModel();
     
-=======
-
-    $model = $action->selectModel();
-
->>>>>>> laraxot/dev
     expect($model)->toBe('qwen2.5-coder:7b');
 });
 
@@ -339,15 +297,9 @@ it('optimizes parameters correctly', function () {
         prompt: 'Test',
         options: ['temperature' => 0.5]
     );
-<<<<<<< HEAD
     
     $params = $action->optimizeParameters();
     
-=======
-
-    $params = $action->optimizeParameters();
-
->>>>>>> laraxot/dev
     expect($params['temperature'])->toBe(0.5);
     expect($params['num_predict'])->toBe(256);
 });
@@ -432,11 +384,7 @@ it('optimizes parameters correctly', function () {
 
 ## 📞 Contatti e Comunicazione
 
-<<<<<<< HEAD
 **GitHub Issue**: https://github.com/laraxot/base_quaeris_fila5_mono/issues/85
-=======
-**GitHub Issue**: https://github.com/laraxot/base_<nome progetto>_fila5/issues/85
->>>>>>> laraxot/dev
 
 **Docs Location**: `laravel/Modules/AI/docs/`
 
@@ -463,22 +411,13 @@ Per considerare la Fase 2 completata:
 
 ## 🧘 Mantra del Giorno
 
-<<<<<<< HEAD
 > *"Prima la struttura, poi il codice,  
 > Prima la comprensione, poi l'azione,  
-=======
-> *"Prima la struttura, poi il codice,
-> Prima la comprensione, poi l'azione,
->>>>>>> laraxot/dev
 > Prima la collaborazione, poi il successo."*
 
 **OM SHANTI OM** 🙏
 
 ---
 
-<<<<<<< HEAD
 **Last Updated**: 2026-03-11 17:00 CET  
-=======
-**Last Updated**: 2026-03-11 17:00 CET
->>>>>>> laraxot/dev
 **Next Update**: Dopo completamento Fase 2

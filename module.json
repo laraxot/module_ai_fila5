@@ -1,29 +1,12 @@
 {
     "name": "AI",
     "alias": "ai",
-<<<<<<< HEAD
     "description": "Modulo per l'integrazione di funzionalità di intelligenza artificiale e servizi AI",
     "keywords": [],
     "priority": 0,
-=======
-    "description": "Modulo per l'integrazione di funzionalità di intelligenza artificiale: thread e messaggi, base di conoscenza, proposte di azione con log degli strumenti",
-    "keywords": ["ai", "llm", "knowledge", "actions"],
-    "priority": 0,
-    "active": 1,
-    "order": 0,
->>>>>>> laraxot/dev
     "providers": [
         "Modules\\AI\\Providers\\AIServiceProvider",
         "Modules\\AI\\Providers\\Filament\\AdminPanelProvider"
     ],
-<<<<<<< HEAD
     "files": []
 }
-=======
-    "aliases": {},
-    "files": [],
-    "requires": ["Xot", "UI"],
-    "minimumCoreVersion": "10.0",
-    "phpVersion": "^8.3"
-}
->>>>>>> laraxot/dev

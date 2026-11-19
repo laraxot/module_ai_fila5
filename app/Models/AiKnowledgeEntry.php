@@ -26,15 +26,9 @@ use Modules\Xot\Models\XotBaseModel;
  * @property-read ProfileContract|null $creator
  * @property-read ProfileContract|null $updater
  *
-<<<<<<< HEAD
  * @method static Builder<static>|AiKnowledgeEntry newModelQuery()
  * @method static Builder<static>|AiKnowledgeEntry newQuery()
  * @method static Builder<static>|AiKnowledgeEntry query()
-=======
- * @method static Builder<static> newModelQuery()
- * @method static Builder<static> newQuery()
- * @method static Builder<static> query()
->>>>>>> laraxot/dev
  */
 class AiKnowledgeEntry extends XotBaseModel
 {

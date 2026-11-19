@@ -9,7 +9,6 @@ use Modules\AI\Actions\SentimentAction;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
-<<<<<<< HEAD
 uses(\Modules\AI\Tests\TestCase::class);
 
 beforeEach(function (): void {
@@ -18,16 +17,6 @@ beforeEach(function (): void {
 
 afterEach(function (): void {
 Mockery::close();
-=======
-uses(TestCase::class);
-
-beforeEach(function (): void {
-    /** @var TestCase $this */
-});
-
-afterEach(function (): void {
-    Mockery::close();
->>>>>>> laraxot/dev
 
 });
 

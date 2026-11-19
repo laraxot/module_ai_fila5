@@ -13,11 +13,7 @@ discussions: []
 
 ## Panoramica
 
-<<<<<<< HEAD
 Questa guida fornisce le migliori pratiche per l'ottimizzazione delle performance dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
-=======
-Questa guida fornisce le migliori pratiche per l'ottimizzazione delle performance dei server MCP (Model Context Protocol) in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev
 
 ## Caching
 
@@ -44,11 +40,7 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
      * @var array<string, mixed>
      */
     private array $config;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @param array<string, mixed> $config
      */
@@ -56,11 +48,7 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
     {
         $this->config = $config;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -68,11 +56,7 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
     {
         // Genera una chiave di cache basata sul testo e sugli aspetti
         $cacheKey = 'mcp_analysis_' . md5($text . implode(',', $aspects));
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         // Verifica se il risultato è già in cache
         $cachedResult = Cache::get($cacheKey);
         if ($cachedResult !== null) {
@@ -80,33 +64,21 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'text_length' => strlen($text),
                 'aspects' => $aspects
             ]);
-<<<<<<< HEAD
             
             return $cachedResult;
         }
         
-=======
-
-            return $cachedResult;
-        }
-
->>>>>>> laraxot/dev
         try {
             Log::debug('Sending analysis request to MCP server', [
                 'text_length' => strlen($text),
                 'aspects' => $aspects
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             $response = Http::timeout($this->config['timeout'] ?? 30)
                 ->post('http://localhost:3000/api/v1/analyze', [
                     'text' => $text,
                     'aspects' => $aspects
                 ]);
-<<<<<<< HEAD
             
             if ($response->successful()) {
                 $result = $response->json();
@@ -115,40 +87,19 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 $ttl = $this->config['cache_ttl'] ?? 3600; // 1 ora di default
                 Cache::put($cacheKey, $result, now()->addSeconds($ttl));
                 
-=======
-
-            if ($response->successful()) {
-                $result = $response->json();
-
-                // Memorizza il risultato in cache
-                $ttl = $this->config['cache_ttl'] ?? 3600; // 1 ora di default
-                Cache::put($cacheKey, $result, now()->addSeconds($ttl));
-
->>>>>>> laraxot/dev
                 Log::debug('Analysis result cached', [
                     'cache_key' => $cacheKey,
                     'ttl' => $ttl
                 ]);
-<<<<<<< HEAD
                 
                 return $result;
             }
             
-=======
-
-                return $result;
-            }
-
->>>>>>> laraxot/dev
             Log::error('Sequential Thinking Server Error', [
                 'status' => $response->status(),
                 'body' => $response->body()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return [
                 'error' => 'Failed to analyze text'
             ];
@@ -158,11 +109,7 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'response' => $e->response?->body(),
                 'status' => $e->response?->status()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return [
                 'error' => $e->getMessage()
             ];
@@ -171,21 +118,13 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return [
                 'error' => $e->getMessage()
             ];
         }
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Altri metodi...
 }
 ```
@@ -257,11 +196,7 @@ class MCPRateLimiter
      * @var RateLimiter
      */
     private RateLimiter $limiter;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @param RateLimiter $limiter
      */
@@ -269,11 +204,7 @@ class MCPRateLimiter
     {
         $this->limiter = $limiter;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Tenta di eseguire un'operazione con rate limiting.
      *
@@ -290,17 +221,12 @@ class MCPRateLimiter
     {
         if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
             $seconds = $this->limiter->availableIn($key);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             Log::warning('Rate limit exceeded', [
                 'key' => $key,
                 'max_attempts' => $maxAttempts,
                 'retry_after' => $seconds
             ]);
-<<<<<<< HEAD
             
             throw new \Exception("Too many requests. Try again in {$seconds} seconds.");
         }
@@ -309,16 +235,6 @@ class MCPRateLimiter
         
         $this->limiter->hit($key, $decaySeconds);
         
-=======
-
-            throw new \Exception("Too many requests. Try again in {$seconds} seconds.");
-        }
-
-        $result = $callback();
-
-        $this->limiter->hit($key, $decaySeconds);
-
->>>>>>> laraxot/dev
         return $result;
     }
 }
@@ -346,20 +262,12 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
      * @var array<string, mixed>
      */
     private array $config;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @var MCPRateLimiter
      */
     private MCPRateLimiter $rateLimiter;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @param array<string, mixed> $config
      * @param MCPRateLimiter $rateLimiter
@@ -369,11 +277,7 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
         $this->config = $config;
         $this->rateLimiter = $rateLimiter;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -389,28 +293,16 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                             'text' => $text,
                             'aspects' => $aspects
                         ]);
-<<<<<<< HEAD
                     
                     if ($response->successful()) {
                         return $response->json();
                     }
                     
-=======
-
-                    if ($response->successful()) {
-                        return $response->json();
-                    }
-
->>>>>>> laraxot/dev
                     Log::error('Sequential Thinking Server Error', [
                         'status' => $response->status(),
                         'body' => $response->body()
                     ]);
-<<<<<<< HEAD
                     
-=======
-
->>>>>>> laraxot/dev
                     return [
                         'error' => 'Failed to analyze text'
                     ];
@@ -422,21 +314,13 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return [
                 'error' => $e->getMessage()
             ];
         }
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Altri metodi...
 }
 ```
@@ -483,11 +367,7 @@ class AnalyzeMultiplePostsAction
             'post_count' => $posts->count(),
             'aspects' => $aspects
         ]);
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         // Prepara i dati per il batch processing
         $batchData = $posts->map(function (Post $post) {
             return [
@@ -495,34 +375,22 @@ class AnalyzeMultiplePostsAction
                 'content' => $post->content
             ];
         })->toArray();
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         // Invia una singola richiesta per analizzare tutti i post
         $response = Http::timeout(60) // Timeout più lungo per il batch
             ->post('http://localhost:3000/api/v1/analyze-batch', [
                 'items' => $batchData,
                 'aspects' => $aspects
             ]);
-<<<<<<< HEAD
         
         if ($response->successful()) {
             $results = $response->json('results', []);
             
-=======
-
-        if ($response->successful()) {
-            $results = $response->json('results', []);
-
->>>>>>> laraxot/dev
             // Associa i risultati ai post
             $postResults = [];
             foreach ($results as $result) {
                 $postResults[$result['id']] = $result['analysis'];
             }
-<<<<<<< HEAD
             
             Log::info('Batch analysis completed', [
                 'post_count' => count($postResults)
@@ -531,25 +399,11 @@ class AnalyzeMultiplePostsAction
             return $postResults;
         }
         
-=======
-
-            Log::info('Batch analysis completed', [
-                'post_count' => count($postResults)
-            ]);
-
-            return $postResults;
-        }
-
->>>>>>> laraxot/dev
         Log::error('Batch analysis failed', [
             'status' => $response->status(),
             'body' => $response->body()
         ]);
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return [];
     }
 }
@@ -573,11 +427,7 @@ use Illuminate\Support\Facades\Log;
 class SequentialThinkingServer implements SequentialThinkingServerContract
 {
     // ...
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * {@inheritdoc}
      */
@@ -587,58 +437,34 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
             // Comprimi il testo se è lungo
             $compressedText = $text;
             $isCompressed = false;
-<<<<<<< HEAD
             
             if (strlen($text) > 1024) {
                 $compressedText = gzencode($text, 9);
                 $isCompressed = true;
                 
-=======
-
-            if (strlen($text) > 1024) {
-                $compressedText = gzencode($text, 9);
-                $isCompressed = true;
-
->>>>>>> laraxot/dev
                 Log::debug('Text compressed for analysis', [
                     'original_size' => strlen($text),
                     'compressed_size' => strlen($compressedText),
                     'compression_ratio' => round(strlen($compressedText) / strlen($text) * 100, 2) . '%'
                 ]);
             }
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             $response = Http::timeout($this->config['timeout'] ?? 30)
                 ->post('http://localhost:3000/api/v1/analyze', [
                     'text' => $compressedText,
                     'aspects' => $aspects,
                     'isCompressed' => $isCompressed
                 ]);
-<<<<<<< HEAD
             
             if ($response->successful()) {
                 return $response->json();
             }
             
-=======
-
-            if ($response->successful()) {
-                return $response->json();
-            }
-
->>>>>>> laraxot/dev
             Log::error('Sequential Thinking Server Error', [
                 'status' => $response->status(),
                 'body' => $response->body()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return [
                 'error' => 'Failed to analyze text'
             ];
@@ -647,21 +473,13 @@ class SequentialThinkingServer implements SequentialThinkingServerContract
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return [
                 'error' => $e->getMessage()
             ];
         }
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     // Altri metodi...
 }
 ```
@@ -765,11 +583,7 @@ class MCPTelemetryMiddleware
      * @var MCPTelemetryService
      */
     private MCPTelemetryService $telemetryService;
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * @param MCPTelemetryService $telemetryService
      */
@@ -777,11 +591,7 @@ class MCPTelemetryMiddleware
     {
         $this->telemetryService = $telemetryService;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Handle an incoming request.
      *
@@ -794,21 +604,12 @@ class MCPTelemetryMiddleware
     {
         $startTime = microtime(true);
         $startMemory = memory_get_usage();
-<<<<<<< HEAD
         
         $response = $next($request);
         
         $duration = microtime(true) - $startTime;
         $memoryUsage = memory_get_usage() - $startMemory;
         
-=======
-
-        $response = $next($request);
-
-        $duration = microtime(true) - $startTime;
-        $memoryUsage = memory_get_usage() - $startMemory;
-
->>>>>>> laraxot/dev
         // Registra la telemetria solo per le richieste MCP
         if (strpos($request->path(), 'api/mcp') === 0) {
             $this->telemetryService->recordMetrics([
@@ -821,11 +622,7 @@ class MCPTelemetryMiddleware
                 'user_id' => auth()->id(),
                 'timestamp' => now()->toIso8601String()
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             Log::channel('telemetry')->info('MCP Request', [
                 'path' => $request->path(),
                 'method' => $request->method(),
@@ -835,11 +632,7 @@ class MCPTelemetryMiddleware
                 'server' => $request->route('server') ?? 'unknown'
             ]);
         }
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return $response;
     }
 }
@@ -881,30 +674,18 @@ class MCPTelemetryService
                 'user_id' => $metrics['user_id'],
                 'created_at' => $metrics['timestamp']
             ]);
-<<<<<<< HEAD
             
-=======
-
->>>>>>> laraxot/dev
             return true;
         } catch (\Exception $e) {
             Log::error('Failed to record MCP telemetry', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-<<<<<<< HEAD
             
             return false;
         }
     }
     
-=======
-
-            return false;
-        }
-    }
-
->>>>>>> laraxot/dev
     /**
      * Ottiene le metriche di telemetria per un server.
      *
@@ -918,7 +699,6 @@ class MCPTelemetryService
     {
         $query = DB::table('mcp_telemetry')
             ->where('server', $server);
-<<<<<<< HEAD
         
         if ($from !== null) {
             $query->where('created_at', '>=', $from);
@@ -930,28 +710,11 @@ class MCPTelemetryService
         
         $metrics = $query->get();
         
-=======
-
-        if ($from !== null) {
-            $query->where('created_at', '>=', $from);
-        }
-
-        if ($to !== null) {
-            $query->where('created_at', '<=', $to);
-        }
-
-        $metrics = $query->get();
-
->>>>>>> laraxot/dev
         $avgDuration = $metrics->avg('duration');
         $avgMemoryUsage = $metrics->avg('memory_usage');
         $requestCount = $metrics->count();
         $successRate = $metrics->where('status', '>=', 200)->where('status', '<', 300)->count() / $requestCount * 100;
-<<<<<<< HEAD
         
-=======
-
->>>>>>> laraxot/dev
         return [
             'avg_duration' => $avgDuration,
             'avg_memory_usage' => $avgMemoryUsage,
@@ -990,11 +753,7 @@ class MCPTelemetryController extends Controller
         private readonly MCPTelemetryService $telemetryService
     ) {
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> laraxot/dev
     /**
      * Ottiene le metriche di telemetria per un server.
      *
@@ -1007,15 +766,9 @@ class MCPTelemetryController extends Controller
     {
         $from = $request->input('from') ? new \DateTime($request->input('from')) : null;
         $to = $request->input('to') ? new \DateTime($request->input('to')) : null;
-<<<<<<< HEAD
         
         $metrics = $this->telemetryService->getMetrics($server, $from, $to);
         
-=======
-
-        $metrics = $this->telemetryService->getMetrics($server, $from, $to);
-
->>>>>>> laraxot/dev
         return response()->json([
             'success' => true,
             'data' => $metrics
@@ -1026,10 +779,6 @@ class MCPTelemetryController extends Controller
 
 ## Conclusione
 
-<<<<<<< HEAD
 Questa guida ha fornito le migliori pratiche per l'ottimizzazione delle performance dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano efficienti e scalabili, conformi alle regole di sviluppo stabilite per i progetti base_predict_fila5_mono.
-=======
-Questa guida ha fornito le migliori pratiche per l'ottimizzazione delle performance dei server MCP in progetti Laravel. Seguendo queste linee guida, è possibile garantire che le integrazioni con i server MCP siano efficienti e scalabili, conformi alle regole di sviluppo stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev
 
 Per ulteriori informazioni e supporto, consultare la documentazione ufficiale dei server MCP o contattare il team di sviluppo.

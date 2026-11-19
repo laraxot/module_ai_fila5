@@ -13,11 +13,7 @@ discussions: []
 
 ## Panoramica
 
-<<<<<<< HEAD
 I server MCP (Model Context Protocol) estendono le capacità degli assistenti AI come Claude, GPT e altri modelli linguistici, consentendo loro di interagire con sistemi esterni, eseguire calcoli complessi e accedere a dati in tempo reale. Questa documentazione fornisce una guida completa per l'installazione, configurazione e utilizzo dei server MCP in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5_mono.
-=======
-I server MCP (Model Context Protocol) estendono le capacità degli assistenti AI come Claude, GPT e altri modelli linguistici, consentendo loro di interagire con sistemi esterni, eseguire calcoli complessi e accedere a dati in tempo reale. Questa documentazione fornisce una guida completa per l'installazione, configurazione e utilizzo dei server MCP in progetti Laravel, seguendo le regole di sviluppo e le convenzioni di codice stabilite per i progetti base_predict_fila5.
->>>>>>> laraxot/dev
 
 ## Cos'è il Model Context Protocol (MCP)
 
@@ -101,8 +97,4 @@ updated: 2026-09-26
 qmd: "introduzione"
 issues: []
 discussions: []
-<<<<<<< HEAD
 Continua con la sezione [Installazione](./01_INSTALLAZIONE.md) per iniziare a configurare i server MCP per il tuo progetto Laravel.
-=======
-Continua con la sezione [Installazione](01_installazione.md) per iniziare a configurare i server MCP per il tuo progetto Laravel.
->>>>>>> laraxot/dev
