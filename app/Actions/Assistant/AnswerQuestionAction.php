@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Assistant;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Modules\AI\Actions\AppendAiMessageAction;
 use Modules\AI\Actions\CreateAiActionProposalAction;
-use Modules\AI\Actions\MakeAIRequestAction;
 use Modules\AI\Adapters\AssistantHandoffHandler;
 use Modules\AI\Datas\AssistantAnswerData;
 use Modules\AI\Enums\AiMessageRoleEnum;
 use Modules\AI\Models\AiKnowledgeEntry;
-use Modules\AI\Models\AiMessage;
 use Modules\AI\Models\AiThread;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
@@ -37,17 +35,27 @@ final class AnswerQuestionAction
         private readonly DetectHandoffTriggerAction $detectHandoff,
         private readonly SearchKnowledgeEntriesAction $search,
         private readonly BuildAssistantPromptAction $buildPrompt,
-        private readonly MakeAIRequestAction $request,
+        private readonly RequestAssistantCompletionAction $request,
         private readonly CreateAiActionProposalAction $createProposal,
+        private readonly AppendAiMessageAction $appendMessage,
     ) {}
 
-    public function execute(AiThread $thread, string $collection, string $question, ?int $userId = null): AssistantAnswerData
-    {
-        $this->storeMessage($thread, AiMessageRoleEnum::USER, $question, $userId, null);
+    /**
+     * @param  int|string|null  $userId  null = visitatore anonimo; intero o UUID
+     * @param  list<string>|null  $handoffKeywords  parole che passano subito a una persona; null = config
+     */
+    public function execute(
+        AiThread $thread,
+        string $collection,
+        string $question,
+        int|string|null $userId = null,
+        ?array $handoffKeywords = null,
+    ): AssistantAnswerData {
+        $this->appendMessage->execute($thread, AiMessageRoleEnum::USER, $question, $userId);
 
-        $answer = $this->answer($collection, $question);
+        $answer = $this->answer($collection, $question, $handoffKeywords);
 
-        $this->storeMessage($thread, AiMessageRoleEnum::ASSISTANT, $answer->answer, null, [
+        $this->appendMessage->execute($thread, AiMessageRoleEnum::ASSISTANT, $answer->answer, null, [
             'kind' => self::PAYLOAD_KIND,
             'collection' => $collection,
             'question' => $question,
@@ -70,14 +78,13 @@ final class AnswerQuestionAction
             );
         }
 
-        $thread->forceFill(['last_message_at' => Carbon::now()])->save();
-
         return $answer;
     }
 
-    private function answer(string $collection, string $question): AssistantAnswerData
+    /** @param  list<string>|null  $handoffKeywords */
+    private function answer(string $collection, string $question, ?array $handoffKeywords): AssistantAnswerData
     {
-        $trigger = $this->detectHandoff->execute($question);
+        $trigger = $this->detectHandoff->execute($question, $handoffKeywords);
         if ($trigger !== null) {
             return AssistantAnswerData::handoff('sensitive_topic:'.$trigger);
         }
@@ -90,10 +97,8 @@ final class AnswerQuestionAction
 
         try {
             $raw = $this->request->execute(
-                prompt: $this->buildPrompt->execute($question, $entries),
-                type: 'assistant',
-                context: ['collection' => $collection],
-                systemPrompt: BuildAssistantPromptAction::SYSTEM_PROMPT,
+                BuildAssistantPromptAction::SYSTEM_PROMPT,
+                $this->buildPrompt->execute($question, $entries),
             );
         } catch (Throwable $throwable) {
             // Il supporto non deve mai rompersi: se il modello non risponde, passa a una persona.
@@ -106,19 +111,5 @@ final class AnswerQuestionAction
             $raw,
             array_map(static fn (AiKnowledgeEntry $entry): int => $entry->id, $entries),
         );
-    }
-
-    /** @param  array<string, mixed>|null  $payload */
-    private function storeMessage(AiThread $thread, AiMessageRoleEnum $role, string $content, ?int $userId, ?array $payload): void
-    {
-        $message = new AiMessage;
-        $message->fill([
-            'ai_thread_id' => $thread->getKey(),
-            'user_id' => $userId,
-            'role' => $role,
-            'content' => $content,
-            'payload' => $payload,
-        ]);
-        $message->save();
     }
 }

@@ -4,7 +4,15 @@ type: guide
 module: AI
 tags: [ai, assistant, knowledge-base, handoff, report]
 created: 2026-11-16
+<<<<<<< .merge_file_uj8pbf
 updated: 2026-11-16
+=======
+<<<<<<< .merge_file_XaIMye
+updated: 2026-11-16
+=======
+updated: 2026-11-17
+>>>>>>> .merge_file_jE91Pa
+>>>>>>> .merge_file_7CNGHG
 qmd: "assistant knowledge base handoff report"
 issues: [25, 26]
 discussions: []
@@ -55,7 +63,16 @@ $answer = app(AnswerQuestionAction::class)->execute(
     thread: $thread,                 // Modules\AI\Models\AiThread
     collection: 'fixcity-faq',       // base di conoscenza del progetto
     question: $request->string('question')->toString(),
+<<<<<<< .merge_file_uj8pbf
     userId: auth()->id(),            // null per visitatori anonimi
+=======
+<<<<<<< .merge_file_XaIMye
+    userId: auth()->id(),            // null per visitatori anonimi
+=======
+    userId: auth()->id(),            // null per visitatori anonimi; intero o UUID (salvato come stringa)
+    handoffKeywords: ['allerg'],     // opzionale: parole sensibili di questa chiamata (es. per attività); null = config
+>>>>>>> .merge_file_jE91Pa
+>>>>>>> .merge_file_7CNGHG
 );
 
 $answer->answer;        // testo da mostrare
@@ -70,7 +87,16 @@ $report = app(BuildAssistantReportAction::class)->execute('fixcity-faq', now()->
 ### Parole sensibili (opzionale)
 
 Di default la lista è **vuota**: il modulo AI non decide cosa è sensibile per un progetto.
+<<<<<<< .merge_file_uj8pbf
 Il progetto la imposta nella propria configurazione:
+=======
+<<<<<<< .merge_file_XaIMye
+Il progetto la imposta nella propria configurazione:
+=======
+Si possono passare per singola chiamata (`handoffKeywords`, es. diverse per ogni attività) oppure
+impostarle per tutto il progetto nella configurazione:
+>>>>>>> .merge_file_jE91Pa
+>>>>>>> .merge_file_7CNGHG
 
 ```php
 config(['ai.assistant.handoff_keywords' => ['rimbors', 'reclam', 'avvocat', 'denunc']]);
@@ -86,6 +112,26 @@ sostituirlo registrando un proprio handler con lo stesso tipo, per esempio per a
 ```php
 app(\Modules\AI\Adapters\AiActionHandlerRegistry::class)->register(new MyTicketHandoffHandler);
 ```
+
+## Fornitori del modello
+
+L'assistente chiede la risposta in cascata (`Assistant\RequestAssistantCompletionAction`):
+
+| Ordine | Fornitore | Modello predefinito | Chiave in `.env` |
+|---|---|---|---|
+| 1 | Groq | `openai/gpt-oss-120b` (modello di testo di produzione; i Llama sono stati ritirati nel 2026) | `GROQ_API_KEY` |
+| 2 | OpenRouter | `openrouter/free` (router dei modelli gratuiti; `free_models_only` scarta i modelli a pagamento) | `OPENROUTER_API_KEY` |
+| 3 | OpenAI (`MakeAIRequestAction`) | impostazione esistente | `OPENAI_API_KEY` |
+
+Un fornitore senza chiave o che risponde con un errore passa la mano al successivo. Se nessuno risponde,
+la domanda passa a una persona (`ai_unavailable`). Ordine, modelli e timeout si cambiano in `AIConfigData`
+(`assistant_providers`, `assistant_models`, `assistant_timeout`). Le chiavi si leggono da `config/services.php`
+del progetto (`services.groq.key`, `services.openrouter.key`).
+
+Il progetto dichiara le due chiavi in `config/services.php` (`'groq' => ['key' => env('GROQ_API_KEY')]`, idem `openrouter`)
+e le valorizza solo in `.env`, mai in git. La risposta e' chiesta con `response_format: json_object`: Groq e OpenAI
+rispondono 400 se nessun messaggio contiene la parola «json», quindi l'Action aggiunge `JSON_INSTRUCTION` al prompt di
+sistema quando manca.
 
 ## Regole fisse dell'assistente
 
@@ -104,10 +150,13 @@ o la richiesta è complessa, risponde nella lingua della domanda, risponde solo 
 | `Actions\Assistant\SearchKnowledgeEntriesAction` | Carica le voci attive della `collection` e le ordina |
 | `Actions\Assistant\DetectHandoffTriggerAction` | Guardrail deterministico sulle parole sensibili del progetto |
 | `Actions\Assistant\BuildAssistantPromptAction` | Prompt di sistema e prompt con fonti |
+| `Actions\Assistant\RequestAssistantCompletionAction` | Risposta del modello in cascata: Groq, OpenRouter, OpenAI |
 | `Actions\Assistant\AnswerQuestionAction` | Flusso completo, salva i messaggi, crea la proposta di passaggio |
-| `Actions\Assistant\BuildAssistantReportAction` | Report del periodo per una `collection` |
+| `Actions\Assistant\BuildAssistantReportAction` | Report del periodo per una `collection`; filtra nel database sui percorsi JSON `payload->kind` e `payload->collection` |
 | `Datas\AssistantAnswerData` / `Datas\AssistantReportData` | Risultati tipizzati |
 | `Adapters\AssistantHandoffHandler` | Handler di default di `assistant_handoff` |
+| `Actions\CreateAiThreadAction` | Crea un thread (anche anonimo) con `panel_id` scelto dal chiamante |
+| `Actions\AppendAiMessageAction` | Aggiunge un messaggio senza chiamare il modello (es. risposta di un operatore) |
 | `Filament\Resources\AiKnowledgeEntryResource` | Gestione della base di conoscenza |
 
 ## Limiti noti ed evoluzioni

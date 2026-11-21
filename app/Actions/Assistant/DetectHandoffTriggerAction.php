@@ -11,7 +11,8 @@ use Spatie\QueueableAction\QueueableAction;
  * che deve gestire una persona (rimborsi, reclami, questioni legali o mediche...) restituisce
  * la parola che l'ha fatto scattare, altrimenti null.
  *
- * Le parole stanno in `config('ai.assistant.handoff_keywords')`: ogni progetto puo' estenderle.
+ * Le parole arrivano dal chiamante (es. per singola attivita'); se null si usa
+ * `config('ai.assistant.handoff_keywords')`.
  */
 final class DetectHandoffTriggerAction
 {
@@ -19,11 +20,12 @@ final class DetectHandoffTriggerAction
 
     public function __construct(private readonly TokenizeTextAction $tokenize) {}
 
-    public function execute(string $question): ?string
+    /** @param  list<string>|null  $keywords  null = parole della config */
+    public function execute(string $question, ?array $keywords = null): ?string
     {
         $tokens = $this->tokenize->execute($question);
 
-        foreach ($this->keywords() as $keyword) {
+        foreach ($this->normalize($keywords ?? $this->configuredKeywords()) as $keyword) {
             foreach ($tokens as $token) {
                 if (str_starts_with($token, $keyword)) {
                     return $keyword;
@@ -34,21 +36,27 @@ final class DetectHandoffTriggerAction
         return null;
     }
 
-    /** @return list<string> radici gia' normalizzate (es. "rimbors" copre rimborso/rimborsi) */
-    private function keywords(): array
+    /** @return array<mixed> */
+    private function configuredKeywords(): array
     {
         $configured = config('ai.assistant.handoff_keywords', []);
-        if (! is_array($configured)) {
-            return [];
-        }
 
-        $keywords = [];
-        foreach ($configured as $keyword) {
+        return is_array($configured) ? $configured : [];
+    }
+
+    /**
+     * @param  array<mixed>  $keywords
+     * @return list<string> radici normalizzate (es. "rimbors" copre rimborso/rimborsi)
+     */
+    private function normalize(array $keywords): array
+    {
+        $normalized = [];
+        foreach ($keywords as $keyword) {
             if (is_string($keyword)) {
-                $keywords = [...$keywords, ...$this->tokenize->execute($keyword)];
+                $normalized = [...$normalized, ...$this->tokenize->execute($keyword)];
             }
         }
 
-        return $keywords;
+        return $normalized;
     }
 }

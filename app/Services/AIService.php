@@ -50,6 +50,7 @@ class AIService
 
             return $this->client->request($prompt, 'classification');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }
@@ -66,6 +67,7 @@ class AIService
 
             return $this->client->request($prompt, 'solutions');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }
@@ -82,6 +84,7 @@ class AIService
 
             return $this->client->request($prompt, 'sentiment');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }
@@ -100,6 +103,7 @@ class AIService
 
             return $this->client->request($prompt, 'priority');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }
@@ -120,6 +124,7 @@ class AIService
 
             return $this->client->request($prompt, 'routing');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }
@@ -128,11 +133,14 @@ class AIService
     {
         $cacheKey = 'ai:response:'.md5($ticketContent.$category.$priority);
 
-        return Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority): string {
+        $result = Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority): string {
             $prompt = AIServicePromptBuilder::autoResponse($ticketContent, $category, $priority);
 
             return $this->client->request($prompt, 'response');
         });
+        Assert::string($result);
+
+        return $result;
     }
 
     /**
@@ -149,6 +157,7 @@ class AIService
 
             return $this->client->request($prompt, 'patterns');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }
@@ -167,6 +176,7 @@ class AIService
 
             return $this->client->request($prompt, 'improvements');
         });
+        Assert::string($result);
 
         return AIServiceJsonDecoder::decodeObject($result);
     }

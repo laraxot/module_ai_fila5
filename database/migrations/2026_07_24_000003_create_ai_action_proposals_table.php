@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Schema\Blueprint;
 use Modules\Xot\Database\Migrations\XotBaseMigration;
 
-return new class() extends XotBaseMigration
+return new class extends XotBaseMigration
 {
     /**
      * Table name following Laraxot philosophy.
@@ -27,7 +27,7 @@ return new class() extends XotBaseMigration
 
             $table->foreignId('ai_thread_id')->constrained('ai_threads')->cascadeOnDelete();
 
-            $table->unsignedBigInteger('proposed_by_user_id')->index();
+            $table->string('proposed_by_user_id', 36)->nullable()->index();
 
             $table->string('type');
 
@@ -37,7 +37,7 @@ return new class() extends XotBaseMigration
 
             $table->string('status')->default('pending');
 
-            $table->unsignedBigInteger('confirmed_by_user_id')->nullable();
+            $table->string('confirmed_by_user_id', 36)->nullable();
 
             $table->dateTime('confirmed_at')->nullable();
 
@@ -48,6 +48,16 @@ return new class() extends XotBaseMigration
             $table->longText('error')->nullable();
 
             $this->updateTimestamps($table);
+        });
+
+        // Id utente come stringa: gli utenti Laraxot hanno UUID; vale anche per id numerici. Nullable: utenti anonimi.
+        $this->tableUpdate(function (Blueprint $table): void {
+            if ($this->hasColumn('proposed_by_user_id')) {
+                $table->string('proposed_by_user_id', 36)->nullable()->change();
+            }
+            if ($this->hasColumn('confirmed_by_user_id')) {
+                $table->string('confirmed_by_user_id', 36)->nullable()->change();
+            }
         });
     }
 };
