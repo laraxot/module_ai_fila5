@@ -9,7 +9,11 @@ qmd: "SentimentAction AnalyzeBasicSentimentAction AnalyzeTransformersSentimentAc
 issues: []
 discussions: []
 related:
+<<<<<<< .merge_file_tUkZ2L
   - ./stories/2026-10-08-services-to-actions-ai.story.md
+=======
+  - ./stories/services-to-actions-ai.story.md
+>>>>>>> .merge_file_N8eXP1
   - ./PHILOSOPHY.md
 ---
 
@@ -42,7 +46,11 @@ contratto `Contracts/SentimentAnalyzer` (`analyze(string): array`).
   stesse; nessun binding nel container (`AIServiceProvider` non li registra), nessun test.
 - **Duplicati, e vecchi**: stessa logica delle due Action, ma la basic non gestiva le negazioni
   («not a good product» contava come positivo). `SentimentAction` usa gia' le Action dal passaggio
+<<<<<<< .merge_file_tUkZ2L
   services→actions (story `2026-10-08-services-to-actions-ai`, sezione «Aperto»).
+=======
+  services→actions (story `services-to-actions-ai`, sezione «Aperto»).
+>>>>>>> .merge_file_N8eXP1
 - **Non adattatori**: un adattatore serve se qualcuno dipende dal contratto. Nessuno ne dipendeva,
   quindi spostarli fuori da `Actions/` avrebbe conservato codice morto in un posto diverso.
 - Il contratto, rimasto senza implementazioni ne' consumatori, e' stato tolto con loro.

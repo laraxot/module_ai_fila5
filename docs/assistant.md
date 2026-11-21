@@ -10,7 +10,11 @@ issues: [25, 26]
 discussions: []
 related:
   - ./stories/assistant-knowledge-base.story.md
+<<<<<<< .merge_file_ZIDnFc
   - ../ARCHITECTURE.md
+=======
+  - ../architecture.md
+>>>>>>> .merge_file_iN6igb
 ---
 
 # Assistente clienti

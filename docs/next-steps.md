@@ -1,10 +1,10 @@
 ---
-title: "next steps"
+title: "Next Steps"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "next steps"
+qmd: "Next Steps"
 issues: []
 discussions: []
 ---
@@ -18,12 +18,20 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_2Xry7z
 title: "next steps"
+=======
+title: "NEXT STEPS"
+>>>>>>> .merge_file_4Ye9pS
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_2Xry7z
 qmd: "next steps"
+=======
+qmd: "NEXT STEPS"
+>>>>>>> .merge_file_4Ye9pS
 issues: []
 discussions: []
 ## ✅ Cosa è Stato Completato

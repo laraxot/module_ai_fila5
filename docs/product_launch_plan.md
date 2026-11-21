@@ -1,10 +1,10 @@
 ---
-title: "product launch plan"
+title: "Product Launch Plan"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "product launch plan"
+qmd: "Product Launch Plan"
 issues: []
 discussions: []
 ---
@@ -17,12 +17,20 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_2bYyAz
 title: "product launch plan"
+=======
+title: "PRODUCT LAUNCH PLAN"
+>>>>>>> .merge_file_HhdiSP
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_2bYyAz
 qmd: "product launch plan"
+=======
+qmd: "PRODUCT LAUNCH PLAN"
+>>>>>>> .merge_file_HhdiSP
 issues: []
 discussions: []
 ## Launch Objectives

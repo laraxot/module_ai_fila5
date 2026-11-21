@@ -21,9 +21,15 @@ discussions: []
 | File | Scopo |
 |---|---|
 | [PRD.md](./PRD.md) | Product requirements |
-| [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md) | Roadmap |
-| [PRODUCT_STRATEGY.md](./PRODUCT_STRATEGY.md) | Strategy |
-| [PRODUCT_LAUNCH_PLAN.md](./PRODUCT_LAUNCH_PLAN.md) | Launch plan |
+| [product_roadmap.md](./product_roadmap.md) | Roadmap |
+| [product_strategy.md](./product_strategy.md) | Strategy |
+| [product_launch_plan.md](./product_launch_plan.md) | Launch plan |
+
+### Funzionalità
+| File | Scopo |
+|---|---|
+| [assistant.md](./assistant.md) | Assistente clienti: base di conoscenza, passaggio a una persona, report |
+| [agents.md](./agents.md) | Agenti neuron-ai con tool, endpoint AG-UI, approvazioni, interfacce A2UI |
 
 ### Funzionalità
 | File | Scopo |
@@ -34,9 +40,20 @@ discussions: []
 ### Development
 | File | Scopo |
 |---|---|
-| [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
-| [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
-| [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
+| [gsd_workflow.md](./gsd_workflow.md) | Workflow GSD locale al modulo |
+| [sprint_planning.md](./sprint_planning.md) | Sprint planning |
+| [user_research.md](./user_research.md) | User research |
+
+### Stories
+| File | Scopo |
+|---|---|
+| [services-to-actions-ai.story.md](./stories/services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
+| [assistant-knowledge-base.story.md](./stories/assistant-knowledge-base.story.md) | Assistente clienti agnostico (2026-11-16) |
+| [assistant-anonymous-and-per-call-keywords.story.md](./stories/assistant-anonymous-and-per-call-keywords.story.md) | Visitatori anonimi e parole sensibili per chiamata (2026-11-17) |
+| [assistant-provider-cascade.story.md](./stories/assistant-provider-cascade.story.md) | Fornitori in cascata: Groq, OpenRouter, OpenAI (2026-11-17) |
+| [user-ids-as-strings.story.md](./stories/user-ids-as-strings.story.md) | Id utente come stringa (UUID) (2026-11-17) |
+| [assistant-widget-support.story.md](./stories/assistant-widget-support.story.md) | CreateAiThreadAction e AppendAiMessageAction (2026-11-17) |
+| [assistant-quality-audit.story.md](./stories/assistant-quality-audit.story.md) | Report filtrato nel database, duplicato rimosso (2026-11-17) |
 
 ### Stories
 | File | Scopo |
@@ -52,7 +69,7 @@ discussions: []
 ## Riferimenti canonici esterni al modulo
 
 - [Ralph + GSD + BMAD orchestration](../../../../bashscripts/ai/.agents/docs/architecture/ralph-gsd-bmad-orchestration.md)
-- [AI agents docs index](../../../../bashscripts/ai/.agents/docs/00-INDEX.md)
+- [AI agents docs index](../../../../bashscripts/ai/.agents/docs/00-index.md)
 - [AGENTS.md](../../../../AGENTS.md)
 
 ## Nota anti-ridondanza

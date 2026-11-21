@@ -1,10 +1,10 @@
 ---
-title: "product strategy"
+title: "Product Strategy"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "product strategy"
+qmd: "Product Strategy"
 issues: []
 discussions: []
 ---
@@ -17,12 +17,20 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_IzD2Sa
 title: "product strategy"
+=======
+title: "PRODUCT STRATEGY"
+>>>>>>> .merge_file_KiVGp6
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_IzD2Sa
 qmd: "product strategy"
+=======
+qmd: "PRODUCT STRATEGY"
+>>>>>>> .merge_file_KiVGp6
 issues: []
 discussions: []
 ## Executive Summary

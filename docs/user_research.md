@@ -1,10 +1,10 @@
 ---
-title: "user research"
+title: "User Research"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "user research"
+qmd: "User Research"
 issues: []
 discussions: []
 ---
@@ -17,12 +17,20 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_TskP1x
 title: "user research"
+=======
+title: "USER RESEARCH"
+>>>>>>> .merge_file_urWXiP
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_TskP1x
 qmd: "user research"
+=======
+qmd: "USER RESEARCH"
+>>>>>>> .merge_file_urWXiP
 issues: []
 discussions: []
 ## Research Goals
