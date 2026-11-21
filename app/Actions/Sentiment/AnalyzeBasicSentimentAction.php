@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Sentiment;
 
-use function Safe\preg_match_all;
-
 use Spatie\QueueableAction\QueueableAction;
 
+use function Safe\preg_match_all;
+
+/** @see Modules/AI/docs/sentiment-analysis.md */
 final class AnalyzeBasicSentimentAction
 {
     use QueueableAction;
@@ -40,15 +41,14 @@ final class AnalyzeBasicSentimentAction
     }
 
     /**
-     * @param  list<string>  $words
-     */
-    /**
      * Counts sentiment words, flipping the polarity of a word preceded by a negation
      * within the previous three words ("not a good product" counts as negative).
      *
      * @param  list<string>  $positiveWords
      * @param  list<string>  $negativeWords
      * @return array{int, int}
+     *
+     * @see Modules/AI/docs/sentiment-analysis.md
      */
     private function countPolarity(string $text, array $positiveWords, array $negativeWords): array
     {

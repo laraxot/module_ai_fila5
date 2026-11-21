@@ -107,18 +107,37 @@ I valori backed sono i literal gia' persistiti (`pending`, `ok`, `user`...): col
 - Rischio ricorrente: un nuovo merge da `laraxot/dev` puo' riesumare Services e const. Le modifiche sono nel working tree: vanno
   committate forward-only dal proprietario del repo del modulo.
 
-## Aggiornamento 2026-10-20
+## Seguito 2026-11-19: analizzatori di sentiment eliminati
 
-`AIService` e il suo test sono riapparsi col sync `0c5e0a4` (terza volta). Scopo, metodi, chiamanti (zero) e contratto dei tipi da
-riusare nella futura Action: [phpstan-test-wave-ai](./phpstan-test-wave-ai.story.md).
+**Rosso**: `tests/Unit/Actions/QueueableActionContractTest.php` («keeps AI actions queueable with execute
+entrypoints») su `Actions\Sentiment\BasicSentimentAnalyzer` e `TransformersSentimentAnalyzer`.
 
-## Nota di verifica 2026-10-20
+**Decisione**: codice morto, non adattatori. Si eliminano i due analizzatori e il contratto
+`Contracts\SentimentAnalyzer`; il test resta com'e' (la regola che verifica e' giusta).
 
-Epic: [epic-services-to-queueable-actions](../../../../../bmad-output/epic-services-to-queueable-actions.md). Misura delle 13:00 UTC circa, righe volatili.
+**Prove**:
+- `grep -rn` su `laravel/Modules` e `laravel/Themes`: nessun riferimento oltre alle classi stesse e ai docs;
+  nessun test li usa.
+- `AIServiceProvider`: nessun binding (lega solo `MessageStoreInterface`, `PersistenceInterface` e il registry).
+- `SentimentAction` chiama gia' `AnalyzeTransformersSentimentAction`/`AnalyzeBasicSentimentAction`; gli
+  analizzatori erano la versione precedente (la basic senza gestione delle negazioni).
+- Il contratto non aveva altre implementazioni ne' consumatori.
 
-- Su disco `AI/app/Services/` non esiste e `AIService.php` e' cancellato (commit `e0c8ec4`, 12:14 UTC). `git -C Modules/AI ls-tree -r --name-only laraxot/dev -- app/Services | wc -l` restituisce 0. Il test `AIServiceTest` e la cartella `tests/Unit/Services` non esistono piu'.
-- Sostituito da `Actions/ClassifyTicketAction`, `SuggestSolutionsAction`, `SentimentAction`, `Support/MakeAIRequestAction` e `AiJsonResponseDecoderAction` (path verificati su disco).
-- Chiamanti del Service: zero. Dei successori solo `SentimentAction` ha un consumatore di produzione (Filament `Completion`); `ClassifyTicketAction` e `SuggestSolutionsAction` ne hanno zero, quindi il flusso ticket non ha ingressi.
-- Parita' da verificare: `MakeAIRequestAction` legge `ai.openai_api_key`, `ai.openai_base_url`, `ai.timeout`, `ai.retry_attempts`, chiavi assenti da `config/ai.php` (controprova: lo stesso file contiene 11 volte `openai`); il modello e' fisso `gpt-4` (riga 49) mentre la config dichiara altri modelli; una risposta 200 senza `choices` ritorna `''` e `Cache::remember` la tiene 3600 s (dopo i tentativi falliti invece lancia, quindi non viene salvata); il log dei tentativi falliti include titolo e descrizione del ticket e il corpo della risposta.
-- Cinque flussi del Service non hanno Action (`predictPriority`, `optimizeRouting`, `generateAutoResponse`, `analyzePatterns`, `suggestImprovements`): nessuna Action con quei nomi in `AI/app/Actions` (controprova: la ricerca "Sentiment" trova 4 file). Non ricrearle senza un chiamante.
-- Nessuna Action nuova in W0; le decisioni sono in W2 e W3 dell'epic.
+**Anche**: tolto un docblock orfano (`@param list<string> $words`) in `AnalyzeBasicSentimentAction`;
+`@see` a `docs/sentiment-analysis.md` sulle tre Action del sentiment.
+
+**File**: eliminati `app/Actions/Sentiment/BasicSentimentAnalyzer.php`,
+`app/Actions/Sentiment/TransformersSentimentAnalyzer.php`, `app/Contracts/SentimentAnalyzer.php`;
+modificati `app/Actions/SentimentAction.php`, `app/Actions/Sentiment/Analyze*SentimentAction.php`,
+`ARCHITECTURE.md`, `docs/PHILOSOPHY.md`, `docs/coverage.md`; nuovo `docs/sentiment-analysis.md`.
+
+### Secondo rosso dello stesso test: `Actions/Prompt/AIPromptTemplates`
+
+Tolti gli analizzatori, `QueueableActionContractTest` falliva ancora su `Actions\Prompt\AIPromptTemplates`
+(classe statica con `classification()`/`solutions()`, riportata dalla sync del 2026-10-20 dopo che questa
+story aveva deciso di tenere i testi dentro `BuildAIPromptAction`). Unico consumatore `BuildAIPromptAction`:
+i due metodi diventano `private static` li' (`classificationPrompt()`, `solutionsPrompt()`), stesso testo, e il
+file e' eliminato. `docs/queueable-actions.md` e `docs/PHILOSOPHY.md` aggiornati.
+
+Ancora aperto: `app/Datas/AIPromptTemplates.php` (costanti `ROUTING_JSON`/`PATTERN_JSON`/`IMPROVEMENTS_JSON`)
+e' tornato anch'esso con la sync, zero riferimenti; non fa fallire test, lasciato al proprietario.

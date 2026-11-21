@@ -19,7 +19,6 @@ Standardizzare l'accesso agli LLM senza accoppiamento al provider (OpenAI, DeepS
 
 **Contratti:**
 - `AiActionHandlerContract` — esegui azione AI
-- `SentimentAnalyzer` — classifica sentiment
 
 **Dati:**
 - `CompletionData` — risposta LLM con metadati
@@ -27,9 +26,12 @@ Standardizzare l'accesso agli LLM senza accoppiamento al provider (OpenAI, DeepS
 - `AIPromptTemplates` — registro prompt versionati
 
 **Azioni:**
+- `SentimentAction` → `Sentiment\AnalyzeBasicSentimentAction` / `AnalyzeTransformersSentimentAction` — classifica sentiment ([sentiment-analysis](docs/sentiment-analysis.md))
 - `CompletionAction` — inferenza grezza
 - `AiJsonResponseDecoderAction` — parsing output strutturato
 - `ContextCompressorAction` — compressione budget token
+- `Assistant\AnswerQuestionAction` — assistente clienti su base di conoscenza, con passaggio a una persona (vedi [docs/assistant.md](docs/assistant.md))
+- `Assistant\BuildAssistantReportAction` — report periodico dell'assistente
 
 ## Dipendenze
 
