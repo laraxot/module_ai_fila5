@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schema;
+use Modules\AI\Tests\TestCase;
+use PHPUnit\Framework\Assert;
+
+uses(TestCase::class);
 
 /*
  * In questa base l'id utente e' un UUID di 36 caratteri. Una colonna intera lo
@@ -27,12 +31,19 @@ it('stores user ids as strings, not integers', function (): void {
 
     $numeric = [];
     foreach ($columns as [$table, $column]) {
-        expect(Schema::hasColumn($table, $column))->toBeTrue("La colonna {$table}.{$column} non esiste");
+        Assert::assertTrue(
+            Schema::hasColumn($table, $column),
+            "La colonna {$table}.{$column} non esiste",
+        );
 
         if (! in_array(Schema::getColumnType($table, $column), ['string', 'varchar', 'text'], true)) {
             $numeric[] = $table.'.'.$column;
         }
     }
 
-    expect($numeric)->toBe([], 'Colonne numeriche: un id UUID viene troncato');
-});
+    Assert::assertSame([], $numeric, 'Colonne numeriche: un id UUID viene troncato');
+})->skip(
+    // Non `static`: Pest lega la closure di skip all'istanza del test case.
+    fn (): bool => TestCase::moduleTablesMissing(),
+    "Il modulo AI non e' montato in questo progetto: le sue tabelle non esistono. L'invariante vale dove il modulo gira (base_quaeris_fila5#243).",
+);

@@ -1,14 +1,12 @@
 ---
-title: "product launch plan"
+title: "Product Launch Plan"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "product launch plan"
+qmd: "Product Launch Plan"
 issues: []
 discussions: []
-status: superseded
-superseded_by: product-launch-plan.md
 ---
 
 # AI Module - Product Launch Plan
@@ -18,6 +16,15 @@ superseded_by: product-launch-plan.md
 **Owner:** Product Team
 
 ---
+
+title: "PRODUCT LAUNCH PLAN"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "PRODUCT LAUNCH PLAN"
+issues: []
+discussions: []
 ## Launch Objectives
 
 1. **Product:** Deploy AI content generation for markets

@@ -1,4 +1,11 @@
 ---
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "PHILOSOPHY"
+issues: []
+discussions: []
 title: "AI Module Philosophy"
 description: "Design principles, architecture, cost control, and operational dogmas for FixCity AI integrations"
 module: AI
@@ -118,7 +125,7 @@ Eloquent models (AiThread, AiMessage, AiActionProposal, AiToolLog) are the sourc
 
 ### Why Prompt Engineering is Centralized
 
-All prompts live in `Prompt/BuildAIPromptAction.php` and referenced templates (AIPromptTemplates). This is intentional.
+All prompts live in `Prompt/BuildAIPromptAction.php` (private methods of the same Action). This is intentional.
 
 **Why**:
 - Versioning: if a prompt stops working, you can see the history (git blame, commit message).
@@ -238,7 +245,7 @@ DS4's KV cache (`~/.ds4/kvcache/`) persists between requests. This is good—don
 **Flow**:
 1. Message received (ticket description, comment, etc.).
 2. SentimentAction tries Transformers (local, free).
-3. If Transformers unavailable, uses regex-based BasicSentimentAnalyzer.
+3. If Transformers unavailable, uses the word-list `AnalyzeBasicSentimentAction` (see `sentiment-analysis.md`).
 4. Returns JSON: sentiment (pos/neg/neutral), emotion, confidence, urgency_level, recommended_tone.
 5. Operator sees urgency flag; high/critical triggers escalation.
 

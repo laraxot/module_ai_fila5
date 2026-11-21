@@ -1,14 +1,12 @@
 ---
-title: "redundancy analysis"
+title: "Redundancy Analysis"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "redundancy analysis"
+qmd: "Redundancy Analysis"
 issues: []
 discussions: []
-status: superseded
-superseded_by: redundancy-analysis.md
 ---
 
 Redundancy analysis available: docs/analysis/redundancies/summary.md

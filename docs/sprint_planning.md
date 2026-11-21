@@ -1,14 +1,12 @@
 ---
-title: "sprint planning"
+title: "Sprint Planning"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "sprint planning"
+qmd: "Sprint Planning"
 issues: []
 discussions: []
-status: superseded
-superseded_by: sprint-planning.md
 ---
 
 # AI Module - Sprint Planning
@@ -18,6 +16,15 @@ superseded_by: sprint-planning.md
 **Version:** 1.0.0
 
 ---
+
+title: "SPRINT PLANNING"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "SPRINT PLANNING"
+issues: []
+discussions: []
 ## Sprint Goal
 
 Establish AI infrastructure and launch content generation for prediction markets.

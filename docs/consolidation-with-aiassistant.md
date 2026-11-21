@@ -7,7 +7,6 @@ updated: 2026-09-26
 qmd: "consolidation with aiassistant"
 issues: []
 discussions: []
-status: draft
 ---
 
 # Consolidation Strategy: AI + AiAssistant
@@ -185,7 +184,7 @@ Remove `openai-php/laravel` from AiAssistant, declare AI as dependency:
 
 ## See Also
 
-- `../ARCHITECTURE.md` — AI module's current design
-- `../../AiAssistant/ARCHITECTURE.md` — AiAssistant's current design
+- `../architecture.md` — AI module's current design
+- `../../AiAssistant/architecture.md` — AiAssistant's current design
 - `handler-registry.md` — implementing custom handlers
 - `../../../bmad-output/module-philosophy-audit.story.md` — full module audit
