@@ -7,10 +7,12 @@ updated: 2026-09-26
 qmd: "deferred operator assistant agent"
 issues: []
 discussions: []
-status: draft
 ---
 
 # Deferred: OperatorAssistantAgent domain tool-calling
+
+> **Realizzato** (2026-11-19): base agnostica in [agents.md](agents.md); l'agente operatore di Passaparola
+> è `Modules\Passaparola\Neuron\Agents\OperatorAssistant` (story 2.3 di Passaparola).
 
 Il modulo `AiAssistant` di `gestionale_commesse` include `Application/Neuron/OperatorAssistantAgent.php`
 (~1575 righe), un agente `NeuronAI\Agent\Agent` con tool-calling hardcoded verso i moduli di dominio
@@ -28,7 +30,7 @@ Quello che è stato portato in questa sessione è solo l'infrastruttura di persi
 "AI propone, umano conferma, sistema esegue":
 
 - Modelli `AiThread`, `AiMessage`, `AiActionProposal`, `AiToolLog`
-- `Contracts\AiActionHandlerContract` + `Support\AiActionHandlerRegistry` (singleton)
+- `Contracts\AiActionHandlerContract` + `Adapters\AiActionHandlerRegistry` (singleton)
 - Actions `CreateAiActionProposalAction`, `ConfirmAiActionProposalAction`, `CancelAiActionProposalAction`
 - Filament `AiActionProposalResource` con azioni Confirm/Cancel
 

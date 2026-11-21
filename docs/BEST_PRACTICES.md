@@ -1,3 +1,14 @@
+---
+title: "BEST PRACTICES"
+type: note
+tags: [documentation]
+created: 2026-09-26
+updated: 2026-09-26
+qmd: "BEST PRACTICES"
+issues: []
+discussions: []
+---
+
 # Best Practices – AI
 
 ## Principi DRY/KISS

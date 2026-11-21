@@ -43,7 +43,7 @@ class AIService
      */
     public function classifyTicket(string $title, string $description): array
     {
-        $cacheKey = 'ai:classification:'.md5($title.$description);
+        $cacheKey = 'ai:classification:'.hash('xxh128', $title.$description);
 
         $result = Cache::remember($cacheKey, 3600, function () use ($title, $description): string {
             $prompt = AIServicePromptBuilder::classification($title, $description);
@@ -59,7 +59,7 @@ class AIService
      */
     public function suggestSolutions(string $title, string $description, string $category): array
     {
-        $cacheKey = 'ai:solutions:'.md5($title.$description.$category);
+        $cacheKey = 'ai:solutions:'.hash('xxh128', $title.$description.$category);
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $category): string {
             $prompt = AIServicePromptBuilder::solutions($title, $description, $category);
@@ -75,7 +75,7 @@ class AIService
      */
     public function analyzeSentiment(string $text): array
     {
-        $cacheKey = 'ai:sentiment:'.md5($text);
+        $cacheKey = 'ai:sentiment:'.hash('xxh128', $text);
 
         $result = Cache::remember($cacheKey, 1800, function () use ($text): string {
             $prompt = AIServicePromptBuilder::sentiment($text);
@@ -93,7 +93,7 @@ class AIService
     public function predictPriority(string $title, string $description, array $context = []): array
     {
         $contextStr = json_encode($context) ?: '{}';
-        $cacheKey = 'ai:priority:'.md5($title.$description.$contextStr);
+        $cacheKey = 'ai:priority:'.hash('xxh128', $title.$description.$contextStr);
 
         $result = Cache::remember($cacheKey, 1800, function () use ($title, $description, $context): string {
             $prompt = AIServicePromptBuilder::priority($title, $description, $context);
@@ -113,7 +113,7 @@ class AIService
     {
         $jsonTickets = json_encode($tickets);
         $jsonAgents = json_encode($agents);
-        $cacheKey = 'ai:routing:'.md5($jsonTickets.$jsonAgents);
+        $cacheKey = 'ai:routing:'.hash('xxh128', $jsonTickets.$jsonAgents);
 
         $result = Cache::remember($cacheKey, 900, function () use ($tickets, $agents): string {
             $prompt = AIServicePromptBuilder::routing($tickets, $agents);
@@ -126,7 +126,7 @@ class AIService
 
     public function generateAutoResponse(string $ticketContent, string $category, string $priority): string
     {
-        $cacheKey = 'ai:response:'.md5($ticketContent.$category.$priority);
+        $cacheKey = 'ai:response:'.hash('xxh128', $ticketContent.$category.$priority);
 
         return Cache::remember($cacheKey, 1800, function () use ($ticketContent, $category, $priority): string {
             $prompt = AIServicePromptBuilder::autoResponse($ticketContent, $category, $priority);
@@ -142,7 +142,7 @@ class AIService
     public function analyzePatterns(array $tickets): array
     {
         $jsonTickets = json_encode($tickets);
-        $cacheKey = 'ai:patterns:'.md5($jsonTickets);
+        $cacheKey = 'ai:patterns:'.hash('xxh128', $jsonTickets);
 
         $result = Cache::remember($cacheKey, 3600, function () use ($tickets): string {
             $prompt = AIServicePromptBuilder::patternAnalysis($tickets);
@@ -160,7 +160,7 @@ class AIService
     public function suggestImprovements(array $data): array
     {
         $jsonData = json_encode($data);
-        $cacheKey = 'ai:improvements:'.md5($jsonData);
+        $cacheKey = 'ai:improvements:'.hash('xxh128', $jsonData);
 
         $result = Cache::remember($cacheKey, 3600, function () use ($data): string {
             $prompt = AIServicePromptBuilder::improvements($data);
