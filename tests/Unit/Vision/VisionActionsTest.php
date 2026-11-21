@@ -237,3 +237,50 @@ it('defaults to free models: Groq first, then OpenRouter free models', function 
         Assert::assertTrue(AiProviderEnum::OpenRouter->isFreeModel($model));
     }
 });
+
+// Server locale (colibri, Ollama, llama.cpp): nessuna chiave, indirizzo da config, schema nel prompt.
+it('reads images through a local OpenAI-compatible server without an API key', function (): void {
+    config([
+        'services.local_ai' => ['url' => 'http://192.168.1.50:8000/v1/', 'key' => null, 'timeout' => 900, 'response_format' => 'json_object'],
+    ]);
+    FakeTenantAiConfig::bind([
+        'vision_providers' => ['local'],
+        'vision_models' => ['local' => 'qwen3.8-27b'],
+        'free_models_only' => true,
+    ]);
+    Http::fake(['192.168.1.50:8000/v1/chat/completions' => Http::response([
+        'choices' => [['message' => ['content' => '{"items":[]}']]],
+    ])]);
+
+    $schema = ['type' => 'object', 'properties' => ['items' => ['type' => 'array']], 'required' => ['items'], 'additionalProperties' => false];
+    $result = app(ExtractStructuredDataFromImagesAction::class)->execute([tinyPng()], 'Leggi.', 'items', $schema);
+
+    Assert::assertSame(['items' => []], $result);
+    Http::assertSent(function (Request $request): bool {
+        $data = $request->data();
+        $system = data_get($data, 'messages.0.content');
+
+        return $request->url() === 'http://192.168.1.50:8000/v1/chat/completions'
+            && $request->hasHeader('Authorization', 'Bearer local')
+            && data_get($data, 'response_format') === ['type' => 'json_object']
+            && is_string($system) && str_contains($system, '"additionalProperties":false')
+            && data_get($data, 'model') === 'qwen3.8-27b';
+    });
+});
+
+it('describes the local provider: no key needed, json mode and timeout from config', function (): void {
+    config(['services.local_ai' => ['response_format' => 'none', 'timeout' => 30]]);
+
+    expect(AiProviderEnum::Local->requiresKey())->toBeFalse()
+        ->and(AiProviderEnum::Groq->requiresKey())->toBeTrue()
+        ->and(AiProviderEnum::Local->baseUrl())->toBe('http://127.0.0.1:8000/v1')
+        ->and(AiProviderEnum::Local->jsonMode())->toBe('none')
+        ->and(AiProviderEnum::Groq->jsonMode())->toBe('json_schema')
+        ->and(AiProviderEnum::Local->timeout(120))->toBe(120)
+        ->and(AiProviderEnum::Groq->timeout(120))->toBe(120)
+        ->and(AiProviderEnum::Local->isFreeModel('anything'))->toBeTrue();
+
+    config(['services.local_ai' => ['response_format' => 'weird']]);
+    expect(AiProviderEnum::Local->jsonMode())->toBe('none')
+        ->and(AiProviderEnum::Local->timeout(120))->toBe(600);
+});

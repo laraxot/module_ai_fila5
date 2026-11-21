@@ -12,6 +12,7 @@ use Safe\Exceptions\PcreException;
 use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\json_decode;
+use function Safe\json_encode;
 use function Safe\preg_replace;
 
 /**
@@ -24,6 +25,8 @@ use function Safe\preg_replace;
  * (`ai.vision_providers`): se uno fallisce si passa al successivo. Immagini come `image_url` con
  * data URI, testo prima delle immagini, `response_format` json_schema strict; su OpenRouter anche
  * `provider.require_parameters`, perche' instradi solo verso chi rispetta lo schema.
+ *
+ * @see Modules/AI/docs/vision-openrouter.md
  */
 class ExtractStructuredDataFromImagesAction
 {
@@ -39,6 +42,8 @@ class ExtractStructuredDataFromImagesAction
      * @return array<string, mixed>
      *
      * @throws AiRequestException se tutti i fornitori falliscono (messaggio con il motivo di ciascuno)
+     *
+     * @see Modules/AI/docs/vision-openrouter.md
      */
     public function execute(array $imagePaths, string $instructions, string $schemaName, array $schema, ?array $providers = null): array
     {
@@ -97,14 +102,18 @@ class ExtractStructuredDataFromImagesAction
             // OpenRouter: elenco di riserva, si passa al successivo se il primo non e' disponibile.
             ...($provider === AiProviderEnum::OpenRouter && \count($models) > 1 ? ['models' => $models] : []),
             'messages' => [
-                ['role' => 'system', 'content' => 'Rispondi solo con JSON conforme allo schema. Non inventare dati che non leggi nelle immagini: lascia vuoto o null.'],
+                ['role' => 'system', 'content' => $this->systemPrompt($provider, $schema)],
                 ['role' => 'user', 'content' => $content],
             ],
             'temperature' => 0,
-            'response_format' => [
-                'type' => 'json_schema',
-                'json_schema' => ['name' => $schemaName, 'strict' => true, 'schema' => $schema],
-            ],
+            ...match ($provider->jsonMode()) {
+                'json_schema' => ['response_format' => [
+                    'type' => 'json_schema',
+                    'json_schema' => ['name' => $schemaName, 'strict' => true, 'schema' => $schema],
+                ]],
+                'json_object' => ['response_format' => ['type' => 'json_object']],
+                default => [],
+            },
             ...$provider->extraPayload(),
         ];
 
@@ -126,6 +135,21 @@ class ExtractStructuredDataFromImagesAction
 
         /** @var array<string, mixed> $decoded */
         return $decoded;
+    }
+
+    /**
+     * Se il server non applica lo schema (server locali), lo schema va scritto nel prompt.
+     *
+     * @param  array<string, mixed>  $schema
+     */
+    private function systemPrompt(AiProviderEnum $provider, array $schema): string
+    {
+        $prompt = 'Rispondi solo con JSON conforme allo schema. Non inventare dati che non leggi nelle immagini: lascia vuoto o null.';
+        if ($provider->jsonMode() === 'json_schema') {
+            return $prompt;
+        }
+
+        return $prompt."\nSchema JSON:\n".json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     /** Alcuni modelli racchiudono il JSON in ```json ... ``` anche con lo schema richiesto. */
