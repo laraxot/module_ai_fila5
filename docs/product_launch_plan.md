@@ -17,12 +17,12 @@ discussions: []
 
 ---
 
-title: "PRODUCT LAUNCH PLAN"
+title: "product launch plan"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "PRODUCT LAUNCH PLAN"
+qmd: "product launch plan"
 issues: []
 discussions: []
 ## Launch Objectives

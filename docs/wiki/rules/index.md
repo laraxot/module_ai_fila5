@@ -25,12 +25,12 @@ qmd search "AI rules" --limit 5
 - [Root Wiki](../../../docs/wiki/)
 
 ---
-title: "INDEX"
+title: "index"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "INDEX"
+qmd: "index"
 issues: []
 discussions: []
 *Updated: 2026-05-11*

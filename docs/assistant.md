@@ -10,6 +10,7 @@ issues: [25, 26]
 discussions: []
 related:
   - ./stories/assistant-knowledge-base.story.md
+  - ../ARCHITECTURE.md
   - ../architecture.md
 ---
 

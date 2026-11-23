@@ -18,12 +18,12 @@ discussions: []
 
 ---
 
-title: "NEXT STEPS"
+title: "next steps"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "NEXT STEPS"
+qmd: "next steps"
 issues: []
 discussions: []
 ## ✅ Cosa è Stato Completato
