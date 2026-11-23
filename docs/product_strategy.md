@@ -17,20 +17,36 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_joeJVi
 <<<<<<< .merge_file_QqPJ1m
 title: "product strategy"
 =======
 title: "PRODUCT STRATEGY"
 >>>>>>> .merge_file_dr2c2F
+=======
+<<<<<<< .merge_file_IzD2Sa
+title: "product strategy"
+=======
+title: "PRODUCT STRATEGY"
+>>>>>>> .merge_file_KiVGp6
+>>>>>>> .merge_file_RDCJJs
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_joeJVi
 <<<<<<< .merge_file_QqPJ1m
 qmd: "product strategy"
 =======
 qmd: "PRODUCT STRATEGY"
 >>>>>>> .merge_file_dr2c2F
+=======
+<<<<<<< .merge_file_IzD2Sa
+qmd: "product strategy"
+=======
+qmd: "PRODUCT STRATEGY"
+>>>>>>> .merge_file_KiVGp6
+>>>>>>> .merge_file_RDCJJs
 issues: []
 discussions: []
 ## Executive Summary

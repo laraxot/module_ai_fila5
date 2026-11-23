@@ -21,11 +21,19 @@ server MCP. Il modulo AI è condiviso fra i progetti: qui va solo la parte agnos
 - [x] `StreamAgentRunAction`: RunAgentInput validato, thread legato all'utente, resume, SSE.
 - [x] `McpToolAdapter`: tool MCP riusati come tool dell'agente, errori come risultato del tool.
 - [x] Tabelle `ai_agent_messages` e `ai_agent_runs` con i modelli.
+<<<<<<< .merge_file_U8B46n
 <<<<<<< .merge_file_MKBGtT
 - [x] Documentazione in `docs/agents.md`, test in `tests/Unit/Agent`.
 =======
 - [x] Documentazione in `docs/AGENTS.md`, test in `tests/Unit/Agent`.
 >>>>>>> .merge_file_cUGUZO
+=======
+<<<<<<< .merge_file_nahWwJ
+- [x] Documentazione in `docs/agents.md`, test in `tests/Unit/Agent`.
+=======
+- [x] Documentazione in `docs/AGENTS.md`, test in `tests/Unit/Agent`.
+>>>>>>> .merge_file_cnFYXV
+>>>>>>> .merge_file_XgicMK
 
 ## Note
 

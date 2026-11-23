@@ -17,20 +17,36 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_MccNba
 <<<<<<< .merge_file_kyNEFT
 title: "user research"
 =======
 title: "USER RESEARCH"
 >>>>>>> .merge_file_Hmxmgc
+=======
+<<<<<<< .merge_file_TskP1x
+title: "user research"
+=======
+title: "USER RESEARCH"
+>>>>>>> .merge_file_urWXiP
+>>>>>>> .merge_file_zyN9Rn
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_MccNba
 <<<<<<< .merge_file_kyNEFT
 qmd: "user research"
 =======
 qmd: "USER RESEARCH"
 >>>>>>> .merge_file_Hmxmgc
+=======
+<<<<<<< .merge_file_TskP1x
+qmd: "user research"
+=======
+qmd: "USER RESEARCH"
+>>>>>>> .merge_file_urWXiP
+>>>>>>> .merge_file_zyN9Rn
 issues: []
 discussions: []
 ## Research Goals

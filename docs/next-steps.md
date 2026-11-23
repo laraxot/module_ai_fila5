@@ -18,20 +18,36 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_Yqq9YV
 <<<<<<< .merge_file_zeXt1g
 title: "next steps"
 =======
 title: "NEXT STEPS"
 >>>>>>> .merge_file_PJzvjR
+=======
+<<<<<<< .merge_file_2Xry7z
+title: "next steps"
+=======
+title: "NEXT STEPS"
+>>>>>>> .merge_file_4Ye9pS
+>>>>>>> .merge_file_wWqRDD
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_Yqq9YV
 <<<<<<< .merge_file_zeXt1g
 qmd: "next steps"
 =======
 qmd: "NEXT STEPS"
 >>>>>>> .merge_file_PJzvjR
+=======
+<<<<<<< .merge_file_2Xry7z
+qmd: "next steps"
+=======
+qmd: "NEXT STEPS"
+>>>>>>> .merge_file_4Ye9pS
+>>>>>>> .merge_file_wWqRDD
 issues: []
 discussions: []
 ## ✅ Cosa è Stato Completato

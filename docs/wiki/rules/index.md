@@ -25,20 +25,36 @@ qmd search "AI rules" --limit 5
 - [Root Wiki](../../../docs/wiki/)
 
 ---
+<<<<<<< .merge_file_b7heiO
 <<<<<<< .merge_file_xOy3Xk
 title: "index"
 =======
 title: "INDEX"
 >>>>>>> .merge_file_RCT86k
+=======
+<<<<<<< .merge_file_juoPgS
+title: "index"
+=======
+title: "INDEX"
+>>>>>>> .merge_file_GJdaYx
+>>>>>>> .merge_file_3Tk3xU
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_b7heiO
 <<<<<<< .merge_file_xOy3Xk
 qmd: "index"
 =======
 qmd: "INDEX"
 >>>>>>> .merge_file_RCT86k
+=======
+<<<<<<< .merge_file_juoPgS
+qmd: "index"
+=======
+qmd: "INDEX"
+>>>>>>> .merge_file_GJdaYx
+>>>>>>> .merge_file_3Tk3xU
 issues: []
 discussions: []
 *Updated: 2026-05-11*

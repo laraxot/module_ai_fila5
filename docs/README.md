@@ -127,7 +127,11 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 ## Documentation
 
+<<<<<<< .merge_file_pJhIwK
 <<<<<<< .merge_file_CFXHli
+=======
+<<<<<<< .merge_file_ny36ec
+>>>>>>> .merge_file_UkGQl3
 - [On-Demand Pattern](./ON-DEMAND-PATTERN.md) — Pattern per caricamento efficiente
 - [QMD Setup](./QMD-SETUP.md) — Configurazione ricerca locale
 - [Performance](./PERFORMANCE-OPTIMIZATION.md) — Metriche e best practice
@@ -137,4 +141,8 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 - [QMD Setup](./qmd-setup.md) — Configurazione ricerca locale
 - [Performance](./performance-optimization.md) — Metriche e best practice
 - [Project Structure](./project-structure.md) — Directory layout
+<<<<<<< .merge_file_pJhIwK
 >>>>>>> .merge_file_uUBIyq
+=======
+>>>>>>> .merge_file_F8Zv2L
+>>>>>>> .merge_file_UkGQl3

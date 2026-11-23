@@ -18,20 +18,36 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_ExC2W4
 <<<<<<< .merge_file_RRJV13
 title: "product roadmap"
 =======
 title: "PRODUCT ROADMAP"
 >>>>>>> .merge_file_KlbSVT
+=======
+<<<<<<< .merge_file_LmEGxO
+title: "product roadmap"
+=======
+title: "PRODUCT ROADMAP"
+>>>>>>> .merge_file_YTmM3j
+>>>>>>> .merge_file_dqQ6ZW
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_ExC2W4
 <<<<<<< .merge_file_RRJV13
 qmd: "product roadmap"
 =======
 qmd: "PRODUCT ROADMAP"
 >>>>>>> .merge_file_KlbSVT
+=======
+<<<<<<< .merge_file_LmEGxO
+qmd: "product roadmap"
+=======
+qmd: "PRODUCT ROADMAP"
+>>>>>>> .merge_file_YTmM3j
+>>>>>>> .merge_file_dqQ6ZW
 issues: []
 discussions: []
 ## Vision Statement

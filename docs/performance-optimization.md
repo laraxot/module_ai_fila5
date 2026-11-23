@@ -117,13 +117,21 @@ context-mode ctx-stats
 ## Riferimenti
 
 - [Global Performance Guide](../../docs/wiki/concepts/performance-optimization.md)
+<<<<<<< .merge_file_9nS9bC
 <<<<<<< .merge_file_RDreKr
+=======
+<<<<<<< .merge_file_YUjwf9
+>>>>>>> .merge_file_SzZIpf
 - [On-Demand Pattern](./ON-DEMAND-PATTERN.md)
 - [QMD Setup](./QMD-SETUP.md)
 =======
 - [On-Demand Pattern](./on-demand-pattern.md)
 - [QMD Setup](./qmd-setup.md)
+<<<<<<< .merge_file_9nS9bC
 >>>>>>> .merge_file_mnyCo2
+=======
+>>>>>>> .merge_file_jlnjpk
+>>>>>>> .merge_file_SzZIpf
 
 ---
 *Status: Ottimizzato | Token risparmiati: ~48K per session*

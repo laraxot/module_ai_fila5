@@ -91,11 +91,19 @@ graph TD
 
 - [Global QMD Config](../qmd.md) (root docs)
 - [Operational Discipline](../../docs/wiki/concepts/llm-wiki-operational-discipline.md)
+<<<<<<< .merge_file_Abkau3
 <<<<<<< .merge_file_Fv5pmz
 - [On-Demand Pattern](./ON-DEMAND-PATTERN.md)
 =======
 - [On-Demand Pattern](./on-demand-pattern.md)
 >>>>>>> .merge_file_GLPhpK
+=======
+<<<<<<< .merge_file_vV2v6I
+- [On-Demand Pattern](./ON-DEMAND-PATTERN.md)
+=======
+- [On-Demand Pattern](./on-demand-pattern.md)
+>>>>>>> .merge_file_TNJEzK
+>>>>>>> .merge_file_Lx9iWt
 
 ---
 *Cache: ~/.cache/qmd-cache/ | Index: ~/.cache/qmd-cache/index*
