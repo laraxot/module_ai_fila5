@@ -1,8 +1,8 @@
 ---
-qmd: "qmd setup"
+qmd: "Qmd Setup"
 issues: []
 discussions: []
-title: "QMD Setup — Module AI"
+title: "Qmd Setup"
 type: documentation
 created: 2026-05-11
 updated: 2026-05-11
@@ -91,7 +91,11 @@ graph TD
 
 - [Global QMD Config](../qmd.md) (root docs)
 - [Operational Discipline](../../docs/wiki/concepts/llm-wiki-operational-discipline.md)
+<<<<<<< .merge_file_Fv5pmz
 - [On-Demand Pattern](./ON-DEMAND-PATTERN.md)
+=======
+- [On-Demand Pattern](./on-demand-pattern.md)
+>>>>>>> .merge_file_GLPhpK
 
 ---
 *Cache: ~/.cache/qmd-cache/ | Index: ~/.cache/qmd-cache/index*

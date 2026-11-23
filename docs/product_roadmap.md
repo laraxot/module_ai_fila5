@@ -1,10 +1,10 @@
 ---
-title: "product roadmap"
+title: "Product Roadmap"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "product roadmap"
+qmd: "Product Roadmap"
 issues: []
 discussions: []
 ---
@@ -18,12 +18,20 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_RRJV13
 title: "product roadmap"
+=======
+title: "PRODUCT ROADMAP"
+>>>>>>> .merge_file_KlbSVT
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_RRJV13
 qmd: "product roadmap"
+=======
+qmd: "PRODUCT ROADMAP"
+>>>>>>> .merge_file_KlbSVT
 issues: []
 discussions: []
 ## Vision Statement

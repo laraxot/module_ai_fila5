@@ -1,10 +1,10 @@
 ---
-title: "metodi duplicati analisi"
+title: "Metodi Duplicati Analisi"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "metodi duplicati analisi"
+qmd: "Metodi Duplicati Analisi"
 issues: []
 discussions: []
 ---
@@ -18,12 +18,20 @@ discussions: []
 
 ---
 
+<<<<<<< .merge_file_hnUsEr
 title: "metodi duplicati analisi"
+=======
+title: "METODI DUPLICATI ANALISI"
+>>>>>>> .merge_file_Aa9DDq
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
+<<<<<<< .merge_file_hnUsEr
 qmd: "metodi duplicati analisi"
+=======
+qmd: "METODI DUPLICATI ANALISI"
+>>>>>>> .merge_file_Aa9DDq
 issues: []
 discussions: []
 ## 🎯 Executive Summary

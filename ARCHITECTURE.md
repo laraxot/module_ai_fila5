@@ -132,6 +132,6 @@ $handler->handle($request);
 ## Vedi Anche
 
 - `PHILOSOPHY.md` — principi AI e vincoli
-- `TESTING.md` — mock completamenti, test isolati
+- `testing.md` — mock completamenti, test isolati
 - `docs/consolidation-with-aiassistant.md` — roadmap consolidamento
 - `docs/stories/01.consolidate-aiassistant-handlers.story.md` — story BMAD Phase 1

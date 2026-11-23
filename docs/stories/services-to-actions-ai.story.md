@@ -13,6 +13,7 @@ related:
   - ../wiki/concepts/ai-services-support-to-actions.md
   - ../bmad/domain-status-enum.md
   - ../../../../../bmad-output/epic-code-standards-services-mixed-const.md
+date_originale_nome_file: 2026-10-08
 ---
 
 # [STORY] AI: Services eliminati, const ripristinate a enum
