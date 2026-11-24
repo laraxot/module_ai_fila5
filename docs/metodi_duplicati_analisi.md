@@ -18,12 +18,12 @@ discussions: []
 
 ---
 
-title: "metodi duplicati analisi"
+title: "METODI DUPLICATI ANALISI"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "metodi duplicati analisi"
+qmd: "METODI DUPLICATI ANALISI"
 issues: []
 discussions: []
 ## 🎯 Executive Summary

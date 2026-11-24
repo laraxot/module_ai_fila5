@@ -56,11 +56,7 @@ it('accetta un turno con il messaggio dell\'utente (role e content non vanno per
     );
 
     expect($response->getStatusCode())->toBe(200);
-})->skip(
-    // Non `static`: Pest lega la closure di skip all'istanza del test case.
-    fn (): bool => TestCase::moduleTablesMissing(),
-    "Il modulo AI non e' montato in questo progetto: le sue tabelle non esistono (base_quaeris_fila5#243).",
-);
+});
 
 it('valida il RunAgentInput', function (): void {
     app(StreamAgentRunAction::class)->execute(agUiRequest(['runId' => 'r1']), testAgent(), 'operator-1-');

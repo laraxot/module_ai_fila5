@@ -2,9 +2,9 @@
 title: "phpstan ai fix"
 type: note
 tags: [documentation, phpstan, ai]
-updated: 2026-11-23
+updated: 2026-11-17
 qmd: "phpstan ai fix wave builder pest expect cache"
-issues: [243, 247]
+issues: []
 discussions: []
 id: phpstan-ai-fix
 slug: phpstan-ai
@@ -49,14 +49,6 @@ PHPStan su `Modules/AI` non a zero: unione PHPDoc `Builder|Model`, `Cache::remem
 ```bash
 cd laravel && ./vendor/bin/phpstan analyse Modules/AI --memory-limit=-1 --error-format=raw
 ```
-
-## Coordinamento (2026-11-23)
-
-Risolti marker di merge che bloccavano PHPStan (parse error) su Modules/AI, allineati a #243 e #247:
-
-- `tests/Arch/debt.php` — `'services' => []` (servizi migrati ad Actions, #247)
-- `tests/Feature/UserIdColumnsAcceptUuidTest.php` — skip con `TestCase::moduleTablesMissing()` (#243)
-- `tests/Unit/Agent/StreamAgentRunActionTest.php` — skip con `TestCase::moduleTablesMissing()` (#243)
 
 ## Collegamenti
 

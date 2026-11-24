@@ -452,12 +452,12 @@ Log::info('AI Prediction generated', [
 
 ---
 
-title: "generate predictions action"
+title: "GENERATE PREDICTIONS ACTION"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "generate predictions action"
+qmd: "GENERATE PREDICTIONS ACTION"
 issues: []
 discussions: []
 **Ultimo aggiornamento**: 2026-03-12  

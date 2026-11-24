@@ -17,13 +17,11 @@ return [
         'Modules\AI\Actions\SuggestSolutionsAction',
     ],
     // classi in un namespace Services (regola No Services, DCP-270); NoServicesTest le vede come cartelle
-    //
-    // Vuota dal 2026-11-20 (base_quaeris_fila5#247). Quattro erano copie morte
-    // senza chiamanti: il lavoro vive in `Actions/MakeAIRequestAction`,
-    // `Actions/AiJsonResponseDecoderAction`, `Datas/AIPromptTemplates` e nelle due
-    // Action `ClassifyTicketAction` / `SuggestSolutionsAction`. La quinta,
-    // `AIServicePromptBuilder`, aveva sei prompt senza successore: sono conservati
-    // in `Modules/AI/docs/prompt-senza-successore.md`, perche' cancellare codice
-    // morto e' una cosa e buttare sei prompt e' un'altra.
-    'services' => [],
+    'services' => [
+        'Modules\AI\Services\AIChatCompletionClient',
+        'Modules\AI\Services\AIService',
+        'Modules\AI\Services\AIServiceJsonDecoder',
+        'Modules\AI\Services\AIServicePromptBuilder',
+        'Modules\AI\Services\AIServicePromptTemplates',
+    ],
 ];
