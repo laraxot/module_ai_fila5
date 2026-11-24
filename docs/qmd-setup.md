@@ -1,8 +1,8 @@
 ---
-qmd: "qmd setup"
+qmd: "Qmd Setup"
 issues: []
 discussions: []
-title: "QMD Setup — Module AI"
+title: "Qmd Setup"
 type: documentation
 created: 2026-05-11
 updated: 2026-05-11
@@ -92,6 +92,7 @@ graph TD
 - [Global QMD Config](../qmd.md) (root docs)
 - [Operational Discipline](../../docs/wiki/concepts/llm-wiki-operational-discipline.md)
 - [On-Demand Pattern](./ON-DEMAND-PATTERN.md)
+- [On-Demand Pattern](./on-demand-pattern.md)
 
 ---
 *Cache: ~/.cache/qmd-cache/ | Index: ~/.cache/qmd-cache/index*

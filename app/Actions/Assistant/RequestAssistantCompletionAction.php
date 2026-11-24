@@ -19,6 +19,10 @@ use Spatie\QueueableAction\QueueableAction;
  * poi OpenRouter. Un fornitore senza chiave o che fallisce passa la mano al successivo; se nessuno
  * risponde si usa MakeAIRequestAction (OpenAI), come prima di questa Action.
  * La risposta e' chiesta in JSON (`response_format: json_object`), come vuole il prompt dell'assistente.
+ *
+ * @contract docs/contracts/request-assistant-completion-action.md
+ * Contratto di comportamento (sei sezioni: input, output, invarianti, effetti
+ * collaterali, errori, non fa).
  */
 final class RequestAssistantCompletionAction
 {
@@ -57,7 +61,7 @@ final class RequestAssistantCompletionAction
                     ],
                     'temperature' => 0.2,
                     'max_tokens' => 1000,
-                    'response_format' => ['type' => 'json_object'],
+                    ...($provider->jsonMode() === 'none' ? [] : ['response_format' => ['type' => 'json_object']]),
                 ], $settings->assistant_timeout);
             } catch (AiRequestException $exception) {
                 Log::warning('AI assistant provider failed', ['provider' => $name, 'error' => $exception->getMessage()]);

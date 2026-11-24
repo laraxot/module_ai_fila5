@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\AI\Actions\Assistant;
 
 use Carbon\CarbonInterface;
+use Illuminate\Support\LazyCollection;
 use Modules\AI\Datas\AssistantReportData;
 use Modules\AI\Enums\AiMessageRoleEnum;
 use Modules\AI\Models\AiMessage;
@@ -22,7 +23,7 @@ final class BuildAssistantReportAction
     {
         // Filtro nel database (percorsi JSON: MySQL, MariaDB, PostgreSQL, SQLite), non in PHP:
         // il report di una attivita' non deve leggere i messaggi di tutte le altre.
-        /** @var \Illuminate\Support\LazyCollection<int, AiMessage> $messages */
+        /** @var LazyCollection<int, AiMessage> $messages */
         $messages = AiMessage::query()
             ->where('role', AiMessageRoleEnum::ASSISTANT->value)
             ->whereBetween('created_at', [$from, $to])

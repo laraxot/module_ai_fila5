@@ -1,10 +1,10 @@
 ---
-title: "generate predictions action"
+title: "Generate Predictions Action"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "generate predictions action"
+qmd: "Generate Predictions Action"
 issues: []
 discussions: []
 ---
