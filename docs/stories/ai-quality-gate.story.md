@@ -8,10 +8,7 @@ title: "Quality gate closure - AI module (PHPMD + Pest + coverage + git)"
 status: done
 type: story
 created: 2026-09-04
-<<<<<<< .merge_file_G7OACH
 date_originale_nome_file: 2026-09-04
-=======
->>>>>>> .merge_file_knflNA
 ---
 
 # Quality gate closure - AI module (PHPMD + Pest + coverage + git)
@@ -52,3 +49,4 @@ date_originale_nome_file: 2026-09-04
 - `docs/coverage.md`, `docs/queueable-actions.md`, `docs/wiki/concepts/ai-services-support-to-actions.md` — aggiornati.
 
 Dettaglio numeri completi: `Modules/AI/docs/coverage.md`.
+

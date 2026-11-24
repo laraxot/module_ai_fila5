@@ -9,7 +9,7 @@ updated: 2026-10-08
 tags: [bmad, services, queueable-actions, enum, const, dead-code, merge-regression]
 qmd: "ai services eliminati queueable actions enum const merge laraxot dev regressione AIService BuildAIPromptAction"
 related:
-  - ./2026-10-06-phpstan-cleanup-ai.story.md
+  - ./phpstan-cleanup-ai.story.md
   - ../wiki/concepts/ai-services-support-to-actions.md
   - ../bmad/domain-status-enum.md
   - ../../../../../bmad-output/epic-code-standards-services-mixed-const.md
@@ -29,7 +29,7 @@ Perimetro: i 5 Services di AI (`AIService`, `AIChatCompletionClient`, `AIService
 
 Il modulo era gia' in regola due volte: il 2026-07-16 i Services erano stati ritirati (vedi
 [ai-services-support-to-actions](../wiki/concepts/ai-services-support-to-actions.md)) e il 2026-10-06/07 le `const` di stato erano
-diventate enum (commit `9c9bfdc`, [story](./2026-10-06-phpstan-cleanup-ai.story.md)). Nel working tree trovato oggi erano tornati
+diventate enum (commit `9c9bfdc`, [story](./phpstan-cleanup-ai.story.md)). Nel working tree trovato oggi erano tornati
 entrambi: gli enum, i file lang e le doc erano rimasti, ma model, Action, risorsa Filament, factory e test avevano di nuovo le
 `const` (il merge `laraxot/dev` di `f7b2107` ha preso il lato vecchio di quei file), e i 5 Services erano rientrati con `9b0682a`.
 Quindi gli enum esistevano ma non li usava nessuno: una conversione a meta' che avrebbe fatto riaprire gli errori

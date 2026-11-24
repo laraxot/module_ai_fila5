@@ -2,15 +2,12 @@
 title: "[DEV] PHPStan cleanup — AI"
 type: dev
 module: AI
-story: "./2026-10-06-phpstan-cleanup-ai.story.md"
+story: "./phpstan-cleanup-ai.story.md"
 status: done
 created: 2026-10-06
 updated: 2026-10-06
 tags: [phpstan, cleanup, bmad, ai]
-<<<<<<< .merge_file_y96oGI
 date_originale_nome_file: 2026-10-06
-=======
->>>>>>> .merge_file_MUPUoR
 ---
 
 # [DEV] PHPStan cleanup — AI
@@ -32,11 +29,7 @@ date_originale_nome_file: 2026-10-06
 - `database/factories/AiActionProposalFactory.php`, `AiToolLogFactory.php`, `AiMessageFactory.php`
 - `tests/Unit/Models/AiActionProposalTest.php` (valori enum + cast di `status`)
 - `app/Actions/Prompt/AIPromptTemplates.php`, `app/Datas/AIPromptTemplates.php`, `app/Services/AIServicePromptTemplates.php` (`const string`)
-<<<<<<< .merge_file_y96oGI
 - `docs/bmad/domain-status-enum.md`, `docs/00-index.md` (write-back)
-=======
-- `docs/bmad/domain-status-enum.md`, `docs/00-INDEX.md` (write-back)
->>>>>>> .merge_file_MUPUoR
 
 ## Implementation Steps
 
@@ -69,3 +62,4 @@ Esito: 0 errori sui 9 moduli del gruppo (anche con run completo `./vendor/bin/ph
 - `Select::options(Enum::class)` e `TextColumn::badge()` leggono `HasLabel/HasColor/HasIcon`: si elimina la mappa colori duplicata nella tabella (la vecchia usava `secondary`, che non e' un colore standard di Filament: ora `gray`).
 - `fake()->randomElement(Enum::cases())` restituisce `mixed`: scegliere con `numberBetween(0, count-1)` mantiene il tipo.
 - Duplicati lasciati intatti (da decidere): le tre classi `AIPromptTemplates` hanno contenuto identico; `Modules/AI/Enums/` (cartella orfana fuori da PSR-4, untracked) contiene `AiActionProposalStatus` mai referenziato.
+

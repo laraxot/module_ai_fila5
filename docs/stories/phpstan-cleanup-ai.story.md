@@ -7,10 +7,7 @@ priority: medium
 created: 2026-10-06
 updated: 2026-10-06
 tags: [phpstan, cleanup, bmad, ai]
-<<<<<<< .merge_file_So8lkL
 date_originale_nome_file: 2026-10-06
-=======
->>>>>>> .merge_file_gcBFpA
 ---
 
 # [STORY] PHPStan cleanup — AI
@@ -57,4 +54,5 @@ costanti tipizzate con docblock `@var` (che per PHPStan non conta come tipo nati
 - Issue: TODO (gh non installato su questa macchina)
 - Discussion: TODO
 
-Dev story: [2026-10-06-phpstan-cleanup-ai.dev.md](./2026-10-06-phpstan-cleanup-ai.dev.md)
+Dev story: [phpstan-cleanup-ai.dev.md](./phpstan-cleanup-ai.dev.md)
+

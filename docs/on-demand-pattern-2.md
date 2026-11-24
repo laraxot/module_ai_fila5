@@ -59,11 +59,11 @@ qmd search "<topic>"
 ```
 ./laravel/Modules/AI/docs/
 ├── wiki/                    # Knowledge base locale
-│   ├── rules/INDEX.md      # Indice rules modulo-specifiche
-│   ├── skills/INDEX.md     # Indice skills modulo-specifiche
-│   ├── commands/INDEX.md   # Indici commands
-│   └── memories/INDEX.md   # Indice memories
-└── ON-DEMAND-PATTERN.md     # Questo file
+│   ├── rules/index-2.md      # Indice rules modulo-specifiche
+│   ├── skills/index-2.md     # Indice skills modulo-specifiche
+│   ├── commands/index-2.md   # Indici commands
+│   └── memories/index-2.md   # Indice memories
+└── on-demand-pattern-2.md     # Questo file
 ```
 
 ## Quick Reference

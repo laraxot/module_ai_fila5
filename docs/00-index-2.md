@@ -20,10 +20,10 @@ discussions: []
 ### Product
 | File | Scopo |
 |---|---|
-| [PRD.md](./PRD.md) | Product requirements |
-| [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md) | Roadmap |
-| [PRODUCT_STRATEGY.md](./PRODUCT_STRATEGY.md) | Strategy |
-| [PRODUCT_LAUNCH_PLAN.md](./PRODUCT_LAUNCH_PLAN.md) | Launch plan |
+| [prd-2.md](./prd-2.md) | Product requirements |
+| [product-roadmap-2.md](./product-roadmap-2.md) | Roadmap |
+| [product-strategy-2.md](./product-strategy-2.md) | Strategy |
+| [product-launch-plan-2.md](./product-launch-plan-2.md) | Launch plan |
 
 ### Funzionalità
 | File | Scopo |
@@ -34,14 +34,14 @@ discussions: []
 ### Development
 | File | Scopo |
 |---|---|
-| [GSD_WORKFLOW.md](./GSD_WORKFLOW.md) | Workflow GSD locale al modulo |
-| [SPRINT_PLANNING.md](./SPRINT_PLANNING.md) | Sprint planning |
-| [USER_RESEARCH.md](./USER_RESEARCH.md) | User research |
+| [gsd-workflow-2.md](./gsd-workflow-2.md) | Workflow GSD locale al modulo |
+| [sprint-planning-2.md](./sprint-planning-2.md) | Sprint planning |
+| [user-research-2.md](./user-research-2.md) | User research |
 
 ### Stories
 | File | Scopo |
 |---|---|
-| [2026-10-08-services-to-actions-ai.story.md](./stories/2026-10-08-services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
+| [services-to-actions-ai.story.md](./stories/services-to-actions-ai.story.md) | Services eliminati, const a enum (2026-10-08) |
 | [assistant-knowledge-base.story.md](./stories/assistant-knowledge-base.story.md) | Assistente clienti agnostico (2026-11-16) |
 | [assistant-anonymous-and-per-call-keywords.story.md](./stories/assistant-anonymous-and-per-call-keywords.story.md) | Visitatori anonimi e parole sensibili per chiamata (2026-11-17) |
 | [assistant-provider-cascade.story.md](./stories/assistant-provider-cascade.story.md) | Fornitori in cascata: Groq, OpenRouter, OpenAI (2026-11-17) |
@@ -52,7 +52,7 @@ discussions: []
 ## Riferimenti canonici esterni al modulo
 
 - [Ralph + GSD + BMAD orchestration](../../../../bashscripts/ai/.agents/docs/architecture/ralph-gsd-bmad-orchestration.md)
-- [AI agents docs index](../../../../bashscripts/ai/.agents/docs/00-INDEX.md)
+- [AI agents docs index](../../../../bashscripts/ai/.agents/docs/00-index-2.md)
 - [AGENTS.md](../../../../AGENTS.md)
 
 ## Nota anti-ridondanza

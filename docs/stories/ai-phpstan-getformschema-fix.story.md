@@ -9,10 +9,7 @@ status: done
 type: story
 created: 2026-09-10
 agente: claude-sonnet5-qgates-swarm-AI
-<<<<<<< .merge_file_PQlzfU
 date_originale_nome_file: 2026-09-10
-=======
->>>>>>> .merge_file_zu69GE
 ---
 
 # PHPStan fix - AiActionProposal getFormSchema/getInfolistSchema override illegale + typo TestCase
@@ -109,3 +106,4 @@ Tutti e 3 i file: `check.sh` (FREE) -> `lock.sh "phpstan-ai-fix" "claude-sonnet5
 - [x] Nessun altro modulo toccato.
 - [x] Nessun commit/push (fuori scope, non richiesto).
 - [x] Story BMAD scritta in `Modules/AI/docs/stories/`.
+

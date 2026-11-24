@@ -1,3 +1,5 @@
+> Date (from original filename): 2026-07-02
+
 # Ponytail-audit: SentimentAction driver selection moved to config
 
 ## Finding

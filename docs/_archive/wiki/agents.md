@@ -84,7 +84,7 @@ Steps:
 1. Read source from raw/
 2. Extract key concepts, entities, data
 3. Create/update wiki pages
-4. Update index.md and log.md
+4. Update index-3.md and log.md
 5. Commit changes
 ```
 
@@ -136,5 +136,5 @@ Related:
 ## Related Documentation
 
 - [Project Wiki Integration](../../docs/wiki/README.md)
-- [Project Wiki Agent Instructions](../../docs/wiki/AGENTS.md)
+- [Project Wiki Agent Instructions](../../docs/wiki/agents.md)
 - [Module Documentation](../README.md)
