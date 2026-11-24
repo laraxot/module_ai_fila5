@@ -1,8 +1,8 @@
 ---
-qmd: "Performance Optimization"
+qmd: "performance optimization"
 issues: []
 discussions: []
-title: "Performance Optimization"
+title: "Performance Optimization — Module AI"
 type: documentation
 created: 2026-05-11
 updated: 2026-05-11
@@ -117,8 +117,8 @@ context-mode ctx-stats
 ## Riferimenti
 
 - [Global Performance Guide](../../docs/wiki/concepts/performance-optimization.md)
-- [On-Demand Pattern](./on-demand-pattern.md)
-- [QMD Setup](./qmd-setup.md)
+- [On-Demand Pattern](./ON-DEMAND-PATTERN.md)
+- [QMD Setup](./QMD-SETUP.md)
 
 ---
 *Status: Ottimizzato | Token risparmiati: ~48K per session*

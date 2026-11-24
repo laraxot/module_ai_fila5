@@ -1,10 +1,10 @@
 ---
-title: "Product Strategy"
+title: "product strategy"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "Product Strategy"
+qmd: "product strategy"
 issues: []
 discussions: []
 ---
@@ -17,12 +17,12 @@ discussions: []
 
 ---
 
-title: "PRODUCT STRATEGY"
+title: "product strategy"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "PRODUCT STRATEGY"
+qmd: "product strategy"
 issues: []
 discussions: []
 ## Executive Summary

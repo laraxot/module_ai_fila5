@@ -1,10 +1,10 @@
 ---
-title: "Sprint Planning"
+title: "sprint planning"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "Sprint Planning"
+qmd: "sprint planning"
 issues: []
 discussions: []
 ---
@@ -17,12 +17,12 @@ discussions: []
 
 ---
 
-title: "SPRINT PLANNING"
+title: "sprint planning"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "SPRINT PLANNING"
+qmd: "sprint planning"
 issues: []
 discussions: []
 ## Sprint Goal

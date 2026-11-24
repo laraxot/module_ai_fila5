@@ -3,10 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schema;
-use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
-
-uses(TestCase::class);
 
 /*
  * In questa base l'id utente e' un UUID di 36 caratteri. Una colonna intera lo

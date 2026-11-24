@@ -9,11 +9,10 @@ updated: 2026-10-08
 tags: [bmad, services, queueable-actions, enum, const, dead-code, merge-regression]
 qmd: "ai services eliminati queueable actions enum const merge laraxot dev regressione AIService BuildAIPromptAction"
 related:
-  - ./phpstan-cleanup-ai.story.md
+  - ./2026-10-06-phpstan-cleanup-ai.story.md
   - ../wiki/concepts/ai-services-support-to-actions.md
   - ../bmad/domain-status-enum.md
   - ../../../../../bmad-output/epic-code-standards-services-mixed-const.md
-date_originale_nome_file: 2026-10-08
 ---
 
 # [STORY] AI: Services eliminati, const ripristinate a enum
@@ -30,7 +29,7 @@ Perimetro: i 5 Services di AI (`AIService`, `AIChatCompletionClient`, `AIService
 
 Il modulo era gia' in regola due volte: il 2026-07-16 i Services erano stati ritirati (vedi
 [ai-services-support-to-actions](../wiki/concepts/ai-services-support-to-actions.md)) e il 2026-10-06/07 le `const` di stato erano
-diventate enum (commit `9c9bfdc`, [story](./phpstan-cleanup-ai.story.md)). Nel working tree trovato oggi erano tornati
+diventate enum (commit `9c9bfdc`, [story](./2026-10-06-phpstan-cleanup-ai.story.md)). Nel working tree trovato oggi erano tornati
 entrambi: gli enum, i file lang e le doc erano rimasti, ma model, Action, risorsa Filament, factory e test avevano di nuovo le
 `const` (il merge `laraxot/dev` di `f7b2107` ha preso il lato vecchio di quei file), e i 5 Services erano rientrati con `9b0682a`.
 Quindi gli enum esistevano ma non li usava nessuno: una conversione a meta' che avrebbe fatto riaprire gli errori
@@ -107,38 +106,3 @@ I valori backed sono i literal gia' persistiti (`pending`, `ok`, `user`...): col
 - `RequestChatCompletionAction` (zero chiamanti) duplica `MakeAIRequestAction`.
 - Rischio ricorrente: un nuovo merge da `laraxot/dev` puo' riesumare Services e const. Le modifiche sono nel working tree: vanno
   committate forward-only dal proprietario del repo del modulo.
-
-## Seguito 2026-11-19: analizzatori di sentiment eliminati
-
-**Rosso**: `tests/Unit/Actions/QueueableActionContractTest.php` («keeps AI actions queueable with execute
-entrypoints») su `Actions\Sentiment\BasicSentimentAnalyzer` e `TransformersSentimentAnalyzer`.
-
-**Decisione**: codice morto, non adattatori. Si eliminano i due analizzatori e il contratto
-`Contracts\SentimentAnalyzer`; il test resta com'e' (la regola che verifica e' giusta).
-
-**Prove**:
-- `grep -rn` su `laravel/Modules` e `laravel/Themes`: nessun riferimento oltre alle classi stesse e ai docs;
-  nessun test li usa.
-- `AIServiceProvider`: nessun binding (lega solo `MessageStoreInterface`, `PersistenceInterface` e il registry).
-- `SentimentAction` chiama gia' `AnalyzeTransformersSentimentAction`/`AnalyzeBasicSentimentAction`; gli
-  analizzatori erano la versione precedente (la basic senza gestione delle negazioni).
-- Il contratto non aveva altre implementazioni ne' consumatori.
-
-**Anche**: tolto un docblock orfano (`@param list<string> $words`) in `AnalyzeBasicSentimentAction`;
-`@see` a `docs/sentiment-analysis.md` sulle tre Action del sentiment.
-
-**File**: eliminati `app/Actions/Sentiment/BasicSentimentAnalyzer.php`,
-`app/Actions/Sentiment/TransformersSentimentAnalyzer.php`, `app/Contracts/SentimentAnalyzer.php`;
-modificati `app/Actions/SentimentAction.php`, `app/Actions/Sentiment/Analyze*SentimentAction.php`,
-`ARCHITECTURE.md`, `docs/PHILOSOPHY.md`, `docs/coverage.md`; nuovo `docs/sentiment-analysis.md`.
-
-### Secondo rosso dello stesso test: `Actions/Prompt/AIPromptTemplates`
-
-Tolti gli analizzatori, `QueueableActionContractTest` falliva ancora su `Actions\Prompt\AIPromptTemplates`
-(classe statica con `classification()`/`solutions()`, riportata dalla sync del 2026-10-20 dopo che questa
-story aveva deciso di tenere i testi dentro `BuildAIPromptAction`). Unico consumatore `BuildAIPromptAction`:
-i due metodi diventano `private static` li' (`classificationPrompt()`, `solutionsPrompt()`), stesso testo, e il
-file e' eliminato. `docs/queueable-actions.md` e `docs/PHILOSOPHY.md` aggiornati.
-
-Ancora aperto: `app/Datas/AIPromptTemplates.php` (costanti `ROUTING_JSON`/`PATTERN_JSON`/`IMPROVEMENTS_JSON`)
-e' tornato anch'esso con la sync, zero riferimenti; non fa fallire test, lasciato al proprietario.
