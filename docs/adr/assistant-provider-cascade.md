@@ -21,6 +21,16 @@ related:
 - Groq e OpenAI rispondono 400 a `response_format: json_object` se nessun messaggio contiene «json» (osservato il 2026-11-17).
 - Domanda: come avere una risposta veloce, senza costi imprevisti, anche quando un fornitore è giù o limitato?
 
+## Driver della decisione
+
+- Latenza: la risposta arriva a un visitatore in chat, quindi ogni fornitore ha un tempo massimo (`assistant_timeout` = 30 s) e un
+  errore deve passare la mano senza far attendere ancora.
+- Costo: OpenAI era l'unico fornitore ed è a pagamento; Groq e OpenRouter offrono modelli gratuiti con la stessa API compatibile
+  OpenAI, quindi non serve un client nuovo.
+- Disponibilità: i piani gratuiti rispondono 429 oltre i limiti di frequenza, quindi un solo fornitore gratuito non basta.
+- Vincolo tecnico: con `response_format: json_object` Groq e OpenAI rispondono 400 se nessun messaggio nomina «json»; senza
+  accorgimento il fornitore verrebbe saltato a ogni chiamata.
+
 ## Decisione
 
 - `Assistant\RequestAssistantCompletionAction` prova i fornitori di `AIConfigData::$assistant_providers` in ordine (default Groq, poi
@@ -42,6 +52,13 @@ related:
 - Contro: con tutti i gratuiti giù si paga OpenAI, e l'ultimo tentativo **non** rispetta `free_models_only` (debito).
 - Debito: `AiProviderEnum` e `OpenAiCompatibleRequestAction` stanno ancora nel namespace `Vision` (story, punto aperto); la prova con
   chiavi reali dall'app ospite non è fatta.
+
+## Conferma
+
+La decisione è rispettata finché `RequestAssistantCompletionActionTest` resta verde: ordine Groq → OpenRouter → OpenAI, passaggio al
+successivo su errore o assenza di chiave, nessuna chiamata a un modello a pagamento con `free_models_only` attivo, istruzione JSON
+aggiunta quando manca. I default (`assistant_providers`, `assistant_models`, `assistant_timeout`, `free_models_only`) stanno in
+`Modules/AI/app/Datas/AIConfigData.php` e si cambiano da configurazione del tenant, non nel codice.
 
 ## Verifica
 
