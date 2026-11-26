@@ -31,3 +31,4 @@ Chi cambia il comportamento aggiorna il contratto nello stesso commit.
 ## Contratti
 
 - [RequestAssistantCompletionAction](request-assistant-completion-action.md)
+- [confirm-ai-action-proposal-action.md](confirm-ai-action-proposal-action.md)

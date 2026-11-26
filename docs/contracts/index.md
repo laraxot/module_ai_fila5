@@ -1,14 +1,5 @@
----
-title: "Behavioral and surface contracts — AI"
-type: index
-unit: AI
-status: active
-created: 2026-11-26
-updated: 2026-11-26
----
+# Contracts
 
-# Behavioral and surface contracts — AI
+Behavioral contracts (harness laravelday / Xot 0012).
 
-Indice operativo della cartella owner-local. Il formato e la governance condivisi sono in [Xot](../../Xot/docs/contracts/README.md).
-
-Nessun documento operativo presente: la cartella resta intenzionalmente vuota finché il package non possiede una decisione o una promessa pubblica da documentare.
+- [confirm-ai-action-proposal-action.md](confirm-ai-action-proposal-action.md)
