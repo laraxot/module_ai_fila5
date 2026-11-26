@@ -1,10 +1,10 @@
 ---
-title: "Sprint Planning"
+title: "sprint planning"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "Sprint Planning"
+qmd: "sprint planning"
 issues: []
 discussions: []
 ---
@@ -17,36 +17,12 @@ discussions: []
 
 ---
 
-<<<<<<< .merge_file_2SDNAq
-<<<<<<< .merge_file_ZAyL9D
 title: "sprint planning"
-=======
-title: "SPRINT PLANNING"
->>>>>>> .merge_file_HovRIq
-=======
-<<<<<<< .merge_file_4yWf9B
-title: "sprint planning"
-=======
-title: "SPRINT PLANNING"
->>>>>>> .merge_file_fE7zly
->>>>>>> .merge_file_GGKe3D
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-<<<<<<< .merge_file_2SDNAq
-<<<<<<< .merge_file_ZAyL9D
 qmd: "sprint planning"
-=======
-qmd: "SPRINT PLANNING"
->>>>>>> .merge_file_HovRIq
-=======
-<<<<<<< .merge_file_4yWf9B
-qmd: "sprint planning"
-=======
-qmd: "SPRINT PLANNING"
->>>>>>> .merge_file_fE7zly
->>>>>>> .merge_file_GGKe3D
 issues: []
 discussions: []
 ## Sprint Goal

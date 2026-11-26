@@ -118,7 +118,6 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 - Adoption notes and QMD: [../../../../docs/project/karpathy-llm-wiki-adoption.md](../../../../docs/project/karpathy-llm-wiki-adoption.md), [../../../../docs/project/qmd-local-docs-search.md](../../../../docs/project/qmd-local-docs-search.md)
 - [AI LLM Wiki](./llm-wiki.md)
 
-
 ## Standard Rules & Workflow
 
 - [[BMAD Method](../../../../docs/wiki/concepts/bmad-method.md)]
@@ -127,22 +126,11 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 ## Documentation
 
-<<<<<<< .merge_file_pJhIwK
-<<<<<<< .merge_file_CFXHli
-=======
-<<<<<<< .merge_file_ny36ec
->>>>>>> .merge_file_UkGQl3
 - [On-Demand Pattern](./ON-DEMAND-PATTERN.md) — Pattern per caricamento efficiente
 - [QMD Setup](./QMD-SETUP.md) — Configurazione ricerca locale
 - [Performance](./PERFORMANCE-OPTIMIZATION.md) — Metriche e best practice
 - [Project Structure](./PROJECT-STRUCTURE.md) — Directory layout
-=======
 - [On-Demand Pattern](./on-demand-pattern.md) — Pattern per caricamento efficiente
 - [QMD Setup](./qmd-setup.md) — Configurazione ricerca locale
 - [Performance](./performance-optimization.md) — Metriche e best practice
 - [Project Structure](./project-structure.md) — Directory layout
-<<<<<<< .merge_file_pJhIwK
->>>>>>> .merge_file_uUBIyq
-=======
->>>>>>> .merge_file_F8Zv2L
->>>>>>> .merge_file_UkGQl3

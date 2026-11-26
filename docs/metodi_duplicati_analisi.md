@@ -1,10 +1,10 @@
 ---
-title: "Metodi Duplicati Analisi"
+title: "metodi duplicati analisi"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "Metodi Duplicati Analisi"
+qmd: "metodi duplicati analisi"
 issues: []
 discussions: []
 ---
@@ -18,36 +18,12 @@ discussions: []
 
 ---
 
-<<<<<<< .merge_file_YxDn4g
-<<<<<<< .merge_file_hnUsEr
 title: "metodi duplicati analisi"
-=======
-title: "METODI DUPLICATI ANALISI"
->>>>>>> .merge_file_Aa9DDq
-=======
-<<<<<<< .merge_file_OPtdUY
-title: "metodi duplicati analisi"
-=======
-title: "METODI DUPLICATI ANALISI"
->>>>>>> .merge_file_nXOcZY
->>>>>>> .merge_file_jDAy3C
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-<<<<<<< .merge_file_YxDn4g
-<<<<<<< .merge_file_hnUsEr
 qmd: "metodi duplicati analisi"
-=======
-qmd: "METODI DUPLICATI ANALISI"
->>>>>>> .merge_file_Aa9DDq
-=======
-<<<<<<< .merge_file_OPtdUY
-qmd: "metodi duplicati analisi"
-=======
-qmd: "METODI DUPLICATI ANALISI"
->>>>>>> .merge_file_nXOcZY
->>>>>>> .merge_file_jDAy3C
 issues: []
 discussions: []
 ## 🎯 Executive Summary

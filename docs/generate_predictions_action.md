@@ -1,10 +1,10 @@
 ---
-title: "Generate Predictions Action"
+title: "generate predictions action"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "Generate Predictions Action"
+qmd: "generate predictions action"
 issues: []
 discussions: []
 ---
@@ -80,8 +80,6 @@ class GeneratePredictionsAction
 
     /**
      * Build the prompt for OpenAI.
-     * 
-     * @param array<string, mixed> $options
      */
     private function buildPrompt(string $topic, array $options): string
     {
@@ -120,7 +118,6 @@ PROMPT;
 
     /**
      * Parse the OpenAI response.
-     * 
      * @return array<string, mixed>
      */
     private function parseResponse(string $response): array
@@ -138,7 +135,6 @@ PROMPT;
 
     /**
      * Validate the generated data.
-     * 
      * @param array<string, mixed> $data
      * @throws \InvalidArgumentException
      */
@@ -452,36 +448,12 @@ Log::info('AI Prediction generated', [
 
 ---
 
-<<<<<<< .merge_file_lMaGSg
-<<<<<<< .merge_file_FVor6x
 title: "generate predictions action"
-=======
-title: "GENERATE PREDICTIONS ACTION"
->>>>>>> .merge_file_WU6CBo
-=======
-<<<<<<< .merge_file_5O3L7f
-title: "generate predictions action"
-=======
-title: "GENERATE PREDICTIONS ACTION"
->>>>>>> .merge_file_mTjMiA
->>>>>>> .merge_file_zstBnI
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-<<<<<<< .merge_file_lMaGSg
-<<<<<<< .merge_file_FVor6x
 qmd: "generate predictions action"
-=======
-qmd: "GENERATE PREDICTIONS ACTION"
->>>>>>> .merge_file_WU6CBo
-=======
-<<<<<<< .merge_file_5O3L7f
-qmd: "generate predictions action"
-=======
-qmd: "GENERATE PREDICTIONS ACTION"
->>>>>>> .merge_file_mTjMiA
->>>>>>> .merge_file_zstBnI
 issues: []
 discussions: []
 **Ultimo aggiornamento**: 2026-03-12  

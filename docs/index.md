@@ -16,19 +16,10 @@ updated: 2026-09-03
 
 Indice unico e navigabile di `laravel/Modules/AI/docs/`. Organizzato per argomento, non per ordine alfabetico. Nessun file esistente e' stato rinominato o cancellato per produrre questo indice: dove esistono doc duplicati o superati, sono raggruppati nella sezione [Storico / da consolidare](#storico--da-consolidare) invece di essere rimossi.
 
-<<<<<<< .merge_file_vmfKWV
-<<<<<<< .merge_file_qQa35m
 Altri indici presenti nella cartella (`00-index.md`, `INDEX.md`) sono tentativi precedenti/parziali: restano al loro posto ma questo `index.md` e' il riferimento aggiornato e completo.
-=======
 Altri indici presenti nella cartella (`00-index.md`, `index.md`) sono tentativi precedenti/parziali: restano al loro posto ma questo `index.md` e' il riferimento aggiornato e completo.
->>>>>>> .merge_file_Xn18cP
-=======
-<<<<<<< .merge_file_eQ7hbM
 Altri indici presenti nella cartella (`00-index.md`, `INDEX.md`) sono tentativi precedenti/parziali: restano al loro posto ma questo `index.md` e' il riferimento aggiornato e completo.
-=======
 Altri indici presenti nella cartella (`00-index.md`, `index.md`) sono tentativi precedenti/parziali: restano al loro posto ma questo `index.md` e' il riferimento aggiornato e completo.
->>>>>>> .merge_file_IQx7xG
->>>>>>> .merge_file_mOdEfG
 
 ## Start here
 
@@ -193,19 +184,8 @@ Layer di conoscenza compilata, separato dai doc sorgente sopra. Punti di ingress
 | [wiki/schema.md](./wiki/schema.md) | Schema del wiki |
 | [wiki/log.md](./wiki/log.md) | Log del wiki |
 | [llm-wiki.md](./llm-wiki.md) | Mapping del pattern Karpathy applicato a questo modulo |
-<<<<<<< .merge_file_vmfKWV
-<<<<<<< .merge_file_qQa35m
 | [llm-wiki/agents.md](./llm-wiki/agents.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
-=======
 | [llm-wiki/AGENTS.md](./llm-wiki/AGENTS.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
->>>>>>> .merge_file_Xn18cP
-=======
-<<<<<<< .merge_file_eQ7hbM
-| [llm-wiki/agents.md](./llm-wiki/agents.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
-=======
-| [llm-wiki/AGENTS.md](./llm-wiki/AGENTS.md) | Istruzioni per gli agenti che alimentano il wiki (canonica) |
->>>>>>> .merge_file_IQx7xG
->>>>>>> .merge_file_mOdEfG
 
 ### Concetti (wiki/concepts/)
 
@@ -263,19 +243,8 @@ Le sottocartelle `raw/articles/`, `raw/comparisons/`, `raw/concepts/`, `raw/enti
 
 | Doc | Contenuto |
 |---|---|
-<<<<<<< .merge_file_vmfKWV
-<<<<<<< .merge_file_qQa35m
 | [root-md-files/changelog.md](./root-md-files/changelog.md) | Nota di rimando: il changelog canonico e' `../../CHANGELOG.md` nella root del modulo |
-=======
 | [root-md-files/CHANGELOG.md](./root-md-files/changelog.md) | Nota di rimando: il changelog canonico e' `../../CHANGELOG.md` nella root del modulo |
->>>>>>> .merge_file_Xn18cP
-=======
-<<<<<<< .merge_file_eQ7hbM
-| [root-md-files/changelog.md](./root-md-files/changelog.md) | Nota di rimando: il changelog canonico e' `../../CHANGELOG.md` nella root del modulo |
-=======
-| [root-md-files/CHANGELOG.md](./root-md-files/changelog.md) | Nota di rimando: il changelog canonico e' `../../CHANGELOG.md` nella root del modulo |
->>>>>>> .merge_file_IQx7xG
->>>>>>> .merge_file_mOdEfG
 
 ## Storico / da consolidare
 
@@ -325,16 +294,5 @@ Cinque file condividono lo stesso template generico (`**Module:** AI`, `**Versio
 - [phpstan-remediation-2025-12-23.md](./phpstan-remediation.md) - identico byte per byte a [phpstan-remediation.md](./phpstan-remediation.md) (diff vuoto).
 - [redundancy_analysis.md](./redundancy_analysis.md) - stub di una riga che rimanda a `docs/analysis/redundancies/summary.md` fuori dal modulo.
 - [merge-conflict-files-list.md](./merge-conflict-files-list.md) e [merge-conflicts-list.md](./merge-conflicts-list.md) - due elenchi di file con marker di conflitto da una sessione di merge passata (vedi memoria `project_notify-conflict-remediation-2026-09-03`); presumibilmente risolti, da verificare prima di rimuovere.
-<<<<<<< .merge_file_vmfKWV
-<<<<<<< .merge_file_qQa35m
 - [wiki/agents.md](./wiki/agents.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](./llm-wiki/agents.md).
-=======
 - [wiki/AGENTS.md](./wiki/AGENTS.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/AGENTS.md](./llm-wiki/AGENTS.md).
->>>>>>> .merge_file_Xn18cP
-=======
-<<<<<<< .merge_file_eQ7hbM
-- [wiki/agents.md](./wiki/agents.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/agents.md](./llm-wiki/agents.md).
-=======
-- [wiki/AGENTS.md](./wiki/AGENTS.md) - copia del template non compilato (placeholder `{{TYPE^}}`, `YYYY-MM-DD`), superata dalla versione reale in [llm-wiki/AGENTS.md](./llm-wiki/AGENTS.md).
->>>>>>> .merge_file_IQx7xG
->>>>>>> .merge_file_mOdEfG
