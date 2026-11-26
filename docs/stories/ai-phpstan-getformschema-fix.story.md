@@ -106,3 +106,4 @@ Tutti e 3 i file: `check.sh` (FREE) -> `lock.sh "phpstan-ai-fix" "claude-sonnet5
 - [x] Nessun altro modulo toccato.
 - [x] Nessun commit/push (fuori scope, non richiesto).
 - [x] Story BMAD scritta in `Modules/AI/docs/stories/`.
+

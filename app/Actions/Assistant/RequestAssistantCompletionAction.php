@@ -20,8 +20,7 @@ use Spatie\QueueableAction\QueueableAction;
  * risponde si usa MakeAIRequestAction (OpenAI), come prima di questa Action.
  * La risposta e' chiesta in JSON (`response_format: json_object`), come vuole il prompt dell'assistente.
  *
- * @contract docs/contracts/request-assistant-completion-action.md
- * Contratto di comportamento (sei sezioni: input, output, invarianti, effetti
+ * Contratto di comportamento: docs/contracts/request-assistant-completion-action.md (sei sezioni: input, output, invarianti, effetti
  * collaterali, errori, non fa).
  */
 final class RequestAssistantCompletionAction
