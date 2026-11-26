@@ -1,10 +1,10 @@
 ---
-title: "user research"
+title: "User Research"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "user research"
+qmd: "User Research"
 issues: []
 discussions: []
 ---
@@ -17,12 +17,12 @@ discussions: []
 
 ---
 
-title: "user research"
+title: "USER RESEARCH"
 type: note
 tags: [documentation]
 created: 2026-09-26
 updated: 2026-09-26
-qmd: "user research"
+qmd: "USER RESEARCH"
 issues: []
 discussions: []
 ## Research Goals

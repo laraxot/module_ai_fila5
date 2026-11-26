@@ -3,7 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schema;
+<<<<<<< .merge_file_EX0KVb
 use PHPUnit\Framework\Assert;
+=======
+use Modules\AI\Tests\TestCase;
+use PHPUnit\Framework\Assert;
+
+uses(TestCase::class);
+>>>>>>> .merge_file_YNUVCs
 
 /*
  * In questa base l'id utente e' un UUID di 36 caratteri. Una colonna intera lo

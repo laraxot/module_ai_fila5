@@ -4,6 +4,7 @@ type: guide
 module: AI
 tags: [ai, assistant, knowledge-base, handoff, report]
 created: 2026-11-16
+<<<<<<< .merge_file_lvp5Fx
 <<<<<<< .merge_file_uj8pbf
 updated: 2026-11-16
 =======
@@ -13,12 +14,15 @@ updated: 2026-11-16
 updated: 2026-11-17
 >>>>>>> .merge_file_jE91Pa
 >>>>>>> .merge_file_7CNGHG
+=======
+updated: 2026-11-17
+>>>>>>> .merge_file_oiVmOZ
 qmd: "assistant knowledge base handoff report"
 issues: [25, 26]
 discussions: []
 related:
   - ./stories/assistant-knowledge-base.story.md
-  - ../ARCHITECTURE.md
+  - ../architecture.md
 ---
 
 # Assistente clienti
@@ -27,7 +31,7 @@ Mattoni **agnostici** per costruire un assistente che risponde alle domande dei 
 usando solo risposte ufficiali e passa a una persona tutto il resto.
 
 Il modulo AI non conosce nessun progetto: è il **modulo principale del progetto**
-(Fixcity, Restaurant, ...) che chiama queste Action con la propria `collection`,
+(qualunque progetto che lo adotta) che chiama queste Action con la propria `collection`,
 le proprie parole sensibili e, se serve, il proprio handler di presa in carico.
 
 ## Per chi parte da zero
@@ -61,8 +65,9 @@ use Modules\AI\Actions\Assistant\BuildAssistantReportAction;
 // 1. Domanda del cliente (il thread lo crea/riusa il progetto)
 $answer = app(AnswerQuestionAction::class)->execute(
     thread: $thread,                 // Modules\AI\Models\AiThread
-    collection: 'fixcity-faq',       // base di conoscenza del progetto
+    collection: 'my-project-faq',    // base di conoscenza del progetto
     question: $request->string('question')->toString(),
+<<<<<<< .merge_file_lvp5Fx
 <<<<<<< .merge_file_uj8pbf
     userId: auth()->id(),            // null per visitatori anonimi
 =======
@@ -73,6 +78,10 @@ $answer = app(AnswerQuestionAction::class)->execute(
     handoffKeywords: ['allerg'],     // opzionale: parole sensibili di questa chiamata (es. per attività); null = config
 >>>>>>> .merge_file_jE91Pa
 >>>>>>> .merge_file_7CNGHG
+=======
+    userId: auth()->id(),            // null per visitatori anonimi; intero o UUID (salvato come stringa)
+    handoffKeywords: ['allerg'],     // opzionale: parole sensibili di questa chiamata (es. per attività); null = config
+>>>>>>> .merge_file_oiVmOZ
 );
 
 $answer->answer;        // testo da mostrare
@@ -81,12 +90,13 @@ $answer->handoffReason; // no_knowledge | sensitive_topic:<parola> | ai_unavaila
 $answer->sourceIds;     // id delle AiKnowledgeEntry usate
 
 // 2. Report (pianificazione e invio li decide il progetto)
-$report = app(BuildAssistantReportAction::class)->execute('fixcity-faq', now()->subWeek(), now());
+$report = app(BuildAssistantReportAction::class)->execute('my-project-faq', now()->subWeek(), now());
 ```
 
 ### Parole sensibili (opzionale)
 
 Di default la lista è **vuota**: il modulo AI non decide cosa è sensibile per un progetto.
+<<<<<<< .merge_file_lvp5Fx
 <<<<<<< .merge_file_uj8pbf
 Il progetto la imposta nella propria configurazione:
 =======
@@ -97,6 +107,10 @@ Si possono passare per singola chiamata (`handoffKeywords`, es. diverse per ogni
 impostarle per tutto il progetto nella configurazione:
 >>>>>>> .merge_file_jE91Pa
 >>>>>>> .merge_file_7CNGHG
+=======
+Si possono passare per singola chiamata (`handoffKeywords`, es. diverse per ogni attività) oppure
+impostarle per tutto il progetto nella configurazione:
+>>>>>>> .merge_file_oiVmOZ
 
 ```php
 config(['ai.assistant.handoff_keywords' => ['rimbors', 'reclam', 'avvocat', 'denunc']]);
@@ -147,6 +161,7 @@ o la richiesta è complessa, risponde nella lingua della domanda, risponde solo 
 | `Models\AiKnowledgeEntry` | Voce della base di conoscenza (`collection`, `question`, `answer`, `tags`, `is_active`) |
 | `Actions\Assistant\TokenizeTextAction` | Normalizza il testo (minuscolo, senza accenti, parole ≥ 3 caratteri) |
 | `Actions\Assistant\RankKnowledgeEntriesAction` | Ordina le voci per pertinenza (sovrapposizione di parole) |
+| `Actions\Assistant\SaveKnowledgeEntryAction` | Crea o corregge una voce di una `collection` (mai di un'altra; stessa domanda = aggiornamento, non duplicato) |
 | `Actions\Assistant\SearchKnowledgeEntriesAction` | Carica le voci attive della `collection` e le ordina |
 | `Actions\Assistant\DetectHandoffTriggerAction` | Guardrail deterministico sulle parole sensibili del progetto |
 | `Actions\Assistant\BuildAssistantPromptAction` | Prompt di sistema e prompt con fonti |

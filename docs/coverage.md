@@ -19,9 +19,7 @@ discussions: []
 
 **Changed**: 6 occurrences across 6 files, all docblock-only (no native `mixed` type-hints were touched — see "left as mixed" below for why the native ones stay). Replaced `array<string, mixed>` / `array<int, array<string, mixed>>` with a concrete shape once the returned/consumed structure was evidently stable:
 
-- `Modules/AI/app/Contracts/SentimentAnalyzer.php` — `analyze()` return: `array{label: string, score: int|float, warning: string}`.
-- `Modules/AI/app/Actions/Sentiment/BasicSentimentAnalyzer.php` — same shape (implements the contract).
-- `Modules/AI/app/Actions/Sentiment/TransformersSentimentAnalyzer.php` — same shape.
+- ~~`Contracts/SentimentAnalyzer`, `Actions/Sentiment/BasicSentimentAnalyzer`, `TransformersSentimentAnalyzer`~~ — eliminati il 2026-11-19: duplicati senza chiamanti delle Action sotto (vedi `sentiment-analysis.md`).
 - `Modules/AI/app/Actions/Sentiment/AnalyzeBasicSentimentAction.php` — same shape.
 - `Modules/AI/app/Actions/Sentiment/AnalyzeTransformersSentimentAction.php` — same shape.
 - `Modules/AI/app/Actions/Prediction/GetPredictionFallbackTemplatesAction.php` — `execute()` return tightened from `array<int, array<string, mixed>>` to `array<int, array{category: string, title: string, subtitle: string, description: string, analysis: string, tags: list<string>, options: list<string>}>` (hardcoded literal templates, shape evident and stable; this also benefits the one consumer, `GeneratePredictionDraftsAction::fallbackDrafts()`).
@@ -67,4 +65,4 @@ discussions: []
 
 **Coverage numerico**: non misurabile con i tool standard di questo repo. `Modules/AI/app` **non e'** nell'elenco `<source><include>` di `phpunit.xml` root (assente sia da li' sia dal classmap coverage-filter tentato via CLI). Tentativi: `XDEBUG_MODE=coverage` via env non applicato dal binario Xdebug installato (resta `xdebug.mode=develop` anche con env esportata — verificato con `ini_get`), `php -d xdebug.mode=coverage` applica il driver correttamente (verificato) ma senza `Modules/AI/app` in `<source>` il report resta vuoto anche con `--coverage-filter=Modules/AI/app --coverage-text`. Non ho modificato `phpunit.xml` (file condiviso da tutto il monorepo, fuori scope per questo task) ne' forzato altri workaround. Coverage **qualitativa** invece migliorata in modo verificabile: rimossi 34 righe di codice morto (file `.bak`), 3 nuovi test reali per `ContextCompressorAction` (prima **zero** test, ora 3, tutti passano, copertura del path `compress()` corto/passthrough + fallback estrattivo con troncamento a limite di frase + fallback a taglio duro), tutti i metodi privati estratti durante il refactor PHPMD restano esercitati indirettamente dai test esistenti che gia' passavano (`GeneratePredictionDraftsActionTest`, `PredictionDraftFallbackTemplatesActionTest`) senza nessuna regressione.
 
-**File nuovi/modificati**: vedi `git log`/`git status` del modulo per l'elenco completo; riassunto in `docs/stories/ai-quality-gate-2026-09-04.story.md`.
+**File nuovi/modificati**: vedi `git log`/`git status` del modulo per l'elenco completo; riassunto in `docs/stories/ai-quality-gate.story.md`.

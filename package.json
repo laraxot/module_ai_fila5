@@ -1,22 +1,14 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-        "@tailwindcss/forms": "^0.5.7",
-        "@tailwindcss/typography": "^0.5.10",
-        "autoprefixer": "^10.4.17",
-        "axios": "^1.17.0",
-        "dotenv": "^10.0.0",
-        "dotenv-expand": "^5.1.0",
-        "laravel-vite-plugin": "^1.2.0",
-        "lodash": "^4.17.21",
-        "postcss": "^8.4.33",
-        "postcss-nesting": "^12.0.2",
-        "tailwindcss": "^3.4.1",
-        "tippy.js": "^6.3.7",
-        "vite": "^6.4.2"
-    }
+  "name": "@laraxot/module-ai-assets",
+  "private": true,
+  "type": "module",
+  "description": "Sorgenti JS agnostici del modulo AI (renderer A2UI del pannello). Non si compilano qui: li importa il bundle del modulo che li usa (es. Passaparola).",
+  "dependencies": {
+    "@a2ui/lit": "^0.15.0",
+    "@a2ui/markdown-it": "^0.2.2",
+    "@a2ui/web_core": "^0.15.0",
+    "chart.js": "^4.5.1",
+    "lit": "^3.3.3",
+    "zod": "^3.25.76"
+  }
 }
