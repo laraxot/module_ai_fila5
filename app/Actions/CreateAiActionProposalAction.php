@@ -12,6 +12,10 @@ use Spatie\QueueableAction\QueueableAction;
 
 /**
  * Creates a new pending `AiActionProposal` for a thread.
+ *
+ * @see docs/contracts/create-ai-action-proposal-action.md
+ *
+ * @contract docs/contracts/create-ai-action-proposal-action.md
  */
 class CreateAiActionProposalAction
 {

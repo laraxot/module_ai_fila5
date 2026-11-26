@@ -13,6 +13,10 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * `panelId` dice da dove arriva la conversazione (es. `operator`, `widget`): lo decide il chiamante.
  * `userId` null = visitatore anonimo; intero o UUID, salvato come stringa.
+ *
+ * @see docs/contracts/create-ai-thread-action.md
+ *
+ * @contract docs/contracts/create-ai-thread-action.md
  */
 final class CreateAiThreadAction
 {

@@ -50,7 +50,7 @@ describe('GeneratePredictionsAction reads the tenant settings', function (): voi
         Assert::assertSame('gpt-3.5-turbo-instruct', $config['model']);
         Assert::assertSame(0.7, $config['temperature']);
         Assert::assertSame(1500, $config['maxTokens']);
-    });
+    })->group('AI-PREDICT-INV-1');
 
     test('_it_uses_the_model_temperature_and_max_tokens_saved_for_the_tenant', function (): void {
         FakeTenantAiConfig::bind([
@@ -64,14 +64,14 @@ describe('GeneratePredictionsAction reads the tenant settings', function (): voi
         Assert::assertSame('tenant-instruct', $config['model']);
         Assert::assertSame(0.2, $config['temperature']);
         Assert::assertSame(321, $config['maxTokens']);
-    });
+    })->group('AI-PREDICT-INV-1');
 
     test('_the_api_key_still_comes_from_services_and_never_from_the_tenant_file', function (): void {
         FakeTenantAiConfig::bind(['openai_api_key' => 'sk-in-tenant-file']);
         config(['services.openai.api_key' => 'sk-from-env']);
 
         Assert::assertSame('sk-from-env', resolveCompletionConfig()['apiKey']);
-    });
+    })->group('AI-PREDICT-INV-2');
 });
 
 describe('GeneratePredictionDraftsAction reads the tenant settings', function (): void {
@@ -132,5 +132,5 @@ describe('MakeAIRequestAction reads the tenant settings', function (): void {
 
         Assert::assertSame('AI API request failed after 1 attempts', $message);
         Http::assertSentCount(1);
-    });
+    })->group('AI-REQUEST-INV-3');
 });

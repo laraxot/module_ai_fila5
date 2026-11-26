@@ -21,15 +21,13 @@ use function Safe\preg_replace;
  * Agnostica: non sa cosa c'e' nelle immagini. Il modulo che la usa passa istruzioni e schema
  * (es. Restaurant: le pagine di un menu cartaceo -> sezioni e piatti).
  *
- * Endpoint compatibile OpenAI (`/chat/completions`) di OpenRouter o Groq, provati in ordine
- * (`ai.vision_providers`): se uno fallisce si passa al successivo. Immagini come `image_url` con
- * data URI, testo prima delle immagini, `response_format` json_schema strict; su OpenRouter anche
- * `provider.require_parameters`, perche' instradi solo verso chi rispetta lo schema.
-<<<<<<< .merge_file_FV0CKS
-=======
+ * Endpoint compatibile OpenAI (`/chat/completions`) di OpenRouter, Groq o di un server locale
+ * (`services.local_ai`), provati in ordine (`ai.vision_providers`): se uno fallisce si passa al
+ * successivo. Immagini come `image_url` con data URI, testo prima delle immagini, `response_format`
+ * json_schema strict (o schema nel prompt, se il server non lo applica: vedi `AiProviderEnum::jsonMode()`);
+ * su OpenRouter anche `provider.require_parameters`, perche' instradi solo verso chi rispetta lo schema.
  *
  * @see Modules/AI/docs/vision-openrouter.md
->>>>>>> .merge_file_hV9e2c
  */
 class ExtractStructuredDataFromImagesAction
 {
@@ -45,11 +43,6 @@ class ExtractStructuredDataFromImagesAction
      * @return array<string, mixed>
      *
      * @throws AiRequestException se tutti i fornitori falliscono (messaggio con il motivo di ciascuno)
-<<<<<<< .merge_file_FV0CKS
-=======
-     *
-     * @see Modules/AI/docs/vision-openrouter.md
->>>>>>> .merge_file_hV9e2c
      */
     public function execute(array $imagePaths, string $instructions, string $schemaName, array $schema, ?array $providers = null): array
     {
@@ -64,10 +57,7 @@ class ExtractStructuredDataFromImagesAction
         }
 
         // Le immagini si codificano una volta sola, prima di qualunque chiamata.
-        $content = [['type' => 'text', 'text' => $instructions]];
-        foreach ($imagePaths as $path) {
-            $content[] = ['type' => 'image_url', 'image_url' => ['url' => $this->dataUri->execute($path)]];
-        }
+        $content = $this->userContent($imagePaths, $instructions);
 
         $errors = [];
         $rateLimited = false;
@@ -92,6 +82,25 @@ class ExtractStructuredDataFromImagesAction
     }
 
     /**
+     * Messaggio utente: il testo prima, poi le immagini come data URI.
+     *
+     * @param  list<string>  $imagePaths
+     * @return list<array<string, mixed>>
+     *
+     * @throws AiRequestException se un file non e' un'immagine supportata
+     */
+    private function userContent(array $imagePaths, string $instructions): array
+    {
+        return [
+            ['type' => 'text', 'text' => $instructions],
+            ...array_map(
+                fn (string $path): array => ['type' => 'image_url', 'image_url' => ['url' => $this->dataUri->execute($path)]],
+                $imagePaths,
+            ),
+        ];
+    }
+
+    /**
      * @param  list<array<string, mixed>>  $content
      * @param  array<string, mixed>  $schema
      * @return array<string, mixed>
@@ -103,7 +112,25 @@ class ExtractStructuredDataFromImagesAction
             throw new AiRequestException($provider->value.': nessun modello utilizzabile in ai.vision_models (solo gratuiti: '.($config->free_models_only ? 'si' : 'no').').');
         }
 
-        $payload = [
+        $response = app(OpenAiCompatibleRequestAction::class)->execute(
+            $provider,
+            '/chat/completions',
+            $this->payload($provider, $models, $content, $schemaName, $schema),
+            $config->vision_timeout,
+        );
+
+        return $this->decodeObject($provider, $response);
+    }
+
+    /**
+     * @param  non-empty-list<string>  $models
+     * @param  list<array<string, mixed>>  $content
+     * @param  array<string, mixed>  $schema
+     * @return array<string, mixed>
+     */
+    private function payload(AiProviderEnum $provider, array $models, array $content, string $schemaName, array $schema): array
+    {
+        return [
             'model' => $models[0],
             // OpenRouter: elenco di riserva, si passa al successivo se il primo non e' disponibile.
             ...($provider === AiProviderEnum::OpenRouter && \count($models) > 1 ? ['models' => $models] : []),
@@ -122,10 +149,19 @@ class ExtractStructuredDataFromImagesAction
             },
             ...$provider->extraPayload(),
         ];
+    }
 
-        $json = app(OpenAiCompatibleRequestAction::class)->execute($provider, '/chat/completions', $payload, $config->vision_timeout);
-
-        $text = data_get($json, 'choices.0.message.content');
+    /**
+     * Estrae il testo della risposta e lo decodifica: lo schema chiede sempre un oggetto, non una lista.
+     *
+     * @param  array<string, mixed>  $response
+     * @return array<string, mixed>
+     *
+     * @throws AiRequestException
+     */
+    private function decodeObject(AiProviderEnum $provider, array $response): array
+    {
+        $text = data_get($response, 'choices.0.message.content');
         if (! is_string($text) || trim($text) === '') {
             throw new AiRequestException($provider->value.': risposta senza contenuto.');
         }
@@ -135,8 +171,10 @@ class ExtractStructuredDataFromImagesAction
         } catch (JsonException|PcreException $e) {
             throw new AiRequestException($provider->value.': risposta non in formato JSON.', previous: $e);
         }
-        if (! is_array($decoded)) {
-            throw new AiRequestException($provider->value.': risposta non in formato JSON.');
+
+        // `{}` si decodifica in `[]`: e' un oggetto valido; una lista non vuota no.
+        if (! is_array($decoded) || ($decoded !== [] && array_is_list($decoded))) {
+            throw new AiRequestException($provider->value.': la risposta non e\' un oggetto JSON.');
         }
 
         /** @var array<string, mixed> $decoded */

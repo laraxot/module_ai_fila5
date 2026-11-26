@@ -75,12 +75,8 @@ vendor/bin/pint Modules/AI/app/Actions
 
 | Path | Ruolo |
 |------|-------|
-<<<<<<< .merge_file_hlHWbg
 | `Actions/Prompt/BuildAIPromptAction` | Dispatcher prompt per tipo (`classification`, `solutions`, …) |
 | `Actions/Prompt/AIPromptTemplates` | Costanti JSON schema (routing, pattern, improvements) |
-=======
-| `Actions/Prompt/BuildAIPromptAction` | Dispatcher prompt per tipo (`classification`, `solutions`); i testi sono metodi privati della stessa Action, unico consumatore |
->>>>>>> .merge_file_3MQeTe
 | `Actions/MakeAIRequestAction` | HTTP chat/completions OpenAI + retry, prompt di sistema opzionale (`Actions/Support/MakeAIRequestAction` e' la variante interna) |
 | `Actions/Vision/*` | Immagini via OpenRouter o Groq: estrazione JSON strutturata, modifica (vedi [vision-openrouter.md](vision-openrouter.md)) |
 | `Actions/AiJsonResponseDecoderAction` | Decode JSON risposta AI (sostituisce `AIServiceJsonDecoder`) |
@@ -104,14 +100,3 @@ $raw = app(MakeAIRequestAction::class, [
 
 $data = AiJsonResponseDecoderAction::decodeObject($raw);
 ```
-
-## Sotto `Actions/` solo QueueableAction
-
-`tests/Unit/Actions/QueueableActionContractTest.php` percorre ogni file di `app/Actions` e chiede
-`use QueueableAction` + `execute()` pubblico. Una classe di supporto (template, adattatore,
-implementazione di un contratto) non va messa li': o diventa codice privato dell'unica Action che
-la usa, o vive fuori da `Actions/`. Il 2026-11-19 sono state tolte per questo
-`Actions/Prompt/AIPromptTemplates` (testi spostati in `BuildAIPromptAction`) e i due
-`Actions/Sentiment/*SentimentAnalyzer` (duplicati senza chiamanti, vedi
-[sentiment-analysis.md](sentiment-analysis.md)).
-

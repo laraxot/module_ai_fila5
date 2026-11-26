@@ -3,14 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schema;
-<<<<<<< .merge_file_EX0KVb
-use PHPUnit\Framework\Assert;
-=======
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 
 uses(TestCase::class);
->>>>>>> .merge_file_YNUVCs
 
 /*
  * In questa base l'id utente e' un UUID di 36 caratteri. Una colonna intera lo
@@ -23,6 +19,9 @@ uses(TestCase::class);
  * Le colonne stanno in un unico test e non in un dataset: ogni riga di dataset
  * fa ripartire l'applicazione, e su una suite intera si pagano minuti per una
  * verifica che costa millisecondi.
+ *
+ * Tipi accettati: `varchar`/`text` (come create dalle migrazioni del modulo) e `char`/`uuid`
+ * (come le lascia XotBaseMigration su MySQL e MariaDB, che hanno un tipo uuid nativo).
  */
 it('stores user ids as strings, not integers', function (): void {
     $columns = [
@@ -32,6 +31,7 @@ it('stores user ids as strings, not integers', function (): void {
         ['ai_messages', 'user_id'],
         ['ai_tool_logs', 'user_id'],
     ];
+    $stringTypes = ['string', 'varchar', 'char', 'uuid', 'text'];
 
     $numeric = [];
     foreach ($columns as [$table, $column]) {
@@ -40,7 +40,7 @@ it('stores user ids as strings, not integers', function (): void {
             "La colonna {$table}.{$column} non esiste",
         );
 
-        if (! in_array(Schema::getColumnType($table, $column), ['string', 'varchar', 'text'], true)) {
+        if (! in_array(Schema::getColumnType($table, $column), $stringTypes, true)) {
             $numeric[] = $table.'.'.$column;
         }
     }

@@ -10,6 +10,10 @@ use Spatie\QueueableAction\QueueableAction;
 
 /**
  * Cancels a pending `AiActionProposal` without executing it.
+ *
+ * @see docs/contracts/cancel-ai-action-proposal-action.md
+ *
+ * @contract docs/contracts/cancel-ai-action-proposal-action.md
  */
 class CancelAiActionProposalAction
 {

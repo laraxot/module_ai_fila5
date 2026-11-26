@@ -23,6 +23,10 @@ use function Safe\preg_replace;
  *
  * This action uses OpenAI API to generate realistic prediction market data
  * including title, description, content, category, tags, and market parameters.
+ *
+ * @see docs/contracts/generate-predictions-action.md
+ *
+ * @contract docs/contracts/generate-predictions-action.md
  */
 class GeneratePredictionsAction
 {

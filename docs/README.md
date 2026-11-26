@@ -25,13 +25,11 @@ Le Actions di dominio AI (Ollama, compression, predictions) vivono in
 ## 📋 Quick Reference
 | Categoria | Guida | File |
 |-----------|-------| ---- |
-| **Setup** | MCP Server Setup | [mcp/01_installazione.md](mcp/01_installazione.md) |
-| **Config** | Configurazione | [mcp/02_configurazione.md](mcp/02_configurazione.md) |
-| **Usage** | Utilizzo pratico | [mcp/03_utilizzo.md](mcp/03_utilizzo.md) |
-| **Integration** | Chat System | [chat.md](chat.md) |
-| **Training** | Fine Tuning | [fine_tuning.md](fine_tuning.md) |
-| **Tools** | Ollama, CLI Tools | [ollama.md](ollama.md), [tools.md](tools.md) |
-| **Troubleshooting** | Errori comuni | [mcp/06_troubleshooting.md](mcp/06_troubleshooting.md) |
+| **Setup** | MCP Server Setup | [mcp/01-installazione-2.md](mcp/01-installazione-2.md) |
+| **Config** | Configurazione | [mcp/02-configurazione-2.md](mcp/02-configurazione-2.md) |
+| **Usage** | Utilizzo pratico | [mcp/03-utilizzo-2.md](mcp/03-utilizzo-2.md) |
+| **Training** | Fine Tuning | [fine-tuning-2.md](fine-tuning-2.md) |
+| **Troubleshooting** | Errori comuni | [mcp/06-troubleshooting-2.md](mcp/06-troubleshooting-2.md) |
 
 ## 🎯 Core Features
 - **MCP Protocol**: Database integration, external services, custom tools
@@ -81,7 +79,6 @@ La documentazione fa riferimento alle seguenti risorse esterne:
 - [Laravel MCP SDK](../../../../docs/project/references/laravel_mcp_sdk.md)
 - [Neuron AI Documentation](../../../../docs/project/references/neuron_ai_docs.md)
 - [AI Agents in PHP with MCP](../../../../docs/project/references/ai_agents_php_mcp.md)
-- [Laravel Helper Tools MCP server](../../../../docs/project/references/laravel_helper_tools.md)
 
 ## Implementazioni Open Source
 
@@ -96,9 +93,9 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 ---
 
-> ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [INSTALLAZIONE_MCP_SERVERS.md](installazione_mcp_servers.md).**
+> ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [installazione-mcp-servers-2.md](installazione-mcp-servers-2.md).**
 
-🔗 **Guida installazione MCP servers:** [INSTALLAZIONE_MCP_SERVERS.md](installazione_mcp_servers.md)
+🔗 **Guida installazione MCP servers:** [installazione-mcp-servers-2.md](installazione-mcp-servers-2.md)
 
 ---
 
@@ -118,7 +115,6 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 - Adoption notes and QMD: [../../../../docs/project/karpathy-llm-wiki-adoption.md](../../../../docs/project/karpathy-llm-wiki-adoption.md), [../../../../docs/project/qmd-local-docs-search.md](../../../../docs/project/qmd-local-docs-search.md)
 - [AI LLM Wiki](./llm-wiki.md)
 
-
 ## Standard Rules & Workflow
 
 - [[BMAD Method](../../../../docs/wiki/concepts/bmad-method.md)]
@@ -127,7 +123,6 @@ Se desideri contribuire a questa documentazione o all'implementazione del modulo
 
 ## Documentation
 
-- [On-Demand Pattern](./on-demand-pattern.md) — Pattern per caricamento efficiente
-- [QMD Setup](./qmd-setup.md) — Configurazione ricerca locale
-- [Performance](./performance-optimization.md) — Metriche e best practice
-- [Project Structure](./project-structure.md) — Directory layout
+- [Indice completo](./index.md) — indice aggiornato di tutta la documentazione del modulo
+- [Sentiment analysis](./sentiment-analysis.md) — analisi del sentiment: le Action e basta
+- [Queueable Actions](./queueable-actions.md) — pattern Action Queueable del modulo
