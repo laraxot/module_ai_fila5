@@ -15,6 +15,10 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * Usata dall'assistente e dai progetti per i messaggi che non passano dal modello
  * (es. domanda arrivata quando la conversazione e' gia' in mano a una persona, risposta di un operatore).
+ *
+ * @see docs/contracts/append-ai-message-action.md
+ *
+ * @contract docs/contracts/append-ai-message-action.md
  */
 final class AppendAiMessageAction
 {

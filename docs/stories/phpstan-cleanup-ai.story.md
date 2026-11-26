@@ -56,3 +56,7 @@ costanti tipizzate con docblock `@var` (che per PHPStan non conta come tipo nati
 
 Dev story: [phpstan-cleanup-ai.dev.md](./phpstan-cleanup-ai.dev.md)
 
+## Follow-up 2026-11-26
+
+- `ResolveAgentProviderActionTest`: helper `providerBaseUri` tipizzato su `AIProviderInterface`, ristretto a `OpenAILike` + `is_string` (niente `cast.string` / `argument.type`).
+- Verifica: `vendor/bin/phpstan analyse Modules/AI` → 0.

@@ -14,6 +14,10 @@ use Spatie\QueueableAction\QueueableAction;
  * Con `$id` aggiorna la voce solo se appartiene alla stessa collection (un chiamante non puo'
  * modificare la base di conoscenza di un altro progetto o cliente passando un id qualsiasi).
  * Senza `$id`, una voce con la stessa domanda nella collection viene aggiornata invece di duplicata.
+ *
+ * @see docs/contracts/save-knowledge-entry-action.md
+ *
+ * @contract docs/contracts/save-knowledge-entry-action.md
  */
 final class SaveKnowledgeEntryAction
 {

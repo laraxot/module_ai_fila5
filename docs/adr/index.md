@@ -11,6 +11,6 @@ updated: 2026-11-26
 
 Indice operativo della cartella owner-local. Il formato e la governance condivisi sono in [Xot](../../../Xot/docs/adr/README.md).
 
-- [ai-proposes-human-confirms.md](ai-proposes-human-confirms.md)
-- [assistant-provider-cascade.md](assistant-provider-cascade.md)
-- [user-ids-are-strings.md](user-ids-are-strings.md)
+- [0001-ai-proposes-human-confirms.md](0001-ai-proposes-human-confirms.md)
+- [0002-assistant-provider-cascade.md](0002-assistant-provider-cascade.md)
+- [0003-user-ids-are-strings.md](0003-user-ids-are-strings.md)

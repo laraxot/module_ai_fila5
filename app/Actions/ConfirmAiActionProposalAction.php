@@ -17,6 +17,8 @@ use Spatie\QueueableAction\QueueableAction;
  * On success the proposal is marked `executed`, on failure `failed` with the
  * error message stored for audit/debugging.
  *
+ * @see docs/contracts/confirm-ai-action-proposal-action.md
+ *
  * @contract docs/contracts/confirm-ai-action-proposal-action.md
  */
 class ConfirmAiActionProposalAction

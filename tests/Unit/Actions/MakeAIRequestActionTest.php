@@ -31,7 +31,7 @@ describe('MakeAIRequestAction config', function (): void {
         Assert::assertSame('{"ok":true}', $content);
         Http::assertSent(fn (Request $request): bool => $request->hasHeader('Authorization', 'Bearer sk-from-services')
             && $request->url() === 'https://api.openai.com/v1/chat/completions');
-    });
+    })->group('AI-REQUEST-INV-1', 'AI-REQUEST-INV-2');
 
     test('_keeps_gpt_4_with_temperature_0_3_and_2000_tokens_when_no_setting_is_saved', function (): void {
         config(['services.openai.api_key' => 'sk-from-services', 'ai.openai_api_key' => null]);
@@ -43,7 +43,7 @@ describe('MakeAIRequestAction config', function (): void {
         Http::assertSent(fn (Request $request): bool => $request['model'] === 'gpt-4'
             && $request['temperature'] === 0.3
             && $request['max_tokens'] === 2000);
-    });
+    })->group('AI-REQUEST-INV-2');
 
     test('_ai_keys_override_services_openai_keys', function (): void {
         config([
@@ -57,7 +57,7 @@ describe('MakeAIRequestAction config', function (): void {
 
         Http::assertSent(fn (Request $request): bool => $request->hasHeader('Authorization', 'Bearer sk-from-ai')
             && $request->url() === 'https://llm.example.test/v1/chat/completions');
-    });
+    })->group('AI-REQUEST-INV-1', 'AI-REQUEST-INV-2');
 });
 
 describe('Ticket AI actions', function (): void {
@@ -94,7 +94,7 @@ describe('Ticket AI actions', function (): void {
                 && str_contains($prompt, 'Titolo: Rifiuti abbandonati')
                 && str_contains($prompt, 'Descrizione: Via Roma 1');
         });
-    });
+    })->group('AI-CLASSIFY-INV-2');
 
     test('_suggest_sends_the_solutions_prompt_with_the_category', function (): void {
         config(['cache.default' => 'array']);
@@ -128,5 +128,5 @@ describe('Ticket AI actions', function (): void {
             return str_contains($prompt, 'Suggerisci soluzioni per questo ticket di infrastruttura')
                 && str_contains($prompt, 'Titolo: Buca');
         });
-    });
+    })->group('AI-SUGGEST-INV-2');
 });

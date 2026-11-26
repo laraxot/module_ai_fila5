@@ -3,9 +3,10 @@ title: "ADR — L'assistente chiede la risposta a più fornitori in cascata, sol
 type: decision
 status: accepted
 module: AI
+decision-makers: AI module owner
 tags: [adr, ai, assistente, groq, openrouter, openai, costi]
 created: 2026-11-24
-updated: 2026-11-24
+updated: 2026-11-26
 related:
   - ../contracts/request-assistant-completion-action.md
   - ../stories/assistant-provider-cascade.story.md
@@ -31,6 +32,12 @@ related:
 - Vincolo tecnico: con `response_format: json_object` Groq e OpenAI rispondono 400 se nessun messaggio nomina «json»; senza
   accorgimento il fornitore verrebbe saltato a ogni chiamata.
 
+## Alternative scartate
+
+- Solo OpenAI: costo a ogni domanda e un solo punto di guasto.
+- Un SDK per fornitore (es. client Groq dedicato): tre client per la stessa API compatibile OpenAI.
+- Scegliere il fornitore a caso o per carico: l'ordine fisso rende prevedibili costi e qualità, e si cambia da configurazione del tenant.
+
 ## Decisione
 
 - `Assistant\RequestAssistantCompletionAction` prova i fornitori di `AIConfigData::$assistant_providers` in ordine (default Groq, poi
@@ -39,12 +46,6 @@ related:
 - Con `free_models_only` (default `true`) un modello a pagamento della cascata si salta prima della chiamata (`AiProviderEnum::isFreeModel`).
 - Riuso di `AiProviderEnum` e `Vision\OpenAiCompatibleRequestAction`, già usati per le immagini: nessun client HTTP nuovo.
 - `JSON_INSTRUCTION` si aggiunge al prompt di sistema se nessun messaggio nomina JSON.
-
-## Alternative scartate
-
-- Solo OpenAI: costo a ogni domanda e un solo punto di guasto.
-- Un SDK per fornitore (es. client Groq dedicato): tre client per la stessa API compatibile OpenAI.
-- Scegliere il fornitore a caso o per carico: l'ordine fisso rende prevedibili costi e qualità, e si cambia da configurazione del tenant.
 
 ## Conseguenze
 
@@ -55,13 +56,19 @@ related:
 
 ## Conferma
 
-La decisione è rispettata finché `RequestAssistantCompletionActionTest` resta verde: ordine Groq → OpenRouter → OpenAI, passaggio al
-successivo su errore o assenza di chiave, nessuna chiamata a un modello a pagamento con `free_models_only` attivo, istruzione JSON
-aggiunta quando manca. I default (`assistant_providers`, `assistant_models`, `assistant_timeout`, `free_models_only`) stanno in
-`Modules/AI/app/Datas/AIConfigData.php` e si cambiano da configurazione del tenant, non nel codice.
+`cd laravel && vendor/bin/pest Modules/AI/tests/Unit/Assistant/RequestAssistantCompletionActionTest.php` (4 test, HTTP finto, non rieseguiti in
+questa revisione; group `AI-ASSIST-INV-1`…`AI-ASSIST-INV-4`) fallisce se cambia l'ordine Groq → OpenRouter, se un errore non passa al
+fornitore successivo, se un fornitore senza chiave viene chiamato o se manca l'istruzione «json». I default (`assistant_providers`,
+`assistant_models`, `assistant_timeout`, `free_models_only`) stanno in `Modules/AI/app/Datas/AIConfigData.php` e si cambiano da
+configurazione del tenant, non nel codice.
 
-## Verifica
+Nessuna conferma automatica per «con `free_models_only` un modello a pagamento si salta» (`AI-ASSIST-INV-5` non ha test) né per
+l'ultimo tentativo: proposta, un test che configuri un fornitore con modello a pagamento e verifichi che non venga chiamato.
 
-`vendor/bin/pest Modules/AI/tests/Unit/Assistant/RequestAssistantCompletionActionTest.php` (5 test, HTTP finto, verdi il 2026-11-24;
-group `AI-ASSIST-INV-1`…`AI-ASSIST-INV-5`): fallisce se cambia l'ordine, se un errore non passa al successivo, se si chiama un modello a
-pagamento con `free_models_only` o se manca la parola «json».
+## Stato attuale
+
+L'ADR dice «solo modelli gratuiti», ma l'ultima spiaggia lo contraddice: se la cascata non risponde, l'Action chiama
+`MakeAIRequestAction` (riga 80 di `RequestAssistantCompletionAction.php`), che usa `gpt-4` a pagamento senza guardare
+`free_models_only`. Il debito è già in «Conseguenze»; il contratto lo ripete tra i
+[limiti noti](../contracts/request-assistant-completion-action.md). Decisione umana aperta: togliere OpenAI dall'ultimo tentativo,
+oppure accettarlo e aggiornare il titolo dell'ADR.
