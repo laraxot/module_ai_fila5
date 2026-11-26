@@ -28,9 +28,7 @@ Le Actions di dominio AI (Ollama, compression, predictions) vivono in
 | **Setup** | MCP Server Setup | [mcp/01-installazione-2.md](mcp/01-installazione-2.md) |
 | **Config** | Configurazione | [mcp/02-configurazione-2.md](mcp/02-configurazione-2.md) |
 | **Usage** | Utilizzo pratico | [mcp/03-utilizzo-2.md](mcp/03-utilizzo-2.md) |
-| **Integration** | Chat System | [chat.md](chat.md) |
 | **Training** | Fine Tuning | [fine-tuning-2.md](fine-tuning-2.md) |
-| **Tools** | Ollama, CLI Tools | [ollama.md](ollama.md), [tools.md](tools.md) |
 | **Troubleshooting** | Errori comuni | [mcp/06-troubleshooting-2.md](mcp/06-troubleshooting-2.md) |
 
 ## 🎯 Core Features
@@ -81,7 +79,6 @@ La documentazione fa riferimento alle seguenti risorse esterne:
 - [Laravel MCP SDK](../../../../docs/project/references/laravel_mcp_sdk.md)
 - [Neuron AI Documentation](../../../../docs/project/references/neuron_ai_docs.md)
 - [AI Agents in PHP with MCP](../../../../docs/project/references/ai_agents_php_mcp.md)
-- [Laravel Helper Tools MCP server](../../../../docs/project/references/laravel_helper_tools.md)
 
 ## Implementazioni Open Source
 

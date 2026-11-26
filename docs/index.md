@@ -165,8 +165,6 @@ La guida numerata `mcp/NN-topic.md` e' la versione canonica di ciascun argomento
 
 | Doc | Contenuto |
 |---|---|
-| [chat.md](./chat.md) | Link di riferimento (Perplexity, HuggingFace playground) |
-| [tools.md](./tools.md) | Link di riferimento su tool Copilot/Ollama |
 | [repositories.md](./repositories.md) | Elenco repository PHP/AI di riferimento |
 | [video-tutorial.md](./video-tutorial.md) | Link a video tutorial Ollama + Llama 3 + Laravel |
 
