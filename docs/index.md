@@ -239,7 +239,7 @@ Le sottocartelle `raw/articles/`, `raw/comparisons/`, `raw/concepts/`, `raw/enti
 
 | Doc | Contenuto |
 |---|---|
-| [root-md-files/changelog.md](./root-md-files/changelog.md) | Nota di rimando: il changelog canonico e' `../../UI/docs/changelog.md` nella root del modulo |
+| [root-md-files/changelog.md](./root-md-files/changelog.md) | Nota di rimando: il changelog canonico e' `../../CHANGELOG.md` nella root del modulo |
 
 ## Storico / da consolidare
 
