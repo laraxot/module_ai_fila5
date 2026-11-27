@@ -92,7 +92,7 @@ Nessun contenuto di questo PRD autorizza invii di marketing, scraping non consen
 
 ## Delivery plan
 
-- **Gate 0 — Safety**: [#33](https://github.com/laraxot/module_ai_fila5/issues/33), [#36](https://github.com/laraxot/module_ai_fila5/issues/36).
+- **Gate 0 — Safety**: [#33](https://github.com/laraxot/module_ai_fila5/issues/33), [#36](https://github.com/laraxot/module_ai_fila5/issues/36), [#42](https://github.com/laraxot/module_ai_fila5/issues/42) per approval replay.
 - **Gate 1 — Data**: [#40](https://github.com/laraxot/module_ai_fila5/issues/40), [#39](https://github.com/laraxot/module_ai_fila5/issues/39).
 - **Gate 2 — Intelligence & UX**: [#37](https://github.com/laraxot/module_ai_fila5/issues/37), [#38](https://github.com/laraxot/module_ai_fila5/issues/38), [#34](https://github.com/laraxot/module_ai_fila5/issues/34).
 - **Gate 3 — Runtime readiness**: [#41](https://github.com/laraxot/module_ai_fila5/issues/41), con evidence da app host; poi [#35](https://github.com/laraxot/module_ai_fila5/issues/35).
