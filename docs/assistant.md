@@ -4,7 +4,7 @@ type: guide
 module: AI
 tags: [ai, assistant, knowledge-base, handoff, report]
 created: 2026-11-16
-updated: 2026-11-17
+updated: 2026-11-16
 qmd: "assistant knowledge base handoff report"
 issues: [25, 26]
 discussions: []
@@ -71,6 +71,8 @@ $report = app(BuildAssistantReportAction::class)->execute('my-project-faq', now(
 ### Parole sensibili (opzionale)
 
 Di default la lista è **vuota**: il modulo AI non decide cosa è sensibile per un progetto.
+Il progetto la imposta nella propria configurazione:
+
 Si possono passare per singola chiamata (`handoffKeywords`, es. diverse per ogni attività) oppure
 impostarle per tutto il progetto nella configurazione:
 

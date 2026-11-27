@@ -20,6 +20,10 @@ use Spatie\QueueableAction\QueueableAction;
  * Essendo un'azione queueable puo' essere eseguita in modo sincrono
  * (`app(ClassifyTicketAction::class)->execute($title, $description)`) oppure
  * dispatchata su coda (`ClassifyTicketAction::dispatch($title, $description)`).
+ *
+ * @see docs/contracts/classify-ticket-action.md
+ *
+ * @contract docs/contracts/classify-ticket-action.md
  */
 final class ClassifyTicketAction
 {

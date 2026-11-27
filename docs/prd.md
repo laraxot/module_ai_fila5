@@ -1,135 +1,110 @@
 ---
-title: "prd"
-type: note
-tags: [documentation]
+title: "AI Module — Product Requirements Document"
+type: product-requirements
+module: AI
+status: living
 created: 2026-09-26
-updated: 2026-09-26
-qmd: "prd"
-issues: []
-discussions: []
+updated: 2026-11-27
+qmd: "Laraxot AI module PRD agent assistant predictions prospecting reusable Actions privacy tenant LLM"
+tags: [prd, bmad, architecture, ai, prospecting]
+issues:
+  - "https://github.com/laraxot/module_ai_fila5/issues/26"
+  - "https://github.com/laraxot/module_ai_fila5/issues/32"
+  - "https://github.com/laraxot/module_ai_fila5/issues/41"
+related:
+  - ./adr/0001-ai-proposes-human-confirms.md
+  - ./bmad/prospecting-story.md
+  - ./github-ops/00-index.md
 ---
 
-# AI - Product Requirements Document (PRD)
+# AI Module — Product Requirements Document (BMAD)
 
-> Documento vivente. Modulo di integrazione AI del progetto.
-> Stato stimato: 55% implementato, 45% da convergere.
+> Documento vivente del modulo trasversale **AI**. Non assegnare percentuali di completamento senza test o una matrice di requisiti verificati. Lo stato dipende anche dall'applicazione ospitante.
 
-## 1. Purpose & Vision
+## Visione e confini
 
-Il modulo **AI** fornisce il layer di integrazione con modelli e provider AI per generare contenuti, draft, classificazioni e automazioni assistite. Nel progetto prediction market il suo ruolo non e' sostituire il dominio, ma accelerare workflow editoriali e operativi con output controllabili.
+`Modules/AI` espone capacità AI riutilizzabili e controllate: integrazione provider, thread, base di conoscenza, interpretazione/suggerimento, agenti e tool, proposte di azione con conferma, estrazione da immagini, e **ricerca/qualificazione aziende B2B**. È un'infrastruttura **agnostica rispetto al dominio**. I moduli host (Restaurant, TechPlanner, Village, Ticket, ecc.) decidono business rules, offerte, customer records, accessi e azioni operative. AI non esegue decisioni finali irreversibili.
 
-**Visione**: AI come infrastruttura applicativa affidabile, osservabile e sostituibile, costruita con action piccole e queueable quando serve, con fallback deterministici quando il provider esterno non e' disponibile.
+Nessun contenuto di questo PRD autorizza invii di marketing, scraping non consentito, attivazione di servizi a pagamento o modifiche di produzione.
 
-## 2. Problem Statement
+## Utenti e bisogni
 
-Senza il modulo AI:
-- i contenuti seed, draft e assistiti vengono creati manualmente
-- i flussi admin dipendono da copy hardcoded o dati sintetici incoerenti
-- manca un punto unico per provider, prompt, fallback e telemetria
+| Persona | Lavoro da svolgere | Limite da rispettare |
+|---|---|---|
+| Integratore modulo host | Chiamare Action tipizzate, modificare prompt/config e registrare handler | Non creare dipendenze AI → dominio host |
+| Operatore back office | Consultare conoscenza, proposte e prospect; approvare bozze | Accesso per workspace/ruolo e audit |
+| Product owner | Valutare qualità, costi, errori, funnel e valore | Indicatori reali, non dedotti |
+| Security/privacy owner | Impostare permessi, policy e limiti di trattamento | Consenso, minimizzazione, DNC e retention |
+| Utente finale | Ricevere assistenza e eventuale passaggio a persona | Nessuna azione AI incontrollata |
 
-## 3. Target Users
+## Scope funzionale
 
-| User | Ruolo | Bisogni |
-|------|-------|---------|
-| **Admin editoriale** | Popola contenuti e prediction | Draft coerenti e realistici |
-| **Product owner** | Misura qualita' output | Controllo costi, fallback, audit |
-| **Sviluppatore** | Integra nuove action AI | Contratti tipizzati e provider sostituibili |
+### Core AI già rappresentato nel repository
 
-## 4. Scope
+- Action per richieste a provider AI con configurazione, errori e fallback.
+- Assistente basato su `AiKnowledgeEntry` e handoff quando non c'è risposta affidabile.
+- `AiActionProposal` con registro `AiActionHandlerRegistry`: proposta dal modello, conferma da persona, handler nel dominio host (vedi ADR-0001).
+- AG-UI / Neuron e MCP per agenti assistiti, con tool che richiedono approval.
+- Vision/extraction, sentiment, prediction drafts come **casi di utilizzo**; le regole finali restano del host.
+- Funzioni di prospecting B2B: DTO/Action pure, import CSV/OSM-export, persistenza aziendale, scoring indiziario, brief, bozza interna e soppressione; **stato provvisorio** finché gate #33/#36/#41 non sono verdi.
 
-### In Scope
-- Action AI invocabili dal dominio e dall'admin
-- Draft generation per prediction e contenuti editoriali
-- Fallback locale quando il provider non e' configurato
-- Configurazione provider, chiavi, modelli e timeout
-- Telemetria minima di esecuzione e logging errori
+### Non in scope per il modulo AI
 
-### Out of Scope
-- Decisioni autonome di business sul settlement dei mercati
-- Persistenza diretta di denaro, payout o ledger
-- Prompt non tracciabili o logica AI dispersa nei controller
+- Proprietà dei modelli CRM, quote, fatture, pipeline commerciale del progetto host.
+- Invio automatico di cold email/SMS/call, selezione autonoma di destinatari, registrazioni vocali senza consenso.
+- Uso del servizio Overpass pubblico come provider commerciale non autorizzato; scraping di dati personali/aree protette.
+- Copia di codice AGPL Sellbird in un progetto MIT senza review legale/di licenza.
 
-## 5. Functional Requirements (Prioritized)
+## Requisiti funzionali verificabili
 
-### P0: Core
-- **FR-001**: Esporre action AI riusabili dal dominio applicativo.
-- **FR-002**: Restituire output strutturati e validabili, non testo libero fragile.
-- **FR-003**: Garantire fallback deterministici quando manca la configurazione del provider.
-- **FR-004**: Consentire la generazione di prediction draft con titolo, summary, categoria, tag e approfondimento.
+| ID | Priorità | Requisito e accettazione |
+|---|---|---|
+| AI-001 | P0 | Tutte le Actions hanno contratti espliciti e testabili senza accesso reale ai provider; output parsati/validati |
+| AI-002 | P0 | Nessun side effect di dominio senza approvazione e verifica server-side dello stato (no replay/race) |
+| AI-003 | P0 | Autorizzazione su workspace, modello, thread e strumenti per ogni chiamata esposta |
+| AI-004 | P1 | Provider e fallback sostituibili; logging redatto, costi e limiti osservabili |
+| AI-005 | P1 | Base di conoscenza isolata e provenance delle risposte; domanda ignota → handoff |
+| PRO-001 | P0 | Sorgenti lecite, consenso e suppression duratura prima di interazioni personali (#36) |
+| PRO-002 | P0 | Nessun fetch remoto arbitario/SSRF e failure senza score positivo (#33) |
+| PRO-003 | P1 | Import CSV/OSM-export e provider adapter con licenza/costo, preview e idempotenza (#39) |
+| PRO-004 | P1 | `AiProspect` e osservazioni isolate per workspace, identità robuste a sedi/rebrand (#40) |
+| PRO-005 | P1 | Evidence timestamp/confidence + ICP e score riproducibili; claim verificabili (#37) |
+| PRO-006 | P1 | Back office Filament con vista per operatori, review, audit e niente invio (#38) |
+| PRO-007 | P1 | Inbound consensuale e CRM/calendario tramite adapter/handler host (#34) |
+| PRO-008 | P2 | Suggerimenti di follow-up, proposta, coach e forecast come capacità opzionali (#35) |
 
-### P1: Reliability
-- **FR-005**: Registrare errori, sorgente output (`provider` vs `fallback`) e volumetrie.
-- **FR-006**: Separare prompt, parsing e persistenza finale.
-- **FR-007**: Rendere ogni action testabile senza chiamate reali al provider.
+## Qualità non funzionale / ECC
 
-### P2: Evolution
-- **FR-008**: Supportare provider multipli senza cambiare il chiamante.
-- **FR-009**: Introdurre quality scoring automatico sugli output.
+- PHP 8.4, Laravel 13, Filament 5 secondo host; classi Action conformi a Spatie QueueableAction con `execute()`.
+- Coerenza Laraxot: `XotBaseModel`, `XotBaseMigration`, policy Xot/Filament e contratti espliciti; no nuovo modulo.
+- Target PHPStan di progetto, Pint, Pest unit/integration e test browser dove necessario; esecuzione sul host obbligatoria prima di “verified”.
+- Resilienza: dry-run default, rate/cost budgets, error states distinti, retry idempotenti, concurrency-safe, audit senza dati personali in chiaro.
+- Security: SSRF, prompt injection, CSV/import injection, excessive size, secret leak, RBAC, multi-tenant, rights-to-erasure, consent and DNC.
+- Privacy by design: data minimization e scadenza delle osservazioni; provider license e finalità sono parte dell'import.
+- Documentation: BMAD PRD → ADR → story → ECC evidence → Second Brain QMD. Nessun file spezzato o link a path inesistenti accettato come definitivo.
 
-## 6. Non-Functional Requirements
+## Success metrics — da misurare, non inventare
 
-- **NFR-001**: PHPStan a `level: max` senza modificare `laravel/phpstan.neon`.
-- **NFR-002**: Nessuna dipendenza hardcoded da un solo provider.
-- **NFR-003**: Fallback disponibile nel 100% dei flussi critici admin.
-- **NFR-004**: Nessuna persistenza di output AI non validato contro schema reale.
-- **NFR-005**: Nessun nuovo `Service` applicativo; usare `Actions` e `QueueableAction`.
+- Qualità: percentuale di osservazioni con fonte verificabile, tasso di duplicati, falsi positivi dei segnali, soppressioni correttamente propagate.
+- Affidabilità: test veri/verdi, regressioni, vulnerabilità aperte, tentativi di accesso inter-workspace bloccati, error budget provider.
+- Funnel: `discovered`, `qualified`, `reviewed`, `consented`, `handed_off`, `meeting`, `won`, distinti e derivati da eventi reali dell'host.
+- Efficienza: tempo umano per ricerca e verifica, costo per fonte/lavorazione quando disponibile.
 
-## 7. Technical Architecture
+## Delivery plan
 
-- **Dipendenze principali**: Xot, Predict, Blog, Filament.
-- **Pattern**: action-oriented architecture; quando serve asincronia o invocabilita' uniforme, usare `spatie/laravel-queueable-action`.
-- **Ingressi**: prompt contestuali, metadata di dominio, count/obiettivo.
-- **Uscite**: array tipizzati o DTO da validare prima della persistenza.
-- **Osservabilita'**: logging applicativo e notifica admin sul risultato.
+- **Gate 0 — Safety**: [#33](https://github.com/laraxot/module_ai_fila5/issues/33), [#36](https://github.com/laraxot/module_ai_fila5/issues/36), [#42](https://github.com/laraxot/module_ai_fila5/issues/42) per approval replay.
+- **Gate 1 — Data**: [#40](https://github.com/laraxot/module_ai_fila5/issues/40), [#39](https://github.com/laraxot/module_ai_fila5/issues/39).
+- **Gate 2 — Intelligence & UX**: [#37](https://github.com/laraxot/module_ai_fila5/issues/37), [#38](https://github.com/laraxot/module_ai_fila5/issues/38), [#34](https://github.com/laraxot/module_ai_fila5/issues/34).
+- **Gate 3 — Runtime readiness**: [#41](https://github.com/laraxot/module_ai_fila5/issues/41), con evidence da app host; poi [#35](https://github.com/laraxot/module_ai_fila5/issues/35).
 
-## 8. Current State & Gaps
+Le implementazioni parziali esistenti su `dev` non spostano un gate a “done” senza test e review. Per l'architettura e gli acceptance criteri tecnici usa [prospecting BMAD story](./bmad/prospecting-story.md), per tutte le superfici GitHub usa [operations map](./github-ops/00-index.md).
 
-### Stato reale al 2026-03-12
-- Generazione draft prediction disponibile: **70%**
-- Fallback deterministici disponibili: **80%**
-- Telemetria e quality scoring: **25%**
-- Supporto provider multipli ben convergente: **35%**
-- Copertura test orientata ai casi business: **45%**
+## Rischi e decisioni aperte
 
-### Gap prioritari
-- Mancano metriche affidabili su costo, latenza, tasso fallback e qualita' output.
-- Il modulo e' forte sulla generazione, ma debole nella governance del risultato.
-- Serve un contratto unico per draft AI riusabile anche fuori dal seed admin.
+1. `Prospect` vs `Prospecting`: consolidare namespace senza rompere chi usa le Action.
+2. Filtro OSM ristorazione hardcoded nel modulo condiviso: renderlo parametro provider/host.
+3. Dedupe su solo dominio: può collassare più sedi aziendali.
+4. Consent registry per canali/territori, retention e gestione rettifiche non ancora completo.
+5. Host-migration e PHPStan/Pest non verificati in questa analisi.
 
-## 9. Success Metrics & KPIs
-
-| Metrica | Target |
-|--------|--------|
-| Generazione draft admin senza errori schema | 95% |
-| Fallback successful rate nei flussi critici | 100% |
-| PHPStan su `Modules/AI` | 0 errori |
-| Test deterministici sulle action core | 90% dei flussi P0 |
-
-## 10. Risks & Assumptions
-
-- Assunzione: il progetto deve funzionare anche senza provider esterno configurato.
-- Rischio: prompt drift e parsing fragile degradano la qualita' dei seed.
-- Rischio: side effects nascosti nelle action AI rendono i test poco affidabili.
-
-## 11. Release Priorities
-
-### Fase 1
-- Consolidare i contratti di draft prediction.
-- Estendere logging e reporting admin.
-
-### Fase 2
-- Introdurre scoring qualitativo e retry policy.
-- Aggiungere provider multipli dietro un contratto comune.
-
-## 12. References
-
-- [predict-drafts-contract.md](predict-drafts-contract.md)
-- [roadmap-and-issues.md](roadmap-and-issues.md)
-- [PRD Indice Centrale](../../../../docs/project/PRD_INDEX_2026_03_12.md)
-
-## Testing & Coverage
-
-Il modulo AI segue la metodologia operativa del progetto:
-- test su action e flussi business verificabili
-- nessun `RefreshDatabase`
-- fallback sempre verificabile anche senza provider reale
+**Conferma del risultato**: code review del branch `dev`, acceptance per ogni requisito, policy privacy validata, verifica runtime e fonti delle metriche.

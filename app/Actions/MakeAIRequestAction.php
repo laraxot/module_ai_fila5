@@ -16,6 +16,10 @@ use Webmozart\Assert\Assert;
  *
  * Riproduce in modo identico la logica di `AIService::makeAIRequest()` (log, tentativi,
  * backoff) in forma indipendente e riutilizzabile da ogni azione queueable AI.
+ *
+ * @see docs/contracts/make-ai-request-action.md
+ *
+ * @contract docs/contracts/make-ai-request-action.md
  */
 final class MakeAIRequestAction
 {

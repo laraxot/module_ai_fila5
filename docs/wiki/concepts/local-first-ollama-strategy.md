@@ -12,7 +12,7 @@ discussions: []
 # Local-First Ollama Strategy
 
 > Updated: 2026-04-15
-> Sources: [../../ollama-strategy.md](../../ollama-strategy.md), [../../tools.md](../../tools.md)
+> Sources: ../../ollama-strategy.md (rimossa docs/tools.md nel cleanup docs 2026-11)
 > Raw: [../../ollama.md](../../ollama.md), [../../ollama-mcp-setup.md](../../ollama-mcp-setup.md), [../../ollama-mcp-usage-guide.md](../../ollama-mcp-usage-guide.md)
 
 ## Summary

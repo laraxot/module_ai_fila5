@@ -23,6 +23,10 @@ use function Safe\preg_replace;
  *
  * This action uses OpenAI API to generate realistic prediction market data
  * including title, description, content, category, tags, and market parameters.
+ *
+ * @see docs/contracts/generate-predictions-action.md
+ *
+ * @contract docs/contracts/generate-predictions-action.md
  */
 class GeneratePredictionsAction
 {
@@ -272,7 +276,7 @@ PROMPT;
             }
 
             $closedAt = new DateTime(trim((string) $rawClosedAt));
-            if ($closedAt <= new DateTime) {
+            if ($closedAt <= new DateTime()) {
                 throw new InvalidArgumentException('closed_at must be in the future');
             }
         } catch (Exception) {

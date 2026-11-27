@@ -13,6 +13,10 @@ use Spatie\QueueableAction\QueueableAction;
 /**
  * POST JSON verso un fornitore compatibile OpenAI (OpenRouter, Groq) con la sua chiave da `.env`.
  * Le intestazioni HTTP-Referer e X-Title servono solo a OpenRouter per riconoscere l'app.
+ *
+ * @see docs/contracts/open-ai-compatible-request-action.md
+ *
+ * @contract docs/contracts/open-ai-compatible-request-action.md
  */
 class OpenAiCompatibleRequestAction
 {

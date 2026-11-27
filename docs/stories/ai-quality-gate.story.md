@@ -49,3 +49,4 @@ date_originale_nome_file: 2026-09-04
 - `docs/coverage.md`, `docs/queueable-actions.md`, `docs/wiki/concepts/ai-services-support-to-actions.md` — aggiornati.
 
 Dettaglio numeri completi: `Modules/AI/docs/coverage.md`.
+

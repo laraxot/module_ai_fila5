@@ -11,6 +11,10 @@ use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
+<<<<<<< .merge_file_vOAQfK
+=======
+use RuntimeException;
+>>>>>>> .merge_file_KQW9e1
 
 uses(TestCase::class);
 
@@ -31,6 +35,7 @@ function confirmableProposal(string $type): AiActionProposal
     return $proposal;
 }
 
+<<<<<<< .merge_file_vOAQfK
 function confirmHandler(string $type, ?\Throwable $failure = null): AiActionHandlerContract
 {
     return new class($type, $failure) implements AiActionHandlerContract
@@ -51,6 +56,38 @@ function confirmHandler(string $type, ?\Throwable $failure = null): AiActionHand
             return ['done' => true];
         }
     };
+=======
+/**
+ * @see \Modules\AI\Contracts\AiActionHandlerContract — il doppio conserva il contratto del registry
+ * @see \Modules\AI\Actions\ConfirmAiActionProposalAction::execute() — il contatore verifica il rifiuto del replay
+ */
+final class ConfirmTestHandler implements AiActionHandlerContract
+{
+    public int $calls = 0;
+
+    public function __construct(private readonly string $type, private readonly ?\Throwable $failure) {}
+
+    public function type(): string
+    {
+        return $this->type;
+    }
+
+    public function handle(AiActionProposal $proposal): array
+    {
+        ++$this->calls;
+
+        if ($this->failure !== null) {
+            throw $this->failure;
+        }
+
+        return ['done' => true];
+    }
+}
+
+function confirmHandler(string $type, ?\Throwable $failure = null): ConfirmTestHandler
+{
+    return new ConfirmTestHandler($type, $failure);
+>>>>>>> .merge_file_KQW9e1
 }
 
 test('_confirms_with_the_uuid_of_the_user_and_executes_the_registered_handler', function (): void {
@@ -84,3 +121,30 @@ test('_stores_the_handler_error_instead_of_throwing_it', function (): void {
     Assert::assertSame(AiActionProposalStatusEnum::FAILED, $proposal->status);
     Assert::assertSame('dominio non disponibile', $proposal->getAttribute('error'));
 })->group('AI-CONFIRM-INV-3', 'AI-CONFIRM-INV-4');
+<<<<<<< .merge_file_vOAQfK
+=======
+
+/**
+ * @see \Modules\AI\Actions\ConfirmAiActionProposalAction::execute() — una proposta non PENDING non deve invocare l'handler
+ */
+test('_rejects_confirm_when_proposal_is_not_pending_to_prevent_replay', function (): void {
+    $handler = confirmHandler('noop');
+    $registry = (new AiActionHandlerRegistry)->register($handler);
+
+    $proposal = new AiActionProposal;
+    $proposal->forceFill([
+        'type' => 'noop',
+        'payload' => ['x' => 1],
+        'status' => AiActionProposalStatusEnum::EXECUTED,
+    ]);
+
+    try {
+        (new ConfirmAiActionProposalAction($registry))->execute($proposal, 'user-1');
+        Assert::fail('Expected RuntimeException for non-PENDING confirm');
+    } catch (RuntimeException $e) {
+        Assert::assertStringContainsString('only PENDING is allowed', $e->getMessage());
+    }
+
+    Assert::assertSame(0, $handler->calls);
+})->group('AI-CONFIRM-INV-5', 'AI-PROSPECTING-INV-42');
+>>>>>>> .merge_file_KQW9e1

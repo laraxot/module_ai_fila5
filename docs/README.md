@@ -1,133 +1,66 @@
 ---
-qmd: "README"
-issues: []
-discussions: []
-title: "AI Module Documentation"
-type: documentation
-tags: [module, documentation]
+title: "AI Module — documentation index"
+type: index
+module: AI
+status: active
 created: 2026-06-05
-updated: 2026-07-24
+updated: 2026-11-27
+qmd: "AI module documentation index Laraxot MCP LLM agent assistant prospecting BMAD ECC Second Brain"
+tags: [documentation, ai, index, mcp, bmad, ecc]
+issues:
+  - "https://github.com/laraxot/module_ai_fila5/issues/28"
+  - "https://github.com/laraxot/module_ai_fila5/issues/32"
+related:
+  - ../README.md
+  - ./wiki/index.md
+  - ./github-ops/00-index.md
 ---
 
-# 🤖 AI Module - Integrazione MCP
+# AI Module — Documentazione canonica
 
-## Ownership Actions (obbligatorio)
+Il modulo AI fornisce **integrazioni LLM, agenti, base di conoscenza e proposte controllate** condivisibili tra applicazioni Laravel/Laraxot. Il dominio host definisce proprie regole, ruoli, clienti e azioni operative. La documentazione è owner-local e deve contenere riferimenti verificabili al branch `dev`.
 
-Le Actions di dominio AI (Ollama, compression, predictions) vivono in
-`app/Actions/` di **questo** modulo — mai in `Modules/Xot/app/Actions/AI/`.
+## Indice verificato nel repository
 
-| Doc | Link |
-|-----|------|
-| Wiki ownership | [wiki/concepts/ollama-actions-ownership.md](wiki/concepts/ollama-actions-ownership.md) |
-| Move 2026-07-24 | [ollama-actions-moved-from-xot.md](ollama-actions-moved-from-xot.md) |
-| Root rule | [domain-actions-belong-to-domain-module](../../../../docs/wiki/rules/domain-actions-belong-to-domain-module.md) |
+| Scopo | Documento |
+|---|---|
+| Visione e requisiti | [PRD agnostico](prd.md) |
+| Fasi, priorità e release gate | [Roadmap](roadmap/README.md) |
+| Contratti Actions / invarianti | [Contracts](contracts/INDEX.md) |
+| Decisioni architetturali | [ADR index](adr/index.md) |
+| Agenti, protocollo e permessi tool | [AG-UI/Neuron agents](agents.md) |
+| MCP | [MCP](mcp.md) |
+| Assistente e base di conoscenza | [Assistant](assistant.md) |
+| Spatie Queueable Actions | [Queueable Actions](queueable-actions.md) |
+| Ricerca clienti e fonti | [Closer/Sellbird study](prompts/clients.md) |
+| Motore prospetti implementativo | [Prospecting](prospecting.md) |
+| BMAD story e DoD | [Prospecting epic](bmad/prospecting-story.md) |
+| GitHub issues/views/projects/etc | [GitHub operations](github-ops/00-index.md) |
+| Second Brain e QMD | [Wiki index](wiki/index.md) · [local discipline](wiki/concepts/second-brain-local-discipline.md) |
+| Manuale con catture reali archiviate | [Manuale utente](manuals/manuale-utente.md) |
+| Debito operativo | [Next steps](NEXT-STEPS.md) · [Stories](stories/) |
 
-## 📋 Quick Reference
-| Categoria | Guida | File |
-|-----------|-------| ---- |
-| **Setup** | MCP Server Setup | [mcp/01_installazione.md](mcp/01_installazione.md) |
-| **Config** | Configurazione | [mcp/02_configurazione.md](mcp/02_configurazione.md) |
-| **Usage** | Utilizzo pratico | [mcp/03_utilizzo.md](mcp/03_utilizzo.md) |
-| **Integration** | Chat System | [chat.md](chat.md) |
-| **Training** | Fine Tuning | [fine_tuning.md](fine_tuning.md) |
-| **Tools** | Ollama, CLI Tools | [ollama.md](ollama.md), [tools.md](tools.md) |
-| **Troubleshooting** | Errori comuni | [mcp/06_troubleshooting.md](mcp/06_troubleshooting.md) |
+## Confini e convenzioni
 
-## 🎯 Core Features
-- **MCP Protocol**: Database integration, external services, custom tools
-- **AI Chat**: Multi-user interface, context management, memory persistence
-- **Model Training**: Fine tuning, data preparation, deployment
+- `Actions` del dominio AI in `app/Actions/`, mai in `Modules/Xot/app/Actions/AI/`. `execute()` è il contratto pubblico, con QueueableAction quando richiesta.
+- Modelli/migrazioni rispettano le basi Xot; Filament segue la struttura Laraxot. Nessuna dipendenza AI verso dominio Restaurant, Village, TechPlanner o Ticket.
+- Per side effects: [ADR-0001](adr/0001-ai-proposes-human-confirms.md) impone approvazione umana + handler host; il debito attuale su replay/race è [#42](https://github.com/laraxot/module_ai_fila5/issues/42).
+- Per nuovi prospect: [#32](https://github.com/laraxot/module_ai_fila5/issues/32); sicurezza [#33](https://github.com/laraxot/module_ai_fila5/issues/33), privacy [#36](https://github.com/laraxot/module_ai_fila5/issues/36). Nessun automatic cold outreach.
+- Per sorgenti documentali: frontmatter `title,type,module,updated,qmd,issues,related` quando appropriato; fonti e osservazioni separate da inferenze.
 
-## 📁 Documentation Structure
-- `/mcp/` - Documentazione completa MCP (00-11)
-- `/tutorials/` - Tutorial pratici Laravel+MCP
-- `/phpstan/` - Configurazioni PHPStan
+## Verifiche in progetto host
 
-## Panoramica
+```bash
+cd laravel
+php artisan module:list
+php -l Modules/AI/app/Actions/Prospecting/ImportProspectCandidatesAction.php
+vendor/bin/pint --test Modules/AI
+vendor/bin/phpstan analyse Modules/AI --no-progress
+vendor/bin/pest Modules/AI/tests
+```
 
-Il modulo AI fornisce funzionalità di integrazione con il Model Context Protocol (MCP) per consentire alle applicazioni Laravel di comunicare efficacemente con modelli di linguaggio (LLM) e implementare agenti AI avanzati.
+Questi sono **comandi da eseguire**, non test dichiarati superati. Il workflow [Prospecting PHP syntax #5](https://github.com/laraxot/module_ai_fila5/actions/runs/45969852134) risulta positivo per `php -l` sul commit `5f3a72e`; non sostituisce migrazioni, test end-to-end e PHPStan nell'applicazione host.
 
-## Documentazione
+## Igiene e consolidamento
 
-Questa directory contiene la documentazione completa sull'integrazione MCP in Laravel, con particolare attenzione ai casi d'uso, all'implementazione e alle best practices.
-
-### Indice della Documentazione
-
-1. [Guida all'Integrazione MCP](./MCP_INTEGRATION_GUIDE.md)
-   - Panoramica completa del protocollo MCP
-   - Vantaggi dell'integrazione in Laravel
-   - Architettura e componenti principali
-   - Casi d'uso generali e implementazione base
-
-2. [Casi d'Uso di MCP in Laravel](./MCP_CASI_USO.md)
-   - Esempi dettagliati di casi d'uso specifici
-   - Automazione dei processi di business
-   - Assistenza utente e supporto
-   - Analisi e gestione dei dati
-   - Sviluppo e debugging
-
-3. [Implementazione MCP in Laravel](./MCP_IMPLEMENTAZIONE_LARAVEL.md)
-   - Guida dettagliata all'implementazione
-   - Sviluppo di strumenti MCP
-   - Integrazione con l'architettura esistente
-   - Testing e debugging
-   - Conformità con PHPStan Livello 9
-
-## Risorse Esterne
-
-La documentazione fa riferimento alle seguenti risorse esterne:
-
-- [Documentazione Ufficiale MCP](../../../../docs/project/references/mcp_documentation.md)
-- [Laravel MCP SDK](../../../../docs/project/references/laravel_mcp_sdk.md)
-- [Neuron AI Documentation](../../../../docs/project/references/neuron_ai_docs.md)
-- [AI Agents in PHP with MCP](../../../../docs/project/references/ai_agents_php_mcp.md)
-- [Laravel Helper Tools MCP server](../../../../docs/project/references/laravel_helper_tools.md)
-
-## Implementazioni Open Source
-
-Queste implementazioni open source possono essere utilizzate come riferimento:
-
-- [InnoGE/laravel-mcp](../../../../docs/project/references/innoge_laravel_mcp.md)
-- [OPGG/laravel-mcp-server](../../../../docs/project/references/opgg_laravel_mcp_server.md)
-
-## Contribuire
-
-Se desideri contribuire a questa documentazione o all'implementazione del modulo AI, segui le linee guida del progetto e assicurati che il codice sia conforme agli standard di PHPStan livello 9.
-
----
-
-> ℹ️ **Per l'installazione e la gestione centralizzata degli MCP servers, consulta la guida [INSTALLAZIONE_MCP_SERVERS.md](installazione_mcp_servers.md).**
-
-🔗 **Guida installazione MCP servers:** [INSTALLAZIONE_MCP_SERVERS.md](installazione_mcp_servers.md)
-
----
-
-*Ultimo aggiornamento: Maggio 2025*
-*Principio DRY: Una funzionalità = Una documentazione. Collegamenti logici e struttura pulita.*
-
-## AI Workflows
-- [AI Methodologies](./ai-methodologies.md)
-- [OpenViking Integration Guide](../../../../docs/openviking-integration.md)
-
-## LLM Wiki Workflow
-
-- Local compiled wiki: [./wiki/README.md](./wiki/README.md)
-- Local compiled index: [./wiki/index.md](./wiki/index.md)
-- Project wiki layer: [../../../../docs/wiki/README.md](../../../../docs/wiki/README.md)
-- Project compiled index: [../../../../docs/wiki/index.md](../../../../docs/wiki/index.md)
-- Adoption notes and QMD: [../../../../docs/project/karpathy-llm-wiki-adoption.md](../../../../docs/project/karpathy-llm-wiki-adoption.md), [../../../../docs/project/qmd-local-docs-search.md](../../../../docs/project/qmd-local-docs-search.md)
-- [AI LLM Wiki](./llm-wiki.md)
-
-
-## Standard Rules & Workflow
-
-- [[BMAD Method](../../../../docs/wiki/concepts/bmad-method.md)]
-- [[Context Engineering](../../../../docs/wiki/concepts/context-engineering.md)]
-- [[LLM Wiki Governance](../../../../docs/wiki/concepts/llm-wiki-governance.md)]
-
-## Documentation
-
-- [On-Demand Pattern](./on-demand-pattern.md) — Pattern per caricamento efficiente
-- [QMD Setup](./qmd-setup.md) — Configurazione ricerca locale
-- [Performance](./performance-optimization.md) — Metriche e best practice
-- [Project Structure](./project-structure.md) — Directory layout
+Nel repository erano presenti link nell'indice a cartelle/documenti non esistenti (es. `docs/mcp/01-installazione-2.md`, `docs/tutorials/`): sono stati rimossi **solo dall'indice**, senza cancellare dati o cambiare pagine legacy. L'iniziativa [#28](https://github.com/laraxot/module_ai_fila5/issues/28) richiede di mantenere la documentazione compatta: aggiornare pagine canoniche prima di creare duplicati. Nessuna percentuale di maturità viene presentata senza criteri osservati e prove riproducibili.

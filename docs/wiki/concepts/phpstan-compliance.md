@@ -6,7 +6,7 @@ title: "AI Module - PHPStan Type Compliance"
 type: concept
 tags: [ai, phpstan, types, compliance, quality, static-analysis]
 created: 2026-06-10
-updated: 2026-06-10
+updated: 2026-11-27
 related:
   - ../../../../Themes/Sixteen/docs/wiki/concepts/phpstan-compliance.md
   - ../../../../../docs/wiki/concepts/phpstan-level-max-compliance.md
@@ -64,6 +64,23 @@ AI/
 ✅ Response types specified.
 
 ## Enforcement
+
+### Regola assoluta (ADR 0004, 2026-11-27)
+
+**Nessuna segnalazione PHPStan si salta o si ignora, mai.** Vedi
+[ADR 0004 — PHPStan a zero errori](../../adr/0004-phpstan-zero-errori.md).
+
+- Vietati: `@phpstan-ignore*`, voci in baseline, `assert()`, `@var` inline e cast
+  aggiunti solo per zittire l'analisi.
+- Fix sempre alla radice: narrowing reale dei tipi, PHPDoc array shape, varianti
+  `Safe\*` di `thecodingmachine/safe`, costanti di classe tipizzate (PHP 8.3:
+  `public const string FOO = 'x';`), generics sui `Builder`.
+- Un lavoro PHP non è finito se `phpstan analyse Modules/AI` non torna **0 errori**.
+- **@see obbligatorio sui fix non banali** (ADR 0004): ogni fix porta un'annotazione `@see` nel
+  PHPDoc che punta alla fonte della decisione (error identifier phpstan.org, ADR, wiki/concetto)
+  — aumenta la semantica per i lettori e per gli agenti AI.
+- Attenzione ai marker `.merge_file_*` / `<<<<<<<` residui dopo merge: producono
+  errori `phpstan.parse` a raffica — verificare con `php -l` prima di analizzare.
 
 ### CI/CD Pipeline
 

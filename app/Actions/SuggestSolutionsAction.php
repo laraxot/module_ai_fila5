@@ -20,6 +20,10 @@ use Spatie\QueueableAction\QueueableAction;
  * Essendo un'azione queueable puo' essere eseguita in modo sincrono
  * (`app(SuggestSolutionsAction::class)->execute($title, $description, $category)`)
  * oppure dispatchata su coda (`SuggestSolutionsAction::dispatch($title, $description, $category)`).
+ *
+ * @see docs/contracts/suggest-solutions-action.md
+ *
+ * @contract docs/contracts/suggest-solutions-action.md
  */
 final class SuggestSolutionsAction
 {

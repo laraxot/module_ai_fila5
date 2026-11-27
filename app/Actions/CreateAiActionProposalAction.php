@@ -12,6 +12,10 @@ use Spatie\QueueableAction\QueueableAction;
 
 /**
  * Creates a new pending `AiActionProposal` for a thread.
+ *
+ * @see docs/contracts/create-ai-action-proposal-action.md
+ *
+ * @contract docs/contracts/create-ai-action-proposal-action.md
  */
 class CreateAiActionProposalAction
 {
@@ -27,7 +31,7 @@ class CreateAiActionProposalAction
         array $payload,
         ?string $preview = null,
     ): AiActionProposal {
-        $proposal = new AiActionProposal;
+        $proposal = new AiActionProposal();
         $proposal->fill([
             'public_id' => Uuid::uuid4()->toString(),
             'ai_thread_id' => $thread->getKey(),

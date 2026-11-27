@@ -11,6 +11,7 @@ use Modules\AI\Tests\TestCase;
 use NeuronAI\Providers\AIProviderInterface;
 use NeuronAI\Providers\OpenAILike;
 use ReflectionProperty;
+use UnexpectedValueException;
 
 uses(TestCase::class);
 
@@ -19,15 +20,21 @@ beforeEach(function (): void {
     config(['services.groq.key' => null, 'services.openrouter.key' => null]);
 });
 
+/**
+ * Legge baseUri da OpenAILike (proprieta' privata NeuronAI) dopo aver ristretto il contratto AIProviderInterface.
+ */
 function providerBaseUri(AIProviderInterface $provider): string
 {
     if (! $provider instanceof OpenAILike) {
-        return '';
+        throw new UnexpectedValueException('ResolveAgentProviderAction deve restituire OpenAILike.');
     }
 
     $baseUri = (new ReflectionProperty(OpenAILike::class, 'baseUri'))->getValue($provider);
+    if (! is_string($baseUri)) {
+        throw new UnexpectedValueException('OpenAILike::$baseUri deve essere string.');
+    }
 
-    return is_string($baseUri) ? $baseUri : '';
+    return $baseUri;
 }
 
 it('sceglie Groq quando ha la chiave', function (): void {

@@ -23,20 +23,16 @@ final class BuildAssistantReportAction
     {
         // Filtro nel database (percorsi JSON: MySQL, MariaDB, PostgreSQL, SQLite), non in PHP:
         // il report di una attivita' non deve leggere i messaggi di tutte le altre.
-        /** @var LazyCollection<int, AiMessage> $messages */
-        $messages = AiMessage::query()
+        // I payload restano in streaming (`lazyById`): non si materializza l'intero periodo in memoria.
+        /** @var LazyCollection<int, array<string, mixed>> $payloads */
+        $payloads = AiMessage::query()
             ->where('role', AiMessageRoleEnum::ASSISTANT->value)
             ->whereBetween('created_at', [$from, $to])
             ->where('payload->kind', AnswerQuestionAction::PAYLOAD_KIND)
             ->where('payload->collection', $collection)
-            ->lazyById();
-
-        /** @var list<array<string, mixed>> $payloads */
-        $payloads = $messages
-            ->map(static fn (AiMessage $message): mixed => $message->payload)
-            ->filter(static fn (mixed $payload): bool => is_array($payload))
-            ->values()
-            ->all();
+            ->lazyById()
+            ->map(static fn (AiMessage $message): ?array => $message->payload)
+            ->filter(static fn (?array $payload): bool => $payload !== null);
 
         return AssistantReportData::fromAnswerPayloads($payloads);
     }

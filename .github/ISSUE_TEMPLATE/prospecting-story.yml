@@ -1,0 +1,61 @@
+name: "Prospecting BMAD story"
+description: "Requisito riusabile del modulo AI con evidenze, acceptance e quality gate"
+title: "[BMAD][Prospecting] "
+labels: ["bmad", "track-prospecting", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Descrivere una singola story verificabile. Il modulo AI resta agnostico; le azioni di dominio e il CRM appartengono all'host. Non inserire dati personali dei prospect.
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problema e risultato atteso"
+      description: "Persona, necessità, scenario d'uso; quale evento dimostra il valore."
+      placeholder: "Come operatore, voglio ... per ..."
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "Evidenze e fonti"
+      description: "Commit, file, issue, screenshot reale, doc primaria, versione e licenza."
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: "Confini AI vs progetto host"
+      description: "Ownership, workspace, privacy, provider, costi e dati trattati."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "Acceptance criteria"
+      value: |
+        - [ ] Contratti tipizzati e idempotenza definiti
+        - [ ] Sorgente/provenienza e tenant isolation garantiti
+        - [ ] Nessun outbound automatizzato o scraping non autorizzato
+        - [ ] Errori e unknown distinti da evidenze confermate
+        - [ ] Docs/ADR/Second Brain aggiornati
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: "Verifiche ECC e rischio"
+      value: |
+        - [ ] Test Pest con fixture sintetiche
+        - [ ] PHP -l, Pint, PHPStan su host
+        - [ ] Sicurezza: SSRF, injection, RBAC, privacy, DNC dove pertinente
+        - [ ] Evidenza CI e limiti annotati (non dichiarare verifiche mai eseguite)
+    validations:
+      required: true
+  - type: input
+    id: epic
+    attributes:
+      label: "Epic / dipendenze"
+      placeholder: "#32; dipende da #33 e #36..."
+    validations:
+      required: false

@@ -1,0 +1,145 @@
+---
+title: "GitHub operations — AI prospecting, BMAD / ECC / Second Brain"
+type: operating-model
+module: AI
+status: active
+created: 2026-11-27
+updated: 2026-11-27
+tags: [github, bmad, ecc, second-brain, prospecting, governance]
+qmd: "github issues views projects milestones labels pull requests agents discussions actions wiki security insights settings AI prospecting"
+issues:
+  - "https://github.com/laraxot/module_ai_fila5/issues/32"
+related:
+  - ../prospecting.md
+  - ../prompts/clients.md
+  - ../bmad/prospecting-story.md
+---
+
+# Surfaces
+
+| Area | State 2026-11-27 |
+|------|------------------|
+| Issues | ~40 aperte (#9–#49). Epic prospecting **#32** + figli **#33–#43** + nuovi **#45–#49** (deliverability, email verify tiers, reply agent, LinkedIn/social, export/CRM); docs/chore #23–#31; legacy/coverage #8–#17 |
+| Labels | `track-prospecting`, `priority-P0`, `priority-P1`, `ecc-gate`, `bmad`, `second-brain`, `deliverability`, `data-quality` + standard GitHub |
+| Milestones | **#1 P0 - sicurezza e privacy** (#33,#36,#42) · **#2 M1 - persistenza e import** (#39,#40,#46) · **#3 M2 - segnali, UX e qualita** (#37,#38,#41) · **#4 M3 - outreach, pipeline e inbound** (#32,#34,#35,#43,#45,#47–#49) |
+| PRs | Dependabot bumps + PR normali su `dev` |
+| Actions | workflow: `lint`, `PHPStan`, `Prospecting PHP syntax`, `Git Version 01`, `Dependabot Updates` |
+| Discussions | #16 (sentiment audit), #24 (README QMD), #44 (studio closer-skill + sellbird), #50 (roadmap annuncio), #51 (provider email/verify), #52 (show & tell slice) |
+| Projects | bloccato: token senza scope `project` — serve `gh auth refresh -s project,read:project` o creazione da UI |
+| Wiki | pagine pronte in `docs/github-ops/wiki-pages/` (mirror di `/tmp/ai-wiki`: Home, Prospecting, Modello-dati, Convenzioni, GitHub-ops, References, _Sidebar); push in attesa di provisioning `.wiki.git` (serve una prima pagina via web UI); SSoT resta `docs/` |
+| Security | secret scanning + push protection + Dependabot security updates abilitati via API; issue SECURITY #33, #36, #42 |
+title: "GitHub operations — AI prospecting, BMAD / ECC / Second Brain"
+type: operating-model
+module: AI
+status: active
+created: 2026-11-27
+updated: 2026-11-27
+tags: [github, bmad, ecc, second-brain, prospecting, governance]
+qmd: "github issues views projects milestones labels pull requests agents discussions actions wiki security insights settings AI prospecting"
+issues:
+  - "https://github.com/laraxot/module_ai_fila5/issues/32"
+related:
+  - ../prospecting.md
+  - ../prompts/clients.md
+  - ../bmad/prospecting-story.md
+---
+
+# GitHub operating model: AI prospecting
+
+**Source of truth:** `dev` + [epic #32](https://github.com/laraxot/module_ai_fila5/issues/32). The AI module remains agnostic: a host project owns ICP, offers, legal policy, customer records, CRM writes and sends. No copying from Sellbird (AGPL-3.0); Closer (MIT) is a conceptual reference. No unapproved outbound marketing.
+
+This page inventories all requested GitHub surfaces and defines their intended use. It does **not** claim a UI-only operation has happened if it has not been verified.
+
+## Snapshot (2026-11-27)
+
+| Surface | Observed state | Action / next gate |
+|---|---|---|
+| [Issues](https://github.com/laraxot/module_ai_fila5/issues) | Epic #32; focused #33–#42 (numbers not in priority order; #42 is shared approval replay gate) | Link dependencies and record reproducible results |
+| [Issue views](https://github.com/laraxot/module_ai_fila5/issues/views) | 0 shared views | Create filters below when authenticated |
+| [Projects](https://github.com/laraxot/module_ai_fila5/projects) | 0 linked projects | Create one board, not parallel conflicting boards |
+| [Milestones](https://github.com/laraxot/module_ai_fila5/milestones) | **4 open**, published and populated: [P0](https://github.com/laraxot/module_ai_fila5/milestone/1) (3 issues), [M1](https://github.com/laraxot/module_ai_fila5/milestone/2) (3), [M2](https://github.com/laraxot/module_ai_fila5/milestone/3) (3), [M3](https://github.com/laraxot/module_ai_fila5/milestone/4) (8), 0 closed at inspection | Review estimated effort; no invented dates |
+| [Labels](https://github.com/laraxot/module_ai_fila5/labels) | Working taxonomy includes `track-prospecting`, `priority-P0/P1`, `bmad`, `ecc-gate`, `second-brain` and specialty labels | Reuse labels before creating new labels; verify live count |
+| [Pull requests](https://github.com/laraxot/module_ai_fila5/pulls) | 5 open Dependabot PRs (#18–#22), each `mergeable=false` at inspection; added `ecc-gate` label | Investigate conflicts and test compatibility; no blind merge |
+| [Agents](https://github.com/laraxot/module_ai_fila5/agents) | Three manual-invocation profiles created under `.github/agents/` (BMAD, ECC, Second Brain); account availability unverified | Confirm profile availability in Copilot UI when authenticated |
+| [Discussions](https://github.com/laraxot/module_ai_fila5/discussions) | Earlier #16/#24 plus published prospecting study [#44](https://github.com/laraxot/module_ai_fila5/discussions/44), roadmap [#50](https://github.com/laraxot/module_ai_fila5/discussions/50), provider Q&A [#51](https://github.com/laraxot/module_ai_fila5/discussions/51), implementation [#52](https://github.com/laraxot/module_ai_fila5/discussions/52) | Link decisions back to ADR/issues |
+| [Actions](https://github.com/laraxot/module_ai_fila5/actions) | [AI Prospecting and Approval PHP syntax run](https://github.com/laraxot/module_ai_fila5/actions/runs/45979179646) **Success** for `6070c21` (includes approval Actions/tests); proves only `php -l` | Add host-based Pest/PHPStan and security gates (#41) |
+| [Wiki](https://github.com/laraxot/module_ai_fila5/wiki) | Public wiki URL redirected to repository root during inspection | Keep canonical QMD second brain in `docs/wiki`; publish a GitHub wiki mirror only if enabled |
+| [Security](https://github.com/laraxot/module_ai_fila5/security) | `.github/security.md` exists; admin settings and private alerts not inspected | Review disclosure, code-scanning, secret-scanning, Dependabot, PII and SSRF; #33/#36 |
+| [Insights](https://github.com/laraxot/module_ai_fila5/insights) | No metrics asserted | Measure real lead conversion, issue throughput, test pass rate and coverage after instrumentation |
+| [Settings](https://github.com/laraxot/module_ai_fila5/settings) | Browser not authenticated; no admin settings changed | Owner review of repo description/topics, branch rules, privileges, features, notifications and security; prevent accidental disruption |
+
+## Priorities and dependencies
+
+1. **P0 — Trust foundation**: #33 SSRF/fetch isolation and failure scoring; #36 consent, channel policy, DNC and retention; #42 server-side approval state/replay security. No production launch or send before both pass their gates.
+2. **M1 — Discovery & identity, P1**: #40 schema/tenancy; #39 CSV/provider contracts, licensing, provenance. Import preview and re-import must be safe.
+3. **M2 — Insight & operator review, P1**: #37 versioned observed signals/ICP; #38 Filament access-controlled review; #41 quality gates.
+4. **M3 — Outreach, inbound & sales ops, P1/P2**: #34 inbound + domain CRM adapters; #35 additional Closer capabilities only after pilot evidence; sequencer/inbox follow-ups and deliverability are separate stories.
+
+These phases now map to **existing GitHub milestones** P0/M1/M2/M3 (linked in the snapshot). They have no due dates; do not invent dates before estimating effort. A readiness report must cite commit, test command, environment and outstanding risks.
+
+## Issues and issue views
+
+Recommended existing labels:
+- `priority-P0`: exploitable security, privacy, data-loss or production blocker.
+- `priority-P1`: required MVP scope. Use `enhancement` or `bug` as appropriate.
+- `track-prospecting`: all prospecting epic/stories.
+- `bmad`: requirements, UX, ADR, architecture, domain boundaries.
+- `ecc-gate`: threat tests, PHPStan/Pest/CI, reproducible evidence.
+- `second-brain`: source review, knowledge promotion, decisions.
+- `documentation`: docs update with QMD frontmatter and valid links.
+
+Proposed shared views:
+1. **P0 Safety** — open issues with `priority-P0`.
+2. **Prospecting Backlog** — open `track-prospecting`, sort by priority/updated.
+3. **ECC Gate** — open `ecc-gate`.
+4. **BMAD Planning** — open `bmad`.
+5. **Knowledge & Docs** — open `second-brain` OR `documentation`.
+
+Issue template: context → exact file/line/commit evidence → user story → dependencies → acceptance checklist → threat cases → Pest/PHPStan commands → handoff. Avoid duplicates and false “100% coverage” claims.
+
+## Projects
+
+One proposed project **AI Prospecting — BMAD/ECC** with fields:
+- `Status`: Inbox / Specified / Ready / In progress / In review / Verified / Blocked / Done.
+- `Priority`: P0 / P1 / P2.
+- `Phase`: M0 / M1 / M2 / M3.
+- `Track`: Product, Data, AI/Signals, UX, Security, DX.
+- `Owner`: explicit person, never assigned by guess.
+- `Evidence`: URL to passing CI/test report, ADR, or review.
+
+A project status never substitutes for an issue state. “Done” requires merged/on-`dev` code, updated docs and verified checks. Stage changes must be auditable.
+
+## Pull requests and branch policy
+
+The established project preference is **direct work on `dev` unless explicitly changed**. A PR requires a separate source branch; do not create a branch just to make the PR list non-empty. For external contributions and Dependabot PRs: inspect diff/license/dependency compatibility, link an issue, demand relevant checks, review security-sensitive code, then merge only with permission and evidence. Existing #18–#22 are dependency bumps, not proof of validated upgrades.
+
+## Agents and BMAD + ECC process
+
+- **BMAD**: Analyst (evidence + ICP), PM (PRD and measurable criteria), Architect (tenant/contract/data-flow), Dev (small Queueable Actions), Reviewer (security, regression).
+- **ECC**: research-first, red/green/refactor when executable, focused lint/Pest/PHPStan, threat modeling, code review, evidence-based status.
+- **Second Brain**: link first-party sources, facts vs inference, date/ref/version, ADR if a decision changes boundaries, canonical `docs/wiki` index. Reindex QMD on a host with QMD installed; do not claim indexing occurred without execution.
+- Only agents authorized by the user's workflow execute operations; these role names are responsibilities, not evidence that separate GitHub agents have been created.
+
+## Discussions, wiki and Second Brain
+
+Use a Discussion for genuine alternatives (e.g. **source adapters vs host adapters**, **workspace vs tenant isolation**, **whether a legally valid sender is ever in scope**). Move an accepted choice into `docs/adr` and link the epic. Do not duplicate the same question across issues and discussions. Wiki content is a published projection of `docs/wiki`; avoid diverging parallel truths.
+
+## Actions, security, insights and settings
+
+- **Actions**: `prospecting-php-syntax.yml` provides syntax checks only (now also proposal approval Actions and tests). #41 must add Pest, PHPStan and migrations on an actual Laravel 13/PHP 8.4 host or record why a gate is unavailable. Use least-privilege `GITHUB_TOKEN`, timeouts and pinned action versions.
+- **Security**: #33 mandates fail-closed HTTP and no internal-network calls; #36 mandates consent provenance and suppression. Redact personal data in CI/logs. Review GHAS/Dependabot settings with repository owner before changing permission-impacting features.
+- **Insights**: derive audited counts from source events and project history; distinguish imported, qualified, reviewed, consented, contacted, meetings, conversions and suppressed. Never infer send or conversion from a draft.
+- **Settings**: owner-only checklist: visibility, description/topics, default `dev`, branch protection compatibility, Actions permissions, vulnerability alerts, Discussions/Wiki/Projects toggles, private reporting, collaborator access. Review first; changes may affect other Laraxot projects.
+
+## Related evidence
+
+- [Product and implementation study](../prompts/clients.md)
+- [Current feature/readiness](../prospecting.md)
+- [BMAD story](../bmad/prospecting-story.md)
+- [Garante — electronic marketing](https://www.garanteprivacy.it/web/guest/home/docweb/-/docweb-display/docweb/10213792)
+- [Garante — public data reuse](https://www.garanteprivacy.it/web/guest/home/docweb/-/docweb-display/docweb/10310279)
+- [Closer MIT](https://github.com/Jakeschincariol/closer-skill) · [Sellbird AGPL-3.0](https://github.com/ethanplusai/sellbird)
+
+## Handoff / open limitations
+
+GitHub connector supports Issues, labels, commits and PR review; **Project (0) and shared Issue Views (0) remain uncreated** as of the public check. Milestones (4) and prospecting Discussions **were created in the repository in parallel work**; this document records their verified existence, not authorship. GitHub Wiki publication and admin Settings were not changed here; browser authentication was still incomplete. Never claim a setting/security toggle changed merely because it is documented.

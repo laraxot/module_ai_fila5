@@ -71,7 +71,7 @@ final class StreamAgentRunAction
         // Con lo stream adapter AG-UI gli eventi sono ProtocolEvent: neuron li tipizza solo come object.
         /** @var Generator<int, ProtocolEvent, mixed, AgentState> $events */
         $events = $isResume
-            ? $agent->submitInputs($request->all(), new AGUIInputTranslator)->events()
+            ? $agent->submitInputs($request->all(), new AGUIInputTranslator())->events()
             : $agent->stream(new UserMessage((string) $prompt));
 
         // Un turno puo' concatenare piu' chiamate al modello: 60 secondi spezzerebbero lo stream a meta'.

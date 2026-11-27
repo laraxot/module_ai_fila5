@@ -26,4 +26,4 @@ test('_uses_the_historic_system_prompt_by_default_and_the_given_one_when_passed'
 
     Http::assertSent(fn (Request $request): bool => $firstMessageContent($request) === MakeAIRequestAction::DEFAULT_SYSTEM_PROMPT);
     Http::assertSent(fn (Request $request): bool => $firstMessageContent($request) === 'Custom system prompt');
-});
+})->group('AI-REQUEST-INV-4');

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "Discussione su architettura o priorità"
+    url: "https://github.com/laraxot/module_ai_fila5/discussions"
+    about: "Domande aperte BMAD e alternative tecniche che non sono bug o story già approvate"
+  - name: "Security reporting"
+    url: "https://github.com/laraxot/module_ai_fila5/security/policy"
+    about: "Per vulnerabilità o dati sensibili segui la policy e l'eventuale canale privato"

@@ -26,7 +26,7 @@ final class StrictModeEloquentPersistence extends EloquentPersistence
     /** @see Modules/AI/docs/agents.md#binding-e-strict-mode-mysql */
     protected function atomically(Closure $operation): bool
     {
-        $connection = (new $this->modelClass)->getConnection();
+        $connection = (new $this->modelClass())->getConnection();
         if (! $connection instanceof MySqlConnection) {
             return parent::atomically($operation);
         }
