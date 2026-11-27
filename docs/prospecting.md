@@ -47,6 +47,7 @@ php artisan ai:prospect-audit https://example.com --type=business           # ve
 
 ## Lettura dei siti sperimentale: SSRF non ancora risolta (#33)
 
+- **Gate separato, spento per default:** oltre a `AI_PROSPECTING_ENABLED=true`, l'host deve impostare esplicitamente `AI_PROSPECTING_SITE_FETCH_ENABLED=true` per attivare la lettura live (`ai.prospecting.site_fetch_enabled`). Anche le chiamate **dirette** a `FetchPublicPageAction` sono bloccate quando questo secondo gate è spento. **Non attivare questo gate in produzione** finché la issue #33 non è risolta e verificata. Import e analisi offline non richiedono tale autorizzazione.
 - `Prospecting/FetchPublicPageAction` + `ResolveHostAction`: solo http/https; ogni host, e ogni redirect (max 3,
   seguiti a mano), è preceduto da una verifica **solo IPv4 A** che rifiuta IP privati noti. **Questa NON è una garanzia SSRF-safe**: `gethostbynamel()` non verifica `AAAA` IPv6, `Http::get()` può scegliere IP diversi da quelli controllati (TOCTOU/DNS rebinding), e `substr($response->body())` limita il testo in memoria solo **dopo** il download completo. User-info, porte, URL/redirect canonici e un limite di download in streaming vanno testati. Non esporre il fetcher a input esterni né attivarlo in produzione prima della soluzione #33.
 - `ResearchProspectWebsiteAction`: legge il sito del prospect con la lettura sicura e lo passa a
