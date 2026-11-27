@@ -37,7 +37,7 @@ Questa pagina custodisce le **conoscenze riutilizzabili specifiche del modulo AI
 ## Fatti, inferenze e incertezze
 
 - **Fatto / codice**: `AiProspect`, `AiProspectSuppression`, import CSV/export OSM, Action di scoring e draft sono presenti sul branch `dev` dopo `cc689ea`; per i file esatti vedi [story](../../bmad/prospecting-story.md).
-- **Fatto / sicurezza**: la precedente Action di HTTP audit diretto era vulnerabile a SSRF, ora `DetectWebsiteSignalsAction::execute()` fallisce chiusa. [#33](https://github.com/laraxot/module_ai_fila5/issues/33) governa lo sblocco futuro.
+- **Fatto / sicurezza**: la precedente Action `Prospect/DetectWebsiteSignalsAction::execute()` resta fail-closed. Il nuovo `Prospecting/FetchPublicPageAction` verifica IPv4 A prima di richiedere ma **non garantisce SSRF safety**: mancano controllo IPv6/AAAA, IP pinning contro DNS rebinding e limiti di download effettivi. [#33](https://github.com/laraxot/module_ai_fila5/issues/33) resta P0, non abilitare il fetch in produzione.
 - **Fatto / osservabilità**: un `observed_hint` di prenotazione manuale su una pagina HTML è un indizio testuale; non prova che un servizio di booking non esista altrove.
 - **Inferenza da verificare**: segnali pubblici di sito, tecnologia e hiring possono migliorare la priorità dei prospect, ma non equivalgono a intenzione di acquisto comprovata. Validare contro dati e feedback consensuali dell'host.
 - **Non verificato**: qualità del ranking nel mercato reale, tasso conversione, capacità di invio, precisione delle analisi su SPA, migrazioni in host, CI verde, diritti d'uso di sorgenti terze. Non pubblicare numeri inventati.
