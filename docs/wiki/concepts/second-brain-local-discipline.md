@@ -11,6 +11,8 @@ issues:
   - "https://github.com/laraxot/module_ai_fila5/issues/32"
   - "https://github.com/laraxot/module_ai_fila5/issues/33"
   - "https://github.com/laraxot/module_ai_fila5/issues/36"
+  - "https://github.com/laraxot/module_ai_fila5/issues/41"
+  - "https://github.com/laraxot/module_ai_fila5/issues/42"
 related:
   - ../../prompts/clients.md
   - ../../prospecting.md
@@ -38,9 +40,12 @@ Questa pagina custodisce le **conoscenze riutilizzabili specifiche del modulo AI
 
 - **Fatto / codice**: `AiProspect`, `AiProspectSuppression`, import CSV/export OSM, Action di scoring e draft sono presenti sul branch `dev` dopo `cc689ea`; per i file esatti vedi [story](../../bmad/prospecting-story.md).
 - **Fatto / sicurezza**: la precedente Action `Prospect/DetectWebsiteSignalsAction::execute()` resta fail-closed. Il nuovo `Prospecting/FetchPublicPageAction` verifica IPv4 A prima di richiedere ma **non garantisce SSRF safety**: mancano controllo IPv6/AAAA, IP pinning contro DNS rebinding e limiti di download effettivi. [#33](https://github.com/laraxot/module_ai_fila5/issues/33) resta P0, non abilitare il fetch in produzione.
+- **Fatto / gate fetch**: `ai.prospecting.site_fetch_enabled` (env `AI_PROSPECTING_SITE_FETCH_ENABLED`) è **false per default**, indipendente da `ai.prospecting.enabled` e controllato anche in chiamata diretta a `FetchPublicPageAction` (`e19c676`, test `7b12ec9`). Abilitare manualmente il gate non elimina il rischio SSRF ancora aperto.
+- **Fatto / approval**: `ConfirmAiActionProposalAction` rifiuta replay sequenziale (`062d78b`); `CancelAiActionProposalAction` rifiuta cancellazioni tardive (`a9bf190`, test unitario `efba174`). **Non** sono garanzie contro due richieste concorrenti, né autorizzazione server-side per tenant/utente; [#42](https://github.com/laraxot/module_ai_fila5/issues/42) resta P0.
+- **Fatto / ECC**: il workflow PHP `php -l` è passato anche per Actions/test di conferma/cancellazione: [run 45979179646](https://github.com/laraxot/module_ai_fila5/actions/runs/45979179646). Non prova il funzionamento Pest, la persistenza o PHPStan.
 - **Fatto / osservabilità**: un `observed_hint` di prenotazione manuale su una pagina HTML è un indizio testuale; non prova che un servizio di booking non esista altrove.
 - **Inferenza da verificare**: segnali pubblici di sito, tecnologia e hiring possono migliorare la priorità dei prospect, ma non equivalgono a intenzione di acquisto comprovata. Validare contro dati e feedback consensuali dell'host.
-- **Non verificato**: qualità del ranking nel mercato reale, tasso conversione, capacità di invio, precisione delle analisi su SPA, migrazioni in host, CI verde, diritti d'uso di sorgenti terze. Non pubblicare numeri inventati.
+- **Non verificato**: qualità del ranking nel mercato reale, tasso conversione, capacità di invio, precisione delle analisi su SPA, migrazioni in host, **suite Pest/PHPStan completa**, autorizzazioni tenant e diritti d'uso di sorgenti terze. Non pubblicare numeri inventati.
 
 ## Knowledge loop BMAD → ECC → Second Brain
 
@@ -70,7 +75,8 @@ Questa pagina custodisce le **conoscenze riutilizzabili specifiche del modulo AI
 - [#39](https://github.com/laraxot/module_ai_fila5/issues/39) provider agnostici; importer OSM inizialmente limitato a categorie ristorazione.
 - [#37](https://github.com/laraxot/module_ai_fila5/issues/37) ICP/score con prove.
 - [#38](https://github.com/laraxot/module_ai_fila5/issues/38) UI Filament con RBAC.
-- [#41](https://github.com/laraxot/module_ai_fila5/issues/41) runtime host e quality gates.
-- [GitHub surfaces](../../github-ops/00-index.md) Projects/Milestones/Views da configurare nella UI autenticata.
+- [#41](https://github.com/laraxot/module_ai_fila5/issues/41) runtime host e quality gates (solo `php -l` completato).
+- [#42](https://github.com/laraxot/module_ai_fila5/issues/42) compare-and-swap, idempotenza handler, autorizzazione delle conferme e cancellazioni.
+- [GitHub surfaces](../../github-ops/00-index.md): **4 milestone create** (P0/M1/M2/M3); GitHub Projects e Shared Views ancora vuoti alla verifica pubblica 2026-11-27, richiedono UI autenticata o tool con permessi specifici.
 
 **Handoff:** la pagina descrive pratiche e stato statico; non dichiara agenti autonomi avviati, campagne reali lanciate, QMD eseguito o test host completati.
