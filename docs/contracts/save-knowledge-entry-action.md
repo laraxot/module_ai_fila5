@@ -1,12 +1,6 @@
 ---
 title: "Contratto — SaveKnowledgeEntryAction"
 type: contract
-<<<<<<< .merge_file_ni976o
-action: "Modules\AI\Actions\Assistant\SaveKnowledgeEntryAction"
-tags: [contract, action, ai, assistente, knowledge-base]
-created: 2026-11-24
-updated: 2026-11-24
-=======
 action: "Modules\\AI\\Actions\\Assistant\\SaveKnowledgeEntryAction"
 module: AI
 status: active
@@ -15,24 +9,11 @@ created: 2026-11-26
 updated: 2026-11-26
 related:
   - request-assistant-completion-action.md
->>>>>>> .merge_file_2WKWkZ
 ---
 
 # SaveKnowledgeEntryAction
 
 Contratto di comportamento (regola: `Modules/Xot/docs/rules/action-behavioral-contract.md`).
-<<<<<<< .merge_file_ni976o
-Sorgente: `app/Actions/Assistant/SaveKnowledgeEntryAction.php`.
-
-## Input
-
-- `collection` (la base di conoscenza di un progetto o cliente), `question`, `answer`.
-- Facoltativi: `tags` (lista), `id` della voce da aggiornare, `isActive` (default `true`).
-
-## Output
-
-- La voce `AiKnowledgeEntry` salvata.
-=======
 Sorgente: `app/Actions/Assistant/SaveKnowledgeEntryAction.php`. Crea o aggiorna una voce (domanda e risposta) della base di
 conoscenza di una `collection`, da cui l'assistente pesca le risposte.
 
@@ -47,34 +28,11 @@ produzione la chiama (`rg SaveKnowledgeEntryAction`: solo la classe e il suo tes
 ## Output
 
 - Il `AiKnowledgeEntry` salvato.
->>>>>>> .merge_file_2WKWkZ
 
 ## Invarianti
 
 | ID | Regola | Group Pest |
 |---|---|---|
-<<<<<<< .merge_file_ni976o
-| AI-KNOWLEDGE-INV-1 | Domanda o risposta vuote (dopo `trim`) → `ValidationException` prima di toccare il database. | `AI-KNOWLEDGE-INV-1` |
-| AI-KNOWLEDGE-INV-2 | Con `id`, la voce si aggiorna solo se appartiene alla stessa `collection`; altrimenti `ValidationException` su `id`. | — |
-| AI-KNOWLEDGE-INV-3 | Senza `id`, una voce con la stessa domanda nella `collection` si aggiorna invece di duplicarsi. | — |
-| AI-KNOWLEDGE-INV-4 | `tags` nullo conserva i tag esistenti; una lista li sostituisce, senza voci vuote. | — |
-
-Test: `tests/Unit/Assistant/SaveKnowledgeEntryActionTest.php` (solo INV-1; le altre richiedono la tabella `ai_knowledge_entries`).
-
-## Effetti collaterali
-
-- Un INSERT o UPDATE su `ai_knowledge_entries`.
-
-## Errori
-
-- `ValidationException` (INV-1, INV-2); errori del database al chiamante.
-
-## Non fa
-
-- Non verifica chi chiama: l'autorizzazione è del chiamante.
-- Non calcola embedding né indicizza: la ricerca (`SearchKnowledgeEntriesAction` → `RankKnowledgeEntriesAction`) legge le voci attive della `collection` a ogni domanda.
-- Non cancella voci (per spegnerne una: `isActive = false`).
-=======
 | AI-KNOWLEDGE-INV-1 | Domanda o risposta vuote (dopo `trim`) lanciano `ValidationException` prima di toccare il database. | `AI-KNOWLEDGE-INV-1` |
 | AI-KNOWLEDGE-INV-2 | Con `$id` si aggiorna la voce solo se appartiene alla stessa `collection`; altrimenti `ValidationException` sul campo `id`: un id qualsiasi non permette di modificare la base di conoscenza di un altro progetto. | — (non dimostrato) |
 | AI-KNOWLEDGE-INV-3 | Senza `$id`, una voce con la stessa domanda nella stessa `collection` viene aggiornata e non duplicata. | — (non dimostrato) |
@@ -103,4 +61,7 @@ Test: `tests/Unit/Assistant/SaveKnowledgeEntryActionTest.php` (solo INV-1; le al
   passare la stessa domanda senza `$id` sovrascrive la risposta esistente.
 - I messaggi di `ValidationException` («Domanda e risposta sono obbligatorie.», «Voce non trovata in questa base di conoscenza.»)
   sono testi italiani scritti nel codice, fuori dai file di lingua.
->>>>>>> .merge_file_2WKWkZ
+
+## Riconciliazione documentale (2026-11-27)
+
+Questo file aveva un conflitto Git irrisolto. La base è la variante più recente del contratto, con il riferimento a `app/Actions/Assistant/SaveKnowledgeEntryAction.php` **esistente su `dev`**; la sua semantica, i group Pest citati e gli eventuali effetti non sono stati rieseguiti in questa sessione. Il confronto con il codice e i test resta il gate ECC della story owner. [Tracciamento root #15](https://github.com/laraxot/base_ptvx_fila5/issues/15).
