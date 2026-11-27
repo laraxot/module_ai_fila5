@@ -8,16 +8,18 @@ updated: 2026-11-27
 
 # Prospecting engine (issue #32)
 
-## Study map
+## Study map (Closer MIT + Sellbird AGPL patterns only)
 
 | Closer-skill | Sellbird | Module AI |
 |--------------|----------|-----------|
 | prospector audit/rank/draft | PROFILE signals | `DetectWebsiteSignalsAction` + `WebsiteSignalCatalog` |
-| researcher brief | why they'd buy | `BuildProspectBriefAction` |
+| researcher brief | why they'd buy | `BuildProspectBriefAction` / `ResearchProspectAction` |
 | stop / suppression | outbox approval | `ApplyProspectSuppressionAction` + `requires_approval` |
-| pipeline board | discover→verify | `NormalizeProspectImportAction` + rank |
+| pipeline board | discover→verify | `NormalizeProspectImportAction` + rank + `AiProspect.stage` |
+| record-keeper | events | audit / host CRM via `AiActionProposal` only |
+| follow-up / win-back / coach / forecast | sequences | optional later (#35), never auto-send |
 
-AGPL Sellbird is **not** vendored. Patterns only.
+AGPL Sellbird is **not** vendored. Patterns only. Closer is conceptual reference (MIT).
 
 ## Website signals (deepened 2026-11-27)
 
@@ -28,6 +30,7 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 - **Polarity:** `gap` (rank score) vs `strength` (score 0, brief only).
 - **Catalog:** mobile, SEO (title/meta/canonical/OG/H1/lang/JSON-LD), performance, HTTPS hint, trust, booking, chat, forms, analytics, social, phone, copyright, commerce ICP, hospitality ICP (`no-menu` / `no-hours` / `no-order-online`).
 - **Weights:** `config('ai.prospect.signals.weights')` overrides `WebsiteSignalCatalog::defaults()`.
+- **`no-site` weight = 0** (2026-11-27): failed/unknown reachability must not rank as opportunity; `WebsiteAuditResultData::totalScore()` already returns 0 when `ok=false`.
 
 ## ECC non-negotiables
 
@@ -36,6 +39,7 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 3. No automatic send — drafts only
 4. Signals = hints unless `confidence=measured|error`
 5. Suppression honored on re-import / draft
+6. Confirm path: only `PENDING` → confirm → execute (`ConfirmAiActionProposalAction`, #42)
 
 ## CLI
 
@@ -66,9 +70,12 @@ consenso, e il link di disiscrizione non lo sostituisce ([provv. 21/09/2017](htt
 Molti ristoranti sono ditte individuali (persone fisiche). Il motore non invia nulla e non raccoglie email
 personali; il primo contatto naturale è la visita o la telefonata. Non è una consulenza legale (#36).
 
-## Status (#32)
+## Status (#32) — swarm 2026-11-27
 
 - [x] Deep offline signal catalog + Pest
 - [x] Configurable weights
-- [ ] Adapter `Prospecting/FetchPublicPageAction` **sperimentale e non ancora SSRF-safe** (#33): servono IP pinning/egress policy, IPv6/AAAA e limiti di streaming; `Prospect/DetectWebsiteSignalsAction::execute()` resta chiuso finché #40 non unifica i due namespace.
+- [x] `no-site` weight 0 + totalScore fail-closed
+- [x] Confirm replay guard: non-PENDING rejected (Refs #42) — host Pest still required
+- [ ] Adapter `Prospecting/FetchPublicPageAction` **sperimentale e non ancora SSRF-safe** (#33): IP pinning/egress, IPv6/AAAA, streaming limits; unify namespaces (#40)
 - [ ] Filament review UI, durable consent, provenance (#36–#41)
+- [ ] Projects / Milestones / shared Issue Views on GitHub UI (specified in `docs/github-ops/00-index.md`, not created in API session)
