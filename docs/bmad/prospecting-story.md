@@ -61,6 +61,7 @@ Operatori di progetti diversi hanno bisogno di trovare aziende compatibili con l
 |---|---|---|---|
 | 0 | Sicurezza fetch e failure score | [#33](https://github.com/laraxot/module_ai_fila5/issues/33) | SSRF red-team, fail-closed e ranking zero su failure |
 | 0 | Privacy e consenso | [#36](https://github.com/laraxot/module_ai_fila5/issues/36) | Policy per canale, prova consenso e DNC duraturo |
+| 0 | Human-approval replay guard | [#42](https://github.com/laraxot/module_ai_fila5/issues/42) | State transition atomiche, niente doppia esecuzione handler |
 | 1 | Data model + tenant | [#40](https://github.com/laraxot/module_ai_fila5/issues/40) | Isolation, migrazioni e dedupe verificati in host |
 | 1 | Import/providers | [#39](https://github.com/laraxot/module_ai_fila5/issues/39) | CSV/OSM idempotente, licenze e dry-run |
 | 2 | Signals / ICP / score | [#37](https://github.com/laraxot/module_ai_fila5/issues/37) | Audit versionato, confronto contro fixture avverse |
