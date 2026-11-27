@@ -31,7 +31,7 @@ related:
 
 ## Prospecting — ordinamento BMAD/ECC
 
-1. **M0 / Trust**: [#33 SSRF](https://github.com/laraxot/module_ai_fila5/issues/33), [#36 Privacy](https://github.com/laraxot/module_ai_fila5/issues/36). Zero automatic outbound.
+1. **M0 / Trust**: [#33 SSRF](https://github.com/laraxot/module_ai_fila5/issues/33), [#36 Privacy](https://github.com/laraxot/module_ai_fila5/issues/36), [#42 Approval replay](https://github.com/laraxot/module_ai_fila5/issues/42). Zero automatic outbound.
 2. **M1 / Source & identity**: [#40 Data](https://github.com/laraxot/module_ai_fila5/issues/40), [#39 Import](https://github.com/laraxot/module_ai_fila5/issues/39). Provider license, cost, provenance, workspace, stable keys.
 3. **M2 / Insight & human review**: [#37 Signals](https://github.com/laraxot/module_ai_fila5/issues/37), [#38 Filament](https://github.com/laraxot/module_ai_fila5/issues/38), [#34 Inbound](https://github.com/laraxot/module_ai_fila5/issues/34). Host owns CRM and offers.
 4. **M3 / Quality**: [#41 ECC](https://github.com/laraxot/module_ai_fila5/issues/41). Pest, PHPStan/Pint, migrations, browser access tests, security; runnable evidence.
