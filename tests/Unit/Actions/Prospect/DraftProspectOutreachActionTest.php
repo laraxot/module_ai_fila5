@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use Modules\AI\Actions\Prospect\DraftProspectOutreachAction;
 use Modules\AI\Data\Prospect\ProspectLeadData;
+use Modules\AI\Tests\TestCase;
+
+uses(TestCase::class);
 
 test('draft requires approval and includes opt-out', function (): void {
     $lead = new ProspectLeadData(
@@ -23,7 +26,7 @@ test('draft requires approval and includes opt-out', function (): void {
 
     expect($draft)->toMatchArray(['requires_approval' => true])
         ->and($draft['to'])->toBe('info@example.com')
-        ->and($draft['body'])->toContain('no grazie')
+        ->and($draft['body'])->toContain('no thanks')
         ->and($draft['body'])->toContain('Via Roma 1')
         ->and($draft['missing'])->toBeEmpty();
 });

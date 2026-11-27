@@ -44,7 +44,7 @@ final class BuildProspectBriefAction
         $questions = [];
         $sources = array_values(array_filter([$audit?->url, $lead->website, $lead->sourceUrl]));
 
-        foreach ($audit?->signals ?? [] as $signal) {
+        foreach ($audit->signals ?? [] as $signal) {
             $talking[] = sprintf('Signal (%s): %s.', $signal->confidence, $signal->why);
             $questions[] = $this->questionFor($signal->key);
         }
@@ -78,9 +78,9 @@ final class BuildProspectBriefAction
     }
 
     /**
-     * @param list<string> $talking
-     * @param list<string> $questions
-     * @param list<string> $sources
+     * @param  list<string>  $talking
+     * @param  list<string>  $questions
+     * @param  list<string>  $sources
      */
     private function markdown(ProspectLeadData $lead, array $talking, array $questions, array $sources): string
     {

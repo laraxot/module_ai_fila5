@@ -76,6 +76,9 @@ AI/
   `Safe\*` di `thecodingmachine/safe`, costanti di classe tipizzate (PHP 8.3:
   `public const string FOO = 'x';`), generics sui `Builder`.
 - Un lavoro PHP non è finito se `phpstan analyse Modules/AI` non torna **0 errori**.
+- **@see obbligatorio sui fix non banali** (ADR 0004): ogni fix porta un'annotazione `@see` nel
+  PHPDoc che punta alla fonte della decisione (error identifier phpstan.org, ADR, wiki/concetto)
+  — aumenta la semantica per i lettori e per gli agenti AI.
 - Attenzione ai marker `.merge_file_*` / `<<<<<<<` residui dopo merge: producono
   errori `phpstan.parse` a raffica — verificare con `php -l` prima di analizzare.
 

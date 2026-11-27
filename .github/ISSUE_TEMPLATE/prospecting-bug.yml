@@ -1,0 +1,48 @@
+name: "Prospecting ECC bug"
+description: "Segnalazione riproducibile di bug o regressione senza divulgare segreti"
+title: "[BUG][AI] "
+labels: ["bug", "ecc-gate", "track-prospecting"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Per vulnerabilità sfruttabili o dati sensibili usare la policy [Security](https://github.com/laraxot/module_ai_fila5/security/policy) e, se attiva, la segnalazione privata: non pubblicare exploit, token o dati personali in una issue.
+  - type: textarea
+    id: observed
+    attributes:
+      label: "Comportamento osservato"
+      description: "Cosa succede, su quale commit/branch, con quali passi minimali e sicuri."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Comportamento atteso"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: "Riproduzione senza dati reali"
+      description: "Fixture sintetica, input minimo, comandi e output redatti."
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: "Impatto e contesto"
+      description: "Auth/tenant, perdita dati, false positive, privacy, frequenza; distinguere confermato vs ipotesi."
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: "Test di regressione e quality gate"
+      value: |
+        - [ ] Test Pest che fallisce prima del fix
+        - [ ] PHP lint + PHPStan/Pint su host
+        - [ ] Scenario avverso e controllo autorizzazioni
+        - [ ] Doc/ADR e issue epic aggiornati
+    validations:
+      required: false

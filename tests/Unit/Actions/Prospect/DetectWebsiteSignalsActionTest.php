@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use Modules\AI\Actions\Prospect\DetectWebsiteSignalsAction;
 use Modules\AI\Actions\Prospect\WebsiteSignalCatalog;
+use Modules\AI\Tests\TestCase;
+
+uses(TestCase::class);
 
 test('minimal html raises core seo and mobile gaps', function (): void {
     $html = '<html><head></head><body><p>Hello</p></body></html>';

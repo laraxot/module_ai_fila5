@@ -8,6 +8,9 @@ use Modules\AI\Actions\Prospect\RankProspectLeadsAction;
 use Modules\AI\Data\Prospect\ProspectLeadData;
 use Modules\AI\Data\Prospect\WebsiteAuditResultData;
 use Modules\AI\Data\Prospect\WebsiteSignalData;
+use Modules\AI\Tests\TestCase;
+
+uses(TestCase::class);
 
 test('a failed website audit never generates commercial ranking signals', function (): void {
     $failed = new WebsiteAuditResultData(

@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Modules\AI\Adapters\AiActionHandlerRegistry;
 use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;
+use RuntimeException;
 use Spatie\QueueableAction\QueueableAction;
 
 /**
@@ -16,6 +17,9 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * On success the proposal is marked `executed`, on failure `failed` with the
  * error message stored for audit/debugging.
+ *
+ * Replay/race: only PENDING proposals may be confirmed. Non-PENDING input is
+ * rejected so a second confirm cannot re-run the domain handler.
  *
  * @see docs/contracts/confirm-ai-action-proposal-action.md
  *
@@ -29,6 +33,34 @@ class ConfirmAiActionProposalAction
 
     public function execute(AiActionProposal $proposal, int|string $confirmedByUserId): AiActionProposal
     {
+        /**
+         * Domain invariant: only PENDING proposals may transition to CONFIRMED.
+         *
+         * @see AiActionProposalStatusEnum::PENDING
+         * @see CancelAiActionProposalAction::execute()
+         */
+        $status = $proposal->status;
+        if ($status instanceof AiActionProposalStatusEnum) {
+            $current = $status;
+        } elseif (is_string($status)) {
+            $current = AiActionProposalStatusEnum::tryFrom($status);
+        } else {
+            $current = null;
+        }
+
+        if (! $current instanceof AiActionProposalStatusEnum || $current !== AiActionProposalStatusEnum::PENDING) {
+            $proposalKey = $proposal->getKey();
+            $key = is_int($proposalKey) || is_string($proposalKey) ? $proposalKey : 'unknown';
+
+            throw new RuntimeException(
+                sprintf(
+                    'AiActionProposal [%s] cannot be confirmed from status [%s]; only PENDING is allowed.',
+                    $key,
+                    $current instanceof AiActionProposalStatusEnum ? $current->value : 'unknown',
+                )
+            );
+        }
+
         $proposal->forceFill([
             'status' => AiActionProposalStatusEnum::CONFIRMED,
             'confirmed_by_user_id' => (string) $confirmedByUserId,

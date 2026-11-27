@@ -1,7 +1,18 @@
 ---
-title: GitHub ops — module_ai_fila5
+title: "GitHub operations — AI prospecting, BMAD / ECC / Second Brain"
+type: operating-model
+module: AI
+status: active
+created: 2026-11-27
 updated: 2026-11-27
-tags: [bmad, second-brain]
+tags: [github, bmad, ecc, second-brain, prospecting, governance]
+qmd: "github issues views projects milestones labels pull requests agents discussions actions wiki security insights settings AI prospecting"
+issues:
+  - "https://github.com/laraxot/module_ai_fila5/issues/32"
+related:
+  - ../prospecting.md
+  - ../prompts/clients.md
+  - ../bmad/prospecting-story.md
 ---
 
 # Surfaces
@@ -46,12 +57,12 @@ This page inventories all requested GitHub surfaces and defines their intended u
 | [Issues](https://github.com/laraxot/module_ai_fila5/issues) | Epic #32; focused #33–#42 (numbers not in priority order; #42 is shared approval replay gate) | Link dependencies and record reproducible results |
 | [Issue views](https://github.com/laraxot/module_ai_fila5/issues/views) | 0 shared views | Create filters below when authenticated |
 | [Projects](https://github.com/laraxot/module_ai_fila5/projects) | 0 linked projects | Create one board, not parallel conflicting boards |
-| [Milestones](https://github.com/laraxot/module_ai_fila5/milestones) | 0 milestones | Create 4 phase gates below; no invented dates |
-| [Labels](https://github.com/laraxot/module_ai_fila5/labels) | 16 visible labels, including `track-prospecting`, `priority-P0/P1`, `bmad`, `ecc-gate`, `second-brain` | Reuse existing taxonomy before creating new labels |
+| [Milestones](https://github.com/laraxot/module_ai_fila5/milestones) | **4 open**, published and populated: [P0](https://github.com/laraxot/module_ai_fila5/milestone/1) (3 issues), [M1](https://github.com/laraxot/module_ai_fila5/milestone/2) (3), [M2](https://github.com/laraxot/module_ai_fila5/milestone/3) (3), [M3](https://github.com/laraxot/module_ai_fila5/milestone/4) (8), 0 closed at inspection | Review estimated effort; no invented dates |
+| [Labels](https://github.com/laraxot/module_ai_fila5/labels) | Working taxonomy includes `track-prospecting`, `priority-P0/P1`, `bmad`, `ecc-gate`, `second-brain` and specialty labels | Reuse labels before creating new labels; verify live count |
 | [Pull requests](https://github.com/laraxot/module_ai_fila5/pulls) | 5 open Dependabot PRs (#18–#22), each `mergeable=false` at inspection; added `ecc-gate` label | Investigate conflicts and test compatibility; no blind merge |
 | [Agents](https://github.com/laraxot/module_ai_fila5/agents) | Three manual-invocation profiles created under `.github/agents/` (BMAD, ECC, Second Brain); account availability unverified | Confirm profile availability in Copilot UI when authenticated |
-| [Discussions](https://github.com/laraxot/module_ai_fila5/discussions) | 2 public discussions at inspection (#16, #24) | New RFC only for unresolved architectural decisions, not duplicate issue |
-| [Actions](https://github.com/laraxot/module_ai_fila5/actions) | [Prospecting PHP syntax run #5](https://github.com/laraxot/module_ai_fila5/actions/runs/45969852134) **Success** for commit `5f3a72e`; this proves syntax only | Add host-based Pest/PHPStan and security gates (#41) |
+| [Discussions](https://github.com/laraxot/module_ai_fila5/discussions) | Earlier #16/#24 plus published prospecting study [#44](https://github.com/laraxot/module_ai_fila5/discussions/44), roadmap [#50](https://github.com/laraxot/module_ai_fila5/discussions/50), provider Q&A [#51](https://github.com/laraxot/module_ai_fila5/discussions/51), implementation [#52](https://github.com/laraxot/module_ai_fila5/discussions/52) | Link decisions back to ADR/issues |
+| [Actions](https://github.com/laraxot/module_ai_fila5/actions) | [AI Prospecting and Approval PHP syntax run](https://github.com/laraxot/module_ai_fila5/actions/runs/45979179646) **Success** for `6070c21` (includes approval Actions/tests); proves only `php -l` | Add host-based Pest/PHPStan and security gates (#41) |
 | [Wiki](https://github.com/laraxot/module_ai_fila5/wiki) | Public wiki URL redirected to repository root during inspection | Keep canonical QMD second brain in `docs/wiki`; publish a GitHub wiki mirror only if enabled |
 | [Security](https://github.com/laraxot/module_ai_fila5/security) | `.github/security.md` exists; admin settings and private alerts not inspected | Review disclosure, code-scanning, secret-scanning, Dependabot, PII and SSRF; #33/#36 |
 | [Insights](https://github.com/laraxot/module_ai_fila5/insights) | No metrics asserted | Measure real lead conversion, issue throughput, test pass rate and coverage after instrumentation |
@@ -59,12 +70,12 @@ This page inventories all requested GitHub surfaces and defines their intended u
 
 ## Priorities and dependencies
 
-1. **M0 — Trust foundation, P0**: #33 SSRF/fetch isolation and failure scoring; #36 consent, channel policy, DNC and retention; #42 server-side approval state/replay security. No production launch or send before both pass their gates.
+1. **P0 — Trust foundation**: #33 SSRF/fetch isolation and failure scoring; #36 consent, channel policy, DNC and retention; #42 server-side approval state/replay security. No production launch or send before both pass their gates.
 2. **M1 — Discovery & identity, P1**: #40 schema/tenancy; #39 CSV/provider contracts, licensing, provenance. Import preview and re-import must be safe.
-3. **M2 — Insight & operator review, P1**: #37 versioned observed signals/ICP; #38 Filament access-controlled review; #34 inbound + domain-owned CRM adapter.
-4. **M3 — Delivery quality, P1/P2**: #41 host runtime tests, static analysis and threat cases; #35 additional Closer capabilities only after pilot evidence.
+3. **M2 — Insight & operator review, P1**: #37 versioned observed signals/ICP; #38 Filament access-controlled review; #41 quality gates.
+4. **M3 — Outreach, inbound & sales ops, P1/P2**: #34 inbound + domain CRM adapters; #35 additional Closer capabilities only after pilot evidence; sequencer/inbox follow-ups and deliverability are separate stories.
 
-These are **proposed milestone names**, not existing GitHub milestones. Do not assign dates before estimating effort. A readiness report must cite commit, test command, environment and outstanding risks.
+These phases now map to **existing GitHub milestones** P0/M1/M2/M3 (linked in the snapshot). They have no due dates; do not invent dates before estimating effort. A readiness report must cite commit, test command, environment and outstanding risks.
 
 ## Issues and issue views
 
@@ -115,7 +126,7 @@ Use a Discussion for genuine alternatives (e.g. **source adapters vs host adapte
 
 ## Actions, security, insights and settings
 
-- **Actions**: the new `prospecting-php-syntax.yml` provides syntax checks only. #41 must add Pest, PHPStan and migrations on an actual Laravel 13/PHP 8.4 host or record why a gate is unavailable. Use least-privilege `GITHUB_TOKEN`, timeouts and pinned action versions.
+- **Actions**: `prospecting-php-syntax.yml` provides syntax checks only (now also proposal approval Actions and tests). #41 must add Pest, PHPStan and migrations on an actual Laravel 13/PHP 8.4 host or record why a gate is unavailable. Use least-privilege `GITHUB_TOKEN`, timeouts and pinned action versions.
 - **Security**: #33 mandates fail-closed HTTP and no internal-network calls; #36 mandates consent provenance and suppression. Redact personal data in CI/logs. Review GHAS/Dependabot settings with repository owner before changing permission-impacting features.
 - **Insights**: derive audited counts from source events and project history; distinguish imported, qualified, reviewed, consented, contacted, meetings, conversions and suppressed. Never infer send or conversion from a draft.
 - **Settings**: owner-only checklist: visibility, description/topics, default `dev`, branch protection compatibility, Actions permissions, vulnerability alerts, Discussions/Wiki/Projects toggles, private reporting, collaborator access. Review first; changes may affect other Laraxot projects.
@@ -131,4 +142,4 @@ Use a Discussion for genuine alternatives (e.g. **source adapters vs host adapte
 
 ## Handoff / open limitations
 
-GitHub connector supports Issues, labels on issues, file commits and PR review, but this session has no authenticated browser for creating Projects, Milestones, shared Views, Discussions or GitHub Wiki pages. These remain **specified, not created**. Never claim a settings/security toggle was changed merely because it is documented here.
+GitHub connector supports Issues, labels, commits and PR review; **Project (0) and shared Issue Views (0) remain uncreated** as of the public check. Milestones (4) and prospecting Discussions **were created in the repository in parallel work**; this document records their verified existence, not authorship. GitHub Wiki publication and admin Settings were not changed here; browser authentication was still incomplete. Never claim a setting/security toggle changed merely because it is documented.

@@ -22,6 +22,7 @@ final readonly class WebsiteAuditResultData
         if (! $this->ok) {
             return 0;
         }
+
         $sum = 0;
         foreach ($this->signals as $signal) {
             $sum += $signal->score;

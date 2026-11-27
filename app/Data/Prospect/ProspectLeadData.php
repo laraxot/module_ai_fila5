@@ -76,7 +76,7 @@ final readonly class ProspectLeadData
             $url = 'https://'.$url;
         }
 
-        return filter_var($url, FILTER_VALIDATE_URL) ? $url : null;
+        return filter_var($url, FILTER_VALIDATE_URL) !== false ? $url : null;
     }
 
     /** @return array<string, mixed> */

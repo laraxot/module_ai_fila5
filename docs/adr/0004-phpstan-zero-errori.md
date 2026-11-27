@@ -41,6 +41,11 @@ tags: [adr, phpstan, quality, ecc]
   --memory-limit=-1` deve tornare **0 errori**; in caso contrario il lavoro non è finito.
 - Le nuove classi/nascenti file PHP devono nascere conformi (type declarations esplicite, PHPDoc
   dove servono, niente `mixed` non governato).
+- **Semantica per gli agenti:** ogni fix non banale porta un'annotazione `@see` nel PHPDoc della
+  funzione/classe toccata, che punta alla fonte della decisione (es.
+  `@see https://phpstan.org/error-identifiers/theCodingMachineSafe.function`,
+  `@see docs/adr/0004-phpstan-zero-errori.md`, o la pagina wiki/concetto che motiva la scelta).
+  Lo scopo è che un lettore/AI capisca *perché* quel tipo è stato scelto, non solo *che* c'è.
 
 ## Conseguenze
 

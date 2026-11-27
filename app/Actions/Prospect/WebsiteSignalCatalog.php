@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Modules\AI\Actions\Prospect;
 
 use function Safe\preg_match;
-
 /**
  * Default gap weights and categories for public-page signals.
  * Host apps override via config('ai.prospect.signals.weights').
  *
  * Score = opportunity weight when the gap detector fires (higher = rank first).
+ * Reachability failures use weight 0: unknown is not a commercial opportunity.
  */
 final class WebsiteSignalCatalog
 {
@@ -42,7 +42,8 @@ final class WebsiteSignalCatalog
             'no-social' => ['weight' => 1, 'category' => 'presence', 'why' => 'No common social profile links on page'],
             'no-phone' => ['weight' => 1, 'category' => 'contact', 'why' => 'No tel: link or obvious phone pattern'],
             'no-lang' => ['weight' => 1, 'category' => 'a11y', 'why' => 'Missing html lang attribute'],
-            'no-site' => ['weight' => 4, 'category' => 'reachability', 'why' => 'Site not reachable or fetch blocked'],
+            // Fail-closed: unreachable / blocked fetch must never boost ranking (#33)
+            'no-site' => ['weight' => 0, 'category' => 'reachability', 'why' => 'Site not reachable or fetch blocked; score unknown'],
             // Restaurant / hospitality ICP extras (only when businessType matches)
             'no-menu' => ['weight' => 2, 'category' => 'hospitality', 'why' => 'No menu / carta markers on page'],
             'no-hours' => ['weight' => 1, 'category' => 'hospitality', 'why' => 'No opening-hours markers on page'],

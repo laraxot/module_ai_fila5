@@ -17,15 +17,15 @@ use Spatie\LaravelData\Data;
 final class FollowUpDecisionData extends Data
 {
     /** Codici stabili di `stopReason`, in ordine di precedenza. */
-    public const STOP_SUPPRESSED = 'suppressed';
+    public const string STOP_SUPPRESSED = 'suppressed';
 
-    public const STOP_REPLIED = 'replied';
+    public const string STOP_REPLIED = 'replied';
 
-    public const STOP_MEETING_BOOKED = 'meeting_booked';
+    public const string STOP_MEETING_BOOKED = 'meeting_booked';
 
-    public const STOP_MAX_ATTEMPTS = 'max_attempts';
+    public const string STOP_MAX_ATTEMPTS = 'max_attempts';
 
-    public const STOP_MAX_AGE = 'max_age';
+    public const string STOP_MAX_AGE = 'max_age';
 
     public function __construct(
         public FollowUpStateEnum $state,

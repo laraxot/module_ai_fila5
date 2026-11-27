@@ -75,7 +75,16 @@ final class DraftProspectOutreachAction
             $address
         );
 
-        preg_match_all('/\[fill: (\w+)\]/', $body, $m);
+        $matches = [];
+        preg_match_all('/\[fill: (\w+)\]/', $body, $matches);
+        $missing = [];
+        if (isset($matches[1]) && is_array($matches[1])) {
+            foreach ($matches[1] as $field) {
+                if (is_string($field)) {
+                    $missing[] = $field;
+                }
+            }
+        }
 
         return [
             'to' => $lead->email,
@@ -85,7 +94,7 @@ final class DraftProspectOutreachAction
             'requires_approval' => true,
             'send_permitted' => false,
             'daily_cap_hint' => 50,
-            'missing' => array_values(array_unique($m[1] ?? [])),
+            'missing' => array_values(array_unique($missing)),
         ];
     }
 

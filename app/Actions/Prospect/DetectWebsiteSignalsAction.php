@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Prospect;
 
+use Modules\AI\Data\Prospect\WebsiteAuditResultData;
+use Modules\AI\Data\Prospect\WebsiteSignalData;
+use Spatie\QueueableAction\QueueableAction;
+
 use function Safe\json_decode;
 use function Safe\preg_match;
 use function Safe\preg_match_all;
 use function Safe\preg_replace;
-
-use Modules\AI\Data\Prospect\WebsiteAuditResultData;
-use Modules\AI\Data\Prospect\WebsiteSignalData;
-use Spatie\QueueableAction\QueueableAction;
 
 /**
  * PROFILE-style public page audit (Sellbird patterns) + Closer prospector gaps.
@@ -315,11 +315,13 @@ final class DetectWebsiteSignalsAction
     {
         /** @var list<string> $types */
         $types = [];
-        if (! preg_match_all(
+        $result = preg_match_all(
             '/<script[^>]+type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/is',
             $page,
             $blocks
-        )) {
+        );
+        /** @see \Safe\preg_match_all() returns an int and throws on failure. */
+        if ($result < 1) {
             return [];
         }
 
@@ -342,8 +344,8 @@ final class DetectWebsiteSignalsAction
     }
 
     /**
-     * @param array<string|int, mixed> $node
-     * @param list<string> $types
+     * @param  array<string|int, mixed>  $node
+     * @param  list<string>  $types
      */
     private function collectTypes(array $node, array &$types): void
     {

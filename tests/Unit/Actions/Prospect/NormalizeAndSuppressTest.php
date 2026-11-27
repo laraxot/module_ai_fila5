@@ -6,6 +6,9 @@ use Modules\AI\Actions\Prospect\ApplyProspectSuppressionAction;
 use Modules\AI\Actions\Prospect\DraftProspectOutreachAction;
 use Modules\AI\Actions\Prospect\NormalizeProspectImportAction;
 use Modules\AI\Data\Prospect\ProspectLeadData;
+use Modules\AI\Tests\TestCase;
+
+uses(TestCase::class);
 
 test('normalize dedupes by identity', function (): void {
     $rows = [
