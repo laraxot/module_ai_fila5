@@ -89,9 +89,7 @@ final class DetectWebsiteSignalsAction
         return new WebsiteAuditResultData(
             url: $url,
             ok: false,
-            signals: [
-                new WebsiteSignalData('no-site', 4, 'Site not reachable or blocked', 'error', $error),
-            ],
+            signals: [],
             error: $error,
             fetchedAt: gmdate('c'),
         );
