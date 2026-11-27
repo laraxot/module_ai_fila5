@@ -3,11 +3,7 @@ title: "Contratti del modulo AI"
 type: index
 tags: [contracts, actions, ai]
 created: 2026-11-18
-<<<<<<< .merge_file_mrD8G1
-updated: 2026-11-24
-=======
 updated: 2026-11-26
->>>>>>> .merge_file_Lq3nhL
 ---
 
 # Contratti del modulo AI
@@ -16,16 +12,6 @@ Cosa promettono le Action del modulo AI che chiamano fornitori esterni o scrivon
 conferma di una proposta dell'AI, la base di conoscenza. Ogni invariante ha un ID `AI-<OPERAZIONE>-INV-<N>`; con un group
 Pest si lancia `vendor/bin/pest Modules/AI/tests --group=<ID>`, `—` è debito dichiarato.
 
-<<<<<<< .merge_file_mrD8G1
-Quando leggerli: prima di chiamare, modificare o imitare una di queste Action, in particolare prima di aggiungere un fornitore
-o di eseguire una proposta fuori dalla UI. Formato: `Modules/Xot/docs/rules/action-behavioral-contract.md`.
-
-## Contratti
-
-- [RequestAssistantCompletionAction](request-assistant-completion-action.md) — cascata di fornitori LLM con risposta JSON; 5 invarianti, tutte con group.
-- [ConfirmAiActionProposalAction](confirm-ai-action-proposal-action.md) — conferma ed esecuzione di una proposta tramite handler; 4 invarianti, tutte con group.
-- [SaveKnowledgeEntryAction](save-knowledge-entry-action.md) — voce della base di conoscenza per `collection`; 4 invarianti, 1 con group.
-=======
 ## Contratto di comportamento di un'Action
 
 Un file per Action, nome in kebab-case della classe (`create-ticket-action.md`), frontmatter `type: contract` e
@@ -103,4 +89,17 @@ Invarianti senza prova, in ordine di rischio:
 Difetti trovati leggendo il codice (non corretti: sono codice, non docs): dati personali nei log di `MakeAIRequestAction`, `gpt-4` a pagamento fisso
 usato da Classify e Suggest e come ultima spiaggia dell'assistente, nessun controllo di stato in Confirm e Cancel, `GeneratePredictionsAction` senza chiamanti
 e con possibile ricorsione. Dettaglio nei «Limiti noti» dei singoli contratti.
->>>>>>> .merge_file_Lq3nhL
+
+## Harness minimo: ownership, evidenza e recupero (2026-11-27)
+
+I contratti di **module_ai_fila5** restano accanto alle Action, interfacce o superfici di questo package; root e Xot definiscono lo standard, non copiano le promesse. Un contratto comportamentale esplicita **Input, Output, Invarianti, Effetti collaterali, Errori, Non fa**; ogni ID di invariante punta a un group Pest effettivo oppure segnala `non dimostrata`. Se esiste la classe, il docblock deve rimandare al file con `@contract` e `@see`; per temi senza classi PHP non inventare Action/contratti.
+
+- [Standard Xot](https://github.com/laraxot/module_xot_fila5/blob/dev/docs/contracts/contract-authoring-standard.md) · [ownership root](https://github.com/laraxot/base_ptvx_fila5/blob/dev/docs/adr/0001-harness-minimo-e-ownership.md) · [runbook ECC/Second Brain](https://github.com/laraxot/base_ptvx_fila5/blob/dev/docs/harness/README.md).
+- **BMAD**: prima di cambiare una promessa, fissa nella story owner scope, esclusioni, evidenza e approvazioni richieste.
+- **ECC**: i marker di merge rendono invalido l'indice; citare una suite non significa averla eseguita. Distingui `pass`, `fail`, `non eseguito` e registra il debito in [rollout #15](https://github.com/laraxot/base_ptvx_fila5/issues/15).
+
+## Documenti del package da riconciliare nell'indice
+
+I seguenti file **esistono nel repository su `dev`** e non erano tutti collegati nel ramo d'indice più recente. Sono preservati come puntatori documentali; il loro stato di approvazione, la copertura e l'eventuale sostituzione con ADR numerati devono essere verificati nell'owner. Nessuna prova di esecuzione è implicita.
+
+- [website-signals.md](./website-signals.md)
