@@ -1,4 +1,4 @@
-name: Prospecting PHP syntax
+name: AI Prospecting and Approval PHP syntax
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
     paths:
       - 'app/Actions/Prospecting/**'
       - 'app/Actions/Prospect/**'
+      - 'app/Actions/*AiActionProposalAction.php'
+      - 'app/Models/AiActionProposal.php'
+      - 'app/Enums/AiActionProposalStatusEnum.php'
       - 'app/Data/Prospect/**'
       - 'app/Models/AiProspect*.php'
       - 'app/Console/Commands/ImportProspectsCommand.php'
@@ -14,6 +17,7 @@ on:
       - 'database/migrations/2026_11_27_*'
       - 'tests/Unit/Prospecting/**'
       - 'tests/Unit/Actions/Prospect/**'
+      - 'tests/Unit/Actions/*AiActionProposalActionTest.php'
       - '.github/workflows/prospecting-php-syntax.yml'
   workflow_dispatch:
 
@@ -37,6 +41,12 @@ jobs:
           done < <(find \
             app/Actions/Prospecting \
             app/Actions/Prospect \
+            app/Actions/ConfirmAiActionProposalAction.php \
+            app/Actions/CancelAiActionProposalAction.php \
+            app/Enums/AiActionProposalStatusEnum.php \
+            app/Models/AiActionProposal.php \
+            tests/Unit/Actions/ConfirmAiActionProposalActionTest.php \
+            tests/Unit/Actions/CancelAiActionProposalActionTest.php \
             app/Data/Prospect \
             app/Console/Commands/ImportProspectsCommand.php \
             app/Models/AiProspect.php \
