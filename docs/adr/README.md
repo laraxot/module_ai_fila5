@@ -3,27 +3,16 @@ title: "ADR del modulo AI"
 type: index
 tags: [adr, decisioni, ai]
 created: 2026-11-18
-<<<<<<< .merge_file_BBwCLj
-updated: 2026-11-24
-=======
 updated: 2026-11-26
 qmd: "AI ADR governance PHPStan gate"
 issues:
   - "https://github.com/laraxot/module_ai_fila5/issues/32"
 discussions:
   - "https://github.com/laraxot/module_ai_fila5/discussions/24"
->>>>>>> .merge_file_f6FwVH
 ---
 
 # ADR del modulo AI
 
-<<<<<<< .merge_file_BBwCLj
-Il **perché** delle forme di codice del modulo AI: come l'assistente sceglie il fornitore senza costi imprevisti, perché l'AI
-propone invece di eseguire, perché gli id utente sono stringhe.
-
-Quando leggerli: prima di aggiungere un fornitore o un modello, di far "agire" un agente sui dati, o di toccare le migrazioni e
-le Action che salvano un id utente. Formato e regole: `Modules/Xot/docs/rules/action-behavioral-contract.md`.
-=======
 Il **perche'** delle scelte di questo pacchetto: una decisione per file, con le alternative scartate.
 Il nome del file e' `NNNN-argomento.md` (numero di decisione, niente date: la data sta nella frontmatter).
 
@@ -62,7 +51,6 @@ Pro, contro, debito che resta, cosa misurare. Chi cambia la decisione scrive un 
 Come si controlla che il codice rispetti la decisione: un test (percorso), un comando eseguibile da `laravel/` o una regola
 di review. Se oggi non esiste nulla di automatico: «Nessuna conferma automatica oggi; proposta: ...».
 ```
->>>>>>> .merge_file_f6FwVH
 
 Se il codice di oggi contraddice la decisione, si aggiunge `## Stato attuale` con cio' che fa davvero (file e riga). Il test
 `Modules/Xot/tests/Unit/Docs/PackagesHaveContractsAndAdrTest.php` impone le intestazioni in italiano.
@@ -75,11 +63,6 @@ report verde; corregge invece le cause nel codice oppure lascia il lavoro aperto
 
 ## Decisioni
 
-<<<<<<< .merge_file_BBwCLj
-- [L'assistente chiede la risposta a più fornitori in cascata](assistant-provider-cascade.md) — Groq → OpenRouter → OpenAI, solo modelli gratuiti nella cascata.
-- [L'AI propone, una persona conferma, un handler del dominio esegue](ai-proposes-human-confirms.md) — `AiActionProposal` + `AiActionHandlerRegistry`, il modulo non conosce i domini.
-- [Gli id utente nelle tabelle AI sono stringhe](user-ids-are-strings.md) — `string(36)` e parametri `int|string`, mai `(int) Auth::id()`.
-=======
 - [0001 — L'AI propone, una persona conferma, un handler del dominio esegue](0001-ai-proposes-human-confirms.md) — `accepted`: l'AI crea una `AiActionProposal`, la esegue solo `ConfirmAiActionProposalAction` tramite il registry di handler del dominio.
 - [0002 — L'assistente chiede la risposta a piu' fornitori in cascata, solo modelli gratuiti](0002-assistant-provider-cascade.md) — `accepted`: Groq, poi OpenRouter, poi OpenAI; l'ultimo tentativo ignora `free_models_only` (`## Stato attuale`).
 - [0003 — Gli id utente nelle tabelle AI sono stringhe da 36 caratteri](0003-user-ids-are-strings.md) — `accepted`: cinque colonne `string(36)` al posto di interi, per non troncare gli UUID a 0.
@@ -95,4 +78,21 @@ report verde; corregge invece le cause nel codice oppure lascia il lavoro aperto
 - Il codice contraddice due volte la lettera degli ADR: nessun controllo di stato nelle Action di conferma/annullamento (0001) e
   l'ultimo tentativo OpenAI a pagamento (0002). Decisioni umane aperte, vedi gli ADR.
 - Il documento `docs/deferred-operator-assistant-agent.md`, citato da 0001, e' stato cancellato dal commit `2471438` del repository del modulo.
->>>>>>> .merge_file_f6FwVH
+
+## Harness minimo: ownership, evidenza e recupero (2026-11-27)
+
+Questo indice appartiene a **module_ai_fila5**: ogni decisione su codice, dominio o tema va nell'ADR del package owner; il root registra soltanto i vincoli di composizione. Un ADR richiede una scelta reale con alternative e conseguenze, più una **Conferma** ripetibile (oppure la dichiarazione esplicita che manca). Non creare ADR fittizi per riempire un indice.
+
+- [Confine LaravelDay/harness Xot](https://github.com/laraxot/module_xot_fila5/blob/dev/docs/adr/0042-laravel-day-harness-adoption-boundary.md); [ownership root](https://github.com/laraxot/base_ptvx_fila5/blob/dev/docs/adr/0001-harness-minimo-e-ownership.md).
+- **BMAD**: la story owner-local conserva `scope`, `must_not_change`, `evidence`, `approval_required` nei cambi rischiosi.
+- **ECC**: nessun marker di merge; distinguere la prova eseguita dal semplice riferimento a un test; se la conferma non è disponibile segnare `non eseguita`.
+- **Second Brain**: QMD/Graphify e `.harness/memory/{facts,lessons}.md` sono puntatori a evidenza datata, non copie degli ADR. [Runbook](https://github.com/laraxot/base_ptvx_fila5/blob/dev/docs/harness/README.md) · [Rollout #15](https://github.com/laraxot/base_ptvx_fila5/issues/15).
+
+## Documenti del package da riconciliare nell'indice
+
+I seguenti file **esistono nel repository su `dev`** e non erano tutti collegati nel ramo d'indice più recente. Sono preservati come puntatori documentali; il loro stato di approvazione, la copertura e l'eventuale sostituzione con ADR numerati devono essere verificati nell'owner. Nessuna prova di esecuzione è implicita.
+
+- [0004-phpstan-zero-errori.md](./0004-phpstan-zero-errori.md)
+- [L'AI propone, una persona conferma, un handler del dominio esegue](./ai-proposes-human-confirms.md)
+- [L'assistente chiede la risposta a più fornitori in cascata](./assistant-provider-cascade.md)
+- [Gli id utente nelle tabelle AI sono stringhe](./user-ids-are-strings.md)
