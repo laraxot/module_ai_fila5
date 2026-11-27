@@ -11,6 +11,7 @@ use Modules\AI\Enums\AiActionProposalStatusEnum;
 use Modules\AI\Models\AiActionProposal;
 use Modules\AI\Tests\TestCase;
 use PHPUnit\Framework\Assert;
+use RuntimeException;
 
 uses(TestCase::class);
 
@@ -35,6 +36,8 @@ function confirmHandler(string $type, ?\Throwable $failure = null): AiActionHand
 {
     return new class($type, $failure) implements AiActionHandlerContract
     {
+        public int $calls = 0;
+
         public function __construct(private readonly string $type, private readonly ?\Throwable $failure) {}
 
         public function type(): string
@@ -44,6 +47,8 @@ function confirmHandler(string $type, ?\Throwable $failure = null): AiActionHand
 
         public function handle(AiActionProposal $proposal): array
         {
+            ++$this->calls;
+
             if ($this->failure !== null) {
                 throw $this->failure;
             }
@@ -84,3 +89,24 @@ test('_stores_the_handler_error_instead_of_throwing_it', function (): void {
     Assert::assertSame(AiActionProposalStatusEnum::FAILED, $proposal->status);
     Assert::assertSame('dominio non disponibile', $proposal->getAttribute('error'));
 })->group('AI-CONFIRM-INV-3', 'AI-CONFIRM-INV-4');
+
+test('_rejects_confirm_when_proposal_is_not_pending_to_prevent_replay', function (): void {
+    $handler = confirmHandler('noop');
+    $registry = (new AiActionHandlerRegistry)->register($handler);
+
+    $proposal = new AiActionProposal;
+    $proposal->forceFill([
+        'type' => 'noop',
+        'payload' => ['x' => 1],
+        'status' => AiActionProposalStatusEnum::EXECUTED,
+    ]);
+
+    try {
+        (new ConfirmAiActionProposalAction($registry))->execute($proposal, 'user-1');
+        Assert::fail('Expected RuntimeException for non-PENDING confirm');
+    } catch (RuntimeException $e) {
+        Assert::assertStringContainsString('only PENDING is allowed', $e->getMessage());
+    }
+
+    Assert::assertSame(0, $handler->calls);
+})->group('AI-CONFIRM-INV-5', 'AI-PROSPECTING-INV-42');
