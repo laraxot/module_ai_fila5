@@ -25,13 +25,16 @@ uses(TestCase::class);
 
 beforeEach(function (): void {
     // Never run these migration tests on a real database.
+    Assert::assertTrue(app()->environment('testing'), 'Prospecting test cannot run outside testing.');
     $connection = (new AiProspect)->getConnectionName();
     Assert::assertSame('sqlite', DB::connection($connection)->getDriverName());
+    Assert::assertSame(':memory:', DB::connection($connection)->getDatabaseName(), 'Only SQLite :memory: is allowed.');
     if (! Schema::connection($connection)->hasTable('ai_prospects')) {
         foreach (['2026_11_27_000001_create_ai_prospects_table', '2026_11_27_000002_create_ai_prospect_suppressions_table'] as $migration) {
             $this->artisan('migrate', ['--database' => $connection, '--path' => 'Modules/AI/database/migrations/'.$migration.'.php']);
         }
     }
+    config(['cache.default' => 'array']); // Never flush a shared Redis/file cache.
     Cache::flush();
     config([
         'ai.prospecting.enabled' => true,
