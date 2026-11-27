@@ -39,6 +39,12 @@ final class FetchPublicPageAction
         $maxBytes = config()->integer('ai.prospecting.max_bytes', 1_500_000);
         $userAgent = config('ai.prospecting.user_agent');
         $started = microtime(true);
+        // P0 (#33): callers must explicitly opt in to experimental live fetching.
+        // The prospecting feature flag alone does not authorize outbound HTTP.
+        if (! config()->boolean('ai.prospecting.site_fetch_enabled', false)) {
+            return $this->result(false, $url, 0, '', $started, 'lettura siti disabilitata');
+        }
+
         $current = $url;
 
         for ($hop = 0; $hop <= 3; $hop++) {
