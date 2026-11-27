@@ -13,12 +13,15 @@ use function Safe\parse_url;
 use function Safe\preg_match;
 
 /**
- * Legge UNA pagina pubblica del sito di un'attivita', in modo sicuro.
+ * Adapter SPERIMENTALE per leggere UNA pagina pubblica di un prospect.
+ * Disabilitato per default: richiede ai.prospecting.site_fetch_enabled = true (#33).
+ * Le verifiche in questa classe NON garantiscono la protezione SSRF, DNS rebinding,
+ * IPv6/AAAA o il limite effettivo dei byte scaricati. Non usare in produzione.
  *
  * - Solo http/https e solo indirizzi pubblici: host che risolvono su reti private, locali o riservate
  *   (127.0.0.1, 10.x, 192.168.x, 169.254.169.254...) vengono rifiutati, anche dopo un redirect.
  * - Redirect seguiti a mano (max 3), ognuno ricontrollato.
- * - User-Agent che identifica chi legge; tempo misurato (serve al segnale "sito lento"); pagina troncata a
+ * - User-Agent che identifica chi legge; tempo misurato (serve al segnale "sito lento"); stringa HTML troncata a
  *   `ai.prospecting.max_bytes`.
  *
  * Il contenuto restituito NON e' fidato: puo' contenere istruzioni rivolte a un modello (prompt injection).
