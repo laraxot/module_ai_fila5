@@ -84,4 +84,21 @@ return [
         'max_sources' => 5,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Business prospecting (default OFF, no email transport)
+    |--------------------------------------------------------------------------
+    |
+    | Must be enabled explicitly after the project has chosen its ICP, legal
+    | basis, data-source license and allowed workspaces. No automatic outreach.
+    */
+    'prospecting' => [
+        'enabled' => (bool) env('AI_PROSPECTING_ENABLED', false),
+        'signal_weights' => [
+            'manual_booking_only' => 35,
+            'manual_order_only' => 30,
+            'catalogue_link' => 10,
+        ],
+    ],
+
 ];

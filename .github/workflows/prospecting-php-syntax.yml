@@ -1,0 +1,45 @@
+name: Prospecting PHP syntax
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - 'app/Actions/Prospecting/**'
+      - 'app/Models/AiProspect*.php'
+      - 'app/Console/Commands/ImportProspectsCommand.php'
+      - 'app/Providers/AIServiceProvider.php'
+      - 'config/ai.php'
+      - 'database/migrations/2026_11_27_*'
+      - 'tests/Unit/Prospecting/**'
+      - '.github/workflows/prospecting-php-syntax.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: PHP version and syntax gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -v
+          while IFS= read -r -d '' file; do
+            php -l "$file"
+          done < <(find \
+            app/Actions/Prospecting \
+            app/Console/Commands/ImportProspectsCommand.php \
+            app/Models/AiProspect.php \
+            app/Models/AiProspectSuppression.php \
+            app/Providers/AIServiceProvider.php \
+            config/ai.php \
+            tests/Unit/Prospecting \
+            -type f -name '*.php' -print0)
+          while IFS= read -r -d '' file; do
+            php -l "$file"
+          done < <(find database/migrations -maxdepth 1 -name '2026_11_27_*' -type f -print0)

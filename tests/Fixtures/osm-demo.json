@@ -1,0 +1,15 @@
+{
+  "elements": [
+    {
+      "type": "node",
+      "id": 123456,
+      "tags": {
+        "name": "Trattoria Dimostrativa",
+        "amenity": "restaurant",
+        "website": "https://trattoria.example",
+        "addr:city": "Venezia",
+        "addr:country": "IT"
+      }
+    }
+  ]
+}

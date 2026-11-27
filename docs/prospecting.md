@@ -39,3 +39,11 @@ php artisan ai:prospect-audit https://example.com --type=business
 - [ ] Filament list (admin only)
 - [ ] Persist suppression table
 - [ ] Host-app ICP config for signal weights
+
+## Safe storage/import slice on dev (2026-11-27)
+
+Additional workspace-scoped `Actions/Prospecting/*`, `AiProspect`/`AiProspectSuppression` models, additive migrations and dry-run-first `ai:prospects:import` provide a persistent, auditable lead list without harvesting contacts. See [detailed BMAD implementation notes](prompts/clients.md) and [issue #32](https://github.com/laraxot/module_ai_fila5/issues/32).
+
+**Security:** The original `DetectWebsiteSignalsAction::execute()` remote HTTP path now fails closed; it previously lacked complete DNS rebinding, redirect and private-address controls. Its `analyzeHtml()` offline method remains supported. The older `DraftProspectOutreachAction` also explicitly sets `send_permitted=false`. The new draft action is workspace-scoped and never returns a recipient. No sending service or auto-crawler has been enabled.
+
+**Outstanding:** host authorization/policies, Filament UI, provider selection, integration Pest/PHPStan, privacy review, safe network adapter and ICP validation.

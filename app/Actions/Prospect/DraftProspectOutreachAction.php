@@ -29,6 +29,7 @@ final class DraftProspectOutreachAction
      *   body: string,
      *   signal: string,
      *   requires_approval: true,
+     *   send_permitted: false,
      *   daily_cap_hint: int,
      *   missing: list<string>
      * }
@@ -81,6 +82,7 @@ final class DraftProspectOutreachAction
             'body' => $body,
             'signal' => $signal,
             'requires_approval' => true,
+            'send_permitted' => false,
             'daily_cap_hint' => 50,
             'missing' => array_values(array_unique($m[1] ?? [])),
         ];

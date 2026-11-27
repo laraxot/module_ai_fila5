@@ -4,60 +4,27 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Prospect;
 
-use Illuminate\Support\Facades\Http;
 use Modules\AI\Data\Prospect\WebsiteAuditResultData;
 use Modules\AI\Data\Prospect\WebsiteSignalData;
 use Spatie\QueueableAction\QueueableAction;
 
 /**
  * PROFILE stage (Sellbird) + closer prospector audit.
- * One public page, deterministic regex signals, SSRF-safe host filter.
- * Absence of a pattern is a *hint* only when the page was successfully fetched.
+ * Offline deterministic regex signals only. Direct HTTP fetching fails closed.
+ * Absence of a pattern is never proof of missing capabilities.
  */
 final class DetectWebsiteSignalsAction
 {
     use QueueableAction;
 
-    private const USER_AGENT = 'LaraxotAI-Prospector/1.0 (+https://github.com/laraxot/module_ai_fila5; public HTML only)';
-
     private const SLOW_SECONDS = 4.0;
 
     public function execute(string $url, string $businessType = 'business'): WebsiteAuditResultData
     {
-        $normalized = $this->normalizeUrl($url);
-        if ($normalized === null) {
-            return $this->fail($url, 'invalid_or_blocked_url');
-        }
-
-        $started = microtime(true);
-
-        try {
-            $response = Http::withHeaders([
-                'User-Agent' => self::USER_AGENT,
-                'Accept' => 'text/html,application/xhtml+xml',
-            ])
-                ->timeout(15)
-                ->withOptions(['allow_redirects' => ['max' => 3]])
-                ->get($normalized);
-        } catch (\Throwable $e) {
-            return $this->fail($normalized, substr($e->getMessage(), 0, 120));
-        }
-
-        if (! $response->successful()) {
-            return $this->fail($normalized, 'HTTP '.$response->status());
-        }
-
-        $seconds = round(microtime(true) - $started, 1);
-        $body = mb_substr($response->body(), 0, 2_000_000);
-
-        return new WebsiteAuditResultData(
-            url: $normalized,
-            ok: true,
-            signals: $this->analyze($body, $seconds, $businessType),
-            title: $this->extractTitle($body),
-            seconds: $seconds,
-            fetchedAt: gmdate('c'),
-        );
+        // Fail closed: direct outbound fetch cannot safely guard DNS rebinding,
+        // redirects, or private destinations without a reviewed HTTP adapter.
+        // Call analyzeHtml() with a permitted, already-fetched page instead.
+        return $this->fail($url, 'remote_fetch_disabled_pending_ssrf_safe_adapter');
     }
 
     /** @return list<WebsiteSignalData> */
@@ -105,29 +72,6 @@ final class DetectWebsiteSignalsAction
         usort($found, static fn (WebsiteSignalData $a, WebsiteSignalData $b): int => $b->score <=> $a->score);
 
         return $found;
-    }
-
-    private function normalizeUrl(string $url): ?string
-    {
-        $url = trim($url);
-        if ($url === '') {
-            return null;
-        }
-        if (! preg_match('#^https?://#i', $url)) {
-            $url = 'https://'.$url;
-        }
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            return null;
-        }
-        $host = parse_url($url, PHP_URL_HOST);
-        if (! is_string($host) || $host === '') {
-            return null;
-        }
-        if (preg_match('/^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.0\.0\.0|\[::1\])/i', $host)) {
-            return null;
-        }
-
-        return $url;
     }
 
     private function extractTitle(string $html): ?string
