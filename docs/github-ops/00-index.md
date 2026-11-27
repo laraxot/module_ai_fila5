@@ -30,7 +30,7 @@ This page inventories all requested GitHub surfaces and defines their intended u
 | [Projects](https://github.com/laraxot/module_ai_fila5/projects) | 0 linked projects | Create one board, not parallel conflicting boards |
 | [Milestones](https://github.com/laraxot/module_ai_fila5/milestones) | 0 milestones | Create 4 phase gates below; no invented dates |
 | [Labels](https://github.com/laraxot/module_ai_fila5/labels) | 16 visible labels, including `track-prospecting`, `priority-P0/P1`, `bmad`, `ecc-gate`, `second-brain` | Reuse existing taxonomy before creating new labels |
-| [Pull requests](https://github.com/laraxot/module_ai_fila5/pulls) | 5 open Dependabot PRs (#18–#22) at inspection | Review base/current checks; do not blindly merge security/dependency bumps |
+| [Pull requests](https://github.com/laraxot/module_ai_fila5/pulls) | 5 open Dependabot PRs (#18–#22), each `mergeable=false` at inspection; added `ecc-gate` label | Investigate conflicts and test compatibility; no blind merge |
 | [Agents](https://github.com/laraxot/module_ai_fila5/agents) | Three manual-invocation profiles created under `.github/agents/` (BMAD, ECC, Second Brain); account availability unverified | Confirm profile availability in Copilot UI when authenticated |
 | [Discussions](https://github.com/laraxot/module_ai_fila5/discussions) | 2 public discussions at inspection (#16, #24) | New RFC only for unresolved architectural decisions, not duplicate issue |
 | [Actions](https://github.com/laraxot/module_ai_fila5/actions) | [Prospecting PHP syntax run #5](https://github.com/laraxot/module_ai_fila5/actions/runs/45969852134) **Success** for commit `5f3a72e`; this proves syntax only | Add host-based Pest/PHPStan and security gates (#41) |
