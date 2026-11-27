@@ -94,6 +94,9 @@ return [
     */
     'prospecting' => [
         'enabled' => (bool) env('AI_PROSPECTING_ENABLED', false),
+        // Independent gate: live website fetch is experimental until SSRF audit #33 passes.
+        // Enabling prospecting must never implicitly enable arbitrary outbound HTTP.
+        'site_fetch_enabled' => (bool) env('AI_PROSPECTING_SITE_FETCH_ENABLED', false),
         'signal_weights' => [
             'manual_booking_only' => 35,
             'manual_order_only' => 30,
