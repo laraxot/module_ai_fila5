@@ -38,6 +38,7 @@ beforeEach(function (): void {
     Cache::flush();
     config([
         'ai.prospecting.enabled' => true,
+        'ai.prospecting.site_fetch_enabled' => true, // explicit test-only experimental opt-in (#33)
         'ai.prospecting.user_agent' => 'TestProspecting/1.0 (+https://example.test)',
     ]);
     // DNS finto: i domini di prova risolvono su un IP pubblico, alcuni su reti private.
