@@ -37,7 +37,8 @@ AGPL Sellbird is **not** vendored. Patterns only. Closer is conceptual reference
 Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 
 - **Offline-first:** `analyzeHtml` / `analyzeHtmlResult` — host supplies HTML after a safe fetch.
-- **Fail-closed:** `execute($url)` does not open network sockets (SSRF).
+- **Bridge (#40):** `Prospecting/AuditWebsiteFromHtmlAction` → `DetectWebsiteSignalsAction::analyzeHtmlResult` (no HTTP).
+- **Fail-closed:** `execute($url)` and `FetchPublicPageAction` do not open network sockets (SSRF).
 - **Polarity:** `gap` (rank score) vs `strength` (score 0, brief only).
 - **Catalog:** mobile, SEO (title/meta/canonical/OG/H1/lang/JSON-LD), performance, HTTPS hint, trust, booking, chat, forms, analytics, social, phone, copyright, commerce ICP, hospitality ICP (`no-menu` / `no-hours` / `no-order-online`).
 - **Weights:** `config('ai.prospect.signals.weights')` overrides `WebsiteSignalCatalog::defaults()`.
@@ -63,7 +64,7 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 3. No automatic send — drafts only
 4. Signals = hints unless `confidence=measured|error`
 5. Suppression honored on re-import / draft
-6. Confirm path: only `PENDING` → confirm → execute (`ConfirmAiActionProposalAction`, #42)
+6. Confirm path: only `PENDING` → confirm → execute; persisted rows use CAS `WHERE status = pending` (`ConfirmAiActionProposalAction`, #42)
 
 ## CLI
 
@@ -71,6 +72,7 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 php artisan ai:prospects:discover restaurant-sales "Treviso"               # dry-run; richiede opt-in provider autorizzato
 php artisan ai:prospects:import demo tests/Fixtures/prospects-demo.csv      # dry-run when present
 php artisan ai:prospect-audit https://example.com --type=business           # vecchio percorso Prospect/: resta chiuso (#40)
+php artisan ai:prospects:audit-html https://source.example /path/page.html --website=https://business.example
 ```
 
 ## Lettura dei siti sospesa: SSRF non ancora risolta (#33)
@@ -98,10 +100,13 @@ personali; il primo contatto naturale è la visita o la telefonata. Non è una c
 - [x] Deep offline signal catalog + Pest
 - [x] Configurable weights
 - [x] `no-site` weight 0 + totalScore fail-closed
-- [x] Confirm replay guard: non-PENDING rejected (Refs #42) — host Pest still required
-- [ ] Adapter `Prospecting/FetchPublicPageAction` **disabilitato fino a revisione #33**: IP pinning/egress, IPv6/AAAA, streaming limits; unify namespaces (#40)
-- [ ] Filament review UI, durable consent, provenance (#36–#41)
-- [ ] Projects / Milestones / shared Issue Views on GitHub UI (specified in `docs/github-ops/00-index.md`, not created in API session)
+- [x] Confirm: PENDING-only + CAS when `exists` (Refs #42) — concurrent host Pest still required
+- [x] Bridge `AuditWebsiteFromHtmlAction` (Prospecting → Prospect catalog) + Pest (Refs #40)
+- [ ] Live HTTP fetch **disabled** until reviewed transport (#33)
+- [ ] Full namespace / signal-storage unify (#40)
+- [ ] Filament review UI (none under `app/Filament` yet) (#38)
+- [ ] Durable consent / DNC registry (#36)
+- [ ] Host Pest + PHPStan gates (#41)
 
 ## Continuazione operativa — dry-run by default
 
