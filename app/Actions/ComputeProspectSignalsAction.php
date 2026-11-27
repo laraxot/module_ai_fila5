@@ -16,6 +16,9 @@ use Spatie\QueueableAction\QueueableAction;
  * sito web, email verificata). Nessuna deduzione da pagine non esaminate.
  * Qualità sorgente (high|medium|low) e confidenza (0-100) esplicite e verificabili.
  * Score (0-100) con breakdown per campo spiegabile.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — helper `stringOrNull`/`intOrNull`/`arrayOrEmpty`
+ *      fanno narrowing reale dei valori `mixed` da `$sourceData` invece di cast
  */
 class ComputeProspectSignalsAction
 {

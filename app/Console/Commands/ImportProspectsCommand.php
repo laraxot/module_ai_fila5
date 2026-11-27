@@ -13,6 +13,10 @@ use function Safe\fopen;
 
 /**
  * Reviewed file import only. No crawling, sending, paid API or automatic job.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — I/O file via `Safe\fopen`/`fgetcsv`/`fclose`
+ *      e `filesize`/`file_get_contents` Safe: mai `false` silenzioso
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
  */
 final class ImportProspectsCommand extends Command
 {

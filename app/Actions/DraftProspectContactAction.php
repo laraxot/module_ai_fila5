@@ -18,6 +18,9 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * - lawful_basis e consenso rimangono obbligatori
  * - merge tag riempiti da dati prospect solo dopo approvazione umana
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `instanceof AiProspectSignal` nel messaggio
+ *      d'errore e `array<string, mixed>` sui `$userNotes`: narrowing reale, niente cast
  */
 class DraftProspectContactAction
 {

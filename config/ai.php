@@ -92,6 +92,9 @@ return [
      | Must be enabled explicitly after the project has chosen its ICP, legal
      | basis, data-source license and allowed workspaces. No automatic outreach.
      */
+    // I valori env() vivono in config/services.php (`services.ai.*`): env() e' ammesso solo
+    // dentro config/, quindi qui si legge con config()/config()->boolean().
+    // @see Modules/AI/docs/adr/0004-phpstan-zero-errori.md — larastan.noEnvCallsOutsideOfConfig
     'prospecting' => [
         'enabled' => config()->boolean('services.ai.prospecting_enabled', false),
         // Independent provider authorization, never implied by offline import.

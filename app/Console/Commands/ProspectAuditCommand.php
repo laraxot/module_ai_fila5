@@ -8,6 +8,8 @@ use Illuminate\Console\Command;
 use Modules\AI\Actions\Prospect\DetectWebsiteSignalsAction;
 
 use function Safe\json_encode;
+
+/** @see docs/adr/0004-phpstan-zero-errori.md — `Safe\json_encode` mai `false` silenzioso sull'output JSON */
 final class ProspectAuditCommand extends Command
 {
     protected $signature = 'ai:prospect-audit

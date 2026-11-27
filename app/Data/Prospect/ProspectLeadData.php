@@ -7,7 +7,13 @@ namespace Modules\AI\Data\Prospect;
 use function Safe\parse_url;
 use function Safe\preg_match;
 
-/** Domain-agnostic B2B prospect (ICP defined by host app). */
+/** Domain-agnostic B2B prospect (ICP defined by host app).
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — helper `stringValue`/`intValue`/`boolValue`/
+ *      `stringList`/`metaOrEmpty` fanno narrowing dei campi `mixed` in `fromArray()`
+ *      (is_scalar/is_array) e `Safe\parse_url`/`Safe\preg_match` non tornano mai `false`
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
+ */
 final readonly class ProspectLeadData
 {
     /**

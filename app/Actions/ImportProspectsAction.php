@@ -20,6 +20,10 @@ use Webmozart\Assert\Assert;
  *
  * SECURITY: niente scraping di siti privati/login; niente email dedotte; niente
  * invio automatico: lo stato resta a `pending`.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `getString()` fa narrowing dei campi `mixed`
+ *      delle righe CSV/OSM (is_scalar -> string) e gli array shapes dei parametri
+ *      restano dichiarati in `@param`
  */
 class ImportProspectsAction
 {

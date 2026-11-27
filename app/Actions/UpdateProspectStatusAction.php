@@ -16,6 +16,9 @@ use Spatie\QueueableAction\QueueableAction;
  * ECC: only automatic transition is NEW -> QUALIFIED based on signal confidence.
  * All other transitions (QUALIFIED -> CONTACTED, QUALIFIED -> COLD_LOST) must be
  * performed manually via explicit human action — no automatic outreach.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `AiProspectStatusEnum` nei confronti di stato
+ *      e `@param int` espliciti: nessun `mixed` sulle relazioni Eloquent
  */
 class UpdateProspectStatusAction
 {

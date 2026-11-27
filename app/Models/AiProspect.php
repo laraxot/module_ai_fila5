@@ -21,6 +21,9 @@ use Modules\Xot\Models\XotBaseModel;
  * @see docs/prospecting.md  — politica di scoperta e uso dei prospect (opt-in, nessuna outreach automatica)
  * @see docs/wiki/entities/ai-prospect.md  — entita' e invarianti del dominio
  * @see tests/Unit/Models/AiProspectTest.php — contratto verificato per identificazione e isolamento workspace
+ * @see docs/adr/0004-phpstan-zero-errori.md — generics `Builder<static>` nei `@method` e `@property`
+ *      unione documento+casts allineati a `database/migrations/2026_11_27_000001_create_ai_prospects_table.php`
+ *      (merge dello schema: ogni colonna ha un tipo PHP dichiarato, niente `mixed` implicito)
  *
  * @property int $id
  * @property string $workspace_id

@@ -120,6 +120,13 @@ class ConfirmAiActionProposalAction
         return $proposal;
     }
 
+    /**
+     * `status` puo' arrivare come enum (cast del modello) o come stringa grezza
+     * (righe non ancora normalizzate): `tryFrom` restituisce `?Enum`, mai un cast.
+     *
+     * @see docs/adr/0004-phpstan-zero-errori.md — narrowing `instanceof`/`is_string` sul tipo unione
+     *      invece di `(AiActionProposalStatusEnum) $status`
+     */
     private function statusOf(AiActionProposal $proposal): ?AiActionProposalStatusEnum
     {
         $status = $proposal->status;

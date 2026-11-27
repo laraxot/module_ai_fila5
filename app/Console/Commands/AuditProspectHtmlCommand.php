@@ -15,6 +15,10 @@ use function Safe\file_get_contents;
 /**
  * Inspect an already-obtained HTML page without HTTP, LLM, database or outreach.
  * The operator is responsible for source provenance and permission to use the file.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `Safe\filesize`/`Safe\file_get_contents`
+ *      (mai `false` silenzioso) e `is_string`/`is_file` come guardie di narrowing
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
  */
 final class AuditProspectHtmlCommand extends Command
 {

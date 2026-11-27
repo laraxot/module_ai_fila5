@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Prospect;
 
+use Illuminate\Container\Container;
+
 use function Safe\preg_match;
 /**
  * Default gap weights and categories for public-page signals.
@@ -56,7 +58,10 @@ final class WebsiteSignalCatalog
 
     public static function weight(string $key): int
     {
-        $overrides = config('ai.prospect.signals.weights', []);
+        /** @see Container::bound() keeps pure signal analysis usable without a booted Laravel container. */
+        $overrides = Container::getInstance()->bound('config')
+            ? config('ai.prospect.signals.weights', [])
+            : [];
         if (is_array($overrides) && isset($overrides[$key]) && is_numeric($overrides[$key])) {
             return (int) $overrides[$key];
         }

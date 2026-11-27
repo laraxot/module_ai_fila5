@@ -9,6 +9,13 @@ return new class extends XotBaseMigration
 {
     protected ?string $table_name = 'ai_prospects';
 
+    /**
+     * Schema unito del merge prospect-pipeline: ogni colonna qui ha un `@property`
+     * tipizzato speculare in `app/Models/AiProspect.php` (e un cast in `casts()`).
+     *
+     * @see docs/adr/0004-phpstan-zero-errori.md — document+model allineati: niente colonna
+     *      `mixed` silenziosa per PHPStan
+     */
     public function up(): void
     {
         $this->tableCreate(function (Blueprint $table): void {

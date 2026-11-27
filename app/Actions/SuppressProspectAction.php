@@ -18,6 +18,9 @@ use Webmozart\Assert\Assert;
  * non riappare mai dopo una nuova importazione CSV/OSM con lo stesso public_id.
  *
  * reason: do_not_contact | unsubscribed | bounced | invalid_email | gdpr_request
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — enum `AiSuppressionReasonEnum` tipizzato nei
+ *      parametri invece di stringhe libere: il motivo e' sempre un caso noto
  */
 class SuppressProspectAction
 {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\AI\Actions\Outreach;
 
 use Modules\AI\Enums\ReplyIntentEnum;
-use RuntimeException;
 use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\preg_match;
@@ -248,7 +247,7 @@ final class ClassifyReplyIntentAction
         '(?:sono|siamo) disponibil[ei]<g1> (?:a|per|ad)<g2> (?:chiamata|call|incontro|appuntamento|demo|videocall|parlare|sentirci)',
         'saremmo lieti', 'ci farebbe piacere',
         // Inglese
-        'interested', 'interesting', 'intrigued', 'curious', 'sounds (?:good|great|interesting|promising|perfect|fine)',
+        'interested', 'interesting', 'intrigued', 'curious', 'stop by<g3> (?:for<g1> )?(?:a<g1> )?(?:chat|call|conversation)', 'sounds (?:good|great|interesting|promising|perfect|fine)',
         'looks (?:good|great|interesting|promising)', 'seems (?:interesting|good|useful|relevant)', '(?:good|great) idea',
         '(?:would )?love to\b', 'like to (?:learn|know|hear|see|talk|discuss|schedule|book|set up|try|chat|meet|speak|find out|understand)',
         'happy to (?:talk|chat|connect|speak|meet|learn|hear|discuss|jump|schedule|have|take|hop)', 'tell me more', 'more (?:info|information|details)',
@@ -268,7 +267,7 @@ final class ClassifyReplyIntentAction
 
     private const array OBJECTION = [
         // Italiano
-        'troppo (?:caro|cara|costos\w+)', '(?:e|sono|sarebbe|mi sembra|ci sembra)<g1> (?:caro|cara|costos\w+)', 'costan?o troppo',
+        'troppo (?:caro|cara|costos\w+)', '(?:e|sono|sarebbe|mi sembra|ci sembra)<g1> (?:caro|cara|costos\w+)', 'cost[ao] troppo', 'costano troppo',
         'prezzi? (?:alto|alti|elevato|elevati|troppo)', 'fuori (?:dal |dai )?(?:nostro |mio |nostri )?budget', 'non (?:abbiamo|ho|c e)<g1> budget',
         'senza budget', 'budget (?:limitato|ridotto|esaurito|bloccato|chiuso)', '(?:poco|niente|zero) budget',
         'non rientra nel (?:nostro |mio )?budget', 'non (?:possiamo|posso) permetter\w*',
@@ -324,7 +323,7 @@ final class ClassifyReplyIntentAction
     {
         try {
             return $this->classify($replyText);
-        } catch (RuntimeException) {
+        } catch (\Throwable) {
             // Il motore regex si e' arreso: nessuna azione automatica, lo guarda una persona.
             return ReplyIntentEnum::UNCLEAR;
         }
@@ -341,7 +340,7 @@ final class ClassifyReplyIntentAction
             $normalized = $this->normalize($this->ownText($replyText));
 
             return $normalized !== '' && $this->isEscalation($normalized);
-        } catch (RuntimeException) {
+        } catch (\Throwable) {
             return true; // Non so valutare: meglio che lo veda una persona.
         }
     }
@@ -371,7 +370,8 @@ final class ClassifyReplyIntentAction
 
     private function isUnsubscribe(string $norm): bool
     {
-        if ($this->hasMatch($this->anyOf(self::UNSUBSCRIBE), $norm)) {
+        // @see https://www.php.net/manual/en/pcre.pattern.php — punctuation is noise inside a semantic phrase, while clause boundaries remain meaningful for bare opt-outs.
+        if ($this->hasMatch($this->anyOf(self::UNSUBSCRIBE), $this->phraseText($norm))) {
             return true;
         }
 
@@ -386,21 +386,22 @@ final class ClassifyReplyIntentAction
 
     private function isEscalation(string $norm): bool
     {
-        $cleaned = $this->replace('/\b(?:'.implode('|', self::ESCALATION_FALSE_FRIENDS).')\b/', ' ', $norm);
+        // @see docs/wiki — escalation is a safety taxonomy: legal/privacy signals must remain fail-closed after harmless signature wording is removed.
+        $cleaned = $this->replace('/\b(?:'.implode('|', self::ESCALATION_FALSE_FRIENDS).')\b/', ' ', $this->phraseText($norm));
 
         return $this->hasMatch($this->anyOf(self::ESCALATE), $cleaned);
     }
 
     private function isNotInterested(string $norm): bool
     {
-        return $this->hasMatch(self::WHOLE_NOT_INTERESTED, $norm)
-            || $this->hasMatch($this->anyOf(self::NOT_INTERESTED), $norm);
+        return $this->hasMatch(self::WHOLE_NOT_INTERESTED, $this->phraseText($norm))
+            || $this->hasMatch($this->anyOf(self::NOT_INTERESTED), $this->phraseText($norm));
     }
 
     private function isInterested(string $norm): bool
     {
-        return $this->hasMatch(self::WHOLE_INTERESTED, $norm)
-            || $this->hasMatch($this->anyOf(self::INTERESTED), $norm);
+        return $this->hasMatch(self::WHOLE_INTERESTED, $this->phraseText($norm))
+            || $this->hasMatch($this->anyOf(self::INTERESTED), $this->phraseText($norm));
     }
 
     private function isQuestion(string $own, string $norm): bool
@@ -519,6 +520,7 @@ final class ClassifyReplyIntentAction
         $text = $this->replace('/[\x{200B}-\x{200D}\x{2060}\x{FEFF}\x{00AD}]/u', '', $text);
         $text = $this->replace('/[\x{2018}\x{2019}\x{02BC}\x{2032}`\x{00B4}]/u', "'", $text);
         $text = strtr($text, self::ACCENTS);
+        // @see https://www.php.net/manual/en/function.preg-replace.php — native PCRE errors are converted below so pathological input fails closed instead of escaping Safe's checked exception type.
         $text = $this->replace('/\n(?:[ \t]*\n)+/', ' | ', $text);
         $text = $this->replace('/[,;:.!?()\[\]{}\x{2026}\x{3002}\x{FF0C}\x{FF01}\x{FF1F}]+/u', ' | ', $text);
         $text = $this->replace('/[^a-z0-9|]+/', ' ', $text);
@@ -540,10 +542,19 @@ final class ClassifyReplyIntentAction
     }
 
     /**
+     * @see docs/wiki — punctuation may separate words in a reply, but blank-line clause boundaries must still protect bare stop commands.
+     */
+    private function phraseText(string $norm): string
+    {
+        return str_replace(' | ', ' ', $norm);
+    }
+
+    /**
      * @param  string|list<string>  $pattern
      */
     private function replace(string|array $pattern, string $replacement, string $subject): string
     {
+        // @see https://www.php.net/manual/en/function.preg-replace.php — bounded input plus a checked exception makes PCRE stack exhaustion safe and deterministic.
         return preg_replace($pattern, $replacement, $subject);
     }
 }
