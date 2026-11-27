@@ -51,6 +51,11 @@ Le Action che scrivono dati o chiamano fornitori esterni, in ordine di rischio.
 - [SaveKnowledgeEntryAction](save-knowledge-entry-action.md) — crea o aggiorna una voce della base di conoscenza di una collection; 4 invarianti.
 - [GeneratePredictionsAction](generate-predictions-action.md) — genera una previsione via OpenAI; legacy di un altro progetto, senza chiamanti; 4 invarianti.
 
+Nota (non è un contratto di Action, ma vive in questa cartella): [website-signals.md](website-signals.md) — descrive i
+point di ingresso per i segnali del sito web (`DetectWebsiteSignalsAction` fail-closed finché non esiste un adapter
+SSRF-safe, `analyzeHtml`/`analyzeHtmlResult` per HTML fornito dall'host). Non ha il formato a sei sezioni e non è una
+promessa di un'Action del dominio.
+
 ## Stato di copertura (2026-11-26)
 
 | Misura | Valore |

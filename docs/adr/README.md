@@ -66,6 +66,7 @@ report verde; corregge invece le cause nel codice oppure lascia il lavoro aperto
 - [0001 — L'AI propone, una persona conferma, un handler del dominio esegue](0001-ai-proposes-human-confirms.md) — `accepted`: l'AI crea una `AiActionProposal`, la esegue solo `ConfirmAiActionProposalAction` tramite il registry di handler del dominio.
 - [0002 — L'assistente chiede la risposta a piu' fornitori in cascata, solo modelli gratuiti](0002-assistant-provider-cascade.md) — `accepted`: Groq, poi OpenRouter, poi OpenAI; l'ultimo tentativo ignora `free_models_only` (`## Stato attuale`).
 - [0003 — Gli id utente nelle tabelle AI sono stringhe da 36 caratteri](0003-user-ids-are-strings.md) — `accepted`: cinque colonne `string(36)` al posto di interi, per non troncare gli UUID a 0.
+- [0004 — PHPStan a zero errori: mai saltare le segnalazioni](0004-phpstan-zero-errori.md) — `accepted`: le segnalazioni PHPStan non si saltano né si zittiscono con ignore, baseline o `@var` aggiunti solo per il report.
 - [0005 — Gate PHPStan immutabile e obbligatorio](0005-phpstan-gate-immutabile.md) — `accepted`: zero errori al livello configurato, nessuna soppressione o modifica della configurazione per eludere il gate.
 
 ## Stato di copertura (2026-11-26)
