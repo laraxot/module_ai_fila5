@@ -12,6 +12,10 @@ use function Safe\preg_match_all;
 /**
  * Opening email draft only. Never sends.
  * Requires explicit human approval in the host app (Closer: one yes per message).
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — array-shape di input/output e `Safe\preg_match_all`
+ *      per tenere `list<string>`/`string` senza `mixed`
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
  */
 final class DraftProspectOutreachAction
 {

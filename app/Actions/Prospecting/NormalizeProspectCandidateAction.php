@@ -10,7 +10,12 @@ use Spatie\QueueableAction\QueueableAction;
 
 use function Safe\parse_url;
 
-/** Compatibility adapter; prospect identity and data remain canonical. */
+/** Compatibility adapter; prospect identity and data remain canonical.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `Safe\parse_url` (mai `false` silenzioso su URL malformati)
+ *      e array-shape `{website, source_url, domain}` nel ritorno
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
+ */
 final class NormalizeProspectCandidateAction
 {
     use QueueableAction;

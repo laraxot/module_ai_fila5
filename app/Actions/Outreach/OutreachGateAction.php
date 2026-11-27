@@ -22,6 +22,9 @@ use function Safe\preg_replace;
  * Raccoglie TUTTE le violazioni (non si ferma alla prima) cosi' l'UI puo' spiegarle. Restituisce codici
  * stabili + `context`, mai testo per l'utente. Non decide la base giuridica: la espone e pretende che ci sia.
  * L'approvazione umana e' sempre bloccante: non esiste una modalita' autopilot.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — costanti tipizzate (PHP 8.3) e regex via `Safe\preg_*`: PCRE non puo' restituire `false` silenzioso
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
  */
 final class OutreachGateAction
 {

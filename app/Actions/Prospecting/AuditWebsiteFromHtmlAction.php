@@ -13,6 +13,9 @@ use Spatie\QueueableAction\QueueableAction;
  * Prospect offline detector owns the signal catalog. No HTTP here.
  *
  * Host / future SSRF-safe adapter: FetchPublicPageAction → this action → rank/brief.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — delega a `WebsiteAuditResultData` tipizzato: nessun `mixed`
+ *      attraversa il bridge
  */
 final class AuditWebsiteFromHtmlAction
 {

@@ -7,7 +7,11 @@ namespace Modules\AI\Actions\Prospecting;
 use Modules\AI\Actions\Prospect\DetectWebsiteSignalsAction;
 use Spatie\QueueableAction\QueueableAction;
 
-/** Compatibility adapter over the canonical website-audit DTO. */
+/** Compatibility adapter over the canonical website-audit DTO.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `list<array{code,status,evidence,source_url,confidence}>`
+ *      esplicito nel `@return` e mapping `WebsiteSignalData -> array` senza `mixed`
+ */
 final class ExtractProspectSignalsAction
 {
     use QueueableAction;

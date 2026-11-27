@@ -11,6 +11,9 @@ use function Safe\preg_match;
  *
  * Score = opportunity weight when the gap detector fires (higher = rank first).
  * Reachability failures use weight 0: unknown is not a commercial opportunity.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — `defaults()` ha un array-shape
+ *      `array<string, array{weight: int, category: string, why: string}>` cosi' PHPStan vede ogni chiave
  */
 final class WebsiteSignalCatalog
 {

@@ -22,6 +22,8 @@ use Spatie\QueueableAction\QueueableAction;
  * Errori: InvalidArgumentException il cui messaggio e' ESATTAMENTE uno dei codici ERR_* (nessun testo extra).
  *
  * ponytail: `rank()` assume che gli stadi aperti siano una catena lineare; se nasce un ramo, serve una tabella di adiacenza.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — costanti ERR_* tipizzate (PHP 8.3 `const string`): ogni codice di errore e' staticamente una stringa, mai `mixed`
  */
 final class AdvanceDealStageAction
 {

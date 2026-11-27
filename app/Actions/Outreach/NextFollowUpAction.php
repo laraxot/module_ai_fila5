@@ -31,6 +31,9 @@ use Spatie\QueueableAction\QueueableAction;
  *  - Un invio nel futuro rispetto a `$now` conta come gia' inviato (clock skew o invio programmato): il
  *    risultato e' waiting con scadenza calcolata da quell'invio, mai un errore.
  *  - Gap della cadenza <= 0 valgono 1 giorno; le chiavi dell'array sono ignorate; `$maxAgeDays` < 0 vale 0.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — generics `list<>`/`array-shape` nei `@param`/`@return` e
+ *      narrowing `instanceof DateTimeInterface` in `normalize()` per gestire il tipo unione senza cast
  */
 final class NextFollowUpAction
 {

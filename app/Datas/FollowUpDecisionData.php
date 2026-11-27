@@ -13,6 +13,8 @@ use Spatie\LaravelData\Data;
  *
  * `step` (1-based) e `dueAt` valgono solo per `due` e `waiting`; `stopReason` solo per `stopped`.
  * Gli altri campi restano null.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — costanti STOP_* tipizzate (PHP 8.3 `const string`): i codici di stop sono stringhe note a `stopped()`
  */
 final class FollowUpDecisionData extends Data
 {

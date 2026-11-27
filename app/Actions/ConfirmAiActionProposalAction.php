@@ -71,10 +71,12 @@ class ConfirmAiActionProposalAction
                 ]);
 
             if ($affected !== 1) {
+                $proposalKey = $proposal->getKey();
+                $key = is_int($proposalKey) || is_string($proposalKey) ? $proposalKey : 'unknown';
                 throw new RuntimeException(
                     sprintf(
                         'AiActionProposal [%s] was not PENDING at confirm time (lost race or already advanced).',
-                        (string) $proposal->getKey(),
+                        $key,
                     )
                 );
             }

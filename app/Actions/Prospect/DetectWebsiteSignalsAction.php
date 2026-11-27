@@ -20,6 +20,10 @@ use function Safe\preg_replace;
  * - analyzeHtml(): full deterministic signal catalog on already-fetched HTML
  *
  * Gap polarity feeds ranking; strength polarity is informational for briefs.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — regex/JSON via `Safe\*` (PCRE e json_decode non tornano `false`
+ *      silenzioso) e `list<WebsiteSignalData>` esplicito nei ritorni
+ * @see https://phpstan.org/error-identifiers/theCodingMachineSafe.function
  */
 final class DetectWebsiteSignalsAction
 {

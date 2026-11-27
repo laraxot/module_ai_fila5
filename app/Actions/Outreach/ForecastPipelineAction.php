@@ -36,6 +36,8 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * ponytail: nessuna conversione di cambio (le valute miste sono un errore), nessun deal "won" del mese
  * (il report "won so far" non e' richiesto), upgrade a un value object Money quando serviranno cambi.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — costanti tipizzate (PHP 8.3 `const string/int/float`): ERR_* sempre stringhe, le soglie numeriche mai `mixed`
  */
 final class ForecastPipelineAction
 {

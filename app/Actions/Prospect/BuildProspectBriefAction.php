@@ -8,7 +8,11 @@ use Modules\AI\Data\Prospect\ProspectLeadData;
 use Modules\AI\Data\Prospect\WebsiteAuditResultData;
 use Spatie\QueueableAction\QueueableAction;
 
-/** Researcher-style one-page brief; facts only from audit + lead fields. */
+/** Researcher-style one-page brief; facts only from audit + lead fields.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — array-shape `list<string>`/nullable audit e nullsafe `$audit?->`
+ *      per restare su tipi precisi senza cast da `mixed`
+ */
 final class BuildProspectBriefAction
 {
     use QueueableAction;

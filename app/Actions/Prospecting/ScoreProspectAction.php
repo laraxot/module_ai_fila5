@@ -6,7 +6,11 @@ namespace Modules\AI\Actions\Prospecting;
 
 use Spatie\QueueableAction\QueueableAction;
 
-/** Compatibility adapter; scoring is delegated to the canonical audit DTO. */
+/** Compatibility adapter; scoring is delegated to the canonical audit DTO.
+ *
+ * @see docs/adr/0004-phpstan-zero-errori.md — narrowing `is_string`/`is_numeric` sui campi `mixed`
+ *      del signal shape invece di cast ciechi
+ */
 final class ScoreProspectAction
 {
     use QueueableAction;
