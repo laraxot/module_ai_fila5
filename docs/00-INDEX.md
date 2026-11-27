@@ -9,6 +9,8 @@ issues: []
 discussions: []
 ---
 
+> **Indice canonico del modulo: [index.md](./index.md).** Questo file e' un indice storico tenuto per i link esistenti; i nuovi documenti vanno registrati solo in `index.md` (audit qualita', issue #64).
+
 # AI Module - Documentation Index
 
 **Path**: `laravel/Modules/AI/docs/`
