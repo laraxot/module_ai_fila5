@@ -7,58 +7,63 @@ namespace Modules\AI\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Validation\ValidationException;
 use Modules\AI\Actions\Prospecting\DiscoverProspectsInAreaAction;
-use Modules\AI\Actions\Prospecting\ResearchProspectWebsiteAction;
 use Modules\AI\Exceptions\AiRequestException;
-use Modules\AI\Models\AiProspect;
+use Throwable;
 
 /**
- * php artisan ai:prospects:discover restaurant-sales "Treviso" --research=20
- *
- * Trova attivita' su OpenStreetMap, le importa nel workspace e (opzionale) ne legge i siti in modo sicuro.
- * Non contatta nessuno. Richiede ai.prospecting.enabled = true.
+ * Experimental provider search. Explicit opt-in, dry-run by default, no website crawling.
  */
-class DiscoverProspectsCommand extends Command
+final class DiscoverProspectsCommand extends Command
 {
-    /** @var string */
-    protected $signature = 'ai:prospects:discover {workspace} {area : citta\' o zona} {--limit=200} {--research=0 : quanti siti leggere dopo l\'import}';
+    protected $signature = 'ai:prospects:discover
+        {workspace : Authorized workspace identifier}
+        {area : City or neighborhood}
+        {--limit=200 : Maximum candidates, up to 250}
+        {--apply : Save candidates after manual review (default is dry-run)}
+        {--allow-production : Explicitly permit production writes if also enabled in host config}
+        {--research=0 : Disabled until the safe HTTP transport is reviewed}';
 
-    /** @var string */
-    protected $description = 'Ricerca clienti: attivita\' da OpenStreetMap nel workspace, poi lettura sicura dei siti (non contatta nessuno)';
+    protected $description = 'Provider-approved discovery; dry-run only unless explicitly enabled';
 
-    public function handle(DiscoverProspectsInAreaAction $discover, ResearchProspectWebsiteAction $research): int
+    public function handle(DiscoverProspectsInAreaAction $discover): int
     {
-        $workspace = $this->argument('workspace');
-        $area = $this->argument('area');
-        if (! \is_string($workspace) || ! \is_string($area)) {
-            return self::INVALID;
+        $workspace = (string) $this->argument('workspace');
+        $area = (string) $this->argument('area');
+        $apply = $this->option('apply') === true;
+        $research = $this->option('research');
+
+        if (is_numeric($research) && (int) $research > 0) {
+            $this->error('Live website fetch disabled pending #33 SSRF review. Use ai:prospects:audit-html offline.');
+
+            return self::FAILURE;
         }
-        $limit = $this->option('limit');
-        $toResearch = $this->option('research');
+        if ($apply && app()->environment('production') && $this->option('allow-production') !== true) {
+            $this->error('Production import requires --allow-production and host authorization.');
+
+            return self::FAILURE;
+        }
 
         try {
-            $result = $discover->execute($workspace, $area, is_numeric($limit) ? (int) $limit : 200);
+            $limit = $this->option('limit');
+            $result = $discover->execute($workspace, $area, is_numeric($limit) ? (int) $limit : 200, $apply);
+            $count = $result['imported'];
+            $this->info(sprintf(
+                '%s: %d aziende individuate, %s.',
+                $result['area'],
+                $result['found'],
+                $apply ? 'import applicato ('.json_encode($count).')' : 'DRY RUN: nessuna modifica',
+            ));
+            $this->line('Dati © OpenStreetMap contributors (ODbL). Nessuna comunicazione inviata.');
+
+            return self::SUCCESS;
         } catch (AiRequestException|ValidationException $e) {
             $this->error($e->getMessage());
 
             return self::FAILURE;
+        } catch (Throwable $e) {
+            $this->error('Discovery refused: '.$e->getMessage());
+
+            return self::FAILURE;
         }
-        $this->info(\sprintf('%s: %d attivita\' trovate e importate nel workspace "%s".', $result['area'], $result['found'], $workspace));
-
-        $pending = AiProspect::query()->where('workspace', $workspace)->where('is_suppressed', false)
-            ->whereNull('researched_at')->whereNotNull('website')
-            ->limit(is_numeric($toResearch) ? max(0, (int) $toResearch) : 0)->get();
-        foreach ($pending as $candidate) {
-            $id = $candidate->id;
-            try {
-                $prospect = $research->execute($workspace, $id);
-                $this->line(\sprintf(' - %s: punteggio %d', $prospect->name, $prospect->score));
-            } catch (ValidationException $e) {
-                $this->warn(' - #'.$id.': '.$e->getMessage());
-            }
-        }
-
-        $this->line('Dati © OpenStreetMap contributors (ODbL).');
-
-        return self::SUCCESS;
     }
 }

@@ -8,6 +8,8 @@ namespace Modules\AI\Providers;
 use Modules\AI\Adapters\AiActionHandlerRegistry;
 use Modules\AI\Adapters\AssistantHandoffHandler;
 use Modules\AI\Console\Commands\ImportProspectsCommand;
+use Modules\AI\Console\Commands\AuditProspectHtmlCommand;
+use Modules\AI\Console\Commands\DiscoverProspectsCommand;
 use Modules\AI\Models\AiAgentMessage;
 use Modules\AI\Models\AiAgentRun;
 use Modules\Xot\Providers\XotBaseServiceProvider;
@@ -24,7 +26,7 @@ class AIServiceProvider extends XotBaseServiceProvider
     {
         parent::register();
 
-        $this->commands([ImportProspectsCommand::class]);
+        $this->commands([ImportProspectsCommand::class, AuditProspectHtmlCommand::class, DiscoverProspectsCommand::class]);
 
         // Agenti neuron-ai: conversazioni e run in pausa nel database del modulo, cosi' un'approvazione
         // riprende il run in una richiesta successiva (XotBaseAgent).

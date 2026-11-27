@@ -31,6 +31,22 @@ final class OsmRequestAction
             throw new AiRequestException('Ricerca clienti spenta (ai.prospecting.enabled = false).');
         }
 
+        if (! config()->boolean('ai.prospecting.public_discovery_enabled', false)) {
+            throw new AiRequestException('Discovery OSM non autorizzata: opt-in e verifica licenze richiesti.');
+        }
+        $configured = match ($service) {
+            'nominatim' => config('ai.prospecting.nominatim_url'),
+            'overpass' => config('ai.prospecting.overpass_url'),
+            default => null,
+        };
+        $actualHost = parse_url($url, PHP_URL_HOST);
+        $configuredHost = is_string($configured) ? parse_url($configured, PHP_URL_HOST) : null;
+        if (! is_string($configuredHost) || $configuredHost === '' || $actualHost !== $configuredHost
+            || parse_url($url, PHP_URL_SCHEME) !== 'https'
+            || parse_url($url, PHP_URL_USER) !== null || parse_url($url, PHP_URL_PASS) !== null) {
+            throw new AiRequestException('Endpoint OSM non ammesso: servizio e origine HTTPS devono coincidere.');
+        }
+
         $cacheKey = 'ai:prospecting:'.$service.':'.sha1($url.'|'.$method.'|'.serialize($query));
         /** @var array<mixed>|null $cached */
         $cached = Cache::get($cacheKey);
@@ -42,6 +58,7 @@ final class OsmRequestAction
 
         $userAgent = config('ai.prospecting.user_agent');
         $request = Http::timeout(90)
+            ->withoutRedirecting()
             ->withHeaders(['User-Agent' => \is_string($userAgent) && $userAgent !== '' ? $userAgent : 'LaraxotProspecting/1.0'])
             ->acceptJson();
         $response = $method === 'post' ? $request->asForm()->post($url, $query) : $request->get($url, $query);

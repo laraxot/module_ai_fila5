@@ -44,16 +44,15 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 ## CLI
 
 ```bash
-php artisan ai:prospects:discover restaurant-sales "Treviso" --research=20  # SPERIMENTALE: non eseguire prima del gate #33 + policy provider
+php artisan ai:prospects:discover restaurant-sales "Treviso"               # dry-run; richiede opt-in provider autorizzato
 php artisan ai:prospects:import demo tests/Fixtures/prospects-demo.csv      # dry-run when present
 php artisan ai:prospect-audit https://example.com --type=business           # vecchio percorso Prospect/: resta chiuso (#40)
 ```
 
-## Lettura dei siti sperimentale: SSRF non ancora risolta (#33)
+## Lettura dei siti sospesa: SSRF non ancora risolta (#33)
 
-- **Gate separato, spento per default:** oltre a `AI_PROSPECTING_ENABLED=true`, l'host deve impostare esplicitamente `AI_PROSPECTING_SITE_FETCH_ENABLED=true` per attivare la lettura live (`ai.prospecting.site_fetch_enabled`). Anche le chiamate **dirette** a `FetchPublicPageAction` sono bloccate quando questo secondo gate è spento. **Non attivare questo gate in produzione** finché la issue #33 non è risolta e verificata. Import e analisi offline non richiedono tale autorizzazione.
-- `Prospecting/FetchPublicPageAction` + `ResolveHostAction`: solo http/https; ogni host, e ogni redirect (max 3,
-  seguiti a mano), è preceduto da una verifica **solo IPv4 A** che rifiuta IP privati noti. **Questa NON è una garanzia SSRF-safe**: `gethostbynamel()` non verifica `AAAA` IPv6, `Http::get()` può scegliere IP diversi da quelli controllati (TOCTOU/DNS rebinding), e `substr($response->body())` limita il testo in memoria solo **dopo** il download completo. User-info, porte, URL/redirect canonici e un limite di download in streaming vanno testati. Non esporre il fetcher a input esterni né attivarlo in produzione prima della soluzione #33.
+- **Gate P0:** `FetchPublicPageAction::execute()` ora restituisce sempre un errore esplicito e non apre socket, persino con flag sperimentali attivi. La lettura di siti dal vivo resta sospesa finché non è disponibile un trasporto indipendentemente verificato (IP pinning, IPv6/AAAA, redirect, limiti byte pre-buffering, proxy). Importazione e analisi HTML offline restano attivi.
+- **Perché:** la precedente implementazione controllava solo indirizzi IPv4 A prima della connessione, senza garantirne l'IP effettivo (DNS rebinding/TOCTOU); inoltre tagliava i byte soltanto **dopo** il download. `ResolveHostAction` è conservata come legacy, non come garanzia SSRF.
 - `ResearchProspectWebsiteAction`: legge il sito del prospect con la lettura sicura e lo passa a
   `ResearchProspectAction`. Se la lettura fallisce **non** assegna punteggio e non tocca il prospect.
 - `OsmRequestAction` (unica porta verso OSM: interruttore `ai.prospecting.enabled`, User-Agent, max 1 richiesta/s
@@ -76,6 +75,18 @@ personali; il primo contatto naturale è la visita o la telefonata. Non è una c
 - [x] Configurable weights
 - [x] `no-site` weight 0 + totalScore fail-closed
 - [x] Confirm replay guard: non-PENDING rejected (Refs #42) — host Pest still required
-- [ ] Adapter `Prospecting/FetchPublicPageAction` **sperimentale e non ancora SSRF-safe** (#33): IP pinning/egress, IPv6/AAAA, streaming limits; unify namespaces (#40)
+- [ ] Adapter `Prospecting/FetchPublicPageAction` **disabilitato fino a revisione #33**: IP pinning/egress, IPv6/AAAA, streaming limits; unify namespaces (#40)
 - [ ] Filament review UI, durable consent, provenance (#36–#41)
 - [ ] Projects / Milestones / shared Issue Views on GitHub UI (specified in `docs/github-ops/00-index.md`, not created in API session)
+
+## Continuazione operativa — dry-run by default
+
+Il comando `ai:prospects:audit-html` è registrato per analizzare in modo deterministico HTML già ottenuto lecitamente, con fonte e punteggio spiegabile, senza DB, rete o invii:
+
+```bash
+php artisan ai:prospects:audit-html https://www.openstreetmap.org/node/11 /approved/path/page.html --website=https://business.example
+```
+
+La discovery via Nominatim/Overpass richiede **due** opt-in distinti: `AI_PROSPECTING_ENABLED=true` e `AI_PROSPECTING_PUBLIC_DISCOVERY_ENABLED=true` (default false). Il progetto host verifica licenza, ToS, contatto User-Agent e costi. L'esecuzione è **dry-run** a meno di `--apply`; in produzione occorrono anche `--allow-production` e `AI_PROSPECTING_PRODUCTION_IMPORTS_ENABLED=true`, con autorizzazione dell'operatore. Bounding box grandi vengono bloccati. È vietato impiegare endpoint OSM pubblici per estrazioni commerciali ricorrenti senza consenso/fornitore compatibile.
+
+I test Pest del progetto host, il livello PHPStan e le migrazioni isolate restano da eseguire e verificare: la CI di sintassi non li sostituisce.

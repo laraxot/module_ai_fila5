@@ -23,7 +23,7 @@ final class GeocodeAreaAction
     public function execute(string $area): array
     {
         $area = trim($area);
-        if ($area === '') {
+        if ($area === '' || mb_strlen($area) > 120) {
             throw new AiRequestException('Indica una citta\' o una zona.');
         }
 
@@ -38,6 +38,11 @@ final class GeocodeAreaAction
         }
 
         [$south, $north, $west, $east] = array_map(static fn (mixed $v): float => is_numeric($v) ? (float) $v : 0.0, array_values($box));
+        if ($south < -90 || $north > 90 || $west < -180 || $east > 180
+            || $south >= $north || $west >= $east
+            || ($north - $south) > 0.5 || ($east - $west) > 0.5) {
+            throw new AiRequestException('Area troppo ampia o bounding box non valido; specificare un comune.');
+        }
         $label = $first['display_name'] ?? $area;
 
         return [

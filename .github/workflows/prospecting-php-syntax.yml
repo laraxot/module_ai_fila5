@@ -11,7 +11,7 @@ on:
       - 'app/Enums/AiActionProposalStatusEnum.php'
       - 'app/Data/Prospect/**'
       - 'app/Models/AiProspect*.php'
-      - 'app/Console/Commands/ImportProspectsCommand.php'
+      - 'app/Console/Commands/*Prospect*.php'
       - 'app/Providers/AIServiceProvider.php'
       - 'config/ai.php'
       - 'database/migrations/2026_11_27_*'
@@ -49,6 +49,8 @@ jobs:
             tests/Unit/Actions/CancelAiActionProposalActionTest.php \
             app/Data/Prospect \
             app/Console/Commands/ImportProspectsCommand.php \
+            app/Console/Commands/AuditProspectHtmlCommand.php \
+            app/Console/Commands/DiscoverProspectsCommand.php \
             app/Models/AiProspect.php \
             app/Models/AiProspectSuppression.php \
             app/Providers/AIServiceProvider.php \

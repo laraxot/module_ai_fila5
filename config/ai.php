@@ -94,8 +94,11 @@ return [
     */
     'prospecting' => [
         'enabled' => (bool) env('AI_PROSPECTING_ENABLED', false),
-        // Independent gate: live website fetch is experimental until SSRF audit #33 passes.
-        // Enabling prospecting must never implicitly enable arbitrary outbound HTTP.
+        // Independent provider authorization, never implied by offline import.
+        'public_discovery_enabled' => (bool) env('AI_PROSPECTING_PUBLIC_DISCOVERY_ENABLED', false),
+        'production_imports_enabled' => (bool) env('AI_PROSPECTING_PRODUCTION_IMPORTS_ENABLED', false),
+        // Reserved compatibility flag; direct website fetch remains entirely disabled
+        // until an IP-pinned, byte-limited transport passes security review (#33).
         'site_fetch_enabled' => (bool) env('AI_PROSPECTING_SITE_FETCH_ENABLED', false),
         'signal_weights' => [
             'manual_booking_only' => 35,

@@ -38,6 +38,7 @@ beforeEach(function (): void {
     Cache::flush();
     config([
         'ai.prospecting.enabled' => true,
+        'ai.prospecting.public_discovery_enabled' => true,
         'ai.prospecting.site_fetch_enabled' => true, // explicit test-only experimental opt-in (#33)
         'ai.prospecting.user_agent' => 'TestProspecting/1.0 (+https://example.test)',
     ]);
@@ -50,39 +51,23 @@ beforeEach(function (): void {
                 'interno.test' => ['192.168.1.10'],
                 'metadata.test' => ['169.254.169.254'],
                 'nessuno.test' => [],
-                default => ['93.184.216.34'],
-            };
-        }
-    });
-});
+                default =test('network website fetch stays disabled even with the experimental flag enabled', function (): void {
+    Http::fake();
+    config(['ai.prospecting.site_fetch_enabled' => true]);
 
-test('denies direct website fetch unless the separate experimental gate is enabled', function (): void {
-    config(['ai.prospecting.site_fetch_enabled' => false]);
-    Http::fake(['*' => Http::response('Should never be fetched')]);
-
-    $result = app(FetchPublicPageAction::class)->execute('https://public.test');
-
-    Assert::assertFalse($result['ok']);
-    Assert::assertSame('lettura siti disabilitata', $result['error']);
-    Assert::assertSame('', $result['html']);
+    $fetch = app(FetchPublicPageAction::class);
+    foreach (['https://public.test', 'http://127.0.0.1:8000', 'http://metadata.test/latest',
+        'http://[::1]/', 'https://redirige.test'] as $url) {
+        $result = $fetch->execute($url);
+        Assert::assertFalse($result['ok']);
+        Assert::assertSame(0, $result['status']);
+        Assert::assertSame('', $result['html']);
+        Assert::assertSame('remote_fetch_disabled_pending_ssrf_safe_adapter', $result['error']);
+    }
     Http::assertNothingSent();
 })->group('AI-PROSPECTING-INV-33');
 
-test('refuses private, metadata and malformed addresses, also after a redirect', function (): void {
-    Http::fake([
-        'https://redirige.test*' => Http::response('', 302, ['Location' => 'http://interno.test/admin']),
-        '*' => Http::response('ok'),
-    ]);
-    $fetch = app(FetchPublicPageAction::class);
-
-    Assert::assertSame('indirizzo non pubblico', $fetch->execute('http://interno.test')['error']);
-    Assert::assertSame('indirizzo non pubblico', $fetch->execute('http://metadata.test/latest')['error']);
-    Assert::assertSame('indirizzo non pubblico', $fetch->execute('http://127.0.0.1:8000')['error']);
-    Assert::assertSame('indirizzo non pubblico', $fetch->execute('http://[::1]/')['error']);
-    Assert::assertSame('indirizzo non valido', $fetch->execute('file:///etc/passwd')['error']);
-    Assert::assertSame('dominio inesistente', $fetch->execute('https://nessuno.test')['error']);
-    Assert::assertSame('indirizzo non pubblico', $fetch->execute('https://redirige.test')['error']);
-    Http::assertNotSent(fn (Request $r): bool => str_contains($r->url(), 'interno.test') || str_contains($r->url(), '127.0.0.1'));
+url(), '127.0.0.1'));
 })->group('AI-PROSPECTING-INV-33');
 
 test('discovers businesses on openstreetmap respecting usage rules and imports them once', function (): void {
@@ -96,7 +81,7 @@ test('discovers businesses on openstreetmap respecting usage rules and imports t
     ]);
     $workspace = 'test-'.uniqid();
 
-    $first = app(DiscoverProspectsInAreaAction::class)->execute($workspace, 'Treviso');
+    $first = app(DiscoverProspectsInAreaAction::class)->execute($workspace, 'Treviso', 200, true);
     app(DiscoverProspectsInAreaAction::class)->execute($workspace, 'Treviso');
 
     Assert::assertSame('Treviso, Veneto, Italia', $first['area']);
@@ -107,30 +92,37 @@ test('discovers businesses on openstreetmap respecting usage rules and imports t
     Http::assertSentCount(2);
     Http::assertSent(fn (Request $r): bool => str_contains($r->url(), 'nominatim') && $r->hasHeader('User-Agent', 'TestProspecting/1.0 (+https://example.test)'));
 
+    AiProspect::query()->where('workspace', $test('remote research cannot mutate a prospect, while approved HTML can be analyzed offline', function (): void {
+    Http::fake();
+    $workspace = 'test-'.uniqid();
+    $prospect = AiProspect::query()->create([
+        'workspace' => $workspace,
+        'fingerprint' => hash('sha256', 'offline-demo'),
+        'name' => 'Da Bepi',
+        'website' => 'https://dabepi.test',
+        'domain' => 'dabepi.test',
+        'source_provider' => 'openstreetmap',
+        'source_url' => 'https://www.openstreetmap.org/node/11',
+    ]);
+    expect(fn () => app(ResearchProspectWebsiteAction::class)->execute($workspace, $prospect->id))
+        ->toThrow(ValidationException::class);
+    $prospect->refresh();
+    Assert::assertSame(0, $prospect->score);
+    Assert::assertNull($prospect->researched_at);
+    Http::assertNothingSent();
+
+    $researched = app(\Modules\AI\Actions\Prospecting\ResearchProspectAction::class)->execute(
+        $workspace, $prospect->id,
+        '<p>Prenotazioni solo per telefono.</p><a href="/menu">Menu</a>',
+        'https://dabepi.test',
+    );
+    Assert::assertSame('researched', $researched->stage);
+    Assert::assertContains('manual_booking_only', array_column($researched->signals ?? [], 'code'));
+    Assert::assertSame(55, $researched->score);
     AiProspect::query()->where('workspace', $workspace)->delete();
 })->group('AI-PROSPECTING-INV-33');
 
-test('reads a prospect website safely and never scores a site that could not be read', function (): void {
-    Http::fake([
-        'https://dabepi.test*' => Http::response('<html><body>Prenotazioni solo per telefono. <a href="/menu">Menu</a></body></html>'),
-        'https://giu.test*' => Http::response('', 500),
-    ]);
-    $workspace = 'test-'.uniqid();
-    $ok = AiProspect::query()->create(['workspace' => $workspace, 'fingerprint' => hash('sha256', 'a'), 'name' => 'Da Bepi', 'website' => 'https://dabepi.test', 'domain' => 'dabepi.test', 'source_provider' => 'openstreetmap', 'source_url' => 'https://www.openstreetmap.org/node/11']);
-    $down = AiProspect::query()->create(['workspace' => $workspace, 'fingerprint' => hash('sha256', 'b'), 'name' => 'Giu', 'website' => 'https://giu.test', 'domain' => 'giu.test', 'source_provider' => 'openstreetmap', 'source_url' => 'https://www.openstreetmap.org/node/12']);
-
-    $researched = app(ResearchProspectWebsiteAction::class)->execute($workspace, $ok->id);
-
-    Assert::assertSame('researched', $researched->stage);
-    Assert::assertContains('manual_booking_only', array_column($researched->signals ?? [], 'code'));
-    Assert::assertGreaterThan(0, $researched->score);
-
-    expect(fn () => app(ResearchProspectWebsiteAction::class)->execute($workspace, $down->id))->toThrow(ValidationException::class);
-    $down->refresh();
-    Assert::assertSame(0, $down->score);
-    Assert::assertNull($down->researched_at);
-
-    AiProspect::query()->where('workspace', $workspace)->delete();
+workspace)->delete();
 })->group('AI-PROSPECTING-INV-33');
 
 test('stays off until the project enables it', function (): void {

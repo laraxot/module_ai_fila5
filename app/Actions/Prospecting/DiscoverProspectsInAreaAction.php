@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\AI\Actions\Prospecting;
 
+use Illuminate\Validation\ValidationException;
+use Modules\AI\Exceptions\AiRequestException;
 use Spatie\QueueableAction\QueueableAction;
 
 /**
@@ -25,8 +27,18 @@ final class DiscoverProspectsInAreaAction
     /**
      * @return array{area: string, found: int, imported: array<array-key, mixed>}
      */
-    public function execute(string $workspace, string $area, int $limit = 200): array
+    public function execute(string $workspace, string $area, int $limit = 200, bool $apply = false): array
     {
+        if (trim($workspace) === '' || strlen($workspace) > 96) {
+            throw ValidationException::withMessages(['workspace' => 'Workspace non valido.']);
+        }
+        if (! config()->boolean('ai.prospecting.public_discovery_enabled', false)) {
+            throw new AiRequestException('Discovery OSM non autorizzata: AI_PROSPECTING_PUBLIC_DISCOVERY_ENABLED=false.');
+        }
+        if ($apply && app()->environment('production') && ! config()->boolean('ai.prospecting.production_imports_enabled', false)) {
+            throw ValidationException::withMessages(['workspace' => 'Import di produzione non autorizzato.']);
+        }
+
         $categories = ImportOsmCandidatesAction::categories();
         $box = $this->geocode->execute($area);
         $bbox = implode(',', [$box['south'], $box['west'], $box['north'], $box['east']]);
@@ -43,7 +55,7 @@ final class DiscoverProspectsInAreaAction
         return [
             'area' => $box['label'],
             'found' => \count($candidates),
-            'imported' => $candidates === [] ? [] : $this->import->execute($workspace, $candidates),
+            'imported' => ! $apply || $candidates === [] ? [] : $this->import->execute($workspace, $candidates),
         ];
     }
 }
