@@ -41,7 +41,7 @@ Operatori di progetti diversi hanno bisogno di trovare aziende compatibili con l
 1. **Host** definisce `workspace`, ICP e authorized sources; autorizza l'operatore.
 2. **AI intake** valida CSV/export, normalizza, conserva source/provider/license e non raccoglie PII non necessarie.
 3. **AI storage** gestisce aziende, snapshot delle osservazioni e tombstone di soppressione.
-4. **Host-safe fetch** (non implementato) può fornire solo HTML pubblico acquisito da adapter con protezione SSRF; l'AI non effettua richieste arbitrarie.
+4. **HTML / fetch sperimentale**: il percorso `Prospect/DetectWebsiteSignalsAction` resta fail-closed; in `Prospecting/FetchPublicPageAction` esiste un fetcher sperimentale ma **non ancora SSRF-safe** (DNS rebinding, IPv6 e limiti download). Fino alla risoluzione di #33 usare HTML già acquisito da un adapter host verificato e non esporre il fetcher a input esterni.
 5. **AI research** rileva segnali contestualizzati, li mostra come indizi, costruisce ranking spiegabile e brief.
 6. **Filament** presenta evidenze, richiede review e propone una bozza. `send_permitted=false` è default.
 7. **Domain handler** dell'host conferma eventuali attività CRM o eventi di calendario con consenso/documenti e permessi; AI non esegue invii.
