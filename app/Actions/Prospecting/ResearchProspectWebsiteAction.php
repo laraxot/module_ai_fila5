@@ -11,8 +11,8 @@ use Spatie\QueueableAction\QueueableAction;
 /**
  * Legge davvero il sito di un prospect e lo passa a ResearchProspectAction (segnali + punteggio).
  *
- * La lettura passa da FetchPublicPageAction: solo http/https, solo indirizzi pubblici (anche dopo ogni redirect),
- * pagina troncata. Se la lettura fallisce non si assegna nessun punteggio (#33): un sito che non risponde non e'
+ * La lettura passa da FetchPublicPageAction, SPERIMENTALE e disabilitata per default.
+ * La validazione attuale di URL e DNS non e' ancora SSRF-safe: vedere #33 e docs/prospecting.md. Se la lettura fallisce non si assegna nessun punteggio (#33): un sito che non risponde non e'
  * un'opportunita' dimostrata, e il prospect resta com'era.
  */
 final class ResearchProspectWebsiteAction
