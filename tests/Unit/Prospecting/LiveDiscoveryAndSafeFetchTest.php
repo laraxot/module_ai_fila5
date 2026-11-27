@@ -56,6 +56,18 @@ beforeEach(function (): void {
     });
 });
 
+test('denies direct website fetch unless the separate experimental gate is enabled', function (): void {
+    config(['ai.prospecting.site_fetch_enabled' => false]);
+    Http::fake(['*' => Http::response('Should never be fetched')]);
+
+    $result = app(FetchPublicPageAction::class)->execute('https://public.test');
+
+    Assert::assertFalse($result['ok']);
+    Assert::assertSame('lettura siti disabilitata', $result['error']);
+    Assert::assertSame('', $result['html']);
+    Http::assertNothingSent();
+})->group('AI-PROSPECTING-INV-33');
+
 test('refuses private, metadata and malformed addresses, also after a redirect', function (): void {
     Http::fake([
         'https://redirige.test*' => Http::response('', 302, ['Location' => 'http://interno.test/admin']),
