@@ -13,6 +13,14 @@ final class ApplyProspectSuppressionAction
     use QueueableAction;
 
     /**
+     * @param  list<string>  $suppressedEmails
+     */
+    public function execute(ProspectLeadData $lead, array $suppressedEmails = []): bool
+    {
+        return $this->isSuppressed($lead, $suppressedEmails);
+    }
+
+    /**
      * @param list<string> $suppressedEmails lowercased emails
      */
     public function isSuppressed(ProspectLeadData $lead, array $suppressedEmails = []): bool

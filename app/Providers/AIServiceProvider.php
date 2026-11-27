@@ -7,6 +7,7 @@ namespace Modules\AI\Providers;
 // ---- bases --
 use Modules\AI\Adapters\AiActionHandlerRegistry;
 use Modules\AI\Adapters\AssistantHandoffHandler;
+use Modules\AI\Console\Commands\ImportProspectsCommand;
 use Modules\AI\Models\AiAgentMessage;
 use Modules\AI\Models\AiAgentRun;
 use Modules\Xot\Providers\XotBaseServiceProvider;
@@ -23,6 +24,8 @@ class AIServiceProvider extends XotBaseServiceProvider
     {
         parent::register();
 
+        $this->commands([ImportProspectsCommand::class]);
+
         // Agenti neuron-ai: conversazioni e run in pausa nel database del modulo, cosi' un'approvazione
         // riprende il run in una richiesta successiva (XotBaseAgent).
         $this->app->bind(MessageStoreInterface::class, static fn (): EloquentMessageStore => new EloquentMessageStore(AiAgentMessage::class));
@@ -32,8 +35,8 @@ class AIServiceProvider extends XotBaseServiceProvider
         // sovrascrivere questi registrando lo stesso tipo).
         $this->app->singleton(
             AiActionHandlerRegistry::class,
-            static fn (): AiActionHandlerRegistry => (new AiActionHandlerRegistry)
-                ->register(new AssistantHandoffHandler),
+            static fn (): AiActionHandlerRegistry => (new AiActionHandlerRegistry())
+                ->register(new AssistantHandoffHandler()),
         );
     }
 }

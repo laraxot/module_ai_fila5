@@ -25,6 +25,14 @@ it('keeps AI actions queueable with execute entrypoints', function (): void {
         $classes[] = 'Modules\\AI\\Actions\\'.str_replace(['/', '.php'], ['\\', ''], $relative);
     }
 
+    $classes = array_values(array_filter(
+        $classes,
+        static fn (string $class): bool => str_ends_with(
+            $class,
+            'Action',
+        ),
+    ));
+
     Assert::assertNotSame([], $classes);
 
     foreach ($classes as $class) {

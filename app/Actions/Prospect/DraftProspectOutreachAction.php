@@ -7,6 +7,7 @@ namespace Modules\AI\Actions\Prospect;
 use InvalidArgumentException;
 use Modules\AI\Data\Prospect\ProspectLeadData;
 use Spatie\QueueableAction\QueueableAction;
+use function Safe\preg_match_all;
 
 /**
  * Opening email draft only. Never sends.
@@ -29,6 +30,7 @@ final class DraftProspectOutreachAction
      *   body: string,
      *   signal: string,
      *   requires_approval: true,
+     *   send_permitted: false,
      *   daily_cap_hint: int,
      *   missing: list<string>
      * }
@@ -81,6 +83,7 @@ final class DraftProspectOutreachAction
             'body' => $body,
             'signal' => $signal,
             'requires_approval' => true,
+            'send_permitted' => false,
             'daily_cap_hint' => 50,
             'missing' => array_values(array_unique($m[1] ?? [])),
         ];

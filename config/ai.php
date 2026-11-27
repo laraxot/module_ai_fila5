@@ -84,4 +84,53 @@ return [
         'max_sources' => 5,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Business prospecting (default OFF, no email transport)
+    |--------------------------------------------------------------------------
+    |
+    | Must be enabled explicitly after the project has chosen its ICP, legal
+    | basis, data-source license and allowed workspaces. No automatic outreach.
+    */
+    'prospecting' => [
+        'enabled' => (bool) env('AI_PROSPECTING_ENABLED', false),
+        'signal_weights' => [
+            'manual_booking_only' => 35,
+            'manual_order_only' => 30,
+            'catalogue_link' => 10,
+        ],
+        // Lettura sicura dei siti e ricerca su OpenStreetMap (docs/prospecting.md, #33).
+        // Regole OSM: max 1 richiesta/s, User-Agent con un contatto reale, cache, attribuzione, interruttore (enabled).
+        'user_agent' => env('AI_PROSPECTING_USER_AGENT', 'LaraxotProspecting/1.0 (+'.env('APP_URL', 'http://localhost').')'),
+        'nominatim_url' => env('AI_PROSPECTING_NOMINATIM_URL', 'https://nominatim.openstreetmap.org'),
+        'overpass_url' => env('AI_PROSPECTING_OVERPASS_URL', 'https://overpass-api.de/api/interpreter'),
+        // Categorie OSM `amenity` accettate dall'import: le decide l'host (qui il default del portale ristoranti).
+        'osm_categories' => ['restaurant', 'cafe', 'fast_food', 'bar', 'pub'],
+        'site_timeout' => 8,
+        'max_bytes' => 524_288,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public-page website signals (offline analyzeHtml)
+    |--------------------------------------------------------------------------
+    |
+    | Overrides WebsiteSignalCatalog::defaults() weights. Set a key to 0 to
+    | disable that gap detector. Remote execute() stays fail-closed.
+    */
+    'prospect' => [
+        'signals' => [
+            'weights' => [
+                // 'not-mobile' => 4,
+                // 'no-order-online' => 5,
+                // 'no-chat' => 0,
+            ],
+            'slow_seconds' => 4.0,
+        ],
+        'draft' => [
+            'send_permitted' => false,
+            'daily_cap_hint' => 50,
+        ],
+    ],
+
 ];

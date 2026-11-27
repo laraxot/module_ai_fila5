@@ -47,7 +47,7 @@ final class SaveKnowledgeEntryAction
             throw ValidationException::withMessages(['id' => 'Voce non trovata in questa base di conoscenza.']);
         }
 
-        $entry ??= new AiKnowledgeEntry;
+        $entry ??= new AiKnowledgeEntry();
         $entry->fill([
             'collection' => $collection,
             'question' => $question,

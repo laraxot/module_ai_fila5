@@ -16,12 +16,17 @@ return new class extends XotBaseMigration
      */
     public function up(): void
     {
-        $this->tableCreate(function (Blueprint $table): void {
+        // ascii/ascii_bin esistono solo in MySQL/MariaDB: su SQLite (test) la colonna resta una stringa normale.
+        $ascii = $this->isMysqlFamilyDriver();
+        $this->tableCreate(function (Blueprint $table) use ($ascii): void {
             $table->id();
 
-            $table->string('partition', 510)->charset('ascii')->collation('ascii_bin');
-
-            $table->string('key', 510)->charset('ascii')->collation('ascii_bin');
+            $partition = $table->string('partition', 510);
+            $key = $table->string('key', 510);
+            if ($ascii) {
+                $partition->charset('ascii')->collation('ascii_bin');
+                $key->charset('ascii')->collation('ascii_bin');
+            }
 
             $table->longText('value');
 

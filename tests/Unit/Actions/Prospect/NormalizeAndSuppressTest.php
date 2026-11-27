@@ -41,7 +41,7 @@ test('draft requires approval and opt-out', function (): void {
         'offer' => 'ops software',
     ]);
 
-    expect($draft['requires_approval'])->toBeTrue()
+    expect($draft)->toMatchArray(['requires_approval' => true])
         ->and($draft['body'])->toContain('no thanks')
         ->and($draft['missing'])->toBeEmpty();
 });

@@ -25,7 +25,7 @@ final class CreateAiThreadAction
     /** @param  array<string, mixed>  $meta */
     public function execute(int|string|null $userId, string $panelId, array $meta = []): AiThread
     {
-        $thread = new AiThread;
+        $thread = new AiThread();
         $thread->fill([
             'public_id' => Uuid::uuid4()->toString(),
             'created_by_user_id' => $userId === null ? null : (string) $userId,

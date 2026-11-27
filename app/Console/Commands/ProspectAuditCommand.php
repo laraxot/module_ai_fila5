@@ -7,6 +7,7 @@ namespace Modules\AI\Console\Commands;
 use Illuminate\Console\Command;
 use Modules\AI\Actions\Prospect\DetectWebsiteSignalsAction;
 
+use function Safe\json_encode;
 final class ProspectAuditCommand extends Command
 {
     protected $signature = 'ai:prospect-audit
@@ -17,8 +18,16 @@ final class ProspectAuditCommand extends Command
 
     public function handle(DetectWebsiteSignalsAction $detect): int
     {
-        $url = (string) $this->argument('url');
-        $type = (string) $this->option('type');
+        $url = $this->argument('url');
+        if (! is_string($url) || $url === '') {
+            $this->error('Public website URL is required.');
+
+            return self::FAILURE;
+        }
+
+        $type = $this->option('type');
+        $type = is_string($type) ? $type : 'business';
+
         $result = $detect->execute($url, $type);
 
         $this->line(json_encode($result->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));

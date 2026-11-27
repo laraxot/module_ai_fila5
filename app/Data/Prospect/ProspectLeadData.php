@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\AI\Data\Prospect;
 
+use function Safe\parse_url;
+use function Safe\preg_match;
+
 /** Domain-agnostic B2B prospect (ICP defined by host app). */
 final readonly class ProspectLeadData
 {
@@ -31,26 +34,27 @@ final readonly class ProspectLeadData
     /** @param array<string, mixed> $row */
     public static function fromArray(array $row): self
     {
-        $email = isset($row['email']) ? strtolower(trim((string) $row['email'])) : null;
+        $email = self::stringValue($row['email'] ?? null);
+        $email = $email !== null ? strtolower(trim($email)) : null;
         if ($email === '') {
             $email = null;
         }
 
         return new self(
-            name: trim((string) ($row['name'] ?? $row['company'] ?? '')),
-            website: isset($row['website']) ? trim((string) $row['website']) : null,
-            contactName: isset($row['who']) ? (string) $row['who'] : (isset($row['contact_name']) ? (string) $row['contact_name'] : null),
+            name: trim(self::stringValue($row['name'] ?? $row['company'] ?? '') ?? ''),
+            website: self::stringValue($row['website'] ?? null),
+            contactName: self::stringValue($row['who'] ?? $row['contact_name'] ?? null),
             email: $email,
-            phone: isset($row['phone']) ? (string) $row['phone'] : null,
-            city: isset($row['city']) ? (string) $row['city'] : null,
-            country: isset($row['country']) ? (string) $row['country'] : null,
-            businessType: (string) ($row['type'] ?? $row['business_type'] ?? 'business'),
-            sourceUrl: isset($row['source_url']) ? (string) $row['source_url'] : null,
-            score: (int) ($row['score'] ?? 0),
-            why: isset($row['why']) ? (string) $row['why'] : null,
-            signalKeys: array_values(array_map('strval', $row['signals'] ?? $row['gaps'] ?? $row['signal_keys'] ?? [])),
-            meta: is_array($row['meta'] ?? null) ? $row['meta'] : [],
-            doNotContact: (bool) ($row['do_not_contact'] ?? false),
+            phone: self::stringValue($row['phone'] ?? null),
+            city: self::stringValue($row['city'] ?? null),
+            country: self::stringValue($row['country'] ?? null),
+            businessType: self::stringValue($row['type'] ?? $row['business_type'] ?? 'business') ?? 'business',
+            sourceUrl: self::stringValue($row['source_url'] ?? null),
+            score: self::intValue($row['score'] ?? 0),
+            why: self::stringValue($row['why'] ?? null),
+            signalKeys: self::stringList($row['signals'] ?? $row['gaps'] ?? $row['signal_keys'] ?? []),
+            meta: self::metaOrEmpty($row['meta'] ?? null),
+            doNotContact: self::boolValue($row['do_not_contact'] ?? false),
         );
     }
 
@@ -95,5 +99,49 @@ final readonly class ProspectLeadData
             'meta' => $this->meta,
             'do_not_contact' => $this->doNotContact,
         ];
+    }
+    private static function stringValue(mixed $value): ?string
+    {
+        return is_scalar($value) ? (string) $value : null;
+    }
+
+    private static function intValue(mixed $value): int
+    {
+        return is_int($value) ? $value : 0;
+    }
+
+    private static function boolValue(mixed $value): bool
+    {
+        return is_bool($value) ? $value : false;
+    }
+
+    /** @return list<string> */
+    private static function stringList(mixed $value): array
+    {
+        if (! is_array($value)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($value as $item) {
+            $result[] = is_scalar($item) ? (string) $item : '';
+        }
+
+        return $result;
+    }
+
+    /** @return array<string, mixed> */
+    private static function metaOrEmpty(mixed $value): array
+    {
+        if (! is_array($value)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($value as $key => $item) {
+            $result[(string) $key] = $item;
+        }
+
+        return $result;
     }
 }

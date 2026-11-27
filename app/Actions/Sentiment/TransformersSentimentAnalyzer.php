@@ -22,7 +22,7 @@ class TransformersSentimentAnalyzer implements SentimentAnalyzer
             error_log('Transformers sentiment pipeline disabled; using basic fallback.');
         }
 
-        return (new BasicSentimentAnalyzer)->analyze($text);
+        return (new BasicSentimentAnalyzer())->analyze($text);
     }
 
     private function canUseTransformersPipeline(): bool

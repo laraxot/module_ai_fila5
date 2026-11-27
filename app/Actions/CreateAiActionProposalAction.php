@@ -31,7 +31,7 @@ class CreateAiActionProposalAction
         array $payload,
         ?string $preview = null,
     ): AiActionProposal {
-        $proposal = new AiActionProposal;
+        $proposal = new AiActionProposal();
         $proposal->fill([
             'public_id' => Uuid::uuid4()->toString(),
             'ai_thread_id' => $thread->getKey(),

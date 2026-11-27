@@ -4,6 +4,11 @@ type: index
 tags: [adr, decisioni]
 created: 2026-11-18
 updated: 2026-11-26
+qmd: "AI ADR governance PHPStan gate"
+issues:
+  - "https://github.com/laraxot/module_ai_fila5/issues/32"
+discussions:
+  - "https://github.com/laraxot/module_ai_fila5/discussions/24"
 ---
 
 # Architecture Decision Records
@@ -50,11 +55,18 @@ di review. Se oggi non esiste nulla di automatico: «Nessuna conferma automatica
 Se il codice di oggi contraddice la decisione, si aggiunge `## Stato attuale` con cio' che fa davvero (file e riga). Il test
 `Modules/Xot/tests/Unit/Docs/PackagesHaveContractsAndAdrTest.php` impone le intestazioni in italiano.
 
+## Gate PHPStan
+
+Per il modulo AI vale anche [0005 — Gate PHPStan immutabile e obbligatorio](0005-phpstan-gate-immutabile.md): al livello configurato
+il report deve avere zero errori prima di chiudere il lavoro. L'agente non modifica baseline, ignore o `phpstan.neon` per ottenere un
+report verde; corregge invece le cause nel codice oppure lascia il lavoro aperto.
+
 ## Decisioni
 
 - [0001 — L'AI propone, una persona conferma, un handler del dominio esegue](0001-ai-proposes-human-confirms.md) — `accepted`: l'AI crea una `AiActionProposal`, la esegue solo `ConfirmAiActionProposalAction` tramite il registry di handler del dominio.
 - [0002 — L'assistente chiede la risposta a piu' fornitori in cascata, solo modelli gratuiti](0002-assistant-provider-cascade.md) — `accepted`: Groq, poi OpenRouter, poi OpenAI; l'ultimo tentativo ignora `free_models_only` (`## Stato attuale`).
 - [0003 — Gli id utente nelle tabelle AI sono stringhe da 36 caratteri](0003-user-ids-are-strings.md) — `accepted`: cinque colonne `string(36)` al posto di interi, per non troncare gli UUID a 0.
+- [0005 — Gate PHPStan immutabile e obbligatorio](0005-phpstan-gate-immutabile.md) — `accepted`: zero errori al livello configurato, nessuna soppressione o modifica della configurazione per eludere il gate.
 
 ## Stato di copertura (2026-11-26)
 

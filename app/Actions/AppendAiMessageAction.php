@@ -32,7 +32,7 @@ final class AppendAiMessageAction
         int|string|null $userId = null,
         ?array $payload = null,
     ): AiMessage {
-        $message = new AiMessage;
+        $message = new AiMessage();
         $message->fill([
             'ai_thread_id' => $thread->getKey(),
             'user_id' => $userId === null ? null : (string) $userId,
