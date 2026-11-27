@@ -40,18 +40,15 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 ## CLI
 
 ```bash
-php artisan ai:prospects:discover restaurant-sales "Treviso" --research=20  # OSM dal vivo + lettura sicura dei siti
+php artisan ai:prospects:discover restaurant-sales "Treviso" --research=20  # SPERIMENTALE: non eseguire prima del gate #33 + policy provider
 php artisan ai:prospects:import demo tests/Fixtures/prospects-demo.csv      # dry-run when present
 php artisan ai:prospect-audit https://example.com --type=business           # vecchio percorso Prospect/: resta chiuso (#40)
 ```
 
-## Lettura sicura dei siti e ricerca dal vivo (#33)
+## Lettura dei siti sperimentale: SSRF non ancora risolta (#33)
 
 - `Prospecting/FetchPublicPageAction` + `ResolveHostAction`: solo http/https; ogni host, e ogni redirect (max 3,
-  seguiti a mano), deve risolvere **solo** su IP pubblici: reti private, loopback, link-local/metadata
-  (169.254.169.254) e riservate sono rifiutate prima della richiesta. User-Agent dichiarato, timeout, pagina
-  troncata a `ai.prospecting.max_bytes`. Limite noto: resta la finestra di DNS rebinding tra la verifica e la
-  connessione (la richiesta non è vincolata all'IP verificato).
+  seguiti a mano), è preceduto da una verifica **solo IPv4 A** che rifiuta IP privati noti. **Questa NON è una garanzia SSRF-safe**: `gethostbynamel()` non verifica `AAAA` IPv6, `Http::get()` può scegliere IP diversi da quelli controllati (TOCTOU/DNS rebinding), e `substr($response->body())` limita il testo in memoria solo **dopo** il download completo. User-info, porte, URL/redirect canonici e un limite di download in streaming vanno testati. Non esporre il fetcher a input esterni né attivarlo in produzione prima della soluzione #33.
 - `ResearchProspectWebsiteAction`: legge il sito del prospect con la lettura sicura e lo passa a
   `ResearchProspectAction`. Se la lettura fallisce **non** assegna punteggio e non tocca il prospect.
 - `OsmRequestAction` (unica porta verso OSM: interruttore `ai.prospecting.enabled`, User-Agent, max 1 richiesta/s
@@ -72,5 +69,5 @@ personali; il primo contatto naturale è la visita o la telefonata. Non è una c
 
 - [x] Deep offline signal catalog + Pest
 - [x] Configurable weights
-- [x] SSRF-safe fetch adapter per `Prospecting/` (#33); `Prospect/DetectWebsiteSignalsAction::execute()` resta chiuso finché #40 non unifica i due namespace
+- [ ] Adapter `Prospecting/FetchPublicPageAction` **sperimentale e non ancora SSRF-safe** (#33): servono IP pinning/egress policy, IPv6/AAAA e limiti di streaming; `Prospect/DetectWebsiteSignalsAction::execute()` resta chiuso finché #40 non unifica i due namespace.
 - [ ] Filament review UI, durable consent, provenance (#36–#41)
