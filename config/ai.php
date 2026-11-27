@@ -102,7 +102,7 @@ return [
             'manual_order_only' => 30,
             'catalogue_link' => 10,
         ],
-        // Lettura sicura dei siti e ricerca su OpenStreetMap (docs/prospecting.md, #33).
+        // Lettura siti sperimentale (non SSRF-safe) e ricerca su OpenStreetMap (docs/prospecting.md, #33).
         // Regole OSM: max 1 richiesta/s, User-Agent con un contatto reale, cache, attribuzione, interruttore (enabled).
         'user_agent' => env('AI_PROSPECTING_USER_AGENT', 'LaraxotProspecting/1.0 (+'.env('APP_URL', 'http://localhost').')'),
         'nominatim_url' => env('AI_PROSPECTING_NOMINATIM_URL', 'https://nominatim.openstreetmap.org'),
