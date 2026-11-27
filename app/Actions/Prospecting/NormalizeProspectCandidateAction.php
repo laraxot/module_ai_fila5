@@ -7,6 +7,9 @@ namespace Modules\AI\Actions\Prospecting;
 use Illuminate\Validation\ValidationException;
 use Spatie\QueueableAction\QueueableAction;
 
+use function Safe\parse_url;
+use function Safe\preg_match;
+
 /**
  * Normalizes business-only input. URLs are metadata: this action never fetches them.
  */
@@ -21,7 +24,7 @@ final class NormalizeProspectCandidateAction
     public function execute(string $workspace, array $candidate): array
     {
         $workspace = trim($workspace);
-        $name = trim((string) ($candidate['name'] ?? ''));
+        $name = is_string($candidate['name'] ?? null) ? trim($candidate['name']) : '';
         if ($workspace === '' || strlen($workspace) > 96 || $name === '' || mb_strlen($name) > 255) {
             throw ValidationException::withMessages(['prospect' => 'Workspace e nome azienda sono obbligatori e limitati.']);
         }
@@ -87,8 +90,8 @@ final class NormalizeProspectCandidateAction
         if (! is_string($value) || strlen($value) > 2048 || filter_var($value, FILTER_VALIDATE_URL) === false) {
             throw ValidationException::withMessages([$field => 'URL pubblico HTTP(S) non valido.']);
         }
-        $scheme = strtolower((string) parse_url($value, PHP_URL_SCHEME));
-        $host = strtolower((string) parse_url($value, PHP_URL_HOST));
+        $scheme = strtolower($this->part($value, PHP_URL_SCHEME));
+        $host = strtolower($this->part($value, PHP_URL_HOST));
         $port = parse_url($value, PHP_URL_PORT);
         $username = parse_url($value, PHP_URL_USER);
         $password = parse_url($value, PHP_URL_PASS);
@@ -104,9 +107,17 @@ final class NormalizeProspectCandidateAction
         return trim($value);
     }
 
+    /** Una parte dell'URL come stringa ('' se manca): l'URL e' gia' stato validato da filter_var. */
+    private function part(string $url, int $component): string
+    {
+        $value = parse_url($url, $component);
+
+        return is_string($value) ? $value : '';
+    }
+
     private function domain(string $url): string
     {
-        $host = strtolower((string) parse_url($url, PHP_URL_HOST));
+        $host = strtolower($this->part($url, PHP_URL_HOST));
 
         return str_starts_with($host, 'www.') ? substr($host, 4) : $host;
     }

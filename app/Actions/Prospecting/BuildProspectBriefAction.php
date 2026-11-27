@@ -45,9 +45,9 @@ final class BuildProspectBriefAction
             if (! is_array($signal)) {
                 continue;
             }
-            $code = $this->plain((string) ($signal['code'] ?? 'sconosciuto'));
-            $evidence = $this->plain((string) ($signal['evidence'] ?? ''));
-            $url = $this->plain((string) ($signal['source_url'] ?? $prospect->source_url));
+            $code = $this->plain(is_scalar($signal['code'] ?? null) ? (string) $signal['code'] : 'sconosciuto');
+            $evidence = $this->plain(is_scalar($signal['evidence'] ?? null) ? (string) $signal['evidence'] : '');
+            $url = $this->plain(is_scalar($signal['source_url'] ?? null) ? (string) $signal['source_url'] : $prospect->source_url);
             $lines[] = '- **'.$code.'**: '.$evidence.' — fonte: '.$url;
         }
 

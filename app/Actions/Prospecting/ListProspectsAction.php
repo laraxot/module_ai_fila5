@@ -18,7 +18,7 @@ final class ListProspectsAction
     /** @return list<AiProspect> */
     public function execute(string $workspace, int $limit = 50): array
     {
-        return AiProspect::query()
+        return array_values(AiProspect::query()
             ->where('workspace', $workspace)
             ->where('is_suppressed', false)
             ->whereNotIn('fingerprint', AiProspectSuppression::query()
@@ -27,6 +27,6 @@ final class ListProspectsAction
             ->orderBy('name')
             ->limit(max(1, min(250, $limit)))
             ->get()
-            ->all();
+            ->all());
     }
 }

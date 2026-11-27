@@ -7,6 +7,9 @@ namespace Modules\AI\Actions\Prospecting;
 use Illuminate\Validation\ValidationException;
 use Spatie\QueueableAction\QueueableAction;
 
+use function Safe\preg_match;
+use function Safe\preg_replace;
+
 /**
  * Offline analysis of supplied public HTML. No HTTP requests and no LLM guesses.
  * A missing widget is UNKNOWN, not a proven absence.
@@ -24,7 +27,7 @@ final class ExtractProspectSignalsAction
             throw ValidationException::withMessages(['html' => 'Pagina troppo grande o fonte mancante.']);
         }
 
-        $plain = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? '');
+        $plain = trim((string) preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
         $patterns = [
             'manual_booking_only' => '/(?:prenotazion[ei]|booking|reservations?)\s+(?:possibili?\s+)?solo\s+(?:per|al|via)\s+telefon[oa]/iu',
             'manual_order_only' => '/(?:ordinazion[ei]|ordini|orders?)\s+(?:possibili?\s+)?solo\s+(?:per|al|via)\s+telefon[oa]/iu',
@@ -32,14 +35,14 @@ final class ExtractProspectSignalsAction
 
         $signals = [];
         foreach ($patterns as $code => $pattern) {
-            if (preg_match($pattern, $plain, $match, PREG_OFFSET_CAPTURE) !== 1) {
+            if (preg_match($pattern, $plain, $match) !== 1 || ! isset($match[0])) {
                 continue;
             }
 
             $signals[] = [
                 'code' => $code,
                 'status' => 'observed_hint',
-                'evidence' => mb_substr($match[0][0], 0, 160),
+                'evidence' => mb_substr($match[0], 0, 160),
                 'source_url' => $sourceUrl,
                 'confidence' => 0.8,
             ];

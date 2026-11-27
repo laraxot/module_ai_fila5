@@ -15,6 +15,19 @@ final class ImportOsmCandidatesAction
     use QueueableAction;
 
     /**
+     * Categorie OSM `amenity` accettate: `ai.prospecting.osm_categories` dell'host, altrimenti quelle del pilota ristoranti.
+     *
+     * @return list<string>
+     */
+    public static function categories(): array
+    {
+        $configured = config('ai.prospecting.osm_categories', []);
+        $valid = is_array($configured) ? array_values(array_filter($configured, is_string(...))) : [];
+
+        return $valid !== [] ? $valid : ['restaurant', 'cafe', 'fast_food', 'bar', 'pub'];
+    }
+
+    /**
      * @param array<string, mixed> $overpass
      * @return list<array<string, mixed>>
      */
@@ -24,6 +37,8 @@ final class ImportOsmCandidatesAction
         if (! is_array($elements)) {
             return [];
         }
+
+        $allowed = self::categories();
 
         $candidates = [];
         foreach ($elements as $element) {
@@ -38,7 +53,7 @@ final class ImportOsmCandidatesAction
                 continue;
             }
             $category = $tags['amenity'] ?? null;
-            if (! in_array($category, ['restaurant', 'cafe', 'fast_food', 'bar', 'pub'], true)) {
+            if (! in_array($category, $allowed, true)) {
                 continue;
             }
 

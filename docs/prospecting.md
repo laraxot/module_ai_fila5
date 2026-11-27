@@ -40,13 +40,37 @@ Contract: [docs/contracts/website-signals.md](contracts/website-signals.md).
 ## CLI
 
 ```bash
-php artisan ai:prospect-audit https://example.com --type=business  # fails closed until safe HTTP adapter
-php artisan ai:prospects:import demo tests/Fixtures/prospects-demo.csv  # dry-run when present
+php artisan ai:prospects:discover restaurant-sales "Treviso" --research=20  # OSM dal vivo + lettura sicura dei siti
+php artisan ai:prospects:import demo tests/Fixtures/prospects-demo.csv      # dry-run when present
+php artisan ai:prospect-audit https://example.com --type=business           # vecchio percorso Prospect/: resta chiuso (#40)
 ```
+
+## Lettura sicura dei siti e ricerca dal vivo (#33)
+
+- `Prospecting/FetchPublicPageAction` + `ResolveHostAction`: solo http/https; ogni host, e ogni redirect (max 3,
+  seguiti a mano), deve risolvere **solo** su IP pubblici: reti private, loopback, link-local/metadata
+  (169.254.169.254) e riservate sono rifiutate prima della richiesta. User-Agent dichiarato, timeout, pagina
+  troncata a `ai.prospecting.max_bytes`. Limite noto: resta la finestra di DNS rebinding tra la verifica e la
+  connessione (la richiesta non è vincolata all'IP verificato).
+- `ResearchProspectWebsiteAction`: legge il sito del prospect con la lettura sicura e lo passa a
+  `ResearchProspectAction`. Se la lettura fallisce **non** assegna punteggio e non tocca il prospect.
+- `OsmRequestAction` (unica porta verso OSM: interruttore `ai.prospecting.enabled`, User-Agent, max 1 richiesta/s
+  per servizio con lock, cache), `GeocodeAreaAction` (Nominatim, cache 30 giorni), `DiscoverProspectsInAreaAction`
+  (Overpass → `ImportOsmCandidatesAction` → `ImportProspectCandidatesAction`). Categorie in
+  `ai.prospecting.osm_categories` (default del pilota ristoranti). Attribuzione "© OpenStreetMap contributors".
+- Prove: `tests/Unit/Prospecting/LiveDiscoveryAndSafeFetchTest.php` (gruppo `AI-PROSPECTING-INV-33`); dal vivo
+  Nominatim risponde in 0,8 s; Overpass dalla sandbox di sviluppo non è raggiungibile (proxy).
+
+## Regole italiane sull'email
+
+Il Garante privacy: un indirizzo email pubblicato online **non autorizza** comunicazioni promozionali senza
+consenso, e il link di disiscrizione non lo sostituisce ([provv. 21/09/2017](https://garanteprivacy.it/garante/doc.jsp?ID=7221917)).
+Molti ristoranti sono ditte individuali (persone fisiche). Il motore non invia nulla e non raccoglie email
+personali; il primo contatto naturale è la visita o la telefonata. Non è una consulenza legale (#36).
 
 ## Status (#32)
 
 - [x] Deep offline signal catalog + Pest
 - [x] Configurable weights
-- [ ] SSRF-safe fetch adapter (host or reviewed module service)
+- [x] SSRF-safe fetch adapter per `Prospecting/` (#33); `Prospect/DetectWebsiteSignalsAction::execute()` resta chiuso finché #40 non unifica i due namespace
 - [ ] Filament review UI, durable consent, provenance (#36–#41)
