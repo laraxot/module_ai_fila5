@@ -25,15 +25,15 @@ This page inventories all requested GitHub surfaces and defines their intended u
 
 | Surface | Observed state | Action / next gate |
 |---|---|---|
-| [Issues](https://github.com/laraxot/module_ai_fila5/issues) | Epic #32; new focused #33–#41 (numbers not in priority order) | Link dependencies and record reproducible results |
+| [Issues](https://github.com/laraxot/module_ai_fila5/issues) | Epic #32; focused #33–#42 (numbers not in priority order; #42 is shared approval replay gate) | Link dependencies and record reproducible results |
 | [Issue views](https://github.com/laraxot/module_ai_fila5/issues/views) | 0 shared views | Create filters below when authenticated |
 | [Projects](https://github.com/laraxot/module_ai_fila5/projects) | 0 linked projects | Create one board, not parallel conflicting boards |
 | [Milestones](https://github.com/laraxot/module_ai_fila5/milestones) | 0 milestones | Create 4 phase gates below; no invented dates |
 | [Labels](https://github.com/laraxot/module_ai_fila5/labels) | 16 visible labels, including `track-prospecting`, `priority-P0/P1`, `bmad`, `ecc-gate`, `second-brain` | Reuse existing taxonomy before creating new labels |
 | [Pull requests](https://github.com/laraxot/module_ai_fila5/pulls) | 5 open Dependabot PRs (#18–#22) at inspection | Review base/current checks; do not blindly merge security/dependency bumps |
-| [Agents](https://github.com/laraxot/module_ai_fila5/agents) | Availability/configuration not verified | Map specialist instructions to `docs/agents.md` and optionally GitHub custom agent definitions |
+| [Agents](https://github.com/laraxot/module_ai_fila5/agents) | Three manual-invocation profiles created under `.github/agents/` (BMAD, ECC, Second Brain); account availability unverified | Confirm profile availability in Copilot UI when authenticated |
 | [Discussions](https://github.com/laraxot/module_ai_fila5/discussions) | 2 public discussions at inspection (#16, #24) | New RFC only for unresolved architectural decisions, not duplicate issue |
-| [Actions](https://github.com/laraxot/module_ai_fila5/actions) | New PHP syntax workflow exists; runtime green state not verified | Add host-based Pest/PHPStan and security gates (#41) |
+| [Actions](https://github.com/laraxot/module_ai_fila5/actions) | [Prospecting PHP syntax run #5](https://github.com/laraxot/module_ai_fila5/actions/runs/45969852134) **Success** for commit `5f3a72e`; this proves syntax only | Add host-based Pest/PHPStan and security gates (#41) |
 | [Wiki](https://github.com/laraxot/module_ai_fila5/wiki) | Public wiki URL redirected to repository root during inspection | Keep canonical QMD second brain in `docs/wiki`; publish a GitHub wiki mirror only if enabled |
 | [Security](https://github.com/laraxot/module_ai_fila5/security) | `.github/security.md` exists; admin settings and private alerts not inspected | Review disclosure, code-scanning, secret-scanning, Dependabot, PII and SSRF; #33/#36 |
 | [Insights](https://github.com/laraxot/module_ai_fila5/insights) | No metrics asserted | Measure real lead conversion, issue throughput, test pass rate and coverage after instrumentation |
@@ -41,7 +41,7 @@ This page inventories all requested GitHub surfaces and defines their intended u
 
 ## Priorities and dependencies
 
-1. **M0 — Trust foundation, P0**: #33 SSRF/fetch isolation and failure scoring; #36 consent, channel policy, DNC and retention. No production launch or send before both pass their gates.
+1. **M0 — Trust foundation, P0**: #33 SSRF/fetch isolation and failure scoring; #36 consent, channel policy, DNC and retention; #42 server-side approval state/replay security. No production launch or send before both pass their gates.
 2. **M1 — Discovery & identity, P1**: #40 schema/tenancy; #39 CSV/provider contracts, licensing, provenance. Import preview and re-import must be safe.
 3. **M2 — Insight & operator review, P1**: #37 versioned observed signals/ICP; #38 Filament access-controlled review; #34 inbound + domain-owned CRM adapter.
 4. **M3 — Delivery quality, P1/P2**: #41 host runtime tests, static analysis and threat cases; #35 additional Closer capabilities only after pilot evidence.
