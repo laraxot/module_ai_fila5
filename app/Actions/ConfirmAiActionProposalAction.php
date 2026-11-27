@@ -18,8 +18,11 @@ use Spatie\QueueableAction\QueueableAction;
  * On success the proposal is marked `executed`, on failure `failed` with the
  * error message stored for audit/debugging.
  *
- * Replay/race: only PENDING proposals may be confirmed. Non-PENDING input is
- * rejected so a second confirm cannot re-run the domain handler.
+ * Replay/race:
+ * - Only PENDING proposals may be confirmed.
+ * - When the model is persisted (`exists`), status is advanced with a
+ *   compare-and-swap UPDATE (`WHERE status = pending`) so concurrent confirms
+ *   cannot both execute the domain handler.
  *
  * @see docs/contracts/confirm-ai-action-proposal-action.md
  *
@@ -33,14 +36,7 @@ class ConfirmAiActionProposalAction
 
     public function execute(AiActionProposal $proposal, int|string $confirmedByUserId): AiActionProposal
     {
-        $status = $proposal->status;
-        if ($status instanceof AiActionProposalStatusEnum) {
-            $current = $status;
-        } elseif (is_string($status)) {
-            $current = AiActionProposalStatusEnum::tryFrom($status);
-        } else {
-            $current = null;
-        }
+        $current = $this->statusOf($proposal);
 
         if ($current !== AiActionProposalStatusEnum::PENDING) {
             throw new RuntimeException(
@@ -52,11 +48,37 @@ class ConfirmAiActionProposalAction
             );
         }
 
-        $proposal->forceFill([
-            'status' => AiActionProposalStatusEnum::CONFIRMED,
-            'confirmed_by_user_id' => (string) $confirmedByUserId,
-            'confirmed_at' => Carbon::now(),
-        ])->save();
+        $confirmedAt = Carbon::now();
+        $confirmedBy = (string) $confirmedByUserId;
+
+        if ($proposal->exists) {
+            $affected = AiActionProposal::query()
+                ->whereKey($proposal->getKey())
+                ->where('status', AiActionProposalStatusEnum::PENDING)
+                ->update([
+                    'status' => AiActionProposalStatusEnum::CONFIRMED,
+                    'confirmed_by_user_id' => $confirmedBy,
+                    'confirmed_at' => $confirmedAt,
+                ]);
+
+            if ($affected !== 1) {
+                throw new RuntimeException(
+                    sprintf(
+                        'AiActionProposal [%s] was not PENDING at confirm time (lost race or already advanced).',
+                        (string) $proposal->getKey(),
+                    )
+                );
+            }
+
+            $proposal->refresh();
+        } else {
+            // In-memory / unit-test path (saving may be blocked by event).
+            $proposal->forceFill([
+                'status' => AiActionProposalStatusEnum::CONFIRMED,
+                'confirmed_by_user_id' => $confirmedBy,
+                'confirmed_at' => $confirmedAt,
+            ])->save();
+        }
 
         $handler = $this->registry->get($proposal->type);
 
@@ -85,5 +107,20 @@ class ConfirmAiActionProposalAction
         }
 
         return $proposal;
+    }
+
+    private function statusOf(AiActionProposal $proposal): ?AiActionProposalStatusEnum
+    {
+        $status = $proposal->status;
+
+        if ($status instanceof AiActionProposalStatusEnum) {
+            return $status;
+        }
+
+        if (is_string($status)) {
+            return AiActionProposalStatusEnum::tryFrom($status);
+        }
+
+        return null;
     }
 }
