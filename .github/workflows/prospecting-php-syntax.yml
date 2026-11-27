@@ -5,12 +5,15 @@ on:
     branches: [dev]
     paths:
       - 'app/Actions/Prospecting/**'
+      - 'app/Actions/Prospect/**'
+      - 'app/Data/Prospect/**'
       - 'app/Models/AiProspect*.php'
       - 'app/Console/Commands/ImportProspectsCommand.php'
       - 'app/Providers/AIServiceProvider.php'
       - 'config/ai.php'
       - 'database/migrations/2026_11_27_*'
       - 'tests/Unit/Prospecting/**'
+      - 'tests/Unit/Actions/Prospect/**'
       - '.github/workflows/prospecting-php-syntax.yml'
   workflow_dispatch:
 
@@ -33,12 +36,15 @@ jobs:
             php -l "$file"
           done < <(find \
             app/Actions/Prospecting \
+            app/Actions/Prospect \
+            app/Data/Prospect \
             app/Console/Commands/ImportProspectsCommand.php \
             app/Models/AiProspect.php \
             app/Models/AiProspectSuppression.php \
             app/Providers/AIServiceProvider.php \
             config/ai.php \
             tests/Unit/Prospecting \
+            tests/Unit/Actions/Prospect \
             -type f -name '*.php' -print0)
           while IFS= read -r -d '' file; do
             php -l "$file"

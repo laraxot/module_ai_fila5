@@ -19,6 +19,10 @@ final readonly class WebsiteAuditResultData
 
     public function totalScore(): int
     {
+        if (! $this->ok) {
+            return 0;
+        }
+
         $sum = 0;
         foreach ($this->signals as $signal) {
             $sum += $signal->score;
@@ -30,7 +34,7 @@ final readonly class WebsiteAuditResultData
     /** @return list<string> */
     public function signalKeys(): array
     {
-        return array_map(static fn (WebsiteSignalData $s): string => $s->key, $this->signals);
+        return $this->ok ? array_map(static fn (WebsiteSignalData $s): string => $s->key, $this->signals) : [];
     }
 
     /** @return array<string, mixed> */

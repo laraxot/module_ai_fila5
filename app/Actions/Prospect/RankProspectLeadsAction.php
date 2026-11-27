@@ -64,7 +64,7 @@ final class RankProspectLeadsAction
             businessType: $lead->businessType,
             sourceUrl: $lead->sourceUrl,
             score: $audit->totalScore(),
-            why: $audit->signals[0]->why ?? null,
+            why: $audit->ok ? ($audit->signals[0]->why ?? null) : 'Sito non esaminato; segnali sconosciuti',
             signalKeys: $audit->signalKeys(),
             meta: array_merge($lead->meta, ['audit' => $audit->toArray()]),
             doNotContact: $lead->doNotContact,
