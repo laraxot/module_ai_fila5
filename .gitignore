@@ -96,21 +96,10 @@ ai.code-workspace
 .qwen/
 .php-cs-fixer.php
 .php-cs-fixer.dist.php
-<<<<<<< .merge_file_nq7zDx
-<<<<<<< .merge_file_4cwqYo
-=======
->>>>>>> .merge_file_UDpI2S
-
 # screenshot di comparazione visiva (artefatti locali)
 docs/project/visual-comparison/
 docs/visual-comparison/
-<<<<<<< .merge_file_nq7zDx
-=======
 tests/coverage-*.*
 docs/screenshots/
->>>>>>> .merge_file_3h9bsw
-=======
-
 # Indice vettoriale locale (non versionare)
 ruvector.db
->>>>>>> .merge_file_UDpI2S

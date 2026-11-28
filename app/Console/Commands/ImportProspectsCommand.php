@@ -95,7 +95,7 @@ final class ImportProspectsCommand extends Command
             if ($headers === false) {
                 throw new \InvalidArgumentException('CSV requires a header row.');
             }
-            $headers = array_map(static fn (string|null $header): string => $header ?? '', $headers);
+            $headers = array_map(static fn (mixed $header): string => is_string($header) ? $header : '', $headers);
             if (! in_array('name', $headers, true) || ! in_array('domain', $headers, true)) {
                 throw new \InvalidArgumentException('CSV requires name and domain headers.');
             }
@@ -105,7 +105,7 @@ final class ImportProspectsCommand extends Command
                 if (count($values) !== count($headers)) {
                     throw new \InvalidArgumentException('CSV column count differs from the header.');
                 }
-                $row = array_combine($headers, array_map(static fn (mixed $value): string => (string) $value, $values));
+                $row = array_combine($headers, array_map(static fn (mixed $value): string => is_scalar($value) ? (string) $value : '', $values));
                 $rows[] = $row;
                 if (count($rows) > 10000) {
                     throw new \InvalidArgumentException('Maximum 10,000 companies per import.');

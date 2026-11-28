@@ -661,8 +661,15 @@ test('stays fast and never throws on pathological or very long input', function 
     }
 
     $start = hrtime(true);
+    if (! is_int($start)) {
+        throw new \RuntimeException('High-resolution timer returned an unexpected value');
+    }
     $action->execute($input);
-    $elapsedMs = (hrtime(true) - $start) / 1_000_000;
+    $end = hrtime(true);
+    if (! is_int($end)) {
+        throw new \RuntimeException('High-resolution timer returned an unexpected value');
+    }
+    $elapsedMs = ($end - $start) / 1_000_000;
 
     expect($elapsedMs)->toBeLessThan(1500.0);
 })->with('reply intent: pathological inputs');
@@ -672,8 +679,15 @@ test('finds an opt-out at the end of a 20 KB message', function (): void {
     expect(strlen($prose))->toBeGreaterThan(20_000);
 
     $start = hrtime(true);
+    if (! is_int($start)) {
+        throw new \RuntimeException('High-resolution timer returned an unexpected value');
+    }
     $intent = app(ClassifyReplyIntentAction::class)->execute($prose."\n\nCancellami dalla lista, grazie.");
-    $elapsedMs = (hrtime(true) - $start) / 1_000_000;
+    $end = hrtime(true);
+    if (! is_int($end)) {
+        throw new \RuntimeException('High-resolution timer returned an unexpected value');
+    }
+    $elapsedMs = ($end - $start) / 1_000_000;
 
     expect($intent)->toBe(ReplyIntentEnum::UNSUBSCRIBE)
         ->and($elapsedMs)->toBeLessThan(1500.0);
@@ -691,8 +705,15 @@ test('does not choke on a message far above the supported size', function (): vo
     expect(strlen($huge))->toBeGreaterThan(500_000);
 
     $start = hrtime(true);
+    if (! is_int($start)) {
+        throw new \RuntimeException('High-resolution timer returned an unexpected value');
+    }
     app(ClassifyReplyIntentAction::class)->execute($huge."\nCancellami");
-    $elapsedMs = (hrtime(true) - $start) / 1_000_000;
+    $end = hrtime(true);
+    if (! is_int($end)) {
+        throw new \RuntimeException('High-resolution timer returned an unexpected value');
+    }
+    $elapsedMs = ($end - $start) / 1_000_000;
 
     expect($elapsedMs)->toBeLessThan(1500.0);
 });

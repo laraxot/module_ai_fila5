@@ -18,8 +18,6 @@ use Spatie\QueueableAction\QueueableAction;
  * On success the proposal is marked `executed`, on failure `failed` with the
  * error message stored for audit/debugging.
  *
-<<<<<<< .merge_file_mXfDtm
-=======
  * Replay/race:
  * - Only PENDING proposals may be confirmed.
  * - When the model is persisted (`exists`), status is advanced with a
@@ -28,7 +26,6 @@ use Spatie\QueueableAction\QueueableAction;
  *
  * @see docs/contracts/confirm-ai-action-proposal-action.md
  *
->>>>>>> .merge_file_Z50Og1
  * @contract docs/contracts/confirm-ai-action-proposal-action.md
  */
 class ConfirmAiActionProposalAction

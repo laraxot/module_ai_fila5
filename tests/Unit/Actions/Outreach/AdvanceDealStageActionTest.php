@@ -27,6 +27,7 @@ uses(TestCase::class);
 dataset('deal_stage_matrix', function (): Generator {
     $order = ['lead', 'contacted', 'replied', 'call_booked', 'proposal', 'contract_sent', 'won', 'lost'];
 
+    /** @var array<string, array<string, string>> $grids */
     $grids = [
         'human' => [
             'lead' => '=  ok ok ok ok ok ok ok',
@@ -52,7 +53,13 @@ dataset('deal_stage_matrix', function (): Generator {
 
     foreach ($grids as $actor => $grid) {
         foreach ($grid as $from => $row) {
-            $cells = preg_split('/\s+/', trim($row));
+            $cells = array_map(static function (mixed $cell): string {
+                if (! is_string($cell)) {
+                    throw new \LogicException('Bad matrix cell type');
+                }
+
+                return $cell;
+            }, preg_split('/\s+/', trim($row)));
             if (count($cells) !== 8) {
                 throw new \LogicException("Bad matrix row {$actor}/{$from}");
             }

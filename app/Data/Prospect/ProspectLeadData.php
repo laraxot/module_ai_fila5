@@ -66,7 +66,8 @@ final readonly class ProspectLeadData
 
     public function identityKey(): string
     {
-        $host = $this->website !== null ? (parse_url($this->normalizeWebsite($this->website) ?? '', PHP_URL_HOST) ?: '') : '';
+        $hostValue = $this->website !== null ? parse_url($this->normalizeWebsite($this->website) ?? '', PHP_URL_HOST) : null;
+        $host = is_string($hostValue) ? $hostValue : '';
         $base = strtolower(trim($this->name.'|'.$host.'|'.($this->email ?? '')));
 
         return hash('sha256', $base);

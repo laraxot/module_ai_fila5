@@ -32,6 +32,7 @@ final class NormalizeProspectCandidateAction
         }
 
         $domain = parse_url($lead->website ?? '', PHP_URL_HOST);
+        $domain = is_string($domain) ? $domain : null;
 
         return [
             'website' => $lead->website,
